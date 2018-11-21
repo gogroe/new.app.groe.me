@@ -1,23 +1,30 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <projects v-if="$route.name === 'projects'"/>
+    <users v-else-if="$route.name === 'users'"/>
+    <login v-else-if="$route.name === 'users'"/>
+    <router-view v-else-if="$route.name !== 'projects' || $route.name === 'users'"/>
   </div>
 </template>
 
 <script>
+import Projects from "./projects/index";
+import Users from "./users/index";
+import Login from "./login/index";
 export default {
-  name: 'App'
+  name: 'App',
+  components: {Login, Users, Projects}
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  button {
+
+  }
+
+  h1 {
+
+  }
+
+
 </style>
