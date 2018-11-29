@@ -31,12 +31,17 @@ export default new Router({
       component: hw
     },
     {
-      path: '/projects', //:id/sections',
+      path: '/project/:pid/feed',
+      name: 'hw',
+      component: hw
+    },
+    {
+      path: '/projects/:id', //:main_id/sections',
       name: 'projects',
       component: projects
     },
     {
-      path: '/projects/activities',
+      path: '/projects/:id/activities',
       name: 'projects_activities',
       component: projects_activities
     },
