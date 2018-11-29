@@ -1,12 +1,13 @@
 <template>
     <div>
-      <p>login</p>
+      <p>account</p>
     </div>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
-        name: "login"
+        name: "users_account"
     }
 </script>
 

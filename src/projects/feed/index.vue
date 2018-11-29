@@ -5,8 +5,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
     export default {
-        name: "feed"
+        name: "projects_feed",
+      data(){
+        return {
+          
+        }
+      },
+      computed:{
+        ...mapGetters([
+          'users_header',
+          'users_profile'
+        ])
+      }
     }
 </script>
 

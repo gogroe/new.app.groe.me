@@ -1,15 +1,15 @@
 <template>
-    <div>
-      <p>login</p>
-    </div>
+  <div>
+    <p>vita</p>
+  </div>
 </template>
 
 <script>
     export default {
-        name: "login"
+        name: "users_vita"
     }
 </script>
 
-<style>
+<style scoped>
 
 </style>

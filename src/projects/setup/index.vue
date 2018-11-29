@@ -1,15 +1,15 @@
 <template>
-    <div>
-      <p>login</p>
-    </div>
+  <div>
+    <p>setup</p>
+  </div>
 </template>
 
 <script>
     export default {
-        name: "login"
+        name: "projects_setup"
     }
 </script>
 
-<style>
+<style scoped>
 
 </style>

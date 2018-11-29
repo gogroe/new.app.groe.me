@@ -1,12 +1,12 @@
 <template>
     <div>
-      <p>login</p>
+      <p>administration</p>
     </div>
 </template>
 
 <script>
     export default {
-        name: "login"
+        name: "projects_administration"
     }
 </script>
 
