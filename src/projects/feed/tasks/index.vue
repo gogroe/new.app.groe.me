@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: "projects_activities"
+        name: "projects_tasks"
     }
 </script>
 

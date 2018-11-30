@@ -1,3 +1,5 @@
+//todo delete test.js
+
 var cookie = require('js-cookie')
 import axios from 'axios'
 import router from '../src/router'

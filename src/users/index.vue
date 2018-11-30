@@ -1,9 +1,7 @@
 <template>
     <div>
       <p>users</p>
-      <u_head/>
-      <sidebarNav/>
-      <userNav/>
+      <user_navigation/>
       <div>
         <router-view/>
       </div>
@@ -12,25 +10,22 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import u_head from '@/components/u_head'
-  import sidebarNav from '@/components/sidebar'
-  import userNav from '@/components/user_nav'
+  import User_navigation from "./navigation/index";
+
 
   export default {
     name: "users",
     components:{
-      u_head,
-      sidebarNav,
-      userNav
+      User_navigation,
     },
     data(){
       return {
+
       }
     },
     computed:{
       ...mapGetters([
-        'users_header',
-        'users_profile'
+
       ])
     }
   }

@@ -2,64 +2,26 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import projects from '@/projects'
-import projects_activities from '@/projects/activities'
-import projects_feed from '@/projects/feed'
-import projects_reports from '@/projects/reports'
-import projects_setup from '@/projects/setup'
+import projects_accounts from '@/projects/feed/accounts'
+import projects_tasks from '@/projects/feed/tasks'
+import projects_news from '@/projects/feed/news'
+import projects_reports from '@/projects/feed/reports'
+
 
 import users from '@/users'
-import users_account from '@/users/account'
-import users_details from '@/users/details'
-import users_progress from '@/users/progress'
-import users_vita from '@/users/vita'
+import users_account from '@/users/feed/account'
+import users_details from '@/users/feed/profile'
+import users_progress from '@/users/feed/progress'
+import users_vita from '@/users/feed/vita'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
+    //Users
     {
-<<<<<<< Updated upstream
-      path: '/',
-      name: 'hw',
-      component: hw
-    },
-    {
-      path: '/project/:pid/feed',
-      name: 'hw',
-      component: hw
-    },
-    {
-      path: '/projects/:id', //:main_id/sections',
-      name: 'projects',
-      component: projects
-    },
-    {
-      path: '/projects/:id/activities',
-      name: 'projects_activities',
-      component: projects_activities
-    },
-    {
-      path: '/projects/news',
-      name: 'projects_feed',
-      component: projects_feed
-    },
-    {
-      path: '/projects_reports',
-      name: 'projects_reports',
-      component: projects_reports
-    },
-    {
-      path: '/projects_setup',
-      name: 'projects_setup',
-      component: projects_setup
-    },
-
-    {
-      path: '/users',
-=======
       path: '/users/:id',
->>>>>>> Stashed changes
       name: 'users',
       component: users
     },
@@ -69,7 +31,7 @@ export default new Router({
       component: users_account
     },
     {
-      path: '/users/:id/details',
+      path: '/users/:id/profile',
       name: 'users_details',
       component: users_details
     },
@@ -82,20 +44,33 @@ export default new Router({
       path: '/users/:id/vita',
       name: 'users_vita',
       component: users_vita
-<<<<<<< Updated upstream
     },
-    
+
+    //Projects
     {
-      path: '/login',
-      name: 'login',
-      component: login
+      path: '/projects/:id',
+      name: 'projects',
+      component: projects
     },
     {
-      path: '/register',
-      name: 'register',
-      component: register
-=======
->>>>>>> Stashed changes
+      path: '/projects/:id/accounts',
+      name: 'projects_accounts',
+      component: projects_accounts
+    },
+    {
+      path: '/projects/:id/tasks',
+      name: 'projects_tasks',
+      component: projects_tasks
+    },
+    {
+      path: '/projects/:id/news',
+      name: 'projects_news',
+      component: projects_news
+    },
+    {
+      path: '/projects/:id/reports',
+      name: 'projects_reports',
+      component: projects_reports
     }
   ]
 })

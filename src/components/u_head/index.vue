@@ -7,7 +7,8 @@
 
 <script>
     import { mapGetters } from 'vuex'
-    import carousel from '@/carousel'
+    import carousel from '@/components/carousel'
+
     export default {
       name: "u_head",
       components:{

@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "projects_feed"
+        name: "projects_account"
     }
 </script>
 

@@ -2,19 +2,26 @@
   <div id="app">
     <projects v-if="$route.name === 'projects'"/>
     <users v-else-if="$route.name === 'users'"/>
-    <login v-else-if="$route.name === 'users'"/>
+    <login v-else-if="$route.name === 'login'"/>
+    <register v-else-if="$route.name === 'register'"/>
     <router-view v-else-if="$route.name !== 'projects' || $route.name === 'users'"/>
   </div>
 </template>
 
 <script>
-import Projects from "./projects/index";
-import Users from "./users/index";
-import Login from "./login/index";
-export default {
-  name: 'App',
-  components: {Login, Users, Projects}
-}
+  import Projects from "./projects/index";
+  import Users from "./users/index";
+  import Login from "./login/index";
+  import Register from "./register/index";
+
+  export default {
+    name: 'App',
+    components: {
+      Register,
+      Login,
+      Users,
+      Projects}
+  }
 </script>
 
 <style>
