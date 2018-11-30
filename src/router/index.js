@@ -20,6 +20,11 @@ export default new Router({
   mode: 'history',
   routes: [
     //Users
+    // {
+    //   path: '/users/:id',
+    //   name: 'users',
+    //   component: users
+    // },
     {
       path: '/users/:id/account',
       name: 'users_account',
@@ -42,11 +47,11 @@ export default new Router({
     },
 
     //Projects
-    {
-      path: '/projects/:id',
-      name: 'projects',
-      component: projects
-    },
+    // {
+    //   path: '/projects/:id',
+    //   name: 'projects',
+    //   component: projects
+    // },
     {
       path: '/projects/:id/accounts',
       name: 'projects_accounts',

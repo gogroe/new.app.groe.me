@@ -1,5 +1,6 @@
 <template>
     <div>
+      <p>navigation</p>
       <request :obj="u_nav" v-model="u_nav"/>
     </div>
 </template>

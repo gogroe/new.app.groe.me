@@ -22,7 +22,7 @@
     },
     data(){
       return{
-        responseToken: '',
+        request_token: '',
         object: null,
       }
     },
@@ -33,10 +33,11 @@
     },
     watch:{
       get_response: function (response) {
-        if(response.responseToken === this.responseToken) {
+        console.log(response.request_token)
+        if(response.request_token === this.request_token) {
           this.object.data = response.response
           this.$emit('input', this.object)
-          this.responseToken =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+          this.request_token =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
         }
       },
 
@@ -56,7 +57,7 @@
       request(){
         const request = {
           uri: this.obj.url,
-          responseToken: this.responseToken
+          request_token: this.request_token
         }
 
         for(let key in this.obj.params){
@@ -72,7 +73,7 @@
     },
     created(){
       this.setObject()
-      this.responseToken =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+      this.request_token =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     },
   }
 </script>

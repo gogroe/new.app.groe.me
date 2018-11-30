@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <projects v-if="$route.name === 'projects'"/>
-    <users v-else-if="$route.name === 'users'"/>
-    <login v-else-if="$route.name === 'login'"/>
-    <register v-else-if="$route.name === 'register'"/>
-    <router-view v-else-if="$route.name !== 'projects' || $route.name === 'users'"/>
+    <projects v-if="cut_path($route.path) === '/projects'"/>
+    <users v-else-if="cut_path($route.path) === '/users'"/>
+    <router-view v-else-if="
+      cut_path($route.path) !== 'projects' ||
+      cut_path($route.path) !== 'users'"/>
   </div>
 </template>
 
@@ -23,7 +23,9 @@
       Projects
     },
     methods:{
-      //function string search
+      cut_path(path){
+        return path.substring(path.indexOf('/'),path.indexOf('/', 1));
+      }
     }
   }
 </script>
