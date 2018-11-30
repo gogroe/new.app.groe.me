@@ -5,7 +5,8 @@
           v-for="(main_item, mi_key, mi_i) in nav"
           :key="mi_i"
           v-if="check_project_id">
-        <p @click="$router.push(main_item.route + '/' + main_item.id)">{{main_item.name}}</p>
+        <p >{{main_item.name}}</p>
+        <!--@click="$router.push(main_item.route + '/' + main_item.id)"-->
         <div class="sub_item" v-for="(sub_item, su_key, su_i) in main_item.projects">
         </div>
       </li>
