@@ -10,14 +10,15 @@ const test = {
       },
       user:{
         header:{
-          firstname:'',
-          lastname:'',
-          username:'',
-          gender:'',
-          type:'',
+          lastname: '',
+          firstname: '',
+          name: '',
+          image: '',
+          gender: '',
+          type: '',
           ballance:''
         },
-        profile:{
+        user_profile:{
           id:'',
           state:'',
           uid:'',
@@ -25,7 +26,10 @@ const test = {
           country:'',
           city:'',
           zip:'',
-          street:''
+          street:'',
+          status: '',
+          status_details: ''
+
         }
       }
     }

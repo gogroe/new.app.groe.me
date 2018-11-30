@@ -3,14 +3,12 @@ import Router from 'vue-router'
 
 import projects from '@/projects'
 import projects_activities from '@/projects/activities'
-import projects_administration from '@/projects/administration'
 import projects_feed from '@/projects/feed'
 import projects_reports from '@/projects/reports'
 import projects_setup from '@/projects/setup'
 
 import users from '@/users'
 import users_account from '@/users/account'
-import users_administration from '@/users/administration'
 import users_details from '@/users/details'
 import users_progress from '@/users/progress'
 import users_vita from '@/users/vita'
@@ -60,6 +58,7 @@ export default new Router({
       name: 'projects_setup',
       component: projects_setup
     },
+
     {
       path: '/users',
       name: 'users',
@@ -85,6 +84,7 @@ export default new Router({
       name: 'users_vita',
       component: users_vita
     },
+    
     {
       path: '/login',
       name: 'login',
