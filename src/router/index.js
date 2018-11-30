@@ -13,17 +13,13 @@ import users_details from '@/users/details'
 import users_progress from '@/users/progress'
 import users_vita from '@/users/vita'
 
-
-import login from '@/login'
-import register from '@/register'
-import hw from '@/components/HelloWorld'
-
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
     {
+<<<<<<< Updated upstream
       path: '/',
       name: 'hw',
       component: hw
@@ -61,28 +57,32 @@ export default new Router({
 
     {
       path: '/users',
+=======
+      path: '/users/:id',
+>>>>>>> Stashed changes
       name: 'users',
       component: users
     },
     {
-      path: '/users_account',
+      path: '/users/:id/account',
       name: 'users_account',
       component: users_account
     },
     {
-      path: '/users_details',
+      path: '/users/:id/details',
       name: 'users_details',
       component: users_details
     },
     {
-      path: '/users_progress',
+      path: '/users/:id/progress',
       name: 'users_progress',
       component: users_progress
     },
     {
-      path: '/users_vita',
+      path: '/users/:id/vita',
       name: 'users_vita',
       component: users_vita
+<<<<<<< Updated upstream
     },
     
     {
@@ -94,6 +94,8 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
+=======
+>>>>>>> Stashed changes
     }
   ]
 })
