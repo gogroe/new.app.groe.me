@@ -21,11 +21,6 @@ export default new Router({
   routes: [
     //Users
     {
-      path: '/users/:id',
-      name: 'users',
-      component: users
-    },
-    {
       path: '/users/:id/account',
       name: 'users_account',
       component: users_account

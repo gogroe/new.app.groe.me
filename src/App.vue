@@ -20,7 +20,11 @@
       Register,
       Login,
       Users,
-      Projects}
+      Projects
+    },
+    methods:{
+      //function string search
+    }
   }
 </script>
 
