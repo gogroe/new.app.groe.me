@@ -10,7 +10,7 @@ import projects_reports from '@/projects/feed/reports'
 
 import users from '@/users'
 import users_account from '@/users/feed/account'
-import users_details from '@/users/feed/profile'
+import users_profile from '@/users/feed/profile'
 import users_progress from '@/users/feed/progress'
 import users_vita from '@/users/feed/vita'
 
@@ -32,8 +32,8 @@ export default new Router({
     },
     {
       path: '/users/:id/profile',
-      name: 'users_details',
-      component: users_details
+      name: 'users_profile',
+      component: users_profile
     },
     {
       path: '/users/:id/progress',

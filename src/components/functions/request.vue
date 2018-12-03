@@ -33,7 +33,6 @@
     },
     watch:{
       get_response: function (response) {
-        console.log(response.request_token)
         if(response.request_token === this.request_token) {
           this.object.data = response.response
           this.$emit('input', this.object)
@@ -77,4 +76,3 @@
     },
   }
 </script>
-

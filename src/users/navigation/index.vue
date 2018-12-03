@@ -5,7 +5,8 @@
           <li v-for="(nav, i) in u_nav_data"
               :key="i"
               :class="{'active': nav.id === check_id}">
-            <a href="#">{{nav.lastname + ' ' + nav.firstname}}</a>
+            <a @click="$router.push('/users/' + nav.id + '/profile')">{{nav.lastname + ' ' + nav.firstname}}</a>
+            <<router-link :to="{ name: 'bla', params: {} }">blas</router-link>
             <p>{{nav.type}}</p>
           </li>
         </ul>
