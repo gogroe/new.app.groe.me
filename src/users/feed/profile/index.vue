@@ -2,6 +2,7 @@
   <div>
       <p>profile</p>
       <pre>{{u_profile.data}}</pre>
+
       <request :obj="u_profile" v-model="u_profile"/>
   </div>
 </template>
@@ -19,7 +20,7 @@
       return{
         u_profile: {
             params: {
-              id: null
+
             },
             url: 'https://newbackend.groe.me/users/get_user_profile',
             data: {},
@@ -41,12 +42,12 @@
       }
     },
     mounted(){
-      this.u_profile.params.id = this.$route.params.id
+      this.u_profile.params.id = this.$route.params.id //need another explanation of this whole monunted block, no idea what it does
 
       let load_profile_request = false
       for(let up_key in this.user_profiles){
-        if( this.user_profiles[up_key].id === this.params.id ){
-          load_profile_request = true
+        if( this.user_profiles[up_key].id === this.$route.params.id ){
+          load_profile_request = true;
         }
       }
 

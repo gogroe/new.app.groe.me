@@ -1,11 +1,46 @@
 <template>
-    
+  <div class="">
+    <input type="text" name="name">
+    <input type="text" name="firstname">
+    <input type="text" name="lastname">
+    <input type="text" name="gender">
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "create_users"
+import Request from "../../components/functions/request";
+export default {
+  name: "create_users"
+  data(){
+    return{
+      //request_token=1234&refresh=true&type=0&gender=7&name=chafoger&firstname=jack&lastname=schmidt&uid=1&user_id=2
+      create_user: {
+        params: {
+          request_token: '',
+          refresh: '',
+          type: '',
+          gender: '',
+          name: '',
+          firstname: '',
+          lastname: '',
+          uid: '',
+          id: '',
+        },
+        url: 'http://newbackend.groe.me/users/create_user'+,
+        data: {},
+        request: false
     }
+      //request_token=1234&refresh=true&type=0&gender=7&name=chafoger&firstname=jack&lastname=schmidt&uid=1&user_id=2
+    //   create_user: {
+    //     params: {
+    //
+    //     },
+    //     url: 'http://newbackend.groe.me/users/create_user'+,
+    //     data: {},
+    //     request: false
+    // }
+  }
+}
 </script>
 
 <style scoped>
