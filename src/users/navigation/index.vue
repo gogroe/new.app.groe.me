@@ -6,14 +6,7 @@
               :key="i"
               :class="{'active': nav.id === check_id}">
             <a @click="$router.push('/users/' + nav.id + '/profile')">{{nav.lastname + ' ' + nav.firstname}}</a>
-            <p>{{nav.type}}</p>
-            <div class="buttons">
-              <a @click="$router.push('/users/' + nav.id + '/account')">account</a>
-              <a @click="$router.push('/users/' + nav.id + '/profile')">profile</a>
-              <a @click="$router.push('/users/' + nav.id + '/progress')">progress</a>
-              <a @click="$router.push('/users/' + nav.id + '/vita')">vita</a>
-            </div>
-            <br><br>
+            <!--<p>{{nav.type}}</p>-->
           </li>
         </ul>
       <request :obj="u_nav" v-model="u_nav"/>
@@ -48,7 +41,7 @@
       u_nav_data: function(array){
         if(!('id' in this.$route.params)){
           this.$router.push(array[0].id + '/profile')
-          this.store.commit('update_user_navigation', array)
+          this.$store.commit('update_user_navigation', array)
         }
       }
     },
@@ -68,10 +61,11 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
   ul{
     list-style-type: none;
     padding: 0;
+
     li{
       &.active{
           font-weight: 900

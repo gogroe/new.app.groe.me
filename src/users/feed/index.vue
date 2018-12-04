@@ -1,5 +1,11 @@
 <template>
-    
+    <div>
+      <ul>
+        <a>Profile</a>
+        
+      </ul>
+      <router-view/>
+    </div>
 </template>
 
 <script>

@@ -20,7 +20,7 @@
       return{
         u_profile: {
             params: {
-
+              user_id: null
             },
             url: 'https://newbackend.groe.me/users/get_user_profile',
             data: {},
@@ -34,28 +34,49 @@
       ]),
       u_profile_data(){
         return this.u_profile.data
+      },
+      route_id(){
+        return this.$route.params.id
       }
     },
     watch:{
       u_profile_data: function(object) {
+        //check if id is not in user_profiles
+        for(let up_key in this.user_profiles){
+          if( this.user_profiles[up_key].id === this.$route.params.id ){
+
+          }
+        }
+
+        //if not then commit to store
         this.$store.commit('update_user_profiles', object)
+      },
+      route_id: function(){
+        console.log('test')
+        this.get_user_profile()
       }
     },
     mounted(){
-      this.u_profile.params.id = this.$route.params.id //need another explanation of this whole monunted block, no idea what it does
+      this.get_user_profile()
+    },
+    methods:{
+      get_user_profile(){
+        this.u_profile.params.user_id = this.$route.params.id
 
-      let load_profile_request = false
-      for(let up_key in this.user_profiles){
-        if( this.user_profiles[up_key].id === this.$route.params.id ){
-          load_profile_request = true;
+        //check if profile ist already loaded
+        let load_profile_request = false
+        for(let up_key in this.user_profiles){
+          if( this.user_profiles[up_key].id === this.$route.params.id ){
+            load_profile_request = true;
+            this.u_profile.data = this.user_profiles[up_key]
+            break
+          }
         }
-      }
 
-      if(load_profile_request){
-        u_profile.data = this.user_profiles[this.params.id]
-      }
-      else {
-        this.u_profile.request = true
+        //request profile if not existing
+        if(load_profile_request === false){
+          this.u_profile.request = true
+        }
       }
     }
   }
