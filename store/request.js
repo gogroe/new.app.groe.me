@@ -4,6 +4,7 @@ import axios from 'axios'
 const request = {
   state: {
     response: {},
+    reload: false,
     auth: {
       uid: null,
       token: null,
@@ -11,12 +12,15 @@ const request = {
   },
 
   mutations: {
-    update_response (state, data) {
-      state.response = data
+    update_response (state, object) {
+      state.response = object
     },
-    update_auth (state, data) {
-      state.auth.uid = data.uid
-      state.auth.token = data.token
+    update_reload (state, boolean) {
+      state.reload = boolean
+    },
+    update_auth (state, object) {
+      state.auth.uid = object.uid
+      state.auth.token = object.token
     }
   },
 
@@ -27,13 +31,13 @@ const request = {
   },
 
   actions: {
-    async file_request ({commit, dispatch, state}, data) {
+    async file_request ({commit, dispatch, state}, object) {
       let headers = {}
       headers.headers = { 'Content-Type': 'multipart/form-data'}
 
       let formData = new FormData()
-      formData.append('file', data.files)
-      formData.append('type', data.type)
+      formData.append('file', object.files)
+      formData.append('type', object.type)
 
       if (state.auth.uid && state.auth.token)
       {
@@ -48,10 +52,10 @@ const request = {
       }
 
       // let uri = process.env.NODE_ENV === 'development'
-      //   ? data.uri
-      //   : data.uri.replace( 'http://new.backend', 'https://newbackend.groe.me' )
+      //   ? object.uri
+      //   : object.uri.replace( 'http://new.backend', 'https://newbackend.groe.me' )
 
-      let uri = data.uri
+      let uri = object.uri
       await axios.post( uri, formData, headers )
         .then(( response ) => {
 
@@ -69,7 +73,7 @@ const request = {
       )
     },
 
-    async data_request ({commit, dispatch, state}, data) {
+    async data_request ({commit, dispatch, state}, object) {
       let request = {}
       request.headers = { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8' }
 
@@ -92,12 +96,12 @@ const request = {
         request.token = null
       }
 
-      Object.assign(request, data);
+      Object.assign(request, object);
 
-      let uri = data.uri
+      let uri = object.uri
       // let uri = process.env.NODE_ENV === 'development'
-      //   ? data.uri
-      //   : data.uri.replace( 'http://new.backend', 'https://newbackend.groe.me' )
+      //   ? object.uri
+      //   : object.uri.replace( 'http://new.backend', 'https://newbackend.groe.me' )
 
       await axios.post( uri, request)
         .then((response) => {

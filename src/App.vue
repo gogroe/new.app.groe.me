@@ -30,13 +30,80 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800,900');
+  @import url('https://fonts.googleapis.com/css?family=Libre+Baskerville');
+  @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+  html {
+    font-family: 'Roboto', sans-serif;color: #7f7f7f;
+    font-weight: 400;
+    font-size: 18px;
+    word-spacing: 1px;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    background-color: #f3f3f3;
+  }
+
+  *, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+  }
+  ////////////////////////////////////////////////////////////////////////////////// Box-Modes
+
+  .box{
+    width: 100%;
+    padding: 17px;
+    background: #fff;
+    border-radius: 2px;
+    border: 1px solid #e6e6e6;
+
+    .head{
+
+    }
+
+    .content{
+
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////// Buttons
   button {
 
   }
 
+  ////////////////////////////////////////////////////////////////////////////////// Font-Tags
   h1 {
 
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////// Elements
+  ul{
+    list-style-type: none;
+  }
+
+  .default_scrollbar{
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f3f3f3;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      margin: 1px;
+      background: #cdcdcd;
+      border-radius: 5px;
+      border: solid #fff 1px;
+
+      &:hover {
+        background: #3da0f5;
+      }
+    }
   }
 
 

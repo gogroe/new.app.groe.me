@@ -1,21 +1,33 @@
 <template>
     <div>
-
+      <header>
+        <img class="logo" src="/static/layout/logo.png"/>
+        <div class="profile">
+          <div class="image_wrapper">
+            <img :src="user_image"/>
+          </div>
+          <div class="details">
+            <a>{{user_name}}</a>
+            <p>{{user_account}}</p>
+          </div>
+        </div>
+      </header>
+      <request :obj="request_header" v-model="request_header"/>
     </div>
 </template>
 
 <script>
 import Request from "../../components/functions/request";
   export default {
-    name: "header"
+    name: "global_header",
     components: {
       Request
     },
     data(){
       return{
-        u_nav: {
+        request_header: {
           params: {
-
+            user_id: null //todo delete when authentication is implemented
           },
           url: 'http://newbackend.groe.me/users/get_user_header',
           data: {},
@@ -23,9 +35,114 @@ import Request from "../../components/functions/request";
         }
       }
     },
+    computed:{
+      user_name(){
+        if('lastname' in this.request_header.data || 'firstname' in this.request_header.data ){
+          return this.request_header.data.firstname + ' ' + this.request_header.data.lastname
+        }
+        else {
+          return null
+        }
+      },
+      user_image(){
+        if('image' in this.request_header.data){
+          if(this.request_header.data.image === null){
+            if('gender' in this.request_header.data){
+              if(this.request_header.data.gender === null){
+                return '/static/layout/default_profile_image_unisex.jpg'
+              }
+              else {
+                return this.request_header.data.gender === 'male'
+                  ? '/static/layout/default_profile_image_female.jpg'
+                  : '/static/layout/default_profile_image_male.jpg'
+              }
+            }
+          }
+          else {
+            return this.request_header.data.image
+          }
+        }
+        else {
+          return null
+        }
+      },
+      user_account(){
+        if('account' in this.request_header.data){
+          return this.request_header.data.account + ' Euro'
+        }
+        else {
+          return '0,00 Euro' //todo set null when account is added
+        }
+      }
+    },
+    mounted(){
+      this.get_request_header()
+    },
+    methods:{
+      get_request_header(){
+        this.request_header.params.user_id = this.$route.params.id
+        this.request_header.request = true
+      }
+    }
   }
 </script>
 
-<style>
+<style lang="scss" scoped>
+  header {
+    z-index: 1000;
+    width: 100%;
+    height: 90px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: #fff;
+    text-align: center;
+  }
 
+  .logo {
+    position: absolute;
+    left:0;
+    margin:15px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .profile{
+    position: absolute;
+    right: 0;
+    margin: 15px;
+    height: 60px;
+    padding: 10px;
+    text-align: left;
+
+    .image_wrapper{
+      height: 45px;
+      width: 45px;
+      overflow: hidden;
+      border-radius:45px;
+      border: 1px solid #e6e6e6;
+      float:left;
+
+      img{
+        height: 45px;
+      }
+    }
+
+    .details{
+      margin-left: 17px;
+      float:left;
+
+      a{
+        font-weight: 700;
+        color: #000;
+      }
+
+      p{
+        font-size: 12px;
+        font-weight: 500;
+        color: #3da0f5;
+      }
+    }
+  }
 </style>

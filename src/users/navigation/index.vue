@@ -1,15 +1,26 @@
 <template>
     <div>
-      <p>navigation</p>
-        <ul>
-          <li v-for="(nav, i) in u_nav_data"
+      <div class="navigation">
+        <input type="search" placeholder="suche"/>
+        <ul class="default_scrollbar">
+          <li v-for="(nav, i) in request_navigation_data"
               :key="i"
-              :class="{'active': nav.id === check_id}">
-            <a @click="$router.push('/users/' + nav.id + '/profile')">{{nav.lastname + ' ' + nav.firstname}}</a>
-            <!--<p>{{nav.type}}</p>-->
+              :class="{'active': nav.id === $route.params.id}">
+            <div class="image_wrapper">
+              <img :src="user_image(nav.image)"/>
+            </div>
+            <div class="details">
+              <a @click="$router.push('/users/' + nav.id + '/profile')">{{nav.firstname + ' ' + nav.lastname}}</a>
+              <p>{{nav.type}}</p>
+            </div>
+            <div class="clear"></div>
           </li>
         </ul>
-      <request :obj="u_nav" v-model="u_nav"/>
+        <div class="options">
+
+        </div>
+      </div>
+      <request :obj="request_navigation" v-model="request_navigation"/>
     </div>
 </template>
 
@@ -22,7 +33,7 @@
     },
     data(){
       return{
-        u_nav: {
+        request_navigation: {
             params: {
 
             },
@@ -33,12 +44,12 @@
       }
     },
     computed:{
-      u_nav_data(){
-        return this.u_nav.data
+      request_navigation_data(){
+        return this.request_navigation.data
       }
     },
     watch:{
-      u_nav_data: function(array){
+      request_navigation_data: function(array){
         if(!('id' in this.$route.params)){
           this.$router.push(array[0].id + '/profile')
           this.$store.commit('update_user_navigation', array)
@@ -46,7 +57,7 @@
       }
     },
     mounted(){
-      this.u_nav.request = true
+      this.request_navigation.request = true
     },
     methods:{
       check_id(){
@@ -56,24 +67,89 @@
       },
       user_navigation(){
         console.log(true)
+      },
+      user_image(string, gender) {
+        if (string === null) {
+          return '/static/layout/default_profile_image_female.jpg'
+        }
+        else {
+          return string
+        }
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  .navigation{
+    height: 100%;
+    position: fixed;
+    top:90px;
+    left:0;
+    border-right: 1px solid #e6e6e6;
+  }
+
+  input[type="search"]{
+    border: none;
+    background: #f3f3f3;
+    padding: 17px;
+    font-size: 18px;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
   ul{
-    list-style-type: none;
+    height: calc(100% - 90px - 55px - 55px);
+    overflow-y: scroll;
     padding: 0;
 
     li{
+      padding: 17px;
+      font-weight: 700;
+      cursor: pointer;
       &.active{
-          font-weight: 900
+        .details a{
+          color: #3da0f5;
+        }
+      }
+
+      .image_wrapper{
+        height: 45px;
+        width: 45px;
+        overflow: hidden;
+        border-radius:45px;
+        border: 1px solid #e6e6e6;
+        float:left;
+
+        img{
+          height: 45px;
+        }
+      }
+
+      .details{
+        margin-left: 17px;
+        float:left;
+
+        a{
+          font-weight: 700;
+          color: #000;
+        }
+
+        p{
+          font-size: 12px;
+          font-weight: 500;
+        }
       }
     }
   }
-  .buttons{
-    float: left;
+
+  .options{
+    height: 55px;
+    width: 100%;
+    border-top: 1px solid #e6e6e6;
+  }
+
+  .clear{
+    clear: both;
   }
 
 </style>

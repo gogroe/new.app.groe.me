@@ -1,9 +1,12 @@
 <template>
-  <div>
-      <p>profile</p>
-      <pre>{{u_profile.data}}</pre>
-
-      <request :obj="u_profile" v-model="u_profile"/>
+  <div class="profile">
+    <div class="box">
+      <div class="head"></div>
+      <div class="content">
+        <pre>{{request_profile.data}}</pre>
+      </div>
+    </div>
+    <request :obj="request_profile" v-model="request_profile"/>
   </div>
 </template>
 
@@ -18,7 +21,7 @@
     },
     data(){
       return{
-        u_profile: {
+        request_profile: {
             params: {
               user_id: null
             },
@@ -32,15 +35,15 @@
       ...mapGetters([
         'user_profiles'
       ]),
-      u_profile_data(){
-        return this.u_profile.data
+      request_profile_data(){
+        return this.request_profile.data
       },
       route_id(){
         return this.$route.params.id
       }
     },
     watch:{
-      u_profile_data: function(object) {
+      request_profile_data: function(object) {
         //check if id is not in user_profiles
         for(let up_key in this.user_profiles){
           if( this.user_profiles[up_key].id === this.$route.params.id ){
@@ -61,27 +64,27 @@
     },
     methods:{
       get_user_profile(){
-        this.u_profile.params.user_id = this.$route.params.id
+        this.request_profile.params.user_id = this.$route.params.id
 
         //check if profile ist already loaded
         let load_profile_request = false
         for(let up_key in this.user_profiles){
           if( this.user_profiles[up_key].id === this.$route.params.id ){
             load_profile_request = true;
-            this.u_profile.data = this.user_profiles[up_key]
+            this.request_profile.data = this.user_profiles[up_key]
             break
           }
         }
 
         //request profile if not existing
         if(load_profile_request === false){
-          this.u_profile.request = true
+          this.request_profile.request = true
         }
       }
     }
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>
