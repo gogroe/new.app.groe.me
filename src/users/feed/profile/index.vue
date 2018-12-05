@@ -21,6 +21,7 @@
     },
     data(){
       return{
+        test:false,
         request_profile: {
             params: {
               user_id: null
@@ -42,21 +43,16 @@
         return this.$route.params.id
       }
     },
+
     watch:{
-      request_profile_data: function(object) {
-        //check if id is not in user_profiles
-        for(let up_key in this.user_profiles){
-          if( this.user_profiles[up_key].id === this.$route.params.id ){
-
-          }
-        }
-
-        //if not then commit to store
-        this.$store.commit('update_user_profiles', object)
-      },
       route_id: function(){
-        console.log('test')
         this.get_user_profile()
+      },
+      request_profile_data: function(object) {
+        if (this.test){
+          this.test = false
+          this.$store.commit('update_user_profiles', object)
+        }
       }
     },
     mounted(){
@@ -65,21 +61,14 @@
     methods:{
       get_user_profile(){
         this.request_profile.params.user_id = this.$route.params.id
-
-        //check if profile ist already loaded
-        let load_profile_request = false
         for(let up_key in this.user_profiles){
-          if( this.user_profiles[up_key].id === this.$route.params.id ){
-            load_profile_request = true;
+          if( this.user_profiles[up_key].id === this.route_id ){
             this.request_profile.data = this.user_profiles[up_key]
-            break
+            return
           }
         }
-
-        //request profile if not existing
-        if(load_profile_request === false){
-          this.request_profile.request = true
-        }
+        this.request_profile.request = true
+        this.test = true
       }
     }
   }

@@ -1,9 +1,7 @@
 const layout = {
   state: {
     user_navigation: [],
-    user_profiles: [
-
-    ],
+    user_profiles: [],
     user_vitas: [],
     user_progress: []
   },
@@ -30,7 +28,7 @@ const layout = {
     user_profiles(state){
       return state.user_profiles
     },
-    user_progreee(state){
+    user_progress(state){
       return state.user_progress
     },
     user_vitas(state){
