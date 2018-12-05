@@ -81,6 +81,16 @@
 </script>
 
 <style lang="scss" scoped>
+  //mobile
+  @media all and (min-width: 0px ) and (max-width: 640px) {
+
+  }
+
+  //tablet
+  @media all and (min-width: 641px ) and (max-width: 1007px ) {
+
+  }
+
   .navigation{
     height: 100%;
     position: fixed;

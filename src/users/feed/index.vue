@@ -12,8 +12,6 @@
               :class="{'active': $route.name === 'users_progress'}">Verlauf</li>
           <li @click="$router.push('/users/' + $route.params.id + '/task')"
               :class="{'active': $route.name === 'users_task'}">Aufgaben</li>
-          <li @click="$router.push('/users/' + $route.params.id + '/event')"
-              :class="{'active': $route.name === 'users_events'}">Events</li>
         </ul>
         <div class="router_feed">
           <router-view/>

@@ -35,26 +35,64 @@
   @import url('https://fonts.googleapis.com/css?family=Libre+Baskerville');
   @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
+
+
+  ////////////////////////////////////////////////////////////////////////////////// Variables
+
+  :root {
+    //fonts
+    --font-size: 18px;
+
+    //colors
+    --color-005black: #f3f3f3;
+  }
+
+
+
+  ////////////////////////////////////////////////////////////////////////////////// Responsives
+
+  //mobile
+  @media all and (min-width: 0px ) and (max-width: 640px) {
+    :root {
+      --font-size: 16px;
+    }
+  }
+
+  //tablet
+  @media all and (min-width: 641px ) and (max-width: 1007px ) {
+    :root {
+      --font-size: 16px;
+      --col: 100%;
+    }
+  }
+
+
+
+  ////////////////////////////////////////////////////////////////////////////////// Basics
+
   html {
     font-family: 'Roboto', sans-serif;color: #7f7f7f;
-    font-weight: 400;
-    font-size: 18px;
+    font-weight: 500;
+    font-size: var(--font-size);
     word-spacing: 1px;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     box-sizing: border-box;
-    background-color: #f3f3f3;
+    background-color: var(--color-005black);
   }
 
   *, *:before, *:after {
     box-sizing: border-box;
     margin: 0;
   }
+
+
+
   ////////////////////////////////////////////////////////////////////////////////// Box-Modes
 
-  .box{
+  .default_box{
     width: 100%;
     padding: 17px;
     background: #fff;
@@ -68,19 +106,32 @@
     .content{
 
     }
+
+    .footer{
+
+    }
   }
 
+
+
   ////////////////////////////////////////////////////////////////////////////////// Buttons
+
   button {
 
   }
 
+
+
   ////////////////////////////////////////////////////////////////////////////////// Font-Tags
+
   h1 {
 
   }
 
+
+
   ////////////////////////////////////////////////////////////////////////////////// Elements
+
   ul{
     list-style-type: none;
   }

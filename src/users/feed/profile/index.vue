@@ -1,6 +1,6 @@
 <template>
   <div class="profile">
-    <div class="box">
+    <div class="default_box">
       <div class="head"></div>
       <div class="content">
         <pre>{{request_profile.data}}</pre>
