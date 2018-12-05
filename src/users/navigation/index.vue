@@ -98,6 +98,8 @@
     top:90px;
     left:0;
     border-right: 1px solid #e6e6e6;
+    background: #f3f3f3;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
   }
 
   input[type="search"]{

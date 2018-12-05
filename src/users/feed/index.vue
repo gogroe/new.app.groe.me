@@ -2,7 +2,7 @@
     <div>
       <div class="feed">
         <ul>
-          <p>MENU</p>
+          <p class="lable">MENU</p>
           <li @click="$router.push('/users/' + $route.params.id + '/profile')"
               :class="{'active': $route.name === 'users_profile'}">Profil</li>
           <li @click="$router.push('/users/' + $route.params.id + '/profile')"
@@ -15,6 +15,9 @@
               :class="{'active': $route.name === 'users_progress'}">Verlauf</li>
           <li @click="$router.push('/users/' + $route.params.id + '/task')"
               :class="{'active': $route.name === 'users_task'}">Aufgaben</li>
+          <p class="lable more">EINSTELLUNGEN</p>
+          <li @click="$router.push('/users/' + $route.params.id + '/admin')"
+              :class="{'active': $route.name === 'users_admin'}">Verwalten</li>
         </ul>
         <div class="router_feed">
           <router-view/>
@@ -41,20 +44,24 @@
     width: 200px;
     float: left;
 
-    p{
+    .lable{
       font-size: 10px;
       color: #cdcdcd;
       margin-bottom: 10px;
+
+      &.more{
+        margin-top: 27px;
+      }
     }
 
     li{
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 600;
       padding: 4px 0;
       cursor: pointer;
 
       &.active{
-        color: #000;
+        color: #3da0f5;
       }
     }
   }
