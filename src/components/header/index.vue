@@ -111,17 +111,16 @@ import Request from "../../components/functions/request";
   .profile{
     position: absolute;
     right: 0;
-    margin: 15px;
+    margin: 20px;
     height: 60px;
-    padding: 10px;
     text-align: left;
 
     .image_wrapper{
-      height: 45px;
-      width: 45px;
+      height: 50px;
+      width: 50px;
       overflow: hidden;
-      border-radius:45px;
-      border: 1px solid #e6e6e6;
+      border-radius:50px;
+      border: 5px solid #f5f5f5;
       float:left;
 
       img{

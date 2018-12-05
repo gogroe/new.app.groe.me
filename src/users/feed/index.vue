@@ -2,8 +2,11 @@
     <div>
       <div class="feed">
         <ul>
+          <p>MENU</p>
           <li @click="$router.push('/users/' + $route.params.id + '/profile')"
               :class="{'active': $route.name === 'users_profile'}">Profil</li>
+          <li @click="$router.push('/users/' + $route.params.id + '/profile')"
+              :class="{'active': $route.name === 'users_trophies'}">Trophäen</li>
           <li @click="$router.push('/users/' + $route.params.id + '/account')"
               :class="{'active': $route.name === 'users_account'}">Konto</li>
           <li @click="$router.push('/users/' + $route.params.id + '/vita')"
@@ -37,6 +40,12 @@
   ul{
     width: 200px;
     float: left;
+
+    p{
+      font-size: 10px;
+      color: #cdcdcd;
+      margin-bottom: 10px;
+    }
 
     li{
       font-size: 16px;

@@ -93,6 +93,7 @@
 
   .navigation{
     height: 100%;
+    width: 300px;
     position: fixed;
     top:90px;
     left:0;
@@ -100,6 +101,7 @@
   }
 
   input[type="search"]{
+    width: 100%;
     border: none;
     background: #f3f3f3;
     padding: 17px;
@@ -122,12 +124,16 @@
         }
       }
 
+      &:hover{
+        background: #ebebeb;
+      }
+
       .image_wrapper{
-        height: 45px;
-        width: 45px;
+        height: 50px;
+        width: 50px;
         overflow: hidden;
-        border-radius:45px;
-        border: 1px solid #e6e6e6;
+        border-radius:50px;
+        border: 5px solid #e6e6e6;
         float:left;
 
         img{
