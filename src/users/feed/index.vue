@@ -2,7 +2,7 @@
     <div>
       <div class="feed">
         <ul>
-          <p class="lable">MENU</p>
+          <h6 class="lable">MENU</h6>
           <li @click="$router.push('/users/' + $route.params.id + '/profile')"
               :class="{'active': $route.name === 'users_profile'}">Profil</li>
           <li @click="$router.push('/users/' + $route.params.id + '/account')"
@@ -13,7 +13,7 @@
               :class="{'active': $route.name === 'users_progress'}">Verlauf</li>
           <li @click="$router.push('/users/' + $route.params.id + '/task')"
               :class="{'active': $route.name === 'users_task'}">Aufgaben</li>
-          <p class="lable more">EINSTELLUNGEN</p>
+          <h6 class="lable more">EINSTELLUNGEN</h6>
           <li @click="$router.push('/users/' + $route.params.id + '/admin')"
               :class="{'active': $route.name === 'users_admin'}">Verwalten</li>
         </ul>
@@ -43,9 +43,7 @@
     width: 200px;
     float: left;
 
-    .lable{
-      font-size: 10px;
-      color: #cdcdcd;
+    h6{
       margin-bottom: 10px;
 
       &.more{

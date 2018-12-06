@@ -11,7 +11,6 @@
     name: "user_image",
     props:{
       path:{
-        type: String,
         required: true
       },
       size:{
@@ -19,7 +18,6 @@
         required: false
       },
       gender:{
-        type: String,
         required: false
       },
       image_class:{
@@ -32,7 +30,7 @@
     },
     methods:{
       path_check(path, gender){
-        if (path === null) {
+        if (path === null || path === '') {
           if(gender === 'male'){
             return '/static/layout/default_profile_image_male.png'
           }
@@ -51,7 +49,7 @@
 <style lang="scss" scoped>
   .image_wrapper{
     overflow: hidden;
-    border: 5px solid #f5f5f5;
+    border: 5px solid #ebebeb;
 
     img{
       height: 100%;

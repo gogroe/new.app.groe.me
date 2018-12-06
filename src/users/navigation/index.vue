@@ -6,9 +6,7 @@
           <li v-for="(nav, i) in request_navigation_data"
               :key="i"
               :class="{'active': nav.id === $route.params.id}">
-            <div class="image_wrapper">
-              <img :src="user_image(nav.image)"/>
-            </div>
+            <user_image class="user_image" :path="nav.image" size="50"/>
             <div class="details">
               <a @click="$router.push('/users/' + nav.id + '/profile')">{{nav.firstname + ' ' + nav.lastname}}</a>
               <p>{{nav.type}}</p>
@@ -26,17 +24,17 @@
 
 <script>
   import Request from "../../components/functions/request";
+  import User_image from "../../components/user_image/index";
   export default {
     name: "user_navigation",
     components: {
+      User_image,
       Request
     },
     data(){
       return{
         request_navigation: {
-            params: {
-
-            },
+            params: {},
             url: 'https://newbackend.groe.me/users/get_user_navigation',
             data: {},
             request: false
@@ -68,14 +66,6 @@
       user_navigation(){
         console.log(true)
       },
-      user_image(string, gender) {
-        if (string === null) {
-          return '/static/layout/default_profile_image_female.jpg'
-        }
-        else {
-          return string
-        }
-      }
     }
   }
 </script>
@@ -130,17 +120,8 @@
         background: #ebebeb;
       }
 
-      .image_wrapper{
-        height: 50px;
-        width: 50px;
-        overflow: hidden;
-        border-radius:50px;
-        border: 5px solid #e6e6e6;
+      .user_image{
         float:left;
-
-        img{
-          height: 45px;
-        }
       }
 
       .details{

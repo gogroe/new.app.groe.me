@@ -1,9 +1,9 @@
 <template>
   <div class="profile">
-    <!--<u_head/>-->
+    <u_head/>
     <div class="default_box">
       <div class="content">
-        <edit :obj="lastname"/>
+        <!--<edit :obj="lastname"/>-->
         <pre>{{request_profile.data}}</pre>
       </div>
     </div>

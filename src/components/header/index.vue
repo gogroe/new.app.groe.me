@@ -3,7 +3,7 @@
       <header>
         <img class="logo" src="/static/layout/logo.png"/>
         <div class="profile">
-          <!--<user_image class="user_image" :path="users_image" size="50"/>-->
+          <user_image class="user_image" :path="users_image" size="50"/>
           <div class="details">
             <a>{{user_name}}</a>
             <p>{{user_account}}</p>
@@ -49,7 +49,7 @@ import User_image from "../user_image/index";
           return this.request_header.data.image
         }
         else {
-          return null
+          return ''
         }
       },
       user_account(){

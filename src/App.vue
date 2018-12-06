@@ -130,12 +130,19 @@
 
   }
 
+  h6{
+    font-size: 10px;
+    font-weight: 600;
+    color: #cdcdcd;
+  }
+
 
 
   ////////////////////////////////////////////////////////////////////////////////// Elements
 
   ul{
     list-style-type: none;
+    padding: 0;
   }
 
   .default_scrollbar{

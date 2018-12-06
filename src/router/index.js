@@ -13,6 +13,8 @@ import users_account from '@/users/feed/account'
 import users_profile from '@/users/feed/profile'
 import users_progress from '@/users/feed/progress'
 import users_vita from '@/users/feed/vita'
+import users_task from '@/users/feed/task'
+import users_admin from '@/users/feed/admin'
 
 Vue.use(Router)
 
@@ -44,6 +46,16 @@ export default new Router({
       path: '/users/:id/vita',
       name: 'users_vita',
       component: users_vita
+    },
+    {
+      path: '/users/:id/task',
+      name: 'users_task',
+      component: users_task
+    },
+    {
+      path: '/users/:id/admin',
+      name: 'users_admin',
+      component: users_admin
     },
 
     //Projects
