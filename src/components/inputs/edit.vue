@@ -1,18 +1,7 @@
 <template>
   <div>
     <label :for="obj.name" :class="obj.label_class">{{obj.label}}</label>
-    <input v-if="obj.type === 'text'" :type="obj.type" :name="obj.name" :value="obj.value" :placeholder="obj.placeholder" :class="obj.input_class" v-model="send.params.value"/>
-    <input v-if="obj.type === 'text'" :type="obj.type" :name="obj.name" :value="obj.value" :placeholder="obj.placeholder" :class="obj.input_class" v-model="send.params.value"/>
-    <input v-if="obj.type === 'text'" :type="obj.type" :name="obj.name" :value="obj.value" :placeholder="obj.placeholder" :class="obj.input_class" v-model="send.params.value"/>
-    <textarea v-if="obj.type === 'text'" :name="obj.name" :value="obj.value" :placeholder="obj.placeholder" :class="obj.input_class" v-model="send.params.value"/>
-    <!--<select v-if="type === 'select'" v-model="">-->
-      <!-- <div v-for="">
-        <option >{{option}}</option>
-      </div>  -->
-
-      <!-- {variable} -->
-
-    <!--</select>-->
+    <input v-if="obj.type === 'text'" v-on:blur="value_check(value, old_value)" :type="obj.type" :title="obj.name" :id="obj.name" :name="obj.name" :value="obj.value" :placeholder="obj.placeholder" :class="obj.input_class" v-model="send.params.value"/>
     <request :obj="send" v-model="send"/>
   </div>
 </template>
@@ -22,15 +11,15 @@
 
   // obj:{
   //   url: '',
-//     lable: '',
-//     name: '',
-//     value:'',
-//     select:'',
-//     placeholder: '',
-//     type: '',
-//     input_class:'',
-//     label_class: '',
-//     required_params: ''
+  //     lable: '',
+  //     name: '',
+  //     value:'',
+  //     select:'',
+  //     placeholder: '',
+  //     type: '',
+  //     input_class:'',
+  //     label_class: '',
+  //     required_params: ''
   // }
 
   import { mapGetters } from 'vuex'
@@ -41,7 +30,7 @@
     components: {Request},
     props:{
       obj:{
-        type: String,
+        type: Object,
         required: true,
       }
     },
@@ -75,6 +64,10 @@
     },
     mounted(){
       this.old_value = this.obj.value
+      for(let key in this.obj.required_params){
+        this.send.request.params[key] = this.obj.required_params[key]
+      }
+      console.log(this.obj)
     },
     methods:{
       error_check(object){
@@ -85,14 +78,15 @@
         }
       },
       value_check(new_val, old_val){
+
+        if(new_val != old_val){
+          this.send.params[this.obj.name] = new_val
+          this.send.request = true
+        }
+        console.log(this.send)
         //if value is different
         //then = get the required key and pus object(key (name) = value) to send.params
       },
-      send_check(e){
-        //if event unfocus
-        //check if value is different form old_value
-        //if true send request
-      }
     }
   }
 </script>

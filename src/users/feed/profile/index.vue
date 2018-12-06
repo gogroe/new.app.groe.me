@@ -1,8 +1,9 @@
 <template>
   <div class="profile">
-    <u_head/>
+    <!--<u_head/>-->
     <div class="default_box">
       <div class="content">
+        <edit :obj="lastname"/>
         <pre>{{request_profile.data}}</pre>
       </div>
     </div>
@@ -14,10 +15,12 @@
   import { mapGetters } from 'vuex'
   import Request from "../../../components/functions/request";
   import U_head from "../../../components/u_head/index";
+  import Edit from "../../../components/inputs/edit";
 
   export default {
     name: "users_profile",
     components:{
+      Edit,
       U_head,
       Request,
     },
@@ -25,16 +28,38 @@
       return{
         test:false,
         request_profile: {
-            params: {
-              user_id: null
-            },
-            url: 'https://newbackend.groe.me/users/get_user_profile',
-            data: {},
-            request: false
+          params: {
+            user_id: null
+          },
+          url: 'https://newbackend.groe.me/users/get_user_profile',
+          data: {},
+          request: false
+        },
+        lastname:{
+          url: 'https://newbackend.groe.me/users/update_user',
+          lable: 'lastname',
+          name: 'lastname',
+          value: this.user_lastname,
+          select:'',
+          placeholder: 'lastname',
+          type: 'text',
+          input_class:'',
+          label_class: '',
+          required_params: {
+            user_id: ''
           }
+        }
       }
     },
     computed:{
+      user_lastname(){
+        if('lastname' in this.request_profile.data){
+          return this.request_profile.data.lastname
+        }
+        else {
+          return ''
+        }
+      },
       ...mapGetters([
         'user_profiles'
       ]),
@@ -59,6 +84,7 @@
     },
     mounted(){
       this.get_user_profile()
+      this.lastname.required_params.user_id = this.$route.params.id
     },
     methods:{
       get_user_profile(){
