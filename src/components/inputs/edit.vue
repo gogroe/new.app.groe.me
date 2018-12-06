@@ -1,66 +1,102 @@
 <template>
   <div>
-    <input v-if="type === 'text'" :type="type" :name="name" :value="value" :placeholder="placeholder" :class="input_class" v-model=""/>
-    <input v-if="type === 'number'" :type="type" :name="name" :value="value" :placeholder="placeholder" :class="input_class" v-model=""/>
-    <select v-if="type === 'select'" v-model="">
-      <option >{{option}}</option>
-    </select>
+    <label :for="obj.name" :class="obj.label_class">{{obj.label}}</label>
+    <input v-if="obj.type === 'text'" :type="obj.type" :name="obj.name" :value="obj.value" :placeholder="obj.placeholder" :class="obj.input_class" v-model="send.params.value"/>
+    <input v-if="obj.type === 'text'" :type="obj.type" :name="obj.name" :value="obj.value" :placeholder="obj.placeholder" :class="obj.input_class" v-model="send.params.value"/>
+    <input v-if="obj.type === 'text'" :type="obj.type" :name="obj.name" :value="obj.value" :placeholder="obj.placeholder" :class="obj.input_class" v-model="send.params.value"/>
+    <textarea v-if="obj.type === 'text'" :name="obj.name" :value="obj.value" :placeholder="obj.placeholder" :class="obj.input_class" v-model="send.params.value"/>
+    <!--<select v-if="type === 'select'" v-model="">-->
+      <!-- <div v-for="">
+        <option >{{option}}</option>
+      </div>  -->
+
+      <!-- {variable} -->
+
+    <!--</select>-->
     <request :obj="send" v-model="send"/>
   </div>
 </template>
 
 <script>
-  import Request from "../functions/request";
+  //if value is changeing and unfocus or not active anymore, then send request
+
+  // obj:{
+  //   url: '',
+//     lable: '',
+//     name: '',
+//     value:'',
+//     select:'',
+//     placeholder: '',
+//     type: '',
+//     input_class:'',
+//     label_class: '',
+//     required_params: ''
+  // }
+
+  import { mapGetters } from 'vuex'
+  import Request from '../functions/request'
+
   export default {
     name: "edit",
     components: {Request},
     props:{
-      url:{
+      obj:{
         type: String,
         required: true,
-      },
-      name:{
-        type: String,
-        required: true,
-      },
-      value:{
-        type: String,
-        required: false,
-      },
-      select:{
-        type: Object,
-        required: false,
-      },
-      placeholder:{
-        type: String,
-        required: false,
-      },
-      type:{
-        type: String,
-        required: true,
-      },
-      input_class:{
-        type: String,
-        required: true,
-      },
-      required:{
-        type: String,
-        required: true,
-      },
+      }
     },
     data(){
       return{
         send:{
           params: {},
-            url: this.url,
-            data: {},
-            request: false
+          url: this.url,
+          data: {},
+          request: false
+        },
+        value: null,
+        old_value: null,
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'list_states'
+      ]),
+      send_data: function(){
+        return this.send.data
+      }
+    },
+    watch:{
+      send_data: function(object) {
+        this.error_check(object)
+      },
+      value: function (new_val, old_val) {
+        this.value_check(new_val, old_val)
+      }
+    },
+    mounted(){
+      this.old_value = this.obj.value
+    },
+    methods:{
+      error_check(object){
+        if('errors' in  object){
+          if((typeof object.errors) === number || (typeof object.errors) === string ){
+            console.log(this.list_states[object.errors])
+          }
         }
+      },
+      value_check(new_val, old_val){
+        //if value is different
+        //then = get the required key and pus object(key (name) = value) to send.params
+      },
+      send_check(e){
+        //if event unfocus
+        //check if value is different form old_value
+        //if true send request
       }
     }
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>
