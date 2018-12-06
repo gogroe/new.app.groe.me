@@ -1,27 +1,27 @@
 <template>
-  <div>
-    <div class="navigation">
-      <input type="search" placeholder="suche"/>
-      <ul class="default_scrollbar">
-        <li v-for="(nav, i) in request_navigation_data"
-            :key="i"
-            :class="{'active': nav.id === $route.params.id}">
-          <div class="image_wrapper">
-            <img :src="user_image(nav.image)"/>
-          </div>
-          <div class="details">
-            <a @click="$router.push('/users/' + nav.id + '/profile')">{{nav.firstname + ' ' + nav.lastname}}</a>
-            <p>{{nav.type}}</p>
-          </div>
-          <div>
-            <i class="material-icons">border_color</i>
-          </div>
-          <div class="clear"></div>
-        </li>
-      </ul>
+    <div>
+      <div class="navigation">
+        <input type="search" placeholder="suche"/>
+        <ul class="default_scrollbar">
+          <li v-for="(nav, i) in request_navigation_data"
+              :key="i"
+              :class="{'active': nav.id === $route.params.id}">
+            <div class="image_wrapper">
+              <img :src="user_image(nav.image)"/>
+            </div>
+            <div class="details">
+              <a @click="$router.push('/users/' + nav.id + '/profile')">{{nav.firstname + ' ' + nav.lastname}}</a>
+              <p>{{nav.type}}</p>
+            </div>
+            <div class="clear"></div>
+          </li>
+        </ul>
+        <div class="options">
+
+        </div>
+      </div>
+      <request :obj="request_navigation" v-model="request_navigation"/>
     </div>
-    <request :obj="request_navigation" v-model="request_navigation"/>
-  </div>
 </template>
 
 <script>
@@ -95,18 +95,11 @@
     height: 100%;
     width: 300px;
     position: fixed;
-    width: 270px;
     top:90px;
     left:0;
     border-right: 1px solid #e6e6e6;
     background: #f3f3f3;
     box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
-  }
-  .material-icons{
-    float: left;
-    margin-top: 15px;
-    margin-left: 5px;
-    font-size:15px;
   }
 
   input[type="search"]{
@@ -151,8 +144,7 @@
       }
 
       .details{
-      width: 150px;
-      margin-left: 10px;
+        margin-left: 17px;
         float:left;
 
         a{
