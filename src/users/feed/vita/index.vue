@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>vita</p>
-    <pre>{{u_vita.data}}</pre>
+    <pre>{{request_vita.data}}</pre>
   </div>
 </template>
 
@@ -12,7 +12,8 @@ export default {
   name: "users_vita",
   data(){
     return{
-      u_vita: {
+      test:false,
+      request_vita: {
         params: {
 
         },
@@ -26,17 +27,39 @@ export default {
     ...mapGetters([
       'user_vitas'
     ]),
-    u_vita_data(){
-      return this.u_vita.data
+    request_vita_data(){
+      return this.request_vita.data
+    },
+    route_id(){
+      return this.$route.params.id
     }
   },
   watch:{
-    u_vita_data: function(object) {
-      this.$store.commit('add_user_vitas', object)
+    route_id: function(){
+      this.get_user_profile()
+    },
+    request_vita_data: function(object) {
+      if (this.test){
+        this.test = false
+        this.$store.commit('add_user_vitas', object)
+      }
     }
   },
   mounted(){
-    this.u_vita.request = true
+    this.get_user_vita()
+  },
+  methods:{
+    get_user_vita(){
+      this.request_vita.params.user_id = this.$route.params.id
+      for(let up_key in this.user_vitas){
+        if( this.user_vitas[up_key].id === this.route_id ){
+          this.request_vita.data = this.user_vitas[up_key]
+          return
+        }
+      }
+      this.request_vita.request = true
+      this.test = true
+    }
   }
 }
 </script>

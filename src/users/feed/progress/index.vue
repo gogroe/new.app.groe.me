@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>progress</p>
-    <pre>{{u_progress.data}}</pre>
+    <pre>{{request_progress.data}}</pre>
   </div>
 </template>
 
@@ -12,7 +12,8 @@ export default {
   name: "users_progress",
   data(){
     return{
-      u_progress: {
+      test:false,
+      request_progress: {
         params: {
 
         },
@@ -26,17 +27,39 @@ export default {
     ...mapGetters([
       'user_progress'
     ]),
-    u_progress_data(){
-      return this.u_progress.data
+    request_progress_data(){
+      return this.request_progress.data
+    },
+    route_id(){
+      return this.$route.params.id
     }
   },
   watch:{
-    u_progress_data: function(object) {
-      this.$store.commit('update_user_progress', object)
+    route_id: function(){
+      this.get_user_progress()
+    },
+    request_progress_data: function(object) {
+      if (this.test){
+        this.test = false
+        this.$store.commit('update_user_progress', object)
+      }
     }
   },
   mounted(){
-    this.u_progress.request = true
+    this.get_user_progress()
+  },
+  methods:{
+    get_user_progress(){
+      this.request_progress.params.user_id = this.$route.params.id
+      for(let up_key in this.user_vitas){
+        if( this.user_progress[up_key].id === this.route_id ){
+          this.request_progress.data = this.user_progress[up_key]
+          return
+        }
+      }
+      this.request_progress.request = true
+      this.test = true
+    }
   }
 }
 </script>

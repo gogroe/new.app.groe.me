@@ -2,9 +2,47 @@
   <div class="profile">
     <div class="default_box">
       <div class="head"></div>
-      <div class="content">
-        <pre>{{request_profile.data}}</pre>
+
+        <div class="text" v-if="!showFirstname">
+          {{request_profile.data.firstname}}
+        </div>
+        <div class="text" v-if="showFirstname">
+          <!-- <edit :type="" :url="" :name="" :value="" :placeholder="" :input_class="" :required=""/> -->
+        </div>
+        <div class="icon">
+          <button class="material-icons" @click="showFirstname = true">border_color</button>
+          <modal v-if="showFirstname">
+            <button @click="showFirstname = false">post</button>
+          </modal>
+        </div>
+<!--////////////////////////////////////////////////////////////////////// -->
+      <div class="text" v-if="!showLastname">
+        {{request_profile.data.lastname}}
       </div>
+      <div class="text" v-if="showLastname">
+        <!-- <edit :type="" :url="" :name="" :value="" :placeholder="" :input_class="" :required=""/> -->
+      </div>
+      <div class="icon">
+        <button class="material-icons" @click="showLastname = true">border_color</button>
+        <modal v-if="showLastname">
+          <button @click="showLastname = false">post</button>
+        </modal>
+      </div>
+<!--////////////////////////////////////////////////////////////////////// -->
+      <div class="text" v-if="!showName">
+        {{request_profile.data.name}}
+      </div>
+      <div class="text" v-if="showName">
+        <!-- <edit :type="" :url="" :name="" :value="" :placeholder="" :input_class="" :required=""/> -->
+      </div>
+      <div class="icon">
+        <button class="material-icons" @click="showName = true">border_color</button>
+        <modal v-if="showName">
+          <button @click="showName = false">post</button>
+        </modal>
+      </div>
+<!--////////////////////////////////////////////////////////////////////// -->
+
     </div>
     <request :obj="request_profile" v-model="request_profile"/>
   </div>
@@ -13,14 +51,19 @@
 <script>
   import { mapGetters } from 'vuex'
   import Request from "../../../components/functions/request";
+  import Edit from "../../../components/inputs/edit";
 
   export default {
     name: "users_profile",
     components:{
       Request,
+      Edit
     },
     data(){
       return{
+        showFirstname: false,
+        showLastname: false,
+        showName: false,
         test:false,
         request_profile: {
             params: {
@@ -76,4 +119,19 @@
 
 <style lang="scss" scoped>
 
+.text{
+  padding: 17px;
+  width: 80%;
+  margin: 0 10% 0 0;
+  float:left;
+}
+.icon{
+  padding: 17px;
+  width: 10%;
+  float:left;
+}
+.material-icons{
+  float: left;
+  font-size:20px;
+}
 </style>
