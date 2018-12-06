@@ -9,7 +9,7 @@
 import { mapGetters } from 'vuex'
 import Request from "../../../components/functions/request";
 export default {
-  name: "users_task",
+  name: "users_admin",
   data(){
     return{
       u_task: {

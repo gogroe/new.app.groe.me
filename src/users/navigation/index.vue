@@ -93,7 +93,7 @@
 
   .navigation{
     height: 100%;
-    width: 300px;
+    width: 280px;
     position: fixed;
     top:90px;
     left:0;
@@ -149,7 +149,6 @@
 
         a{
           font-weight: 700;
-          color: #000;
         }
 
         p{

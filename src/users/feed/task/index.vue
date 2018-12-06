@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>vita</p>
-    <pre>{{u_vita.data}}</pre>
+    <pre>{{u_task.data}}</pre>
   </div>
 </template>
 
@@ -9,14 +9,14 @@
 import { mapGetters } from 'vuex'
 import Request from "../../../components/functions/request";
 export default {
-  name: "users_vita",
+  name: "users_task",
   data(){
     return{
-      u_vita: {
+      u_task: {
         params: {
-
+          user_id: null
         },
-        url: 'https://newbackend.groe.me/users/get_user_vita',
+        url: 'https://newbackend.groe.me/users/get_user_task',
         data: {},
         request: false
       }
@@ -35,9 +35,9 @@ export default {
       this.$store.commit('add_user_vitas', object)
     }
   },
-  mounted(){
-    this.u_vita.request = true
-  }
+  // mounted(){
+  //   this.u_vita.request = true
+  // }
 }
 </script>
 

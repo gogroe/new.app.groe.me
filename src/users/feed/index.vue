@@ -33,6 +33,7 @@
 
 <style lang="scss" scoped>
   .feed{
+    position:relative;
     width: 800px;
     padding-top: 55px;
     margin-left: calc(50% - 400px + 100px);
@@ -57,6 +58,7 @@
       font-weight: 600;
       padding: 4px 0;
       cursor: pointer;
+      color: #333333;
 
       &.active{
         color: #3da0f5;

@@ -71,8 +71,9 @@
   ////////////////////////////////////////////////////////////////////////////////// Basics
 
   html {
-    font-family: 'Roboto', sans-serif;color: #7f7f7f;
+    font-family: 'Roboto', sans-serif;
     font-weight: 500;
+    color: #333333;
     font-size: var(--font-size);
     word-spacing: 1px;
     -ms-text-size-adjust: 100%;
@@ -143,14 +144,14 @@
     }
 
     &::-webkit-scrollbar-track {
-      background: #f3f3f3;
+      background: transparent;
     }
 
     &::-webkit-scrollbar-thumb {
       margin: 1px;
       background: #cdcdcd;
       border-radius: 5px;
-      border: solid #fff 1px;
+      border: solid #f3f3f3 1px;
 
       &:hover {
         background: #3da0f5;

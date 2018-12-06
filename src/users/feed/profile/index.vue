@@ -1,5 +1,6 @@
 <template>
   <div class="profile">
+    <u_head/>
     <div class="default_box">
       <div class="content">
         <pre>{{request_profile.data}}</pre>
@@ -12,10 +13,12 @@
 <script>
   import { mapGetters } from 'vuex'
   import Request from "../../../components/functions/request";
+  import U_head from "../../../components/u_head/index";
 
   export default {
     name: "users_profile",
     components:{
+      U_head,
       Request,
     },
     data(){

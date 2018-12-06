@@ -3,9 +3,7 @@
       <header>
         <img class="logo" src="/static/layout/logo.png"/>
         <div class="profile">
-          <div class="image_wrapper">
-            <img :src="user_image"/>
-          </div>
+          <user_image class="user_image" :path="users_image" size="50"/>
           <div class="details">
             <a>{{user_name}}</a>
             <p>{{user_account}}</p>
@@ -18,9 +16,11 @@
 
 <script>
 import Request from "../../components/functions/request";
+import User_image from "../user_image/index";
   export default {
     name: "global_header",
     components: {
+      User_image,
       Request
     },
     data(){
@@ -44,23 +44,9 @@ import Request from "../../components/functions/request";
           return null
         }
       },
-      user_image(){
-        if('image' in this.request_header.data){
-          if(this.request_header.data.image === null){
-            if('gender' in this.request_header.data){
-              if(this.request_header.data.gender === null){
-                return '/static/layout/default_profile_image_unisex.jpg'
-              }
-              else {
-                return this.request_header.data.gender === 'male'
-                  ? '/static/layout/default_profile_image_female.jpg'
-                  : '/static/layout/default_profile_image_male.jpg'
-              }
-            }
-          }
-          else {
-            return this.request_header.data.image
-          }
+      users_image(){
+        if('image' in this.request_header.data ){
+          return this.request_header.data.image
         }
         else {
           return null
@@ -115,17 +101,8 @@ import Request from "../../components/functions/request";
     height: 60px;
     text-align: left;
 
-    .image_wrapper{
-      height: 50px;
-      width: 50px;
-      overflow: hidden;
-      border-radius:50px;
-      border: 5px solid #f5f5f5;
+    .user_image{
       float:left;
-
-      img{
-        height: 45px;
-      }
     }
 
     .details{
@@ -134,7 +111,6 @@ import Request from "../../components/functions/request";
 
       a{
         font-weight: 700;
-        color: #000;
       }
 
       p{
