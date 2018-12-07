@@ -23,8 +23,10 @@
 </template>
 
 <script>
-  import Request from "../../components/functions/request";
-  import User_image from "../../components/user_image/index";
+  import Request from '../../components/functions/request'
+  import User_image from '../../components/user_image/index'
+  import { mapGetters } from 'vuex'
+
   export default {
     name: "user_navigation",
     components: {
@@ -42,11 +44,20 @@
       }
     },
     computed:{
+      ...mapGetters([
+        'reload'
+      ]),
       request_navigation_data(){
         return this.request_navigation.data
       }
     },
     watch:{
+      reload: function (boolean){
+        if(boolean){
+          this.request_navigation.request = true
+          this.$store.commit('update_reload', false)
+        }
+      },
       request_navigation_data: function(array){
         if(!('id' in this.$route.params)){
           this.$router.push(array[0].id + '/profile')
@@ -58,14 +69,7 @@
       this.request_navigation.request = true
     },
     methods:{
-      check_id(){
-        if('id' in $route.params.id){
-          return $route.params.id
-        }
-      },
-      user_navigation(){
-        console.log(true)
-      },
+
     }
   }
 </script>

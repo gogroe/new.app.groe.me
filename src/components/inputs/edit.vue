@@ -20,12 +20,13 @@
   //     required_params: ''
   // }
 
-  import { mapGetters } from 'vuex'
   import Request from '../functions/request'
 
   export default {
     name: "edit",
-    components: {Request},
+    components: {
+      Request
+    },
     props:{
       obj:{
         type: Object,
@@ -44,26 +45,32 @@
         old_value: '',
       }
     },
-    computed: {
-      ...mapGetters([
-        'list_states'
-      ]),
-    },
-    watch:{},
-    mounted(){
-      this.old_value = this.obj.value
-      for(let key in this.obj.required_params){
-        this.send.params[key] = this.obj.required_params[key]
+    watch:{
+      obj: {
+        handler: function (object) {
+          this.set_params()
+        }, deep: true
       }
+    },
+    mounted(){
+      this.set_params()
     },
     methods:{
       send_check(new_val, old_val){
         if(new_val !== old_val){
           this.send.params[this.obj.name] = new_val
           this.send.request = true
+          this.$store.commit('update_reload', true)
         }
-        console.log(this.send)
       },
+      set_params(){
+        this.cur_value = this.obj.value
+        this.old_value = this.obj.value
+
+        for(let key in this.obj.required_params){
+          this.send.params[key] = this.obj.required_params[key]
+        }
+      }
     }
   }
 </script>

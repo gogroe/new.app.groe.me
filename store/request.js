@@ -27,6 +27,9 @@ const request = {
   getters: {
     get_response(state){
       return state.response
+    },
+    reload(state){
+      return state.reload
     }
   },
 

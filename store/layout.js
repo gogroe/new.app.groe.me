@@ -3,7 +3,8 @@ const layout = {
     user_navigation: [],
     user_profiles: [],
     user_vitas: [],
-    user_progress: []
+    user_progress: [],
+    user_admin: []
   },
 
   mutations: { //this.stroe.commit('mutations_name', varible)
@@ -16,8 +17,11 @@ const layout = {
     update_user_progress(state, object){
       state.user_progress.push(object)
     },
-    add_user_vitas(state, object){
+    update_user_vitas(state, object){
       state.user_vitas.push(object)
+    },
+    update_user_admin(state, object){
+      state.user_admin.push(object)
     }
   },
 
@@ -33,12 +37,13 @@ const layout = {
     },
     user_vitas(state){
       return state.user_vitas
+    },
+    user_admin(state){
+      return state.user_admin
     }
   },
 
-  actions: { //this.stroe.dispatch('dispatch_name', varible)
-
-  }
+  actions: {}
 }
 
 export default layout

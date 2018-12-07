@@ -32,7 +32,7 @@ export default {
   },
   watch:{
     u_vita_data: function(object) {
-      this.$store.commit('add_user_vitas', object)
+      this.$store.commit('update_user_vitas', object)
     }
   },
   mounted(){

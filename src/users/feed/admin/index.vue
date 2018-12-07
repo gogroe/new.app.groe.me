@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div class="admin">
     <u_head/>
     <h6>VERWALTEN</h6>
     <div class="default_box">
@@ -15,8 +15,8 @@
       </div>
       <div class="clear"></div>
     </div>
-    <pre>{{request_profile.data}}</pre>
-    <request :obj="request_profile" v-model="request_profile"/>
+    <pre>{{request_admin.data}}</pre>
+    <request :obj="request_admin" v-model="request_admin"/>
   </div>
 </template>
 
@@ -35,7 +35,7 @@
     },
     data(){
       return{
-        request_profile: {
+        request_admin: {
           params: {
             user_id: null
           },
@@ -48,7 +48,7 @@
             url: 'https://newbackend.groe.me/users/update_user',
             label: 'Nachname',
             name: 'lastname',
-            value: 'test',
+            value: '',
             select:'',
             placeholder: 'Nachname',
             type: 'text',
@@ -64,10 +64,11 @@
     },
     computed:{
       ...mapGetters([
-        'user_profiles'
+        'reload',
+        'user_admin'
       ]),
-      request_profile_data(){
-        return this.request_profile.data
+      request_admin_data(){
+        return this.request_admin.data
       },
       route_id(){
         return this.$route.params.id
@@ -75,40 +76,55 @@
     },
 
     watch:{
+      reload: function (boolean){
+        if(boolean){
+          this.request_admin.request = true
+          this.$store.commit('update_reload', false)
+        }
+      },
       route_id: function(){
         this.get_user_profile()
-        // this.set_inputs()
       },
-      request_profile_data: function(object) {
-        if (this.test){
-          this.test = false
-          this.$store.commit('update_user_profiles', object)
-        }
+      request_admin_data: function(object) {
+        this.set_inputs()
+
+        //check if saved in store
+        //saved delete this with id
+        this.$store.commit('update_user_admin', object)
       }
     },
     mounted(){
       this.get_user_profile()
-      // this.set_inputs()
     },
     methods:{
-      // set_inputs(){
-      //   for(let key in this.request_profile.data){
-      //     if(key in this[key]){
-      //       this[key]['value'] = this.request_profile.data[key]
-      //       this[key]['name'] = key
-      //     }
-      //   }
-      // },
+      set_inputs(){
+        for(let key in this.request_admin.data){
+          if(key in this.inputs){
+            this.inputs[key]['value'] = this.request_admin.data[key]
+            this.inputs[key]['name'] = key
+          }
+        }
+      },
       get_user_profile(){
-        this.request_profile.params.user_id = this.$route.params.id
-        for(let up_key in this.user_profiles){
-          if( this.user_profiles[up_key].id === this.route_id ){
-            this.request_profile.data = this.user_profiles[up_key]
+        this.request_admin.params.user_id = this.$route.params.id
+
+        for(let up_key in this.user_admin){
+          if( this.user_admin[up_key].id === this.$route.params.id ){
+            this.request_admin.data = this.user_admin[up_key]
             return
           }
         }
-        this.request_profile.request = true
-      }
+
+        this.request_admin.request = true
+      },
+      load_request(if_true = null, if_false = null){
+        for(let up_key in this.user_admin){
+          if( this.user_admin[up_key].id === this.$route.params.id ){
+            return if_true
+          }
+        }
+        return if_false
+      },
     }
   }
 </script>
