@@ -42,10 +42,10 @@ const dependencies = {
 
   getters: {
     list_types(state) {
-      return state.users_type
+      return state.types
     },
     list_states(state) {
-      return state.state
+      return state.states
     }
   },
 

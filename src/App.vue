@@ -166,5 +166,11 @@
     }
   }
 
+  .input_error{
+    font-size: 12px;
+    font-weight: 600;
+    color: red;
+  }
+
 
 </style>

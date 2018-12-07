@@ -1,12 +1,12 @@
 <template>
   <div>
-    <label :for="obj.name" :class="obj.label_class">{{obj.label}}</label>
-    <input v-if="obj.type === 'text'" @keyup.enter="send_check(cur_value, old_value)" v-on:blur="send_check(cur_value, old_value)" :type="obj.type" :title="obj.name" :id="obj.name" :name="obj.name" :value="obj.value" :placeholder="obj.placeholder" :class="obj.input_class" v-model="cur_value"/>
+    <inputs :obj="obj" :request_data="send.data" v-model="inputs"/>
     <request :obj="send" v-model="send"/>
   </div>
 </template>
 
 <script>
+
   // obj:{
   //   url: '',
   //     label: '',
@@ -18,13 +18,16 @@
   //     input_class:'',
   //     label_class: '',
   //     required_params: ''
+  //     error_class: ''
   // }
 
   import Request from '../functions/request'
+  import Inputs from './index'
 
   export default {
     name: "edit",
     components: {
+      Inputs,
       Request
     },
     props:{
@@ -43,9 +46,31 @@
         },
         cur_value: this.obj.value,
         old_value: '',
+        inputs:{
+          value: '',
+          event: null
+        }
+      }
+    },
+    computed:{
+      inputs_value(){
+        return this.inputs.value
+      },
+      inputs_event(){
+        return this.inputs.event
       }
     },
     watch:{
+      inputs_event: function (event){
+        this.cur_value = this.inputs_value
+        if(
+          event === 'blur' ||
+          event === 'enter' ||
+          event === 'change'
+        ){
+          this.send_check()
+        }
+      },
       obj: {
         handler: function (object) {
           this.set_params()
@@ -56,9 +81,9 @@
       this.set_params()
     },
     methods:{
-      send_check(new_val, old_val){
-        if(new_val !== old_val){
-          this.send.params[this.obj.name] = new_val
+      send_check(){
+        if(this.cur_value !== this.old_value){
+          this.send.params[this.obj.name] = this.cur_value
           this.send.request = true
           this.$store.commit('update_reload', true)
         }

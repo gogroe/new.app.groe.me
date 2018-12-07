@@ -39,9 +39,11 @@
     },
     methods:{
       check_errors(){
+        this.error = ''
+
         if('errors' in this.request_data){
-          if((typeof this.request_data.errors) === 'Object' ||
-             (typeof this.request_data.errors) === 'Array'){
+          if((typeof this.request_data.errors) === 'object' ||
+             (typeof this.request_data.errors) === 'array'){
 
             for(let key in this.request_data.errors){
               if(this.input_name === key){
@@ -50,7 +52,7 @@
                 }
               }
             }
-            
+
           }
         }
       }

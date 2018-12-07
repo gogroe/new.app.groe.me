@@ -12,6 +12,7 @@
       </ul>
       <div class="content">
         <edit :obj="inputs.lastname"/>
+        <edit :obj="inputs.gender"/>
       </div>
       <div class="clear"></div>
     </div>
@@ -51,6 +52,21 @@
             value: '',
             select:'',
             placeholder: 'Nachname',
+            type: 'text',
+            input_class:'',
+            label_class: '',
+            required_params: {
+              user_id: this.$route.params.id,
+              uid: 1
+            }
+          },
+          gender:{
+            url: 'https://newbackend.groe.me/users/update_user',
+            label: 'Geschlecht',
+            name: 'gender',
+            value: '',
+            select:'',
+            placeholder: 'Geschlecht',
             type: 'text',
             input_class:'',
             label_class: '',
