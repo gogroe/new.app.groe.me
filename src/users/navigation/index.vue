@@ -6,7 +6,7 @@
           <li v-for="(nav, i) in request_navigation_data"
               :key="i"
               :class="{'active': nav.id === $route.params.id}">
-            <user_image class="user_image" :path="nav.image" size="50"/>
+            <user_image class="user_image" :path="nav.image" size="50" image_class="navigation_user_image"/>
             <div class="details">
               <a @click="$router.push('/users/' + nav.id + '/profile')">{{nav.firstname + ' ' + nav.lastname}}</a>
               <p>{{nav.type}}</p>
@@ -92,17 +92,17 @@
     top:90px;
     left:0;
     border-right: 1px solid #e6e6e6;
-    background: #f3f3f3;
-    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
+    background: #373737;
+    /*box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);*/
   }
 
   input[type="search"]{
     width: 100%;
     border: none;
-    background: #f3f3f3;
+    background: #373737;
     padding: 17px;
     font-size: 18px;
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #3c3c3c;
   }
 
   ul{
@@ -116,12 +116,12 @@
       cursor: pointer;
       &.active{
         .details a{
-          color: #3da0f5;
+          color: #fff;
         }
       }
 
       &:hover{
-        background: #ebebeb;
+        background: #323232;
       }
 
       .user_image{
@@ -134,11 +134,13 @@
 
         a{
           font-weight: 700;
+          color: #9b9b9b;
         }
 
         p{
           font-size: 12px;
           font-weight: 500;
+          color: #878787;
         }
       }
     }
@@ -147,7 +149,17 @@
   .options{
     height: 55px;
     width: 100%;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #3c3c3c;
+  }
+
+  .default_scrollbar{
+    &::-webkit-scrollbar-thumb {
+      background: #505050;
+
+      &:hover {
+        background: #3da0f5;
+      }
+    }
   }
 
   .clear{

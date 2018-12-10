@@ -158,7 +158,7 @@
       margin: 1px;
       background: #cdcdcd;
       border-radius: 5px;
-      border: solid #f3f3f3 1px;
+      border: solid transparent 1px;
 
       &:hover {
         background: #3da0f5;
@@ -166,11 +166,20 @@
     }
   }
 
+
+  ////////////////////////////////////////////////////////////////////////////////// Component classes
   .input_error{
     font-size: 12px;
     font-weight: 600;
     color: red;
   }
+
+  .navigation_user_image{
+    .image_wrapper{
+      border-color: #505050 !important;
+    }
+  }
+
 
 
 </style>

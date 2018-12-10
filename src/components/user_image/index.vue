@@ -1,7 +1,9 @@
 <template>
-  <div :class="image_class">
-    <div class="image_wrapper" :style="{ width: size + 'px', height: size + 'px', borderRadius: size + 'px'}">
-      <img :src="path_check(path, gender)"/>
+  <div>
+    <div :class="image_class">
+      <div class="image_wrapper" :style="{ width: size + 'px', height: size + 'px', borderRadius: size + 'px'}">
+        <img :src="path_check(path, gender)"/>
+      </div>
     </div>
   </div>
 </template>

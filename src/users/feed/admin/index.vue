@@ -133,6 +133,7 @@
 
         this.request_admin.request = true
       },
+      //todo build a mehtod do avoid double functions
       load_request(if_true = null, if_false = null){
         for(let up_key in this.user_admin){
           if( this.user_admin[up_key].id === this.$route.params.id ){
