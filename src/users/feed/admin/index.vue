@@ -44,6 +44,24 @@
           data: {},
           request: false
         },
+        users:{
+          url: 'https://newbackend.groe.me/users/update_user',
+          required_params: {
+            user_id: this.$route.params.id,
+            uid: 1
+          },
+          translation:{
+            lastname: {
+              name: 'Nachname',
+              type: 'text'
+            },
+            gender: {
+              name: 'Geschlecht',
+              type: 'text'
+            },
+          },
+          inputs_edit:{}
+        },
         inputs:{
           lastname:{
             url: 'https://newbackend.groe.me/users/update_user',
@@ -113,7 +131,7 @@
       this.get_user_profile()
     },
     methods:{
-      set_inputs(){
+      set_inputs(){ //populate fields
         for(let key in this.request_admin.data){
           if(key in this.inputs){
             this.inputs[key]['value'] = this.request_admin.data[key]
