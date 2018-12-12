@@ -41,7 +41,7 @@
 
   :root {
     //fonts
-    --font-size: 18px;
+    --font-size: 16px;
 
     //colors
     --color-005black: #f3f3f3;
@@ -102,7 +102,7 @@
     box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
 
     .head{
-
+      padding-bottom: 17px;
     }
 
     .content{
@@ -119,7 +119,13 @@
   ////////////////////////////////////////////////////////////////////////////////// Buttons
 
   button {
-
+    border: none;
+    padding: 10px;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+    font-family: 'Roboto', sans-serif;
   }
 
 
@@ -180,6 +186,74 @@
     }
   }
 
+  input, textarea{
+    border: 1px solid #cdcdcd;
+    border-radius: 2px;
+    font-size: var(--font-size);
+    font-family: 'Roboto', sans-serif;
+    outline-color: #3da0f5;
+    display: inline-block;
+
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      font-family: 'Roboto', sans-serif;
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+      font-family: 'Roboto', sans-serif;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+      font-family: 'Roboto', sans-serif;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      font-family: 'Roboto', sans-serif;
+    }
+  }
+
+  label{
+    font-size: var(--font-size);
+    display: inline-block;
+  }
+
+  .create_input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+
+  .create_input_label {
+    width: 100%;
+    font-size: 12px;
+    color:#cdcdcd;
+  }
+
+  .edit_input{
+    width: 60%;
+    padding: 4px;
+    margin-bottom: 8px;
+  }
+
+  .edit_input_label{
+    width: 38%;
+    padding: 4px;
+    padding-right: 20px;
+    text-align: right;
+    margin-bottom: 8px;
+  }
+
+  .articles{
+    .create_input_label{
+      display: none;
+    }
+  }
+
+  .article_comments{
+    .create_input{
+
+    }
+
+    .create_input_label{
+      display: none;
+    }
+  }
 
 
 </style>

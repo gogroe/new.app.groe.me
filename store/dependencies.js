@@ -35,6 +35,26 @@ const dependencies = {
       20:'NO_DYNAMIC_TABLE_NAME',
       21:'UNKNOWN_SECRET_TYPE',
       22:'MISSING_REQUIRED_PARAMS',
+    },
+
+    relations: {
+      users : 0,
+      articles : 1,
+      progress : 2,
+      vita : 3,
+      projects : 4,
+      posts : 5,
+      tasks : 6,
+      reports : 7,
+      accounts : 8,
+      status : 9,
+      status_details : 10,
+      trophies : 11,
+      records : 12,
+      comment : 13,
+      like : 14,
+      tag : 15,
+      media : 16,
     }
   },
 
@@ -46,6 +66,9 @@ const dependencies = {
     },
     list_states(state) {
       return state.states
+    },
+    list_relations(state){
+      return state.relations
     }
   },
 
