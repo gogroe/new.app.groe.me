@@ -12,6 +12,10 @@
       </ul>
       <div class="content">
         <admin_user v-if="active.menu === 'user'"/>
+        <admin_contact v-if="active.menu === 'contact'"/>
+        <admin_adress v-if="active.menu === 'adress'"/>
+        <admin_bank v-if="active.menu === 'bank'"/>
+        <admin_password v-if="active.menu === 'password'"/>
       </div>
       <div class="clear"></div>
     </div>
@@ -23,10 +27,18 @@
   import U_head from "../../../components/u_head/index";
   import Edit from "../../../components/inputs/edit";
   import Admin_user from "./user";
+  import Admin_contact from "./contact";
+  import Admin_adress from "./adress";
+  import Admin_bank from "./bank";
+  import Admin_password from "./password";
 
   export default {
     name: "users_admin",
     components:{
+      Admin_password,
+      Admin_bank,
+      Admin_adress,
+      Admin_contact,
       Admin_user,
       Edit,
       U_head,

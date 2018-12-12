@@ -14,7 +14,7 @@
   import Edit from "../../../components/inputs/edit";
 
   export default {
-    name: "admin_user",
+    name: "admin_password",
     components:{
       Edit,
       Request,

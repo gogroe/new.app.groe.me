@@ -17,7 +17,7 @@
   //     type: '',
   //     input_class:'',
   //     label_class: '',
-  //     required_params: ''
+  //     required_params: '',
   //     error_class: ''
   // }
 
