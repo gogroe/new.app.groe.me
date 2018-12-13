@@ -2,7 +2,15 @@
   <div class="posts">
     <div class="default_box">
       <div class="head">
-        <h2>{{obj.subject}}</h2>
+        <h2>
+          <user_image path=""
+                      size="35"
+                      image_class="posts_user_image"/>
+          {{obj.subject}}
+          <span><br/>Nutzername</span>
+          <span class="clear">
+          </span>
+        </h2>
         <likes :articles_id="obj.id"/>
       </div>
       <div class="content">
@@ -35,9 +43,11 @@
 
   import Likes from "../likes/index";
   import Article_comments from "../comments/article_comments";
+  import User_image from "../user_image/index";
   export default {
     name: "posts",
     components: {
+      User_image,
       Article_comments,
       Likes
     },
@@ -53,5 +63,15 @@
 <style lang="scss" scoped>
   .default_box{
     margin-bottom: 8px;
+  }
+
+  h2{
+    line-height: 16px;
+
+    span{
+      font-size: 12px;
+      font-weight: 500;
+      color: #cdcdcd;
+    }
   }
 </style>

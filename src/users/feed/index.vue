@@ -69,7 +69,4 @@
     float: left;
   }
 
-  .clear{
-    clear: both;
-  }
 </style>

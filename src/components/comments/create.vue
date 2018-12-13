@@ -1,67 +1,96 @@
 <template>
   <div>
-    <inputs :obj="inputs_create_comment.value"
-            :request_data="request_comments_create.data"
-            v-model="inputs.subject"/>
-    <button @click="create_comment">Senden</button>
+    <inputs :obj="fill_fields_inputs('value', create_article_comment)"
+            :request_data="request_create_comments.data"
+            v-model="create_article_comment.inputs.value.input"/>
     <div class="clear"></div>
+    <request :obj="request_create_comments" v-model="request_create_comments"/>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import Inputs from "../inputs/index";
+  import Request from "../../components/functions/request"
+  import Load_request from "../../components/functions/load_request"
+  import Fill_input from '../../components/inputs/fill_input'
 
   export default {
     name: "create_comment",
-    components: {Inputs},
+    components: {
+      Inputs,
+      Request
+    },
     props:{
       relation_type:{
+        required: true
+      },
+      relation_id:{
         required: true
       }
     },
     data(){
       return{
-        request_comments_create: {
+        request_create_comments: {
           params: {
-            uid: null,
-            relation_id: null,
+            uid: this.$route.params.id, //todo delet after auth
+            comment: '',
             relation_type: this.relation_type,
-            value: '',
+            relation_id: this.relation_id
           },
-          url: 'http://newbackend.groe.me/articles/create_comment',
+          url: 'https://newbackend.groe.me/articles/create_article_comment',
           data: {},
           request: false
         },
-        inputs_create_comment:{
-          value:{
-            url: '',
-            label: 'Kommentar',
-            name: 'subject',
-            value:'',
-            select:'',
-            placeholder: 'Kommentar schreiben',
-            type: 'textarea',
-            input_class:'create_input',
-            label_class: 'create_input_label',
-            error_class: '',
+        create_article_comment:{
+          url: 'https://newbackend.groe.me/users/create_article_comment',
+          input_class:'create_input',
+          label_class: 'create_input_label',
+          error_class: '',
+          inputs:{
+            value: {
+              name: 'Kommentar schreiben...',
+              type: 'text',
+              input:{
+                value: '',
+                event: null
+              }
+            },
           }
-        },
-        inputs:{
-          value: { value: '' },
         }
       }
     },
     computed:{
       ...mapGetters([
         'list_relations'
-      ])
+      ]),
+      comment_event(){
+        return this.create_article_comment.inputs.value.input.event
+      },
+      request_create_comments_data(){
+        return this.request_create_comments.data
+      }
+    },
+    watch:{
+      comment_event: function (event) {
+        if(event === 'enter'){
+          this.send()
+        }
+      },
+      request_create_comments_data: function (object) {
+        if('create' in object){
+          this.create_article_comment.inputs.value.input.value = ''
+          this.$emit('input', 'reload')
+        }
+      }
     },
     methods:{
-      create_comment(){
-
+      send(){
+        this.request_create_comments.params.comment = this.create_article_comment.inputs.value.input.value
+        this.request_create_comments.request = true
       }
-    }
+    },
+    mixins:[Fill_input, Load_request]
   }
 </script>
 

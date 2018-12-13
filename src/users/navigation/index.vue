@@ -162,8 +162,4 @@
     }
   }
 
-  .clear{
-    clear: both;
-  }
-
 </style>

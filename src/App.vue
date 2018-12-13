@@ -61,7 +61,7 @@
   //tablet
   @media all and (min-width: 641px ) and (max-width: 1007px ) {
     :root {
-      --font-size: 16px;
+      --font-size: 14px;
       --col: 100%;
     }
   }
@@ -173,7 +173,7 @@
   }
 
 
-  ////////////////////////////////////////////////////////////////////////////////// Component classes
+  ////////////////////////////////////////////////////////////////////////////////// Component classes inputs
   .input_error{
     font-size: 12px;
     font-weight: 600;
@@ -247,7 +247,11 @@
 
   .article_comments{
     .create_input{
-
+      margin-top: 8px;
+      border: none;
+      border-top: 1px solid #e6e6e6;
+      padding-left: 0;
+      outline: none;
     }
 
     .create_input_label{
@@ -255,5 +259,20 @@
     }
   }
 
+
+
+  ////////////////////////////////////////////////////////////////////////////////// Component classes images
+
+  .posts_user_image{
+    .image_wrapper{
+      float: left;
+      margin-right: 17px;
+      border-width: 1px !important;
+    }
+  }
+
+  .clear{
+    clear: both;
+  }
 
 </style>
