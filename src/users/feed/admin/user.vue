@@ -15,7 +15,7 @@
   import Fill_edit from '../../../components/inputs/fill_edit'
 
   export default {
-    name: "admin_contact",
+    name: "admin_user",
     components:{
       Edit,
       Request,
@@ -81,7 +81,6 @@
     mounted(){
       this.request_admin_user.params.user_id = this.$route.params.id
       this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
-
     },
     methods:{
       request_reload(boolean){

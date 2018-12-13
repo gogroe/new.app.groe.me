@@ -70,6 +70,7 @@ export default {
     },
 
 
+
     /*
      * checks if requested data is already stored
      * if not it stores the data, should only be used in watcher

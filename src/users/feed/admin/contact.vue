@@ -1,27 +1,28 @@
 <template>
-  <div class="admin_contact"> <!--change-->
+  <div class="admin_user">
     <edit v-for="(input, key, i) in update_user.inputs"
           :key="i"
-          :obj="fill_fields(key, update_user, request_admin.data)"/>
-    <request :obj="request_admin" v-model="request_admin"/>
+          :obj="fill_fields(key, update_user, request_admin_user.data)"/>
+    <request :obj="request_admin_user" v-model="request_admin_user"/>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import Request from "../../../components/functions/request"
+  import Load_request from "../../../components/functions/load_request"
   import Edit from "../../../components/inputs/edit"
   import Fill_edit from '../../../components/inputs/fill_edit'
 
   export default {
-    name: "admin_contact",
+    name: "admin_user",
     components:{
       Edit,
       Request,
     },
     data(){
       return{
-        request_admin: {
+        request_admin_user: {
           params: {
             user_id: null
           },
@@ -60,12 +61,8 @@
       }
     },
     computed:{
-      ...mapGetters([
-        'reload',
-        'user_admin'
-      ]),
       request_admin_data(){
-        return this.request_admin.data
+        return this.request_admin_user.data
       },
       route_id(){
         return this.$route.params.id
@@ -73,50 +70,27 @@
     },
 
     watch:{
-      reload: function (boolean){
-        if(boolean){
-          this.request_admin.request = true
-          this.$store.commit('update_reload', false)
-        }
+      request_admin_data: function(object){
+        this.update_store('update_user_admin_user', 'user_admin_user', object, 'id')
       },
       route_id: function(){
-        this.get_user_profile()
-      },
-      // request_admin_data: function(object) {
-      //   this.set_inputs()
-      //
-      //   //check if saved in store
-      //   //saved delete this with id
-      //   this.$store.commit('update_user_admin', object)
-      // }
+        this.request_admin_user.params.user_id = this.$route.params.id
+        this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
+      }
     },
     mounted(){
-      this.get_user_profile()
+      this.request_admin_user.params.user_id = this.$route.params.id
+      this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
     },
     methods:{
-      get_user_profile(){
-        this.request_admin.params.user_id = this.$route.params.id
-
-        for(let up_key in this.user_admin){
-          if( this.user_admin[up_key].id === this.$route.params.id ){
-            this.request_admin.data = this.user_admin[up_key]
-            return
-          }
+      request_reload(boolean){
+        if(boolean){
+          this.request_admin_user.request = true
+          this.$store.commit('update_reload', false)
         }
-
-        this.request_admin.request = true
-      },
-      // //todo build a mehtod do avoid double functions
-      // load_request(if_true = null, if_false = null){
-      //   for(let up_key in this.user_admin){
-      //     if( this.user_admin[up_key].id === this.$route.params.id ){
-      //       return if_true
-      //     }
-      //   }
-      //   return if_false
-      // }
+      }
     },
-    mixins:[Fill_edit]
+    mixins:[Fill_edit, Load_request]
   }
 </script>
 
