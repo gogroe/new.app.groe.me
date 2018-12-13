@@ -1,5 +1,5 @@
 <template>
-  <div class="admin_user">
+  <div class="admin_contact"> <!--change-->
     <edit v-for="(input, key, i) in update_user.inputs"
           :key="i"
           :obj="fill_fields(key, update_user, request_admin.data)"/>
