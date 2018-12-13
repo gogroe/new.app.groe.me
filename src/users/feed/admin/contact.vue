@@ -94,14 +94,6 @@
       this.get_user_profile()
     },
     methods:{
-      // set_inputs(){ //populate fields
-      //   for(let key in this.request_admin.data){
-      //     if(key in this.inputs){
-      //       this.inputs[key]['value'] = this.request_admin.data[key]
-      //       this.inputs[key]['name'] = key
-      //     }
-      //   }
-      // },
       get_user_profile(){
         this.request_admin.params.user_id = this.$route.params.id
 

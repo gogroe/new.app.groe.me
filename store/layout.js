@@ -4,7 +4,7 @@ const layout = {
     user_profiles: [],
     user_vitas: [],
     user_progress: [],
-    user_admin: []
+    user_admin_user: []
   },
 
   mutations: { //this.stroe.commit('mutations_name', varible)
@@ -20,8 +20,8 @@ const layout = {
     update_user_vitas(state, object){
       state.user_vitas.push(object)
     },
-    update_user_admin(state, object){
-      state.user_admin.push(object)
+    update_user_admin_user(state, object){
+      state.user_admin_user.push(object)
     }
   },
 
@@ -38,8 +38,8 @@ const layout = {
     user_vitas(state){
       return state.user_vitas
     },
-    user_admin(state){
-      return state.user_admin
+    user_admin_user(state){
+      return state.user_admin_user
     }
   },
 
