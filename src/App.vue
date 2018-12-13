@@ -99,7 +99,7 @@
     background: #fff;
     border-radius: 2px;
     border: 1px solid #e6e6e6;
-    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
+    //box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
 
     .head{
       padding-bottom: 17px;

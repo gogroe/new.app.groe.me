@@ -1,8 +1,12 @@
 <template>
   <div>
     <div class="render_comments">
+      <p class="details" v-if="request_article_comments.data.length > 0">8 Kommentare</p>
       <ul :class="{'active': request_article_comments.data.length > 0}">
         <li v-for="(comment, i) in request_article_comments.data" :key="i">
+          <user_image path=""
+                      size="27"
+                      image_class="posts_user_image"/>
           <a @click="$router.push('/users/' + comment.create_user_id + '/profile')">Nutzer Name</a>
           <p>{{comment.value}}</p>
         </li>
@@ -14,9 +18,10 @@
 
 <script>
   import Request from "../functions/request";
+  import User_image from "../user_image/index";
   export default {
     name: "render_comments",
-    components: {Request},
+    components: {User_image, Request},
     props:{
       relation_type:{
         required: true
@@ -57,12 +62,25 @@
 
 <style lang="scss" scoped>
 
+  .details{
+    margin-top: 27px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #e6e6e6;
+  }
+
   ul{
+    font-size: 14px;
+
     &.active{
-      margin-top: 27px;
+      padding-top: 10px;
     }
     li{
       margin-bottom: 17px;
+
+      p{
+        font-weight: 400;
+      }
     }
   }
 
