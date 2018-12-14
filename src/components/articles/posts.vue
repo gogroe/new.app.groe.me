@@ -2,7 +2,7 @@
   <div class="posts">
     <div class="default_box">
       <div class="head">
-        <h2>
+        <p>
           <user_image path=""
                       size="35"
                       image_class="posts_user_image"/>
@@ -10,7 +10,7 @@
           <span><br/>Nutzername</span>
           <span class="clear">
           </span>
-        </h2>
+        </p>
         <likes :articles_id="obj.id"/>
       </div>
       <div class="content">
@@ -65,12 +65,13 @@
     margin-bottom: 8px;
   }
 
-  h2{
-    line-height: 16px;
+  p{
+    line-height: 18px;
+    font-weight: 700;
 
     span{
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 400;
       color: #cdcdcd;
     }
   }
