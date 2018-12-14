@@ -103,8 +103,4 @@
   button{
     float:right;
   }
-
-  .clear{
-    clear: both;
-  }
 </style>

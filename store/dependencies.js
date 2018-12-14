@@ -35,6 +35,7 @@ const dependencies = {
       20:'NO_DYNAMIC_TABLE_NAME',
       21:'UNKNOWN_SECRET_TYPE',
       22:'MISSING_REQUIRED_PARAMS',
+      23:'INVALID_PASSWORD',
     },
 
     relations: {

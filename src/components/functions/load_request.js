@@ -6,18 +6,12 @@ export default {
       'reload'
     ])
   },
-
-
-
   watch:{
     //set a reload function manualy
     reload: function (boolean){
       this.request_reload(boolean)
     }
   },
-
-
-
   methods:{
     //set required params or the request manualy
     /*
