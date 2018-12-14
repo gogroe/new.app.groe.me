@@ -40,21 +40,17 @@
             uid: 1
           },
           inputs:{
-            name: {
-              name: 'Benutzer',
-              type: 'text'
+            phone: {
+              name: 'Haupttelefon',
+              type: 'number'
             },
-            firstname: {
-              name: 'Vorname',
-              type: 'text'
+            phone2: {
+              name: 'Telefon #2',
+              type: 'number'
             },
-            lastname: {
-              name: 'Nachname',
-              type: 'text'
-            },
-            gender: {
-              name: 'Geschlecht',
-              type: 'text'
+            email: {
+              name: 'e-mail',
+              type: 'email'
             }
           }
         }

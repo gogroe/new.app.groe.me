@@ -1,6 +1,14 @@
 <template>
   <div>
-    <inputs :obj="obj" :request_data="send.data" v-model="inputs"/>
+    <div class="add_stuff" v-if="obj.value===undefined && !tmp" @click="tmp = true" style="cursor: pointer;">
+      <div>
+        <p>einreichen {{obj.name}}</p>
+      </div>
+      <div>
+        <p style="font-size: 20px;">+</p>
+      </div>
+    </div>
+    <inputs v-else :obj="obj" :request_data="send.data" v-model="inputs"/>
     <request :obj="send" v-model="send"/>
   </div>
 </template>
@@ -49,7 +57,8 @@
         inputs:{
           value: '',
           event: null
-        }
+        },
+        tmp: false
       }
     },
     computed:{
@@ -101,5 +110,24 @@
 </script>
 
 <style lang="scss" scoped>
-
+  .add_stuff{
+    div{
+      width: 60%;
+      padding: 10px;
+      margin: 0px;
+      float: left;
+      p{
+        color: #3da0f5;
+        float: right;
+      }
+    }
+    div:last-child{
+      width: 40%;
+      p{
+        font-size: 20px;
+        float: left;
+        font-weight: bold;
+      }
+    }
+  }
 </style>

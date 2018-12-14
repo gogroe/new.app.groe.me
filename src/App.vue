@@ -128,7 +128,34 @@
     font-family: 'Roboto', sans-serif;
   }
 
+  .submit{
+    button{
+      display: block;
+      margin: 40px auto 0;
+      width: 30%;
+      background-color: #3da0f5;
+      color: white;
+    }
+    p{
+      font-size: 12px;
+      float: right;
+      width: 46%;
+      color: orange;
+    }
+  }
 
+  .adress_buttons{
+      display: block;
+      width: 75%;
+      margin: 0 auto;
+      button{
+        width: 40%;
+        background-color: #3da0f5;
+        margin: 40px 5% 0;
+        color: white;
+        float: left;
+      }
+  }
 
   ////////////////////////////////////////////////////////////////////////////////// Font-Tags
 
