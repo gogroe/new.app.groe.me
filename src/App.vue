@@ -41,7 +41,7 @@
 
   :root {
     //fonts
-    --font-size: 16px;
+    --font-size: 13px;
 
     //colors
     --color-005black: #f3f3f3;
@@ -54,7 +54,7 @@
   //mobile
   @media all and (min-width: 0px ) and (max-width: 640px) {
     :root {
-      --font-size: 16px;
+      --font-size: 13px;
     }
   }
 
@@ -102,7 +102,7 @@
     //box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
 
     .head{
-      padding-bottom: 17px;
+      padding-bottom: 27px;
     }
 
     .content{
@@ -221,7 +221,7 @@
 
   .create_input_label {
     width: 100%;
-    font-size: 12px;
+    font-size: var(--font-size);
     color:#cdcdcd;
   }
 

@@ -6,14 +6,13 @@
           <user_image path=""
                       size="35"
                       image_class="posts_user_image"/>
-          {{obj.subject}}
-          <span><br/>Nutzername</span>
-          <span class="clear">
-          </span>
+          <span>Nutzername</span>
+          <span class="clear"></span>
         </p>
         <likes :articles_id="obj.id"/>
       </div>
       <div class="content">
+        <p>{{obj.subject}}</p>
         <p>{{obj.content}}</p>
       </div>
       <article_comments :articles_id="obj.id"/>
@@ -70,7 +69,7 @@
     font-weight: 700;
 
     span{
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 400;
       color: #cdcdcd;
     }

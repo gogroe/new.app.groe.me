@@ -65,12 +65,12 @@
   .details{
     margin-top: 27px;
     margin-bottom: 8px;
-    font-size: 14px;
+    font-size: 13px;
     color: #e6e6e6;
   }
 
   ul{
-    font-size: 14px;
+    font-size: 13px;
 
     &.active{
       padding-top: 10px;
