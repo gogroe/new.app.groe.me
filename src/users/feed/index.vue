@@ -68,7 +68,7 @@
     position:relative;
     width: 800px;
     padding-top: 55px;
-    margin-left: calc(50% - 400px + 100px);
+    margin-left: calc(50% - 400px);
   }
 
   ul{

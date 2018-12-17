@@ -31,7 +31,4 @@
 </script>
 
 <style lang="scss" scoped>
-  .users{
-    margin-top: 90px;
-  }
 </style>

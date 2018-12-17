@@ -2,15 +2,18 @@
   <div id="app">
     <global_header/>
     <navigation/>
-    <projects v-if="cut_path($route.path) === '/projects'"/>
-    <users v-else-if="cut_path($route.path) === '/users'"/>
-    <router-view v-else-if="
+    <div class="main_content" :class="{'active_navigation': active_navigation}">
+      <projects v-if="cut_path($route.path) === '/projects'"/>
+      <users v-else-if="cut_path($route.path) === '/users'"/>
+      <router-view v-else-if="
       cut_path($route.path) !== 'projects' ||
       cut_path($route.path) !== 'users'"/>
+    </div>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import Projects from "./projects/index";
   import Users from "./users/index";
   import Login from "./login/index";
@@ -27,6 +30,11 @@
       Login,
       Users,
       Projects
+    },
+    computed:{
+      ...mapGetters([
+        'active_navigation'
+      ])
     },
     methods:{
       cut_path(path){
@@ -94,6 +102,18 @@
     box-sizing: border-box;
     margin: 0;
   }
+
+  .main_content{
+    margin-top: 64px;
+    position: relative;
+    width: 100%;
+
+    &.active_navigation{
+      margin-left: 280px;
+      width: calc(100% - 280px);
+    }
+  }
+
 
 
 
