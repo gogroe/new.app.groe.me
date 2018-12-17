@@ -1,5 +1,5 @@
 <template>
-  <div class="navigation">
+  <div class="navigation" v-if="active_navigation">
     <ul class="default_scrollbar">
       <li v-for="(navigation, i) in navigations"
           :key="i"
@@ -49,6 +49,11 @@
           }
         }
       }
+    },
+    computed:{
+      ...mapGetters([
+        'active_navigation'
+      ])
     }
   }
 </script>

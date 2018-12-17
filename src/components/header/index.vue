@@ -2,7 +2,7 @@
     <div>
       <header>
         <div class="menu">
-          <i class="material-icons">menu</i>
+          <i class="material-icons" @click="$store.commit('update_active_navigation', !active_navigation)">menu</i>
           <span class="groe">groe</span><span class="dot">.</span><span class="ad">ad's</span> <span>&nbsp | &nbsp Benutzer</span>
           <!--<img class="logo" src="/static/layout/logo.png"/>-->
         </div>
@@ -18,8 +18,10 @@
 </template>
 
 <script>
-import Request from "../../components/functions/request";
-import User_image from "../user_image/index";
+  import { mapGetters } from 'vuex'
+  import Request from "../../components/functions/request";
+  import User_image from "../user_image/index";
+
   export default {
     name: "global_header",
     components: {
@@ -39,6 +41,9 @@ import User_image from "../user_image/index";
       }
     },
     computed:{
+      ...mapGetters([
+        'active_navigation'
+      ]),
       user_name(){
         if('lastname' in this.request_header.data || 'firstname' in this.request_header.data ){
           return this.request_header.data.firstname + ' ' + this.request_header.data.lastname

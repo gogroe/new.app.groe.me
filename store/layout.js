@@ -1,10 +1,14 @@
 const layout = {
   state: {
+    active:{
+      navigation: true
+    },
     user_navigation: [],
     user_profiles: [],
     user_vitas: [],
     user_progress: [],
     user_admin_user: []
+
   },
 
   mutations: { //this.stroe.commit('mutations_name', varible)
@@ -22,6 +26,9 @@ const layout = {
     },
     update_user_admin_user(state, object){
       state.user_admin_user.push(object)
+    },
+    update_active_navigation(state, boolean){
+      state.active.navigation = boolean
     }
   },
 
@@ -40,6 +47,9 @@ const layout = {
     },
     user_admin_user(state){
       return state.user_admin_user
+    },
+    active_navigation(state){
+      return state.active.navigation
     }
   },
 
