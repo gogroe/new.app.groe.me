@@ -9,7 +9,8 @@
         <span>{{navigation.name}}</span>
       </li>
     </ul>
-    <div class="clear"></div>
+    <hr>
+    <a>Einstellungen</a>
   </div>
 </template>
 
@@ -71,6 +72,7 @@
       font-size: 18px;
       line-height: 18px;
       padding: 23px 23px 23px 64px;
+      margin-bottom: 1px;
       width: 100%;
       cursor: pointer;
       &.active{
@@ -88,6 +90,18 @@
         vertical-align: middle;
       }
     }
+  }
+
+  hr{
+    margin: 27px 0 64px 0;
+    border-top: 1px solid #e9e9e9;
+  }
+
+  a{
+    font-size: 18px;
+    font-weight: 400;
+    color: #bfbfbf;
+    padding: 10px 10px 10px 64px;
   }
 
 </style>

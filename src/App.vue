@@ -105,7 +105,10 @@
     background: #fff;
     border-radius: 2px;
     border: 1px solid #e6e6e6;
-    //box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
+    &.active, &:hover{
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05),
+                  -5px -5px 15px rgba(0, 0, 0, 0.05);
+    }
 
     .head{
       padding-bottom: 27px;
