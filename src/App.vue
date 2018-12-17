@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <global_header/>
+    <navigation/>
     <projects v-if="cut_path($route.path) === '/projects'"/>
     <users v-else-if="cut_path($route.path) === '/users'"/>
     <router-view v-else-if="
@@ -13,10 +15,14 @@
   import Users from "./users/index";
   import Login from "./login/index";
   import Register from "./register/index";
+  import Global_header from "./components/header/index";
+  import Navigation from "./components/navigation/index";
 
   export default {
     name: 'App',
     components: {
+      Navigation,
+      Global_header,
       Register,
       Login,
       Users,
@@ -294,6 +300,14 @@
 
 
   ////////////////////////////////////////////////////////////////////////////////// Component classes images
+
+  header{
+    .user_image{
+      .image_wrapper{
+        border:1px;
+      }
+    }
+  }
 
   .posts_user_image{
     .image_wrapper{

@@ -1,7 +1,5 @@
 <template>
     <div class="users">
-      <global_header/>
-      <user_navigation/>
       <users_feed/>
     </div>
 </template>

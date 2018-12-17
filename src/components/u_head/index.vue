@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="u_head default_box">
-      <user_image class="user_image" :path="users_image" size="107"/>
-      <h1>{{user_name}}</h1>
-      <a @click="active.description = !active.description">Steckbrief</a>
+      <user_image class="user_image" :path="users_image" size="120"/>
+      <p class="user_name">{{user_name}}</p>
+      <a @click="active.description = !active.description" class="desription">
+        Steckbrief <i class="material-icons">arrow_drop_down</i>
+      </a>
       <p v-if="active.description">{{user_description}}</p>
     </div>
     <request :obj="request_head" v-model="request_head"/>
@@ -83,7 +85,23 @@
   }
 
   .user_image{
-    margin: 25px calc(50% - 53.5px);
+    margin: 25px calc(50% - 60px);
+  }
+
+  .user_name{
+    font-size: 18px;
+  }
+
+  a{
+    cursor: pointer;
+
+    i{
+      vertical-align: -7px;
+    }
+  }
+
+  .desription{
+    color: #3da0f5;
   }
 
 </style>

@@ -1,12 +1,15 @@
 <template>
     <div>
       <header>
-        <img class="logo" src="/static/layout/logo.png"/>
+        <div class="menu">
+          <i class="material-icons">menu</i>
+          <span class="groe">groe</span><span class="dot">.</span><span class="ad">ad's</span> <span>&nbsp | &nbsp Benutzer</span>
+          <!--<img class="logo" src="/static/layout/logo.png"/>-->
+        </div>
         <div class="profile">
-          <user_image class="user_image" :path="users_image" size="50"/>
+          <user_image class="user_image" :path="users_image" size="35"/>
           <div class="details">
-            <a>{{user_name}}</a>
-            <p>{{user_account}}</p>
+            <a class="user_name">{{user_name}}</a> &nbsp | &nbsp <a class="user_account">{{user_account}}</a>
           </div>
         </div>
       </header>
@@ -77,7 +80,7 @@ import User_image from "../user_image/index";
   header {
     z-index: 1000;
     width: 100%;
-    height: 90px;
+    height: 64px;
     position: fixed;
     top: 0;
     left: 0;
@@ -86,18 +89,53 @@ import User_image from "../user_image/index";
     text-align: center;
   }
 
-  .logo {
+  .menu{
     position: absolute;
-    left:0;
-    margin:15px;
-    width: 60px;
-    height: 60px;
+    padding: 10px 18px;
+
+    i{
+      font-size: 24px;
+      line-height: 30px;
+      margin: 6px 43px 6px 6px;
+      color: #bfbfbf;
+      cursor: pointer;
+
+      &:hover{
+        color: #404040;
+      }
+    }
+
+    span{
+      display: inline-block;
+      padding-top: 8px;
+      font-size: 20px;
+      vertical-align: top;
+      color: #bfbfbf;
+      font-weight: 300;
+
+      &.groe{
+        font-weight: 500;
+      }
+
+      &.dot{
+        color: #3da0f5;
+        font-weight: 900;
+      }
+    }
+
+    .logo {
+      position: absolute;
+      left:0;
+      margin:10px 18px;
+      width: 43px;
+      height: 43px;
+    }
   }
 
   .profile{
     position: absolute;
     right: 0;
-    margin: 20px;
+    margin: 13px 18px;
     height: 60px;
     text-align: left;
 
@@ -107,15 +145,14 @@ import User_image from "../user_image/index";
 
     .details{
       margin-left: 17px;
+      margin-top: 10px;
       float:left;
 
-      a{
+      .user_name{
         font-weight: 700;
       }
 
-      p{
-        font-size: 12px;
-        font-weight: 500;
+      .user_account{
         color: #3da0f5;
       }
     }
