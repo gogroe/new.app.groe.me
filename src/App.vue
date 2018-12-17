@@ -120,12 +120,17 @@
 
   button {
     border: none;
-    padding: 10px;
+    padding: 10px 17px;
     border-radius: 2px;
     font-size: 14px;
     font-weight: 500;
-    color: #333333;
+    color: #b4b4b4;
+    background: transparent;
     font-family: 'Roboto', sans-serif;
+
+    &:hover{
+      color: #3da0f5;
+    }
   }
 
   .submit{
@@ -137,7 +142,7 @@
       color: white;
     }
     p{
-      font-size: 12px;
+      font-size: 13px;
       float: right;
       width: 46%;
       color: orange;

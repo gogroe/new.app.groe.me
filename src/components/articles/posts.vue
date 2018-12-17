@@ -9,7 +9,8 @@
           <span>Nutzername</span>
           <span class="clear"></span>
         </p>
-        <likes :articles_id="obj.id"/>
+        <!--<likes :active="active"-->
+               <!--v-model="active"/>-->
       </div>
       <div class="content">
         <p>{{obj.subject}}</p>
@@ -41,7 +42,7 @@
   // ]
 
   import Likes from "../likes/index";
-  import Article_comments from "../comments/article_comments";
+  import Article_comments from "../comments/index";
   import User_image from "../user_image/index";
   export default {
     name: "posts",
@@ -54,6 +55,11 @@
       obj:{
         type: Object,
         required: true
+      }
+    },
+    data(){
+      return{
+        active: true
       }
     }
   }

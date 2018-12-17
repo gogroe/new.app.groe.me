@@ -7,7 +7,10 @@
           <user_image path=""
                       size="27"
                       image_class="posts_user_image"/>
-          <a @click="$router.push('/users/' + comment.create_user_id + '/profile')">Nutzer Name</a>
+
+          <user_name name="Nutzername"
+                     :id="comment.create_user_id"/>
+
           <p>{{comment.value}}</p>
         </li>
       </ul>
@@ -19,9 +22,10 @@
 <script>
   import Request from "../functions/request";
   import User_image from "../user_image/index";
+  import User_name from "../user_name/index";
   export default {
     name: "render_comments",
-    components: {User_image, Request},
+    components: { User_name, User_image, Request },
     props:{
       relation_type:{
         required: true

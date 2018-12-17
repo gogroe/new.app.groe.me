@@ -8,7 +8,7 @@
       <inputs :obj="inputs_create_article.content"
               :request_data="request_articles_create.data"
               v-model="inputs.content"/>
-      <button @click="create_article">Senden</button>
+      <button @click="create_article">SENDEN</button>
       <div class="clear"></div>
     </div>
     <request :obj="request_articles_create"/>

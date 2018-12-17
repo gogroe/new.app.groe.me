@@ -6,7 +6,10 @@
           <li v-for="(nav, i) in request_navigation_data"
               :key="i"
               :class="{'active': nav.id === $route.params.id}">
-            <user_image class="user_image" :path="nav.image" size="50" image_class="navigation_user_image"/>
+            <user_image class="user_image"
+                        :path="nav.image"
+                        size="43"
+                        image_class="navigation_user_image"/>
             <div class="details">
               <a @click="$router.push('/users/' + nav.id + '/profile')">{{nav.firstname + ' ' + nav.lastname}}</a>
               <p>{{nav.type}}</p>
@@ -26,10 +29,12 @@
   import Request from '../../components/functions/request'
   import User_image from '../../components/user_image/index'
   import { mapGetters } from 'vuex'
+  import User_name from "../../components/user_name/index";
 
   export default {
     name: "user_navigation",
     components: {
+      User_name,
       User_image,
       Request
     },
@@ -101,7 +106,7 @@
     border: none;
     background: #373737;
     padding: 17px;
-    font-size: 18px;
+    font-size: 14px;
     border-bottom: 1px solid #3c3c3c;
   }
 
@@ -138,7 +143,7 @@
         }
 
         p{
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 500;
           color: #878787;
         }
