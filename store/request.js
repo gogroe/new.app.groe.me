@@ -6,8 +6,8 @@ const request = {
     response: {},
     reload: false,
     auth: {
-      uid: null,
-      token: null,
+      uid: 2,
+      token: 'abcdefghijklmnopqrstuvwxyz',
     }
   },
 
@@ -30,6 +30,9 @@ const request = {
     },
     reload(state){
       return state.reload
+    },
+    uid(state){
+      return state.auth.uid
     }
   },
 

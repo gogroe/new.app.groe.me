@@ -42,10 +42,15 @@
             route: '',
             icon: 'receipt'
           },
+          task:{
+            name: 'Aufgaben',
+            route: '',
+            icon: 'playlist_add_check'
+          },
           comunity:{
             name: 'Community',
             route: '',
-            icon: 'supervised_user_circle'
+            icon: 'group_work'
           }
         }
       }

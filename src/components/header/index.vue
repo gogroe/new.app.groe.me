@@ -4,12 +4,11 @@
         <div class="menu">
           <i class="material-icons" @click="$store.commit('update_active_navigation', !active_navigation)">menu</i>
           <span class="groe">groe</span><span class="dot">.</span><span class="ad">ad's</span> <span>&nbsp | &nbsp Benutzer</span>
-          <!--<img class="logo" src="/static/layout/logo.png"/>-->
         </div>
         <div class="profile">
           <user_image class="user_image" :path="users_image" size="35"/>
           <div class="details">
-            <a class="user_name">{{user_name}}</a> &nbsp | &nbsp <a class="user_account">{{user_account}}</a>
+            <user_name :name="user_name" id="1" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account}}</a>
           </div>
         </div>
       </header>
@@ -21,10 +20,14 @@
   import { mapGetters } from 'vuex'
   import Request from "../../components/functions/request";
   import User_image from "../user_image/index";
+  import User_name from "../user_name/index";
+
+  //todo ad user id in backend an frontend for routing
 
   export default {
     name: "global_header",
     components: {
+      User_name,
       User_image,
       Request
     },
@@ -45,6 +48,14 @@
         'active_navigation'
       ]),
       user_name(){
+        if('lastname' in this.request_header.data || 'firstname' in this.request_header.data ){
+          return this.request_header.data.firstname + ' ' + this.request_header.data.lastname
+        }
+        else {
+          return null
+        }
+      },
+      user_id(){
         if('lastname' in this.request_header.data || 'firstname' in this.request_header.data ){
           return this.request_header.data.firstname + ' ' + this.request_header.data.lastname
         }
@@ -155,6 +166,7 @@
 
       .user_name{
         font-weight: 700;
+        display: inline;
       }
 
       .user_account{

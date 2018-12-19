@@ -47,11 +47,6 @@
             route: 'progress',
             section: 'menu'
           },
-          tasks:{
-            name: 'Aufgaben',
-            route: 'task',
-            section: 'menu'
-          },
           admin:{
             name: 'Verwalten',
             route: 'admin',

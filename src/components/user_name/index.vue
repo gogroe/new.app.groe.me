@@ -23,6 +23,10 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+  a{
+    cursor: pointer !important;
+  }
 
 </style>

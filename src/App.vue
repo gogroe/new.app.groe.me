@@ -233,6 +233,11 @@
     }
   }
 
+  .add_feed{
+    margin-bottom: 5px;
+    text-align: right;
+  }
+
 
   ////////////////////////////////////////////////////////////////////////////////// Component classes inputs
   .input_error{
@@ -339,6 +344,8 @@
       border-width: 1px !important;
     }
   }
+
+
 
   .clear{
     clear: both;

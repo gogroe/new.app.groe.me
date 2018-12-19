@@ -1,7 +1,12 @@
 <template>
   <div class="profile">
     <u_head/>
-    <create_article :type="list_relations.posts"/>
+    <add class="add"
+         :active="active.create"
+         name="Beitrag"
+         v-model="active.create"/>
+    <create_article :type="list_relations.posts"
+                    v-if="active.create"/>
     <h6>BEITRÄGE</h6>
     <posts v-for="(article, i) in request_profile_data"
            :key="i"
@@ -18,10 +23,12 @@
   import Edit from "../../../components/inputs/edit";
   import Posts from "../../../components/articles/posts";
   import Create_article from "../../../components/articles/create";
+  import Add from "../../../components/add/index";
 
   export default {
     name: "users_profile",
     components:{
+      Add,
       Create_article,
       Posts,
       Edit,
@@ -30,6 +37,9 @@
     },
     data(){
       return{
+        active:{
+          create: false
+        },
         request_profile: {
           params: {
             user_id: null
@@ -69,5 +79,9 @@
 </script>
 
 <style lang="scss" scoped>
+
+  .add{
+    text-align: right;
+  }
 
 </style>
