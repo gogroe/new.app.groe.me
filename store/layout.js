@@ -3,6 +3,15 @@ const layout = {
     active:{
       navigation: true
     },
+    header: {
+      firstname: "Gast",
+      lastname: "Nutzer",
+      name: "visitor",
+      gender: null,
+      id: 0,
+      image: '/static/layout/default_profile_image_female.jpg',
+      type: "visitor",
+    },
     user_navigation: [],
     user_profiles: [],
     user_vitas: [],
@@ -11,7 +20,10 @@ const layout = {
 
   },
 
-  mutations: { //this.stroe.commit('mutations_name', varible)
+  mutations: {
+    update_header(state, object){
+      state.header = object
+    },
     update_user_navigation(state, array){
       state.user_navigation = array
     },
@@ -33,6 +45,9 @@ const layout = {
   },
 
   getters: {
+    get_header(state){
+      return state.header
+    },
     user_navigation(state){
       return state.user_navigation
     },

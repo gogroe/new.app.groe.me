@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="u_head default_box">
-      <user_image class="user_image" :path="users_image" size="120"/>
-      <p class="user_name">{{user_name}}</p>
+      <user_image class="user_image" :path="users_image" size="110"/>
+      <user_name :name="user_name" id="1" class="user_name"/>
       <a @click="active.description = !active.description" class="desription">
         Steckbrief <i class="material-icons">arrow_drop_down</i>
       </a>
@@ -16,10 +16,12 @@
   import { mapGetters } from 'vuex'
   import Request from "../functions/request";
   import User_image from "../user_image/index";
+  import User_name from "../user_name/index";
 
   export default {
     name: "u_head",
     components: {
+      User_name,
       User_image,
       Request},
     data(){
@@ -28,7 +30,7 @@
           params: {
             user_id: null
           },
-          url: 'http://newbackend.groe.me/users/get_user_header',
+          url: 'http://newbackend.groe.me/users/get_user_head',
           data: {},
           request: false
         },
@@ -38,36 +40,27 @@
       }
     },
     computed:{
+      ...mapGetters([]),
+      user_id(){
+        return 'id' in this.request_head.data
+          ? this.request_head.data.id
+          : null
+      },
       user_name(){
-        if('lastname' in this.request_head.data || 'firstname' in this.request_head.data ){
-          return this.request_head.data.firstname + ' ' + this.request_head.data.lastname
-        }
-        else {
-          return null
-        }
+        return 'lastname' in this.request_head.data || 'firstname' in this.request_head.data
+          ? this.request_head.data.firstname + ' ' + this.request_head.data.lastname
+          : null
       },
       users_image(){
-        if('image' in this.request_head.data ){
-          if (this.request_head.data.image === null) {
-            return '/static/layout/default_profile_image_female.jpg'
-          }
-          else {
-            return this.request_head.data.image
-          }
-        }
-        else {
-          return null
-        }
+        return 'image' in this.request_head.data
+          ? this.request_head.data.image
+          : null
       },
       user_description(){
-        if('decription' in this.request_head.data ){
-          return this.request_head.data.description
-        }
-        else {
-          return null
-        }
+        return 'decription' in this.request_head.data
+          ? this.request_head.data.description
+          : null
       },
-      ...mapGetters([])
     },
     mounted(){
       this.request_head.params.user_id = this.$route.params.id
@@ -85,6 +78,10 @@
   }
 
   .user_image{
+    border-radius: 120px;
+    width: 120px;
+    height:120px;
+    border: 5px solid #f3f3f3;
     margin: 25px calc(50% - 60px);
   }
 

@@ -81,10 +81,10 @@
     }
 
     li{
-      height: 64px;
+      height: 50px;
       font-size: 14px;
       line-height: 14px;
-      padding: 25px 18px;
+      padding: 17px 18px;
       margin-bottom: 1px;
       border-radius: 2px;
       font-weight: 600;

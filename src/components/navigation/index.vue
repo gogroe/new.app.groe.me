@@ -81,7 +81,7 @@
     li{
       font-size: 18px;
       line-height: 18px;
-      padding: 23px 23px 23px 64px;
+      padding: 17.5px 17.5px 17.5px 64px;
       margin-bottom: 1px;
       width: 100%;
       cursor: pointer;

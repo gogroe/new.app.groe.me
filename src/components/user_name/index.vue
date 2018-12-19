@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a @click="$router.push('/user/' + id + '/profile/')"
+    <a @click="$router.push('/users/' + id + '/profile/')"
        :class="name_class"
         class="user_name">{{name}}</a>
   </div>
@@ -25,7 +25,7 @@
 
 <style lang="scss" scoped>
 
-  a{
+  .user_name{
     cursor: pointer !important;
   }
 

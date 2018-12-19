@@ -6,15 +6,14 @@
       <div class="head">
         <user_image path=""
                     size="43"
-                    image_class="posts_user_image"
                     class="user_image"/>
         <user_name name="Jack Schmidt" :id="obj.create_user_id"
                    class="user_name"/>
+        <div class="clear"></div>
         <div class="options">
           <p class="option" v-if="active.post"><i class="material-icons">more_horiz</i></p>
           <p class="date" v-else>{{timestamp_to_date(obj.create_date)}}</p>
         </div>
-        <span class="clear"></span>
       </div>
       <div class="content">
         <p class="subject">{{obj.subject}}</p>
@@ -92,7 +91,6 @@
     },
     methods:{
       timestamp_to_date(timestamp){
-        console.log(timestamp)
         return moment.unix(timestamp).lang("de").startOf('day').fromNow()
       }
     }
@@ -109,7 +107,13 @@
     padding: 17px 17px 27px 17px;
     position: relative;
 
+    .user_image{
+      float: left;
+      margin-right: 17px;
+    }
+
     .user_name{
+      float: left;
       padding-top: 14px;
     }
 

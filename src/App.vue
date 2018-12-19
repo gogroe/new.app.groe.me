@@ -240,16 +240,11 @@
 
 
   ////////////////////////////////////////////////////////////////////////////////// Component classes inputs
+
   .input_error{
     font-size: 12px;
     font-weight: 600;
     color: red;
-  }
-
-  .navigation_user_image{
-    .image_wrapper{
-      border-color: #505050 !important;
-    }
   }
 
   input, textarea{
@@ -257,7 +252,7 @@
     border-radius: 2px;
     font-size: var(--font-size);
     font-family: 'Roboto', sans-serif;
-    outline-color: #3da0f5;
+    outline: none;
     display: inline-block;
 
     &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -281,11 +276,13 @@
 
   .create_input {
     width: 100%;
-    padding: 10px;
+    padding: 10px 0;
     margin-bottom: 8px;
+    border: none;
   }
 
   .create_input_label {
+    display: none;
     width: 100%;
     font-size: var(--font-size);
     color:#cdcdcd;
@@ -305,47 +302,18 @@
     margin-bottom: 8px;
   }
 
-  .articles{
-    .create_input_label{
-      display: none;
-    }
-  }
-
-  .article_comments{
-    .create_input{
-      margin-top: 8px;
-      border: none;
-      border-top: 1px solid #e6e6e6;
-      padding-left: 0;
-      outline: none;
-    }
-
-    .create_input_label{
-      display: none;
-    }
-  }
-
 
 
   ////////////////////////////////////////////////////////////////////////////////// Component classes images
 
-  header{
-    .user_image{
-      .image_wrapper{
-        border:1px;
-      }
-    }
+  hr{
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #e4e4e4;
+    margin: 0;
+    padding: 0;
   }
-
-  .posts_user_image{
-    .image_wrapper{
-      float: left;
-      margin-right: 17px;
-      border-width: 1px !important;
-    }
-  }
-
-
 
   .clear{
     clear: both;

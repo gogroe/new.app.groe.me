@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="image_class">
+    <div class="user_image" :class="image_class">
       <div class="image_wrapper" :style="{ width: size + 'px', height: size + 'px', borderRadius: size + 'px'}">
         <img :src="path_check(path, gender)"/>
       </div>
@@ -51,7 +51,7 @@
 <style lang="scss" scoped>
   .image_wrapper{
     overflow: hidden;
-    border: 5px solid #ebebeb;
+    border: 1px solid #ebebeb;
 
     img{
       height: 100%;

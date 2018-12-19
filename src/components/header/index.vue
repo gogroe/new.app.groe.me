@@ -8,7 +8,7 @@
         <div class="profile">
           <user_image class="user_image" :path="users_image" size="35"/>
           <div class="details">
-            <user_name :name="user_name" id="1" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account}}</a>
+            <user_name :name="user_name" :id="user_id" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account}}</a>
           </div>
         </div>
       </header>
@@ -35,7 +35,7 @@
       return{
         request_header: {
           params: {
-            user_id: null //todo delete when authentication is implemented
+            uid: null //todo auth/change
           },
           url: 'http://newbackend.groe.me/users/get_user_header',
           data: {},
@@ -45,38 +45,44 @@
     },
     computed:{
       ...mapGetters([
-        'active_navigation'
+        'active_navigation',
+        'get_header',
+        'uid',
+        'reload'
       ]),
-      user_name(){
-        if('lastname' in this.request_header.data || 'firstname' in this.request_header.data ){
-          return this.request_header.data.firstname + ' ' + this.request_header.data.lastname
-        }
-        else {
-          return null
-        }
-      },
       user_id(){
-        if('lastname' in this.request_header.data || 'firstname' in this.request_header.data ){
-          return this.request_header.data.firstname + ' ' + this.request_header.data.lastname
-        }
-        else {
-          return null
-        }
+        return 'id' in this.request_header.data
+          ? this.request_header.data.id
+          : null
+      },
+      user_name(){
+        return 'lastname' in this.request_header.data || 'firstname' in this.request_header.data
+          ? this.request_header.data.firstname + ' ' + this.request_header.data.lastname
+          : null
       },
       users_image(){
-        if('image' in this.request_header.data ){
-          return this.request_header.data.image
-        }
-        else {
-          return ''
-        }
+        return 'image' in this.request_header.data
+          ? this.request_header.data.image
+          : null
       },
       user_account(){
-        if('account' in this.request_header.data){
-          return this.request_header.data.account + ' Euro'
-        }
-        else {
-          return '0,00 Euro' //todo set null when account is added
+        return 'account' in this.request_header.data
+          ? this.request_header.data.account + ' Euro'
+          : '0,00 Euro'
+      },
+      request_header_data(){
+        return this.request_header.data
+      }
+    },
+    watch:{
+      request_header_data: function (object) {
+        this.$store.commit('update_header', object)
+      },
+
+      reload: function (boolean) {
+        if(boolean){
+          this.request_header.params.uid = this.uid //todo auth/change
+          this.request_header.request = true
         }
       }
     },
@@ -85,14 +91,16 @@
     },
     methods:{
       get_request_header(){
-        this.request_header.params.user_id = this.$route.params.id
+        this.request_header.params.uid = this.uid
         this.request_header.request = true
+        return true
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+
   header {
     z-index: 1000;
     width: 100%;

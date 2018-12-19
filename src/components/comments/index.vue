@@ -1,13 +1,20 @@
 <template>
   <div>
-    <div class="article_comments">
-      <render_comments :relation_type="list_relations['posts']"
-                       :relation_id="articles_id"
-                       :action="action"
-                       v-model="action"/>
-      <create_comment :relation_type="list_relations['posts']"
-                      :relation_id="articles_id"
-                      v-model="action"/>
+    <div class="comments">
+      <div class="render">
+        <render_comments :relation_type="list_relations['posts']"
+                         :relation_id="articles_id"
+                         :action="action"
+                         v-model="action"/>
+      </div>
+      <div class="create">
+        <user_image :path="get_header.image" size="35" class="user_image"/>
+        <create_comment :relation_type="list_relations['posts']"
+                        :relation_id="articles_id"
+                        v-model="action"
+                        class="create_comment"/>
+        <div class="clear"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -16,15 +23,16 @@
   import { mapGetters } from 'vuex'
   import Create_comment from "./create";
   import Render_comments from "./render";
+  import User_image from "../user_image/index";
 
   export default {
-    name: "article_comments",
+    name: "comments",
     props:{
       articles_id:{
         required: true
       }
     },
-    components: {Render_comments, Create_comment},
+    components: {User_image, Render_comments, Create_comment},
     data(){
       return{
         action: null
@@ -32,15 +40,31 @@
     },
     computed:{
       ...mapGetters([
-        'list_relations'
+        'list_relations',
+        'get_header'
       ])
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .article_comments{
+
+  .comments{
     width: 100%;
-    margin-top: 17px;
+    padding: 17px;
+  }
+
+  .user_image{
+    float: left;
+    margin-right: 17px;
+  }
+
+  .create{
+    margin-top: 10px;
+  }
+
+  .create_comment{
+    width: calc(100% - 43px - 52px);
+    float: left;
   }
 </style>
