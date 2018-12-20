@@ -39,7 +39,7 @@
       <div class="image_wrapper">
         <img src="/static/layout/reichstag.jpg"/>
       </div>
-      <article_comments :relation_id="obj.id" relation_type="post" class="article_comments"/>
+      <article_comments :relation_id="obj.id" relation_type="posts" class="article_comments"/>
     </div>
   </div>
 </template>
@@ -48,19 +48,20 @@
 
   // obj:[
   //   {
-  //     "id": "integer",
-  //     "state": "integer",
-  //     "create_user_id": "integer",
-  //     "create_date": "timestamp",
-  //     "edit_user_id": "integer",
-  //     "edit_date": "timestamp",
-  //     "content": "text",
-  //     "subject": "text",
-  //     "type": "integer",
-  //     "medias": []
-  //     "firstname": string
-  //     "lastname": string
-  //     "image": string
+  //     id: integer,
+  //     state: integer,
+  //     create_user_id: integer,
+  //     create_date: timestamp,
+  //     edit_user_id: integer,
+  //     edit_date: timestamp,
+  //     content: text,
+  //     subject: text,
+  //     type: integer,
+  //     medias: []
+  //     firstname: string
+  //     lastname: string
+  //     image: string
+  //     like_active: boolean
   //   }
   // ]
 

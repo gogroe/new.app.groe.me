@@ -2,14 +2,15 @@
   <div>
     <div class="like">
       <i class="material-icons"
-         @click="$emit('input', !active)"
+         @click="set"
          v-if="active === false">favorite_border</i>
       <i class="material-icons active"
-         @click="$emit('input', !active)"
+         @click="set"
          v-if="active">favorite</i>
-      <span>460</span>
+      <span>{{count}}</span>
     </div>
-    <!--<request :obj="request_likes" v-model="request_likes"/>-->
+    <request :obj="request_set_article_like" v-model="request_set_article_like"/>
+    <request :obj="request_get_article_likes" v-model="request_get_article_likes"/>
   </div>
 </template>
 
@@ -21,9 +22,6 @@
     name: "like",
     components: {Request},
     props:{
-      active:{
-        required: false
-      },
       relation_id:{
         required: true
       },
@@ -33,24 +31,74 @@
     },
     data(){
       return{
-        request_likes:{
+        request_set_article_like:{
           params: {
-            relation_type: null,
+            state: 0,
+            relation_id: this.relation_id,
+            relation_type: '',
             uid: this.$route.params.id
           },
-          url: 'https://newbackend.groe.me/articles/create_article_like',
+          url: 'https://newbackend.groe.me/articles/set_article_like',
           data: {},
           request: false
         },
+        request_get_article_likes:{
+          params: {
+            relation_id: this.relation_id,
+            relation_type: '',
+            user_id: this.$route.params.id
+          },
+          url: 'https://newbackend.groe.me/articles/get_article_likes',
+          data: {},
+          request: false
+        },
+        active: false
       }
     },
     computed:{
       ...mapGetters([
         'list_relations'
-      ])
+      ]),
+      request_set_article_like_data(){
+        return this.request_set_article_like.data
+      },
+      request_get_article_likes_data(){
+        return this.request_get_article_likes.data
+      },
+      count(){
+        return 'count' in this.request_get_article_likes.data
+          ? this.request_get_article_likes.data.count
+          : 0
+      },
+      like_active(){
+        return 'active' in this.request_get_article_likes.data
+          ? this.request_get_article_likes.data.active
+          : false
+      },
+    },
+    watch:{
+      request_set_article_like_data(object){
+        if('update_state' in object){
+          this.request_get_article_likes.request = true
+        }
+      },
+      request_get_article_likes_data(object){
+        if('active' in object){
+          this.active = object.active
+        }
+      }
     },
     mounted(){
-      this.request_likes.params.relation_type = this.list_relations[this.relation_type]
+      this.request_set_article_like.params.relation_type = this.list_relations[this.relation_type]
+      this.request_get_article_likes.params.relation_type = this.list_relations[this.relation_type]
+      this.request_get_article_likes.request = true
+    },
+    methods:{
+      set(){
+        this.active = !this.active
+        this.request_set_article_like.params.state = this.active === true ? 1 : 0
+        this.request_set_article_like.request = true
+      }
     }
   }
 </script>

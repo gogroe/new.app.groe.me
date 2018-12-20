@@ -3,15 +3,15 @@
     <div class="render_comments">
       <p class="details"
          :class="{'active': active.render}"
-         v-if="request_article_comments.data.length > 0">
-        {{request_article_comments.data.length}}
+         v-if="comments.length > 0">
+        {{count}}
         <span @click="active.render = true">
-          KOMMENTAR<span v-if="request_article_comments.data.length > 1">E</span> ANZEIGEN
+          KOMMENTAR<span v-if="comments.length > 1">E</span> ANZEIGEN
         </span>
       </p>
-      <hr v-if="request_article_comments.data.length > 0">
+      <hr v-if="comments.length > 0">
       <ul v-if="active.render">
-        <li v-for="(comment, i) in request_article_comments.data" :key="i">
+        <li v-for="(comment, i) in comments" :key="i">
           <user_image path=""
                       size="35"
                       class="user_image"/>
@@ -67,6 +67,18 @@
         }
       }
     },
+    computed:{
+      comments(){
+        return 'comments' in this.request_article_comments.data
+          ? this.request_article_comments.data.comments
+          : []
+      },
+      count(){
+        return 'count' in this.request_article_comments.data
+          ? this.request_article_comments.data.count
+          : 0
+      }
+    },
     watch:{
       action: function (string) {
         if(string === 'reload'){
@@ -77,11 +89,6 @@
     },
     mounted(){
       this.request_article_comments.request = true
-    },
-    methods:{
-      timestamp_to_date(timestamp){
-        return moment.unix(timestamp).lang("de").startOf('day').fromNow()
-      }
     }
   }
 </script>

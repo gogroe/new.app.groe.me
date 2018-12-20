@@ -13,7 +13,7 @@
                         :relation_id="relation_id"
                         v-model="action"
                         class="create_comment"/>
-        <like :active="true" :relation_type="relation_type" :relation_id="relation_id" class="like"/>
+        <like :relation_type="relation_type" :relation_id="relation_id" class="like"/>
         <div class="clear"></div>
       </div>
     </div>
