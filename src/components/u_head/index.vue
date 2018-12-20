@@ -2,7 +2,7 @@
   <div>
     <div class="u_head default_box">
       <user_image class="user_image" :path="users_image" size="110"/>
-      <user_name :name="user_name" id="1" class="user_name"/>
+      <user_name :name="user_name" :id="user_id" class="user_name"/>
       <a @click="active.description = !active.description" class="desription">
         Steckbrief <i class="material-icons">arrow_drop_down</i>
       </a>
@@ -61,6 +61,15 @@
           ? this.request_head.data.description
           : null
       },
+      route_params_id(){
+        return this.$route.params.id
+      }
+    },
+    watch:{
+      route_params_id: function (number) {
+        this.request_head.params.user_id = this.$route.params.id
+        this.request_head.request = true
+      }
     },
     mounted(){
       this.request_head.params.user_id = this.$route.params.id

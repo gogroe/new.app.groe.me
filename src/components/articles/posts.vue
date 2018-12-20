@@ -4,15 +4,18 @@
        @mouseout="active.post = false">
     <div class="default_box">
       <div class="head">
-        <user_image path=""
+        <user_image :path="obj.image"
                     size="43"
                     class="user_image"/>
-        <user_name name="Jack Schmidt" :id="obj.create_user_id"
+        <user_name :name="obj.firstname + ' ' + obj.lastname" :id="obj.create_user_id"
                    class="user_name"/>
         <div class="clear"></div>
         <div class="options">
-          <p class="option" v-if="active.post"><i class="material-icons">more_horiz</i></p>
-          <p class="date" v-else>{{timestamp_to_date(obj.create_date)}}</p>
+          <p class="option"
+             v-if="active.post"><i class="material-icons">more_horiz</i></p>
+          <from_now v-else
+                    :timestamp="obj.create_date"
+                    class="date"/>
         </div>
       </div>
       <div class="content">
@@ -36,7 +39,7 @@
       <div class="image_wrapper">
         <img src="/static/layout/reichstag.jpg"/>
       </div>
-      <article_comments :articles_id="obj.id"/>
+      <article_comments :relation_id="obj.id" relation_type="post" class="article_comments"/>
     </div>
   </div>
 </template>
@@ -54,26 +57,25 @@
   //     "content": "text",
   //     "subject": "text",
   //     "type": "integer",
-  //     "comments": [],
-  //     "likes": [],
-  //     "tags": [],
   //     "medias": []
+  //     "firstname": string
+  //     "lastname": string
+  //     "image": string
   //   }
   // ]
 
-  import Likes from "../likes/index";
   import Article_comments from "../comments/index";
   import User_image from "../user_image/index";
   import User_name from "../user_name/index";
-  import moment from 'moment'
+  import From_now from "../date/from_now";
 
   export default {
     name: "posts",
     components: {
+      From_now,
       User_name,
       User_image,
       Article_comments,
-      Likes
     },
     props:{
       obj:{
@@ -87,11 +89,6 @@
           post: false,
           more: false
         }
-      }
-    },
-    methods:{
-      timestamp_to_date(timestamp){
-        return moment.unix(timestamp).lang("de").startOf('day').fromNow()
       }
     }
   }
@@ -122,13 +119,9 @@
       right: 17px;
       top: calc( 17px + 12px);
 
-      .date{
-        color: #bbbbbb;
-      }
-
       .option{
         i{
-          vertical-align: middle;
+          margin-top: -5px;
         }
       }
     }
@@ -162,5 +155,6 @@
       width: 100%;
     }
   }
+
 
 </style>

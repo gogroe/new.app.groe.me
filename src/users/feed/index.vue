@@ -61,9 +61,9 @@
 <style lang="scss" scoped>
   .feed{
     position:relative;
-    width: 800px;
+    width: 1000px;
     padding-top: 55px;
-    margin-left: calc(50% - 400px);
+    margin-left: calc(50% - 400px - 100px); //-100 for centering
   }
 
   ul{

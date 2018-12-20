@@ -86,8 +86,10 @@
     },
     methods:{
       send(){
-        this.request_create_comments.params.comment = this.create_article_comment.inputs.value.input.value
-        this.request_create_comments.request = true
+        if(this.create_article_comment.inputs.value.input.value.length > 0){
+          this.request_create_comments.params.comment = this.create_article_comment.inputs.value.input.value
+          this.request_create_comments.request = true
+        }
       }
     },
     mixins:[Fill_input, Load_request]

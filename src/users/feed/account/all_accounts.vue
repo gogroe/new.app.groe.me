@@ -62,7 +62,7 @@
     methods:{
       timestamp_to_date(timestamp){
         console.log(timestamp)
-        return moment.unix(timestamp).lang("de").format('ll')
+        return moment.unix(timestamp).locale("de").format('ll')
       }
     }
   }

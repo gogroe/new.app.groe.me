@@ -3,16 +3,17 @@
     <div class="comments">
       <div class="render">
         <render_comments :relation_type="list_relations['posts']"
-                         :relation_id="articles_id"
+                         :relation_id="relation_id"
                          :action="action"
                          v-model="action"/>
       </div>
       <div class="create">
         <user_image :path="get_header.image" size="35" class="user_image"/>
-        <create_comment :relation_type="list_relations['posts']"
-                        :relation_id="articles_id"
+        <create_comment :relation_type="list_relations[relation_type]"
+                        :relation_id="relation_id"
                         v-model="action"
                         class="create_comment"/>
+        <like :active="true" :relation_type="relation_type" :relation_id="relation_id" class="like"/>
         <div class="clear"></div>
       </div>
     </div>
@@ -24,15 +25,19 @@
   import Create_comment from "./create";
   import Render_comments from "./render";
   import User_image from "../user_image/index";
+  import Like from "../like/index";
 
   export default {
     name: "comments",
     props:{
-      articles_id:{
+      relation_id:{
+        required: true
+      },
+      relation_type:{
         required: true
       }
     },
-    components: {User_image, Render_comments, Create_comment},
+    components: {Like, User_image, Render_comments, Create_comment},
     data(){
       return{
         action: null
@@ -51,7 +56,7 @@
 
   .comments{
     width: 100%;
-    padding: 17px;
+    padding: 0 17px 17px 17px;
   }
 
   .user_image{
@@ -64,7 +69,11 @@
   }
 
   .create_comment{
-    width: calc(100% - 43px - 52px);
+    width: calc(100% - 70px - 52px);
+    float: left;
+  }
+
+  .like{
     float: left;
   }
 </style>

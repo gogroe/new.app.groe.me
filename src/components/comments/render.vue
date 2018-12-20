@@ -18,7 +18,8 @@
           <div class="comment_content">
             <user_name :name="comment.firstname + ' ' + comment.lastname"
             :id="comment.create_user_id"
-            class="user_name"/> <span class="date">{{timestamp_to_date(comment.create_date)}}</span>
+            class="user_name"/>
+            <from_now class="date" :timestamp="comment.create_date"/>
             <p>{{comment.value}}</p>
           </div>
           <div class="clear"></div>
@@ -34,10 +35,11 @@
   import User_image from "../user_image/index";
   import User_name from "../user_name/index";
   import moment from 'moment'
+  import From_now from "../date/from_now";
 
   export default {
     name: "render_comments",
-    components: { User_name, User_image, Request },
+    components: {From_now, User_name, User_image, Request },
     props:{
       relation_type:{
         required: true
@@ -125,7 +127,7 @@
         }
 
         .date{
-          color: #bbbbbb;
+          display: inline;
         }
       }
 

@@ -6,9 +6,9 @@
           <span class="groe">groe</span><span class="dot">.</span><span class="ad">ad's</span> <span>&nbsp | &nbsp Benutzer</span>
         </div>
         <div class="profile">
-          <user_image class="user_image" :path="users_image" size="35"/>
+          <user_image class="user_image" :path="get_header.image" size="35"/>
           <div class="details">
-            <user_name :name="user_name" :id="user_id" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account}}</a>
+            <user_name :name="get_header.firstname + ' ' + get_header.lastname" :id="get_header.id" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account}}</a>
           </div>
         </div>
       </header>
@@ -50,21 +50,6 @@
         'uid',
         'reload'
       ]),
-      user_id(){
-        return 'id' in this.request_header.data
-          ? this.request_header.data.id
-          : null
-      },
-      user_name(){
-        return 'lastname' in this.request_header.data || 'firstname' in this.request_header.data
-          ? this.request_header.data.firstname + ' ' + this.request_header.data.lastname
-          : null
-      },
-      users_image(){
-        return 'image' in this.request_header.data
-          ? this.request_header.data.image
-          : null
-      },
       user_account(){
         return 'account' in this.request_header.data
           ? this.request_header.data.account + ' Euro'
