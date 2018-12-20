@@ -2,9 +2,11 @@
   <div>
     <div class="like">
       <i class="material-icons"
+         :style="{ fontSize: size + 'px', color: color}"
          @click="set"
          v-if="active === false">favorite_border</i>
       <i class="material-icons active"
+         :style="{ fontSize: size + 'px'}"
          @click="set"
          v-if="active">favorite</i>
       <span>{{count}}</span>
@@ -27,6 +29,12 @@
       },
       relation_type:{
         required: true
+      },
+      size: {
+        required: false
+      },
+      color: {
+        required: false
       }
     },
     data(){
@@ -81,6 +89,10 @@
         if('update_state' in object){
           this.request_get_article_likes.request = true
         }
+        if('create' in object){
+          this.request_get_article_likes.request = true
+        }
+
       },
       request_get_article_likes_data(object){
         if('active' in object){

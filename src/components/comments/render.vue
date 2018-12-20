@@ -20,9 +20,26 @@
             :id="comment.create_user_id"
             class="user_name"/>
             <from_now class="date" :timestamp="comment.create_date"/>
-            <p>{{comment.value}}</p>
+            <div v-if="comment.value.length > 200">
+              <p v-if="active.more">
+                {{comment.value}}
+                <span @click="active.more = false">weniger...</span>
+              </p>
+              <p v-else>
+                {{comment.value.substring(0,200)}}
+                <span @click="active.more = true">mehr...</span>
+              </p>
+            </div>
+            <div v-else>
+              <p>{{comment.value}} </p>
+            </div>
           </div>
           <div class="clear"></div>
+          <like relation_type="comment"
+                :relation_id="comment.id"
+                class="like"
+                size="17"
+                color="#9B9B9B"/>
         </li>
       </ul>
     </div>
@@ -31,15 +48,16 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import Request from "../functions/request";
   import User_image from "../user_image/index";
   import User_name from "../user_name/index";
-  import moment from 'moment'
   import From_now from "../date/from_now";
+  import Like from "../like/index";
 
   export default {
     name: "render_comments",
-    components: {From_now, User_name, User_image, Request },
+    components: {Like, From_now, User_name, User_image, Request },
     props:{
       relation_type:{
         required: true
@@ -63,8 +81,9 @@
           request: false
         },
         active:{
-          render: false
-        }
+          render: false,
+          more: false
+        },
       }
     },
     computed:{
@@ -119,6 +138,8 @@
 
     li{
       margin-bottom: 17px;
+      position: relative;
+      width: 100%;
 
       .user_image{
         float:left;
@@ -126,6 +147,7 @@
       }
 
       .comment_content{
+        width: calc(100% - 100px);
         padding-top: 6px;
         float:left;
 
@@ -141,6 +163,17 @@
       p{
         line-height: 18px;
         font-weight: 400;
+
+        span{
+          color:#3da0f5;
+          cursor: pointer;
+        }
+      }
+
+      .like{
+        position: absolute;
+        right: 0;
+        top:2px;
       }
     }
   }
