@@ -1,18 +1,8 @@
 <template>
-  <div class="admin_user">
+  <div class="adress">
     <edit v-for="(input, key, i) in update_user.inputs"
           :key="i"
           :obj="fill_fields(key, update_user, request_admin_user.data)"/>
-      <div class="adress_buttons">
-        <button type="button" name="button">add adress</button>
-        <button v-if="!show_history" type="button" name="button" @click="show_history = true">history</button>
-      </div>
-      <div v-if="show_history">
-      <div v-for="key in adress_history">
-        <p>key</p>
-      </div>
-      <p  @click="show_history = false">hide history</p>
-    </div>
     <request :obj="request_admin_user" v-model="request_admin_user"/>
   </div>
 </template>
@@ -25,7 +15,7 @@
   import Fill_edit from '../../../components/inputs/fill_edit'
 
   export default {
-    name: "admin_user",
+    name: "adress",
     components:{
       Edit,
       Request,

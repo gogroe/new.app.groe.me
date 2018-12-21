@@ -3,16 +3,20 @@
     <global_header/>
     <navigation/>
     <div class="main_content" :class="{'active_navigation': active_navigation}">
-      <projects v-if="cut_path($route.path) === '/projects'"/>
-      <users v-else-if="cut_path($route.path) === '/users'"/>
-      <router-view v-else-if="
-      cut_path($route.path) !== 'projects' ||
-      cut_path($route.path) !== 'users'"/>
+      <projects v-if="cut_route_name_prefix($route.name) === 'projects' ||
+                      cut_route_name_prefix($route.name) === 'project' "/>
+      <users v-else-if="cut_route_name_prefix($route.name) === 'users' ||
+                         cut_route_name_prefix($route.name) === 'user' "/>
+      <router-view v-else-if="cut_route_name_prefix($route.name) === 'projects' ||
+                              cut_route_name_prefix($route.name) === 'project' ||
+                              cut_route_name_prefix($route.name) === 'users' ||
+                              cut_route_name_prefix($route.name) === 'user'"/>
     </div>
   </div>
 </template>
 
 <script>
+  import Helper from './components/functions/custom_helper'
   import { mapGetters } from 'vuex'
   import Projects from "./projects/index";
   import Users from "./users/index";
@@ -36,11 +40,7 @@
         'active_navigation'
       ])
     },
-    methods:{
-      cut_path(path){
-        return path.substring(path.indexOf('/'),path.indexOf('/', 1));
-      }
-    }
+    mixins:[Helper]
   }
 </script>
 
@@ -248,7 +248,7 @@
   }
 
   input, textarea{
-    border: 1px solid #cdcdcd;
+    border: none;
     border-radius: 2px;
     font-size: var(--font-size);
     font-family: 'Roboto', sans-serif;
@@ -288,7 +288,7 @@
     color:#cdcdcd;
   }
 
-  .edit_input{
+  .edit_input, .edit_input_light{
     width: 60%;
     padding: 4px;
     margin-bottom: 8px;
@@ -301,6 +301,12 @@
     text-align: right;
     margin-bottom: 8px;
   }
+
+  .edit_input_light{
+    background: #fdfdfd;
+  }
+
+
 
 
 

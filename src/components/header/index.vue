@@ -105,7 +105,7 @@
     i{
       font-size: 24px;
       line-height: 30px;
-      margin: 6px 43px 6px 6px;
+      margin: 6px 27px 6px 6px;
       color: #bfbfbf;
       cursor: pointer;
 

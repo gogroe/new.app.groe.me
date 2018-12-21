@@ -52,7 +52,8 @@
     },
     computed:{
       ...mapGetters([
-        'list_relations'
+        'list_relations',
+        'get_header'
       ]),
       request_profile_data(){
         return this.request_profile.data
@@ -63,16 +64,19 @@
     },
     watch:{
       route_id: function () {
-        this.get_user_profile()
+        this.get_user_request()
       }
     },
     mounted(){
-      this.get_user_profile()
+      this.get_user_request(this.request_profile)
     },
     methods:{
-      get_user_profile(){
-        this.request_profile.params.user_id = this.$route.params.id
-        this.request_profile.request = true
+      get_user_request(request_obj){
+        request_obj.params.user_id = 'id' in this.$route.params
+            ? this.$route.params.id
+            : this.get_header.id
+
+        request_obj.request = true
       }
     }
   }

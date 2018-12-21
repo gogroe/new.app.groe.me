@@ -1,5 +1,5 @@
 <template>
-  <div class="admin_user">
+  <div class="contact">
 
     <label class="edit_input_label" for="old_password">Alt</label>
     <input  class="edit_input" type="password" name="old_password" v-model="old_pass" id="old_password">

@@ -4,13 +4,13 @@
         <ul>
           <h6 class="lable">MENU</h6>
           <li v-for="(navigation, i) in navigations" :key="i"
-              @click="$router.push('/users/' + $route.params.id + '/' + navigation.route)"
-              :class="{'active': $route.name === 'users_' + navigation.route}"
+              @click="$router.push({ name: navigation.route, params: { id: user_id } })"
+              :class="{'active': $route.name === navigation.route}"
               v-if="navigation.section === 'menu'"><span class="dot">&#9679;</span> {{navigation.name}}</li>
           <h6 class="lable more">EINSTELLUNGEN</h6>
           <li v-for="(navigation, i) in navigations" :key="i"
-              @click="$router.push('/users/' + $route.params.id + '/' + navigation.route)"
-              :class="{'active': $route.name === 'users_' + navigation.route}"
+              @click="$router.push({ name: navigation.route, params: { id: user_id } })"
+              :class="{'active': $route.name === navigation.route}"
               v-if="navigation.section === 'settings'"><span class="dot">&#9679;</span> {{navigation.name}}</li>
         </ul>
         <div class="router_feed">
@@ -22,39 +22,85 @@
 </template>
 
 <script>
+  import Custom_helper from '../../components/functions/custom_helper'
+  import { mapGetters } from 'vuex'
+
   export default {
     name: "users_feed",
     data(){
       return{
-        navigations:{
+        users_navigations:{
           trophies:{
             name: 'Tropähen',
-            route: 'profile',
+            route: 'users_profile',
             section: 'menu'
           },
           accounts:{
             name: 'Konto',
-            route: 'account',
+            route: 'users_account',
             section: 'menu'
           },
           vita:{
             name: 'Vita',
-            route: 'vita',
+            route: 'users_vita',
             section: 'menu'
           },
           progress:{
             name: 'Verlauf',
-            route: 'progress',
+            route: 'users_progress',
             section: 'menu'
           },
           admin:{
             name: 'Verwalten',
-            route: 'admin',
+            route: 'users_admin',
             section: 'settings'
+          }
+        },
+        user_navigations:{
+          trophies:{
+            name: 'Tropähen',
+            route: 'user_profile',
+            section: 'menu'
           },
+          accounts:{
+            name: 'Konto',
+            route: 'user_account',
+            section: 'menu'
+          },
+          vita:{
+            name: 'Vita',
+            route: 'user_vita',
+            section: 'menu'
+          },
+          progress:{
+            name: 'Verlauf',
+            route: 'user_progress',
+            section: 'menu'
+          },
+          admin:{
+            name: 'Verwalten',
+            route: 'user_admin',
+            section: 'settings'
+          }
         }
       }
-    }
+    },
+    computed:{
+      ...mapGetters([
+        'uid'
+      ]),
+      navigations(){
+        return this.cut_route_name_prefix(this.$route.name) === 'users'
+          ? this.users_navigations
+          : this.user_navigations
+      },
+      user_id(){
+        return 'id' in this.$route.params
+          ? this.$route.params.id
+          : this.uid
+      }
+    },
+    mixins:[Custom_helper]
   }
 </script>
 
@@ -87,9 +133,9 @@
       padding: 17px 18px;
       margin-bottom: 1px;
       border-radius: 2px;
-      font-weight: 600;
+      /*font-weight: 600;*/
       cursor: pointer;
-      color: #333333;
+      color: #7f7f7f;
 
       .dot {
         margin-right: 27px;
