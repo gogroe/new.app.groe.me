@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import Load_request from '../functions/load_request'
   import Request from "../functions/request";
   import User_image from "../user_image/index";
   import User_name from "../user_name/index";
@@ -40,7 +40,6 @@
       }
     },
     computed:{
-      ...mapGetters([]),
       user_id(){
         return 'id' in this.request_head.data
           ? this.request_head.data.id
@@ -66,15 +65,17 @@
       }
     },
     watch:{
-      route_params_id: function (number) {
-        this.request_head.params.user_id = this.$route.params.id
-        this.request_head.request = true
-      }
+      route_params_id: function () {
+        this.get_user_request(this.request_head)
+      },
+      get_header: function () {
+        this.get_user_request(this.request_head)
+      },
     },
     mounted(){
-      this.request_head.params.user_id = this.$route.params.id
-      this.request_head.request = true
-    }
+      this.get_user_request(this.request_head)
+    },
+    mixins:[Load_request]
   }
 </script>
 

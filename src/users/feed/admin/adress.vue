@@ -1,6 +1,12 @@
 <template>
   <div class="adress">
-    <edit v-for="(input, key, i) in update_user.inputs"
+    <add v-if="active.update === false"
+         name="Adresse"
+         :active="active.create"
+         v-model="active.create"/>
+
+    <edit v-if="active.update"
+          v-for="(input, key, i) in update_user.inputs"
           :key="i"
           :obj="fill_fields(key, update_user, request_admin_user.data)"/>
     <request :obj="request_admin_user" v-model="request_admin_user"/>
@@ -8,21 +14,25 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   import Request from "../../../components/functions/request"
   import Load_request from "../../../components/functions/load_request"
   import Edit from "../../../components/inputs/edit"
   import Fill_edit from '../../../components/inputs/fill_edit'
+  import Add from "../../../components/add/index";
 
   export default {
     name: "adress",
     components:{
+      Add,
       Edit,
       Request,
     },
     data(){
       return{
-        show_history: false,
+        active:{
+          create: false,
+          update: false
+        },
         request_admin_user: {
           params: {
             user_id: null
@@ -41,25 +51,21 @@
             uid: 1
           },
           inputs:{
-            country: {
-              name: 'Land',
-              type: 'text'
-            },
-            city: {
-              name: 'Stadt',
+            street: {
+              name: 'Straße',
               type: 'text'
             },
             zip: {
               name: 'Postleitzahl',
               type: 'number'
             },
-            street: {
-              name: 'Straße',
+            city: {
+              name: 'Stadt',
               type: 'text'
             },
-            details: {
-              name: 'zusätzliche Information',
-              type: 'textarea'
+            country: {
+              name: 'Land',
+              type: 'text'
             }
           }
         }
@@ -79,12 +85,12 @@
         this.update_store('update_user_admin_user', 'user_admin_user', object, 'id')
       },
       route_id: function(){
-        this.request_admin_user.params.user_id = this.$route.params.id
+        this.set_user_id(this.request_admin_user)
         this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
       }
     },
     mounted(){
-      this.request_admin_user.params.user_id = this.$route.params.id
+      this.set_user_id(this.request_admin_user)
       this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
     },
     methods:{

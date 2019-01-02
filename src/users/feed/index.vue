@@ -1,6 +1,7 @@
 <template>
     <div>
       <div class="feed">
+        <u_head class="u_head"/>
         <ul>
           <h6 class="lable">MENU</h6>
           <li v-for="(navigation, i) in navigations" :key="i"
@@ -24,9 +25,11 @@
 <script>
   import Custom_helper from '../../components/functions/custom_helper'
   import { mapGetters } from 'vuex'
+  import U_head from "../../components/u_head/index";
 
   export default {
     name: "users_feed",
+    components: {U_head},
     data(){
       return{
         users_navigations:{
@@ -107,7 +110,7 @@
 <style lang="scss" scoped>
   .feed{
     position:relative;
-    width: 1000px;
+    width: 800px;
     padding-top: 55px;
     margin-left: calc(50% - 400px - 100px); //-100 for centering
   }
@@ -116,6 +119,7 @@
     width: 200px;
     float: left;
     padding-right: 10px;
+    margin-top: 42px;
 
     h6{
       margin-left: 10px;

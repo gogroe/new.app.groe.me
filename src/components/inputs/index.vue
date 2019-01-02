@@ -87,4 +87,8 @@
 
 <style scoped>
 
+  label{
+    vertical-align: top;
+  }
+
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="admin">
-    <u_head/>
     <h6>VERWALTEN</h6>
     <div class="default_box">
       <ul>
@@ -23,9 +22,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import U_head from "../../../components/u_head/index";
-  import Edit from "../../../components/inputs/edit";
   import Admin_user from "./user";
   import Admin_contact from "./contact";
   import Admin_adress from "./adress";
@@ -40,8 +36,6 @@
       Admin_adress,
       Admin_contact,
       Admin_user,
-      Edit,
-      U_head,
     },
     data(){
       return{

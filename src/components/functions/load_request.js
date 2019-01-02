@@ -3,7 +3,8 @@ import { mapGetters } from 'vuex'
 export default {
   computed:{
     ...mapGetters([
-      'reload'
+      'reload',
+      'get_header'
     ])
   },
   watch:{
@@ -84,6 +85,20 @@ export default {
       }
       this.$store.commit(commit, request_obj)
       return true
+    },
+
+
+
+
+    get_user_request(request_obj){
+      this.set_user_id(request_obj)
+      request_obj.request = true
+    },
+
+    set_user_id(request_obj){
+      return request_obj.params.user_id = 'id' in this.$route.params
+        ? this.$route.params.id
+        : this.get_header.id
     }
   }
 }

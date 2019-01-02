@@ -74,11 +74,13 @@
         this.update_store('update_user_admin_user', 'user_admin_user', object, 'id')
       },
       route_id: function(){
-        this.get_user_request(this.request_admin_user)
+        this.set_user_id(this.request_admin_user)
+        this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
       }
     },
     mounted(){
-      this.get_user_request(this.request_admin_user)
+      this.set_user_id(this.request_admin_user)
+      this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
     },
     methods:{
       request_reload(boolean){
@@ -86,13 +88,6 @@
           this.request_admin_user.request = true
           this.$store.commit('update_reload', false)
         }
-      },
-      get_user_request(request_obj){
-        request_obj.params.user_id = 'id' in this.$route.params
-          ? this.$route.params.id
-          : this.get_header.id
-
-        this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
       }
     },
     mixins:[Fill_edit, Load_request]

@@ -23,6 +23,7 @@
 </template>
 <script>
   import { mapGetters } from 'vuex'
+  import Custom_helper from '../../../components/functions/custom_helper'
   import Request from "../../../components/functions/request"
   import Dropdown from "./dropdown"
   import U_head from "../../../components/u_head/index";
@@ -57,14 +58,15 @@
       ]),
     },
     mounted(){
-      this.request_user_accounts.request = true
+      this.get_user_request(this.request_user_accounts)
     },
     methods:{
       timestamp_to_date(timestamp){
         console.log(timestamp)
         return moment.unix(timestamp).locale("de").format('ll')
       }
-    }
+    },
+    mixins:[Custom_helper]
   }
 </script>
 

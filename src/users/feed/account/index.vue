@@ -1,6 +1,5 @@
 <template>
   <div class="accounts">
-    <u_head class="u_head"/>
     <add name="Transaktion"
          :active="active.create"
          v-model="active.create"
@@ -18,9 +17,6 @@
 </template>
 <script>
   import { mapGetters } from 'vuex'
-  import Request from "../../../components/functions/request"
-  import Dropdown from "./dropdown"
-  import U_head from "../../../components/u_head/index";
   import All_accounts from "./all_accounts";
   import Add from "../../../components/add/index";
 
@@ -29,7 +25,6 @@
     components:{
       Add,
       All_accounts,
-      U_head,
     },
     data(){
       return {

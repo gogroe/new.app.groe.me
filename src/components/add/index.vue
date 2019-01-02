@@ -25,6 +25,7 @@
   .add{
     font-weight: 700;
     cursor: pointer;
+    padding: 6.5px 0 11.5px 0;
   }
 
   i{
@@ -35,6 +36,7 @@
 
   p{
     color: #3da0f5;
+    line-height: 17px;
   }
 
 </style>

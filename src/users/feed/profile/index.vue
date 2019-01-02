@@ -1,6 +1,5 @@
 <template>
   <div class="profile">
-    <u_head/>
     <add class="add"
          :active="active.create"
          name="Beitrag"
@@ -17,11 +16,11 @@
 </template>
 
 <script>
+  import Load_request from '../../../components/functions/load_request'
   import { mapGetters } from 'vuex'
   import Request from "../../../components/functions/request";
-  import U_head from "../../../components/u_head/index";
   import Edit from "../../../components/inputs/edit";
-  import Posts from "../../../components/articles/posts";
+  import Posts from "../../../components/articles/index";
   import Create_article from "../../../components/articles/create";
   import Add from "../../../components/add/index";
 
@@ -32,7 +31,6 @@
       Create_article,
       Posts,
       Edit,
-      U_head,
       Request,
     },
     data(){
@@ -53,7 +51,6 @@
     computed:{
       ...mapGetters([
         'list_relations',
-        'get_header'
       ]),
       request_profile_data(){
         return this.request_profile.data
@@ -64,21 +61,13 @@
     },
     watch:{
       route_id: function () {
-        this.get_user_request()
+        this.get_user_request(this.request_profile)
       }
     },
     mounted(){
       this.get_user_request(this.request_profile)
     },
-    methods:{
-      get_user_request(request_obj){
-        request_obj.params.user_id = 'id' in this.$route.params
-            ? this.$route.params.id
-            : this.get_header.id
-
-        request_obj.request = true
-      }
-    }
+    mixins:[Load_request]
   }
 </script>
 
