@@ -4,7 +4,8 @@
       <li v-for="(navigation, i) in navigations"
           :key="i"
           @click="$router.push({name: navigation.route})"
-          :class="{'active': cut_route_name_prefix($route.name) === cut_route_name_prefix(navigation.route)}">
+          :class="{'active': cut_route_name_prefix($route.name) ===  navigation.route || $route.name === navigation.route
+          }">
         <i class="material-icons">{{navigation.icon}}</i>
         <span>{{navigation.name}}</span>
       </li>
@@ -35,22 +36,22 @@
           },
           project:{
             name: 'Projekte',
-            route: '/projects/',
+            route: 'projects',
             icon: 'work'
           },
           article:{
             name: 'Artikel',
-            route: '',
+            route: 'articles',
             icon: 'receipt'
           },
           task:{
             name: 'Aufgaben',
-            route: '',
+            route: 'tasks',
             icon: 'playlist_add_check'
           },
           comunity:{
             name: 'Community',
-            route: '',
+            route: 'communitys',
             icon: 'group_work'
           }
         }

@@ -1,7 +1,9 @@
 <template>
   <div>
     <p>progress</p>
-    <pre>{{u_progress.data}}</pre>
+    <pre>{{request_users.data}}</pre>
+    <button @click="request_users.request = true">send request</button>
+    <request :obj="request_users" v-model="request_users"/>
   </div>
 </template>
 
@@ -10,8 +12,22 @@ import { mapGetters } from 'vuex'
 import Request from "../../../components/functions/request";
 export default {
   name: "users_progress",
+  components: {Request},
   data(){
     return{
+      request_users: {
+        params: {
+          user_id: null,
+          user_conditions: {
+            firstname: 'mesa'
+          },
+          user_columns: null,
+          user_order: ''
+        },
+        url: 'http://newbackend.groe.me/users/get_users',
+        data: {},
+        request: false
+      },
       u_progress: {
         params: {
 

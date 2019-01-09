@@ -10,7 +10,8 @@
       <router-view v-else-if="cut_route_name_prefix($route.name) === 'projects' ||
                               cut_route_name_prefix($route.name) === 'project' ||
                               cut_route_name_prefix($route.name) === 'users' ||
-                              cut_route_name_prefix($route.name) === 'user'"/>
+                              cut_route_name_prefix($route.name) === 'user' ||
+                              $route.name === 'users'"/>
     </div>
   </div>
 </template>
