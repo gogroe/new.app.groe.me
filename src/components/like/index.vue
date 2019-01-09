@@ -46,7 +46,7 @@
             relation_type: '',
             uid: this.$route.params.id
           },
-          url: 'https://newbackend.groe.me/articles/set_article_like',
+          url: 'https://newbackend.groe.me/posts/set_post_like',
           data: {},
           request: false
         },
@@ -56,7 +56,7 @@
             relation_type: '',
             user_id: this.$route.params.id
           },
-          url: 'https://newbackend.groe.me/articles/get_article_likes',
+          url: 'https://newbackend.groe.me/posts/get_post_likes',
           data: {},
           request: false
         },

@@ -38,12 +38,12 @@
             relation_type: this.relation_type,
             relation_id: this.relation_id
           },
-          url: 'https://newbackend.groe.me/articles/create_article_comment',
+          url: 'https://newbackend.groe.me/posts/create_post_comment',
           data: {},
           request: false
         },
         create_article_comment:{
-          url: 'https://newbackend.groe.me/users/create_article_comment',
+          url: 'https://newbackend.groe.me/posts/create_post_comment',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',

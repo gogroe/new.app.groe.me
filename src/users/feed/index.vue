@@ -34,7 +34,7 @@
       return{
         users_navigations:{
           trophies:{
-            name: 'Tropähen',
+            name: 'Beiträge',
             route: 'users_profile',
             section: 'menu'
           },

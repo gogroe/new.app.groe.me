@@ -2,12 +2,12 @@
   <div class="create_article">
     <h6>POST ERSTELLEN</h6>
     <div class="default_box articles">
-      <inputs :obj="inputs_create_article.subject"
+      <inputs :obj="inputs_create_article.name"
               :request_data="request_articles_create.data"
-              v-model="inputs.subject"/>
-      <inputs :obj="inputs_create_article.content"
+              v-model="inputs.name"/>
+      <inputs :obj="inputs_create_article.value"
               :request_data="request_articles_create.data"
-              v-model="inputs.content"/>
+              v-model="inputs.value"/>
       <button @click="create_article">SENDEN</button>
       <div class="clear"></div>
     </div>
@@ -39,18 +39,18 @@
             type: this.type, //posts
             relation_id: null,
             relation_type: 0, //relations
-            subject: '',
-            content: ''
+            name: '',
+            value: ''
           },
-          url: 'http://newbackend.groe.me/articles/create_article',
+          url: 'http://newbackend.groe.me/posts/create_post',
           data: {},
           request: false
         },
         inputs_create_article:{
-          subject:{
-            url: 'http://newbackend.groe.me/articles/create_article',
+          name:{
+            url: 'http://newbackend.groe.me/posts/create_post',
             label: 'Überschrift',
-            name: 'subject',
+            name: 'name',
             value:'',
             select:'',
             placeholder: 'Überschrift',
@@ -59,10 +59,10 @@
             label_class: 'create_input_label',
             error_class: '',
           },
-          content:{
-            url: 'http://newbackend.groe.me/articles/create_article',
+          value:{
+            url: 'http://newbackend.groe.me/posts/create_post',
             label: 'Beitrag',
-            name: 'content',
+            name: 'value',
             value:'',
             select:'',
             placeholder: 'Beitrag',
@@ -73,8 +73,8 @@
           }
         },
         inputs:{
-          subject: { value: '' },
-          content: { value: '' }
+          name: { value: '' },
+          value: { value: '' }
         }
       }
     },
@@ -85,8 +85,8 @@
     },
     methods:{
       create_article(){
-        this.request_articles_create.params.subject = this.inputs.subject.value
-        this.request_articles_create.params.content = this.inputs.content.value
+        this.request_articles_create.params.name = this.inputs.name.value
+        this.request_articles_create.params.value = this.inputs.value.value
         this.request_articles_create.params.uid = this.$route.params.id
         this.request_articles_create.params.relation_id = this.$route.params.id
         this.request_articles_create.request = true

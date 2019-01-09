@@ -8,9 +8,9 @@
         <th>Betrag</th>
         <th></th>
       </tr>
-      <tr v-for="(account, i) in request_user_accounts.data"
+      <tr v-for="(account, i) in accounts"
           :key="i"
-          :class="{'last_row': i+1 === request_user_accounts.data.length }">
+          :class="{'last_row': i+1 === accounts.length }">
         <td>{{timestamp_to_date(account.date)}}</td>
         <td>{{account.description}}</td>
         <td>{{account.value + ' ' + account.currency}}</td>
@@ -23,7 +23,7 @@
 </template>
 <script>
   import { mapGetters } from 'vuex'
-  import Custom_helper from '../../../components/functions/custom_helper'
+  import Load_request from '../../../components/functions/load_request'
   import Request from "../../../components/functions/request"
   import Dropdown from "./dropdown"
   import U_head from "../../../components/u_head/index";
@@ -56,6 +56,11 @@
       ...mapGetters([
         'uid'
       ]),
+      accounts(){
+        return 'accounts' in this.request_user_accounts.data
+          ? this.request_user_accounts.data.accounts
+          : []
+      }
     },
     mounted(){
       this.get_user_request(this.request_user_accounts)
@@ -66,7 +71,7 @@
         return moment.unix(timestamp).locale("de").format('ll')
       }
     },
-    mixins:[Custom_helper]
+    mixins:[Load_request]
   }
 </script>
 

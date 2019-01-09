@@ -16,21 +16,21 @@
       </div>
     </div>
     <div class="content">
-      <p class="subject">{{obj.subject}}</p>
-      <div v-if="obj.content.length > 200"
+      <p class="subject">{{obj.name}}</p>
+      <div v-if="obj.value.length > 200"
            class="post_content">
         <p v-if="active.more">
-          {{obj.content}}
+          {{obj.value}}
           <span @click="active.more = false">weniger...</span>
         </p>
         <p v-else>
-          {{obj.content.substring(0,200)}}
+          {{obj.value.substring(0,200)}}
           <span @click="active.more = true">mehr...</span>
         </p>
       </div>
       <div v-else
            class="post_content">
-        <p> {{obj.content}} </p>
+        <p> {{obj.value}} </p>
       </div>
     </div>
     <div class="image_wrapper">

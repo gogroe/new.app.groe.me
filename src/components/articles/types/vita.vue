@@ -1,40 +1,45 @@
 <template>
-  <div class="post">
+  <div class="vita">
     <div class="head">
-      <user_image :path="obj.image"
-                  size="43"
-                  class="user_image"/>
-      <user_name :name="obj.firstname + ' ' + obj.lastname" :id="obj.create_user_id"
-                 class="user_name"/>
+      <user_initials :name="obj.company"
+                     size="43"
+                     class="user_initials"/>
+      <p class="user_name">{{obj.company}} <span>&nbsp; &middot &nbsp; {{obj.position}}</span></p>
       <div class="clear"></div>
       <div class="options">
         <p class="option"
-           v-if="active_article"><i class="material-icons">more_horiz</i></p>
-        <from_now v-else
-                  :timestamp="obj.create_date"
-                  class="date"/>
+           v-if="active_article"><i class="material-icons">more_horiz</i>
+        </p>
+        <p v-else 
+           class="date">
+          <ddmmmyy :timestamp="obj.start_date"/> bis <ddmmmyy :timestamp="obj.end_date"/>
+        </p>
       </div>
     </div>
     <div class="content">
-      <p class="subject">{{obj.subject}}</p>
-      <div v-if="obj.content.length > 200"
-           class="post_content">
+      <p class="subject">Positionsbeschreibung</p>
+      <div v-if="obj.description.length > 200"
+           class="vita_content">
         <p v-if="active.more">
-          {{obj.content}}
+          {{obj.description}}
           <span @click="active.more = false">weniger...</span>
         </p>
         <p v-else>
-          {{obj.content.substring(0,200)}}
+          {{obj.description.substring(0,200)}}
           <span @click="active.more = true">mehr...</span>
         </p>
       </div>
       <div v-else
-           class="post_content">
-        <p> {{obj.content}} </p>
+           class="vita_content">
+        <p> {{obj.description}} </p>
       </div>
     </div>
-    <div class="image_wrapper">
-      <img src="/static/layout/reichstag.jpg"/>
+    <map_location locations="Ostpreußendamm 18b, 12207 Berlin"/>
+    <div class="content">
+      <p class="subject">{{obj.company}}</p>
+      <p v-for="(adress, i) in obj.adress" :key="i" class="place">
+        <i class="material-icons">place</i> {{adress.street}}, {{adress.zip}} {{adress.city}} {{adress.country}}
+      </p>
     </div>
   </div>
 </template>
@@ -43,10 +48,13 @@
   import User_image from "../../user_image/index";
   import User_name from "../../user_name/index";
   import From_now from "../../date/from_now";
+  import Ddmmmyy from "../../date/ddmmmyy";
+  import Map_location from "../../google/map_location";
+  import User_initials from "../../user_initals/index";
 
   export default {
     name: "vita",
-    components: {From_now, User_name, User_image},
+    components: {User_initials, Map_location, Ddmmmyy, From_now, User_name, User_image},
     props:{
       obj:{
         required: true
@@ -58,7 +66,8 @@
     data(){
       return{
         active:{
-          more: false
+          more: false,
+          open: false
         }
       }
     }
@@ -71,7 +80,7 @@
     padding: 17px 17px 27px 17px;
     position: relative;
 
-    .user_image{
+    .user_initials{
       float: left;
       margin-right: 17px;
     }
@@ -79,6 +88,11 @@
     .user_name{
       float: left;
       padding-top: 14px;
+
+      span{
+        color: #7f7f7f;
+        font-weight: 500;
+      }
     }
 
     .options{
@@ -91,6 +105,10 @@
           margin-top: -5px;
         }
       }
+
+      .date{
+        color: #bbbbbb
+      }
     }
   }
 
@@ -102,7 +120,7 @@
       font-weight: 700;
     }
 
-    .post_content{
+    .vita_content{
       span{
         display: inline-block;
         margin-left: 10px;
@@ -120,6 +138,15 @@
 
     img{
       width: 100%;
+    }
+  }
+
+  .place{
+    line-height: 18px;
+    i{
+      font-size: 14px;
+      vertical-align: middle;
+      color: #ca4541;
     }
   }
 

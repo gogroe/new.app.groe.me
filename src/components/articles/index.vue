@@ -1,20 +1,24 @@
 <template>
   <div class="article"
-       @mouseover="active.post = true"
-       @mouseout="active.post = false">
+       @mouseover="active.article = true"
+       @mouseout="active.article = false">
     <div class="default_box">
       <post v-if="search_relations(obj.type) === 'posts'"
             :obj="obj"
-            :active_article="active"/>
+            :active_article="active.article"/>
+      <vita v-if="search_relations(obj.type) === 'vita'"
+            :obj="obj"
+            :active_article="active.article"/>
       <article_comments :relation_id="obj.id"
                         :relation_type="search_relations(obj.type)"
+                        v-if="search_relations(obj.type) !== 'vita'"
                         class="article_comments"/>
     </div>
   </div>
 </template>
 
 <script>
-
+  // post object
   // obj:[
   //   {
   //     id: integer,
@@ -23,8 +27,8 @@
   //     create_date: timestamp,
   //     edit_user_id: integer,
   //     edit_date: timestamp,
-  //     content: text,
-  //     subject: text,
+  //     value: text,
+  //     name: text,
   //     type: integer,
   //     medias: []
   //     firstname: string
@@ -34,16 +38,38 @@
   //   }
   // ]
 
-  import { mapGetters } from 'vuex'
+  // vita object
+  // obj:[
+  //   {
+  //     id: integer,
+  //     state: integer,
+  //     create_user_id: integer,
+  //     create_date: timestamp,
+  //     edit_user_id: integer,
+  //     edit_date: timestamp,
+  //     value: text,
+  //     name: text,
+  //     type: integer,
+  //     medias: []
+  //     firstname: string
+  //     lastname: string
+  //     image: string
+  //     like_active: boolean
+  //   }
+  // ]
+
+  import helper from '../functions/custom_helper'
   import Article_comments from "../comments/index";
   import User_image from "../user_image/index";
   import User_name from "../user_name/index";
   import From_now from "../date/from_now";
   import Post from "./types/post";
+  import Vita from "./types/vita";
 
   export default {
     name: "articles",
     components: {
+      Vita,
       Post,
       From_now,
       User_name,
@@ -59,25 +85,12 @@
     data(){
       return{
         active: {
-          post: false,
+          article: false,
           more: false
         }
       }
     },
-    computed:{
-      ...mapGetters([
-        'list_relations'
-      ])
-    },
-    methods:{
-      search_relations(value){
-        for (let key in this.list_relations){
-          if (this.list_relations[key] == value){
-            return key
-          }
-        }
-      }
-    }
+    mixins:[helper]
   }
 </script>
 

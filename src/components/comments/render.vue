@@ -76,7 +76,7 @@
             relation_type: this.relation_type,
             relation_id: this.relation_id
           },
-          url: 'https://newbackend.groe.me/articles/get_article_comments',
+          url: 'https://newbackend.groe.me/posts/get_post_comments',
           data: {},
           request: false
         },
