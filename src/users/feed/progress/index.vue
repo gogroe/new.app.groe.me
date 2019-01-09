@@ -19,12 +19,10 @@ export default {
         params: {
           user_id: null,
           user_conditions: {
-            firstname: 'mesa'
-          },
-          user_columns: null,
-          user_order: ''
+            'firstname' : '%ja%'
+          }
         },
-        url: 'http://newbackend.groe.me/users/get_users',
+        url: 'http://new.backend/users/get_users',
         data: {},
         request: false
       },
