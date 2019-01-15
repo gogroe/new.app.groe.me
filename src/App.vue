@@ -144,6 +144,10 @@
     }
   }
 
+  .section_name{
+    color: #bbbbbb;
+    margin-bottom: 17px;
+  }
 
 
   ////////////////////////////////////////////////////////////////////////////////// Buttons
@@ -154,43 +158,15 @@
     border-radius: 2px;
     font-size: 14px;
     font-weight: 500;
-    color: #b4b4b4;
+    color: #3da0f5;
     background: transparent;
     font-family: 'Roboto', sans-serif;
 
     &:hover{
-      color: #3da0f5;
+      color: #383838;
     }
   }
 
-  .submit{
-    button{
-      display: block;
-      margin: 40px auto 0;
-      width: 30%;
-      background-color: #3da0f5;
-      color: white;
-    }
-    p{
-      font-size: 13px;
-      float: right;
-      width: 46%;
-      color: orange;
-    }
-  }
-
-  .adress_buttons{
-      display: block;
-      width: 75%;
-      margin: 0 auto;
-      button{
-        width: 40%;
-        background-color: #3da0f5;
-        margin: 40px 5% 0;
-        color: white;
-        float: left;
-      }
-  }
 
   ////////////////////////////////////////////////////////////////////////////////// Font-Tags
 
@@ -277,9 +253,15 @@
 
   .create_input {
     width: 100%;
-    padding: 10px 0;
+    padding: 10px;
+    margin-left: 7px;
     margin-bottom: 8px;
-    border: none;
+    border-radius: 4px;
+    border: 2px solid transparent;
+
+    &:hover, &:focus{
+      border: 2px solid #3da0f5;
+    }
   }
 
   .create_input_label {

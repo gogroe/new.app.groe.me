@@ -1,5 +1,6 @@
 <template>
   <div class="user">
+    <p class="section_name">NUTZER DETAILS</p>
     <edit v-for="(input, key, i) in update_user.inputs"
           :key="i"
           :obj="fill_inputs_edit(key, update_user, request_get_user.data)"/>

@@ -56,6 +56,10 @@ const dependencies = {
       like : 14,
       tag : 15,
       media : 16,
+    },
+
+    translations:{   //buidl a mixins witch searches in translate
+      phone: 'Telefon'
     }
   },
 

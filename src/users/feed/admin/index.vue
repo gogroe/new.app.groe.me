@@ -70,7 +70,7 @@
 
   .content{
     width: 70%;
-    padding: 17px 0 17px 17px;
+    padding: 27px 0 17px 17px;
     float:left
   }
 
