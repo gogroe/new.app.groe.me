@@ -1,7 +1,7 @@
 <template>
   <div class="add"
        @click="$emit('input', !active)"
-       v-if="active === false">
+       :class="{'inactive': active}">
     <p><i class="material-icons">add</i> {{name}} hinzufügen</p>
   </div>
 </template>
@@ -37,6 +37,10 @@
   p{
     color: #3da0f5;
     line-height: 17px;
+  }
+
+  .inactive p{
+    color: #bbbbbb;
   }
 
 </style>

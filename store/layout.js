@@ -15,9 +15,7 @@ const layout = {
     user_navigation: [],
     user_profiles: [],
     user_vitas: [],
-    user_progress: [],
-    user_admin_user: []
-
+    user_progress: []
   },
 
   mutations: {
@@ -35,9 +33,6 @@ const layout = {
     },
     update_user_vitas(state, object){
       state.user_vitas.push(object)
-    },
-    update_user_admin_user(state, object){
-      state.user_admin_user.push(object)
     },
     update_active_navigation(state, boolean){
       state.active.navigation = boolean
@@ -62,6 +57,9 @@ const layout = {
     },
     user_admin_user(state){
       return state.user_admin_user
+    },
+    user_adress(state){
+      return state.user_adress
     },
     active_navigation(state){
       return state.active.navigation

@@ -2,8 +2,8 @@
   <div class="user">
     <edit v-for="(input, key, i) in update_user.inputs"
           :key="i"
-          :obj="fill_fields(key, update_user, request_admin_user.data)"/>
-    <request :obj="request_admin_user" v-model="request_admin_user"/>
+          :obj="fill_inputs_edit(key, update_user, request_get_user.data)"/>
+    <request :obj="request_get_user" v-model="request_get_user"/>
   </div>
 </template>
 
@@ -12,7 +12,7 @@
   import Request from "../../../components/functions/request"
   import Load_request from "../../../components/functions/load_request"
   import Edit from "../../../components/inputs/edit"
-  import Fill_edit from '../../../components/inputs/fill_edit'
+  import custom_helper from "../../../components/functions/custom_helper";
 
   export default {
     name: "admin_user",
@@ -22,7 +22,7 @@
     },
     data(){
       return{
-        request_admin_user: {
+        request_get_user: {
           params: {
             user_id: null
           },
@@ -61,36 +61,21 @@
       }
     },
     computed:{
-      request_admin_data(){
-        return this.request_admin_user.data
-      },
       route_id(){
         return this.$route.params.id
       }
     },
-
     watch:{
-      request_admin_data: function(object){
-        this.update_store('update_user_admin_user', 'user_admin_user', object, 'id')
-      },
       route_id: function(){
-        this.set_user_id(this.request_admin_user)
-        this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
+        this.set_user_id(this.request_get_user)
+        this.request_get_user.request = true
       }
     },
     mounted(){
-      this.set_user_id(this.request_admin_user)
-      this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
+      this.set_user_id(this.request_get_user)
+      this.request_get_user.request = true
     },
-    methods:{
-      request_reload(boolean){
-        if(boolean){
-          this.request_admin_user.request = true
-          this.$store.commit('update_reload', false)
-        }
-      }
-    },
-    mixins:[Fill_edit, Load_request]
+    mixins:[custom_helper, Load_request]
   }
 </script>
 

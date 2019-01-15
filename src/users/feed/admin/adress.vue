@@ -1,28 +1,38 @@
 <template>
-  <div class="adress">
-    <add v-if="active.update === false"
-         name="Adresse"
+  <div class="user_adress">
+    <div v-if="active.update">
+      <edit v-for="(input, key, i) in update_user_adress.inputs"
+            :key="i"
+            :obj="fill_inputs_edit(key, update_user_adress, request_get_user_adress.data)"/>
+    </div>
+    <add name="Adresse"
          :active="active.create"
          v-model="active.create"/>
-
-    <edit v-if="active.update"
-          v-for="(input, key, i) in update_user.inputs"
-          :key="i"
-          :obj="fill_fields(key, update_user, request_admin_user.data)"/>
-    <request :obj="request_admin_user" v-model="request_admin_user"/>
+    <div v-if="active.create">
+      <inputs v-for="(input, key, i) in create_user_adress.inputs"
+              :key="i"
+              :obj="fill_inputs(key, create_user_adress)"
+              :request_data="request_create_user_adress.data"
+              v-model="create_user_adress.inputs[key].input"/>
+    </div>
+    <request :obj="request_get_user_adress" v-model="request_get_user_adress"/>
+    <request :obj="request_create_user_adress" v-model="request_create_user_adress"/>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import Request from "../../../components/functions/request"
   import Load_request from "../../../components/functions/load_request"
   import Edit from "../../../components/inputs/edit"
-  import Fill_edit from '../../../components/inputs/fill_edit'
+  import Custom_helper from '../../../components/functions/custom_helper'
   import Add from "../../../components/add/index";
+  import Inputs from "../../../components/inputs/index";
 
   export default {
-    name: "adress",
+    name: "admin_user",
     components:{
+      Inputs,
       Add,
       Edit,
       Request,
@@ -33,7 +43,7 @@
           create: false,
           update: false
         },
-        request_admin_user: {
+        request_get_user_adress: {
           params: {
             user_id: null
           },
@@ -41,9 +51,9 @@
           data: {},
           request: false
         },
-        update_user:{
-          url: 'https://newbackend.groe.me/users/update_user',
-          input_class:'edit_input',
+        update_user_adress:{
+          url: 'https://newbackend.groe.me/users/update_user_adress',
+          input_class:'edit_input_light',
           label_class: 'edit_input_label',
           error_class: '',
           required_params: {
@@ -68,40 +78,85 @@
               type: 'text'
             }
           }
+        },
+        request_create_user_adress: {
+          params: {
+            user_id: null
+          },
+          url: 'https://newbackend.groe.me/users/create_user_adress',
+          data: {},
+          request: false
+        },
+        create_user_adress:{
+          url: 'https://newbackend.groe.me/users/create_user_adress',
+          input_class:'create_input',
+          label_class: 'create_input_label',
+          error_class: '',
+          required_params: {
+            user_id: this.$route.params.id,
+            uid: 1
+          },
+          inputs:{
+            street: {
+              name: 'Straße',
+              type: 'text',
+              input: {
+                value: null,
+                event:null
+              }
+            },
+            zip: {
+              name: 'Postleitzahl',
+              type: 'number',
+              input: {
+                value: null,
+                event:null
+              }
+            },
+            city: {
+              name: 'Stadt',
+              type: 'text',
+              input: {
+                value: null,
+                event:null
+              }
+            },
+            country: {
+              name: 'Land',
+              type: 'text',
+              input: {
+                value: null,
+                event:null
+              }
+            }
+          }
         }
       }
     },
     computed:{
-      request_admin_data(){
-        return this.request_admin_user.data
-      },
+
       route_id(){
         return this.$route.params.id
       }
     },
-
     watch:{
-      request_admin_data: function(object){
-        this.update_store('update_user_admin_user', 'user_admin_user', object, 'id')
-      },
       route_id: function(){
-        this.set_user_id(this.request_admin_user)
-        this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
+        this.set_user_id(this.request_get_user_adress)
+        this.set_user_id(this.request_create_user_adress)
+        this.request_get_user_adress.request = true
       }
     },
     mounted(){
-      this.set_user_id(this.request_admin_user)
-      this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
+      this.set_user_id(this.request_get_user_adress)
+      this.set_user_id(this.request_create_user_adress)
+      this.request_get_user_adress.request = true
     },
     methods:{
-      request_reload(boolean){
-        if(boolean){
-          this.request_admin_user.request = true
-          this.$store.commit('update_reload', false)
-        }
+      send_create_user_adress(){
+
       }
     },
-    mixins:[Fill_edit, Load_request]
+    mixins:[Custom_helper, Load_request]
   }
 </script>
 

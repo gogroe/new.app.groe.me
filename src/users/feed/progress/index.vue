@@ -18,19 +18,14 @@ export default {
       request_users: {
         params: {
           user_id: null,
-          user_conditions: {
-            'firstname' : '%ja%'
+          // users: {
+          //   columns:[]
+          // },
+          status:{
+            columns: [],
           }
         },
         url: 'http://new.backend/users/get_users',
-        data: {},
-        request: false
-      },
-      u_progress: {
-        params: {
-
-        },
-        url: 'https://newbackend.groe.me/users/get_user_progress',
         data: {},
         request: false
       }

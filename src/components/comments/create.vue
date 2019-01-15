@@ -1,6 +1,6 @@
 <template>
   <div>
-    <inputs :obj="fill_fields_inputs('value', create_article_comment)"
+    <inputs :obj="fill_inputs('value', create_article_comment)"
             :request_data="request_create_comments.data"
             v-model="create_article_comment.inputs.value.input"/>
     <div class="clear"></div>
@@ -13,7 +13,7 @@
   import Inputs from "../inputs/index";
   import Request from "../../components/functions/request"
   import Load_request from "../../components/functions/load_request"
-  import Fill_input from '../../components/inputs/fill_input'
+  import Custom_helper from "../../components/functions/custom_helper"
 
   export default {
     name: "create_comment",
@@ -92,7 +92,7 @@
         }
       }
     },
-    mixins:[Fill_input, Load_request]
+    mixins:[Custom_helper, Load_request]
   }
 </script>
 
