@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="u_head default_box">
-      <user_image class="user_image" :path="users_image" size="110"/>
+      <user_visual class="user_image" :name="user_name" :path="users_image" size="110"/>
       <user_name :name="user_name" :id="user_id" class="user_name"/>
       <a @click="active.description = !active.description" class="desription">
         Steckbrief <i class="material-icons">arrow_drop_down</i>
@@ -15,14 +15,14 @@
 <script>
   import Load_request from '../functions/load_request'
   import Request from "../functions/request";
-  import User_image from "../user_image/index";
   import User_name from "../user_name/index";
+  import User_visual from "../user_visual/index";
 
   export default {
     name: "u_head",
     components: {
+      User_visual,
       User_name,
-      User_image,
       Request},
     data(){
       return {

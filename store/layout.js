@@ -9,7 +9,7 @@ const layout = {
       name: "visitor",
       gender: null,
       id: 2,
-      image: '/static/layout/default_profile_image_female.jpg',
+      image: null,
       type: "visitor",
     },
     user_navigation: [],

@@ -1,105 +1,148 @@
 <template>
-  <div class="contact">
-
-    <label class="edit_input_label" for="old_password">Alt</label>
-    <input  class="edit_input" type="password" name="old_password" v-model="old_pass" id="old_password">
-    <label class="edit_input_label" for="new_password">Neu</label>
-    <input  class="edit_input" type="password" name="new_password" v-model="new_pass" id="new_password">
-    <label class="edit_input_label" for="confirm_new_password">Neu bestätigen</label>
-    <input class="edit_input" type="password" name="confirm_new_password" v-model="confirm_new" id="confirm_new_password">
-
-    <div class="submit" v-if="new_pass != '' && old_pass != '' && confirm_new != ''">
-      <p v-if="new_pass != confirm_new" >passwords don't match</p>
-      <button type="button" name="button" v-else @click="send.request=true">send</button>
-    </div>
-
-    <request :obj="send" v-model="send"/>
-    <request :obj="request_admin_user" v-model="request_admin_user"/>
+  <div class="user_password">
+    <p class="section_name">NUTZER PASSWORT</p>
+    <inputs v-for="(input, key, i) in create_user_secret.inputs"
+            :key="i"
+            :obj="fill_inputs(key, create_user_secret)"
+            :request_data="request_create_user_secret.data"
+            v-model="create_user_secret.inputs[key].input"/>
+    <p class="request_message">{{message}}</p>
+    <button @click="send_create_user_secret">PASSWORT ÄNDERN</button>
+    <request :obj="request_create_user_secret" v-model="request_create_user_secret"/>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   import Request from "../../../components/functions/request"
   import Load_request from "../../../components/functions/load_request"
   import Edit from "../../../components/inputs/edit"
-  import Fill_edit from '../../../components/inputs/fill_edit'
+  import Custom_helper from '../../../components/functions/custom_helper'
+  import Add from "../../../components/add/index";
+  import Inputs from "../../../components/inputs/index";
 
   export default {
-    name: "admin_user",
+    name: "user_password",
     components:{
+      Inputs,
+      Add,
       Edit,
       Request,
     },
     data(){
       return{
-        old_pass: '',
-        new_pass: '',
-        confirm_new: '',
-        send:{
+        message: '',
+        request_create_user_secret: {
           params: {
-            uid : 1,
-            hash : 12345,
-            user_id : this.$route.params.id
+            user_id: null,
+            uid: 1,
           },
-          url: 'http://new.backend/users/create_user_secret',
+          url: 'https://newbackend.groe.me/users/create_user_secret',
           data: {},
           request: false
         },
-        request_admin_user: {
-          params: {
-            user_id: null
-          },
-          url: 'https://newbackend.groe.me/users/get_user',
-          data: {},
-          request: false
-        },
-        update_user:{
-          url: 'https://newbackend.groe.me/users/update_user',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
+        create_user_secret:{
+          url: '',
+          input_class:'create_input',
+          label_class: 'create_input_label',
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1
+            uid: 1,
+          },
+          inputs:{
+            old_hash: {
+              name: 'Altes Passwort',
+              type: 'text',
+              input: {
+                value: null,
+                event: null
+              }
+            },
+            hash: {
+              name: 'Neues Passwort',
+              type: 'text',
+              input: {
+                value: null,
+                event: null
+              }
+            },
+            commit_hash: {
+              name: 'Neues Passwort bestätigen',
+              type: 'text',
+              input: {
+                value: null,
+                event: null
+              }
+            }
           }
         }
       }
     },
     computed:{
-      request_admin_data(){
-        return this.request_admin_user.data
-      },
       route_id(){
         return this.$route.params.id
-      }
-    },
-
-    watch:{
-      request_admin_data: function(object){
-        this.update_store('update_user_admin_user', 'user_admin_user', object, 'id')
       },
-      route_id: function(){
-        this.request_admin_user.params.user_id = this.$route.params.id
-        this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
+      request_create_user_secret_data(){
+        return this.request_create_user_secret.data
       }
     },
-    mounted(){
-      this.request_admin_user.params.user_id = this.$route.params.id
-      this.load_request_with_route_check('request_admin_user', 'user_admin_user', 'id')
-    },
-    methods:{
-      request_reload(boolean){
-        if(boolean){
-          this.request_admin_user.request = true
-          this.$store.commit('update_reload', false)
+    watch:{
+      route_id: function(){
+        this.set_user_id(this.request_create_user_secret)
+      },
+      request_create_user_secret_data(object){
+        if('create' in object){
+          this.message = 'Ihr Passwort wurde geändert'
         }
       }
     },
-    mixins:[Fill_edit, Load_request]
+    mounted(){
+      this.set_user_id(this.request_create_user_secret)
+    },
+    methods:{
+      send_create_user_secret(){
+        //check empty
+        if(
+          this.create_user_secret.inputs.old_hash.input.value === null ||
+          this.create_user_secret.inputs.hash.input.value === null ||
+          this.create_user_secret.inputs.commit_hash.input.value === null ||
+          this.create_user_secret.inputs.old_hash.input.value === '' ||
+          this.create_user_secret.inputs.hash.input.value === '' ||
+          this.create_user_secret.inputs.commit_hash.input.value === ''
+        ){
+          this.message = 'Alle felder müssen ausgefüllt werden.'
+        }
+
+        //check commit
+        else if(
+          this.create_user_secret.inputs.hash.input.value === this.create_user_secret.inputs.commit_hash.input.value
+        ){
+          this.request_create_user_secret.params.hash = this.create_user_secret.inputs.hash.input.value
+          this.request_create_user_secret.params.old_hash = this.create_user_secret.inputs.old_hash.input.value
+          //console.log(this.request_create_user_secret)
+          this.request_create_user_secret.request = true
+          this.message = null
+        }
+        else{
+          this.message = 'Passwörter stimmen nicht überein.'
+        }
+      }
+    },
+    mixins:[Custom_helper, Load_request]
   }
 </script>
 
 <style lang="scss" scoped>
+  .add{
+    margin-bottom: 17px;
+  }
 
+  button{
+    margin: 10px 0;
+  }
+
+  .request_message{
+    margin-top: 10px;
+    margin-left: 17px;
+  }
 </style>

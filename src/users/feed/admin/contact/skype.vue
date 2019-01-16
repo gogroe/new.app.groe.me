@@ -1,13 +1,12 @@
 <template>
-  <div class="user_contact">
-    <p class="section_name">NUTZER KONTAKT</p>
+  <div class="user_contact_skype">
     <div v-if="active.update">
       <edit v-for="(input, key, i) in update_user_contact.inputs"
             :key="i"
             :obj="fill_inputs_edit(key, update_user_contact, request_get_user_contact.data)"/>
     </div>
     <add v-if="active.update === false"
-         name="Kontakt"
+         name="Skype"
          :active="active.create"
          v-model="active.create"
          class="add"/>
@@ -17,7 +16,7 @@
               :obj="fill_inputs(key, create_user_contact)"
               :request_data="request_create_user_contact.data"
               v-model="create_user_contact.inputs[key].input"/>
-      <button @click="send_create_user_contact">KONTAKT HINZUFÜGEN</button>
+      <button @click="send_create_user_contact">Skype HINZUFÜGEN</button>
     </div>
     <request :obj="request_get_user_contact" v-model="request_get_user_contact"/>
     <request :obj="request_create_user_contact" v-model="request_create_user_contact"/>
@@ -25,15 +24,15 @@
 </template>
 
 <script>
-  import Request from "../../../components/functions/request"
-  import Load_request from "../../../components/functions/load_request"
-  import Edit from "../../../components/inputs/edit"
-  import Custom_helper from '../../../components/functions/custom_helper'
-  import Add from "../../../components/add/index";
-  import Inputs from "../../../components/inputs/index";
+  import Request from "../../../../components/functions/request"
+  import Load_request from "../../../../components/functions/load_request"
+  import Edit from "../../../../components/inputs/edit"
+  import Custom_helper from '../../../../components/functions/custom_helper'
+  import Add from "../../../../components/add/index";
+  import Inputs from "../../../../components/inputs/index";
 
   export default {
-    name: "user_contact",
+    name: "user_contact_skype",
     components:{
       Inputs,
       Add,
@@ -48,7 +47,8 @@
         },
         request_get_user_contact: {
           params: {
-            user_id: null
+            user_id: null,
+            name: 'skype'
           },
           url: 'https://newbackend.groe.me/users/get_user_contact',
           data: {},
@@ -56,21 +56,18 @@
         },
         update_user_contact:{
           url: 'https://newbackend.groe.me/users/update_user_contact',
-          input_class:'edit_input_light',
+          input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
             uid: 1,
-            id: null
+            id: null,
+            name: 'skype'
           },
           inputs:{
-            name: {
-              name: 'Kontaktart',
-              type: 'text'
-            },
             value: {
-              name: 'Kontakt',
+              name: 'Skype',
               type: 'number'
             }
           }
@@ -78,7 +75,8 @@
         request_create_user_contact: {
           params: {
             user_id: null,
-            uid: 1
+            uid: 1,
+            name: 'skype'
           },
           url: 'https://newbackend.groe.me/users/create_user_contact',
           data: {},
@@ -91,19 +89,12 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1
+            uid: 1,
+            name: 'skype'
           },
           inputs:{
-            name: {
-              name: 'Kontaktart',
-              type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
-            },
             value: {
-              name: 'Kontakt',
+              name: 'Skype',
               type: 'number',
               input: {
                 value: null,
@@ -147,13 +138,13 @@
     },
     methods:{
       send_create_user_contact(){
-        this.request_create_user_contact.params.name = this.create_user_contact.inputs.name.input.value
         this.request_create_user_contact.params.value = this.create_user_contact.inputs.value.input.value
         this.request_create_user_contact.request = true
       },
       set_active_update(){
         if(Object.keys(this.request_get_user_contact.data).length !== 0 && this.request_get_user_contact.data.constructor === Object){
           this.active.update = true
+          this.active.create = false
         }
       }
     },

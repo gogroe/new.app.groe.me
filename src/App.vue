@@ -252,7 +252,7 @@
   }
 
   .create_input {
-    width: 100%;
+    width: calc(100% - 17px);
     padding: 10px;
     margin-left: 7px;
     margin-bottom: 8px;
@@ -271,10 +271,16 @@
     color:#cdcdcd;
   }
 
-  .edit_input, .edit_input_light{
+  .edit_input{
     width: 60%;
     padding: 4px;
     margin-bottom: 8px;
+    border-bottom: 1px solid transparent;
+
+    &:hover, &:focus{
+      border-bottom: 1px solid #3da0f5;
+    }
+
   }
 
   .edit_input_label{
@@ -283,10 +289,6 @@
     padding-right: 20px;
     text-align: right;
     margin-bottom: 8px;
-  }
-
-  .edit_input_light{
-    background: #fdfdfd;
   }
 
 

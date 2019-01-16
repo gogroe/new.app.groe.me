@@ -23,8 +23,8 @@
 
 <script>
   import Admin_user from "./user";
-  import Admin_contact from "./contact";
-  import Admin_adress from "./adress";
+  import Admin_contact from "./contact/index";
+  import Admin_adress from "./adress/index";
   import Admin_bank from "./bank";
   import Admin_password from "./password";
 
@@ -48,6 +48,9 @@
 </script>
 
 <style lang="scss" scoped>
+  .admin{
+    margin-top: 42px;
+  }
 
   .default_box{
     padding: 0 17px;
@@ -55,7 +58,7 @@
 
   ul{
     width: 30%;
-    padding: 27px 0;
+    padding-top: 27px;
     border-right: 1px solid #e6e6e6;
     float:left;
 
@@ -70,7 +73,7 @@
 
   .content{
     width: 70%;
-    padding: 27px 0 17px 17px;
+    padding: 27px 0 27px 17px;
     float:left
   }
 

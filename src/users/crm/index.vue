@@ -26,10 +26,11 @@
 </template>
 
 <script>
-import Request from "../../components/functions/request";
-import Edit from "../../components/inputs/edit";
-import Cell from "./cell";
-import drag_filter from "./filters/index";
+  import { mapGetters } from 'vuex'
+  import Request from "../../components/functions/request";
+  import Edit from "../../components/inputs/edit";
+  import Cell from "./cell";
+  import drag_filter from "./filters/index";
   export default {
     name: "userCRM",
     components:{
@@ -192,6 +193,9 @@ import drag_filter from "./filters/index";
     },
 
     computed:{
+      ...mapGetters([
+        'users_filter'
+      ]),
       request_users_data(){
         return this.request_users.data
       },
@@ -201,6 +205,7 @@ import drag_filter from "./filters/index";
     },
 
     watch:{
+
       request_users_data(obj){
         this.load_columns()
       },

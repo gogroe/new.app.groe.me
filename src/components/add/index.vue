@@ -2,7 +2,12 @@
   <div class="add"
        @click="$emit('input', !active)"
        :class="{'inactive': active}">
-    <p><i class="material-icons">add</i> {{name}} hinzufügen</p>
+    <p v-if="active === false">
+      <i class="material-icons">add</i> {{name}} hinzufügen
+    </p>
+    <p v-else>
+      <i class="material-icons">close</i> schließen
+    </p>
   </div>
 </template>
 

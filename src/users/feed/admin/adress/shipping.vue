@@ -1,6 +1,5 @@
 <template>
   <div class="user_adress">
-    <p class="section_name">NUTZER ADRESSE</p>
     <div v-if="active.update">
       <edit v-for="(input, key, i) in update_user_adress.inputs"
             :key="i"
@@ -25,15 +24,15 @@
 </template>
 
 <script>
-  import Request from "../../../components/functions/request"
-  import Load_request from "../../../components/functions/load_request"
-  import Edit from "../../../components/inputs/edit"
-  import Custom_helper from '../../../components/functions/custom_helper'
-  import Add from "../../../components/add/index";
-  import Inputs from "../../../components/inputs/index";
+  import Request from "../../../../components/functions/request"
+  import Load_request from "../../../../components/functions/load_request"
+  import Edit from "../../../../components/inputs/edit"
+  import Custom_helper from '../../../../components/functions/custom_helper'
+  import Add from "../../../../components/add/index";
+  import Inputs from "../../../../components/inputs/index";
 
   export default {
-    name: "user_adress",
+    name: "user_adress_shipping",
     components:{
       Inputs,
       Add,
@@ -48,7 +47,8 @@
         },
         request_get_user_adress: {
           params: {
-            user_id: null
+            user_id: null,
+            type: 'shipping'
           },
           url: 'https://newbackend.groe.me/users/get_user_adress',
           data: {},
@@ -56,13 +56,14 @@
         },
         update_user_adress:{
           url: 'https://newbackend.groe.me/users/update_user_adress',
-          input_class:'edit_input_light',
+          input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
             uid: 1,
-            id: null
+            id: null,
+            type: 'shipping'
           },
           inputs:{
             street: {
@@ -86,7 +87,8 @@
         request_create_user_adress: {
           params: {
             user_id: null,
-            uid: 1
+            uid: 1,
+            type: 'shipping'
           },
           url: 'https://newbackend.groe.me/users/create_user_adress',
           data: {},
@@ -99,7 +101,8 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1
+            uid: 1,
+            type: 'shipping'
           },
           inputs:{
             street: {
@@ -180,6 +183,7 @@
       set_active_update(){
         if(Object.keys(this.request_get_user_adress.data).length !== 0 && this.request_get_user_adress.data.constructor === Object){
           this.active.update = true
+          this.active.create = false
         }
       }
     },

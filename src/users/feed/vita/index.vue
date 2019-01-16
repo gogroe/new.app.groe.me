@@ -2,7 +2,7 @@
   <div class="profile">
     <add class="add"
          :active="active.create"
-         name="Beitrag"
+         name="Vita"
          v-model="active.create"/>
     <create_article :type="list_relations.posts"
                     v-if="active.create"/>

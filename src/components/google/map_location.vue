@@ -62,26 +62,26 @@
         }
       },
       geolocate: function() {
-        let geocoder = new google.maps.Geocoder();
-        geocoder.geocode({'address': this.locations}, (results, status) => {
-          if (status === 'OK') {
-            this.center = {
-              lat: results[0].geometry.location.lat(),
-              lng: results[0].geometry.location.lng()
-            }
-          }
-          else {
-            console.log(status);
-            return null
-          }
-        });
-
-        // navigator.geolocation.getCurrentPosition(position => {
-        //   this.center = {
-        //     lat: position.coords.latitude,
-        //     lng: position.coords.longitude
-        //   };
+        // let geocoder = new google.maps.Geocoder();
+        // geocoder.geocode({'address': this.locations}, (results, status) => {
+        //   if (status === 'OK') {
+        //     this.center = {
+        //       lat: results[0].geometry.location.lat(),
+        //       lng: results[0].geometry.location.lng()
+        //     }
+        //   }
+        //   else {
+        //     console.log(status);
+        //     return null
+        //   }
         // });
+
+        navigator.geolocation.getCurrentPosition(position => {
+          this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+        });
       }
     }
   };

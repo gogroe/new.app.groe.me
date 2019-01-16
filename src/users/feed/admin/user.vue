@@ -33,7 +33,7 @@
         },
         update_user:{
           url: 'https://newbackend.groe.me/users/update_user',
-          input_class:'edit_input_light',
+          input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
           required_params: {

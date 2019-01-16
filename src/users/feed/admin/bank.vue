@@ -56,7 +56,7 @@
         },
         update_user_bank:{
           url: 'https://newbackend.groe.me/users/update_user_bank',
-          input_class:'edit_input_light',
+          input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
           required_params: {
@@ -67,15 +67,15 @@
           inputs:{
             iban: {
               name: 'IBAN',
-              type: 'number'
+              type: 'text'
             },
             swift: {
               name: 'SWIFT',
-              type: 'number'
+              type: 'text'
             },
             name: {
               name: 'Bankname',
-              type: 'number'
+              type: 'text'
             },
             street: {
               name: 'Straße',
@@ -219,6 +219,7 @@
       set_active_update(){
         if(Object.keys(this.request_get_user_bank.data).length !== 0 && this.request_get_user_bank.data.constructor === Object){
           this.active.update = true
+          this.active.create = false
         }
       }
     },

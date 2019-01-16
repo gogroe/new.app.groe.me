@@ -6,7 +6,7 @@
           <span class="groe">groe</span><span class="dot">.</span><span class="ad">ad's</span> <span>&nbsp | &nbsp Benutzer</span>
         </div>
         <div class="profile">
-          <user_image class="user_image" :path="get_header.image" size="35"/>
+          <user_visual class="user_image" :path="get_header.image" :name="get_header.firstname + ' ' + get_header.lastname" size="35"/>
           <div class="details">
             <user_name :name="get_header.firstname + ' ' + get_header.lastname" :id="get_header.id" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account}}</a>
           </div>
@@ -19,16 +19,16 @@
 <script>
   import { mapGetters } from 'vuex'
   import Request from "../../components/functions/request";
-  import User_image from "../user_image/index";
   import User_name from "../user_name/index";
+  import User_visual from "../user_visual/index";
 
   //todo ad user id in backend an frontend for routing
 
   export default {
     name: "global_header",
     components: {
+      User_visual,
       User_name,
-      User_image,
       Request
     },
     data(){
