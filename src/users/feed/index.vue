@@ -33,9 +33,9 @@
     data(){
       return{
         users_navigations:{
-          trophies:{
-            name: 'Beiträge',
-            route: 'users_profile',
+          vita:{
+            name: 'Vita',
+            route: 'users_vita',
             section: 'menu'
           },
           accounts:{
@@ -43,16 +43,16 @@
             route: 'users_account',
             section: 'menu'
           },
-          vita:{
-            name: 'Vita',
-            route: 'users_vita',
-            section: 'menu'
-          },
-          progress:{
-            name: 'Verlauf',
-            route: 'users_progress',
-            section: 'menu'
-          },
+          // trophies:{
+          //   name: 'Beiträge',
+          //   route: 'users_profile',
+          //   section: 'menu'
+          // },
+          // progress:{
+          //   name: 'Verlauf',
+          //   route: 'users_progress',
+          //   section: 'menu'
+          // },
           admin:{
             name: 'Verwalten',
             route: 'users_admin',
@@ -60,9 +60,9 @@
           }
         },
         user_navigations:{
-          trophies:{
-            name: 'Tropähen',
-            route: 'user_profile',
+          vita:{
+            name: 'Vita',
+            route: 'user_vita',
             section: 'menu'
           },
           accounts:{
@@ -70,16 +70,16 @@
             route: 'user_account',
             section: 'menu'
           },
-          vita:{
-            name: 'Vita',
-            route: 'user_vita',
-            section: 'menu'
-          },
-          progress:{
-            name: 'Verlauf',
-            route: 'user_progress',
-            section: 'menu'
-          },
+          // trophies:{
+          //   name: 'Tropähen',
+          //   route: 'user_profile',
+          //   section: 'menu'
+          // },
+          // progress:{
+          //   name: 'Verlauf',
+          //   route: 'user_progress',
+          //   section: 'menu'
+          // },
           admin:{
             name: 'Verwalten',
             route: 'user_admin',

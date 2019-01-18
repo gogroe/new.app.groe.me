@@ -109,11 +109,30 @@
     position: relative;
     width: 100%;
 
+    .full_fixed {
+      position: fixed;
+      width: 100%;
+      height: calc(100vh - 64px);
+
+      .inner_full_fixed{
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
     &.active_navigation{
       margin-left: 280px;
       width: calc(100% - 280px);
+
+      .full_fixed{
+        width: calc(100% - 280px);
+        height: calc(100vh - 64px);
+      }
     }
   }
+
+
 
 
 
@@ -201,7 +220,7 @@
     &::-webkit-scrollbar-thumb {
       margin: 1px;
       background: #cdcdcd;
-      border-radius: 5px;
+      border-radius: 2px;
       border: solid transparent 1px;
 
       &:hover {

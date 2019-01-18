@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a @click="$router.push('/users/' + id + '/profile/')"
+    <a @click="$router.push('/users/' + id + '/vita/')"
        :class="name_class"
         class="user_name">{{name}}</a>
   </div>

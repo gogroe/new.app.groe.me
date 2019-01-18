@@ -68,7 +68,7 @@
           inputs:{
             value: {
               name: 'Skype',
-              type: 'number'
+              type: 'text'
             }
           }
         },
@@ -95,7 +95,7 @@
           inputs:{
             value: {
               name: 'Skype',
-              type: 'number',
+              type: 'text',
               input: {
                 value: null,
                 event:null

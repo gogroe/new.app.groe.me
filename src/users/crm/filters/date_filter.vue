@@ -4,8 +4,6 @@
       <input type="checkbox" v-model="option.show" class="checkbox">
       <span class="checkmark"></span>
       <p class="paragraph_label">{{ option.name}}</p>
-      <!-- <input :type="option.filter" :name="option.name" :value="option.value">
-      <span ref="value"></span> -->
     </label>
   </div>
 </template>
@@ -30,12 +28,33 @@
 //     ],
 //   },
 // ]
+
+import { mapGetters } from 'vuex'
 export default {
   name: "date_filter",
   props:{
     option:{
       type: Object,
       required: true
+    }
+  },
+  data(){
+    return{
+      active: '',
+    }
+  },
+
+  computed:{
+    ...mapGetters([
+      'active_navigation',
+    ]),
+    request_active_filter(){
+      return this.active
+    }
+  },
+  watch:{
+    request_active_filter: function(object){
+      this.$store.commit('update_filter', object)
     }
   }
 }

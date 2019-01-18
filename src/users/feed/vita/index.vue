@@ -4,8 +4,7 @@
          :active="active.create"
          name="Vita"
          v-model="active.create"/>
-    <create_article :type="list_relations.posts"
-                    v-if="active.create"/>
+    <create_vita v-if="active.create" v-model="action"/>
     <h6>VITAS</h6>
     <posts v-for="(article, i) in request_vitas_data"
            :key="i"
@@ -21,10 +20,12 @@
   import Posts from "../../../components/articles/index";
   import Create_article from "../../../components/articles/create";
   import Add from "../../../components/add/index";
+  import Create_vita from "./create";
 
   export default {
     name: "users_profile",
     components:{
+      Create_vita,
       Add,
       Create_article,
       Posts,
@@ -36,6 +37,7 @@
         active:{
           create: false
         },
+        action: null,
         request_vitas: {
           params: {
             user_id: null
@@ -57,6 +59,12 @@
     watch:{
       route_id: function () {
         this.get_user_request(this.request_vitas)
+      },
+      action: function (string) {
+        if(string === 'reload'){
+          this.request_vitas.request = true
+          this.action = null
+        }
       }
     },
     mounted(){

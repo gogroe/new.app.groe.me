@@ -5,6 +5,7 @@
          v-model="active.create"
          class="add_feed"/>
     <h6>TRANSAKTIONEN</h6>
+    <create_account v-if="active.create" v-model="action"/>
     <ul class="default_box account_menu">
       <li @click="active.menu = i"
           :class="{'active': active.menu === i}"
@@ -12,17 +13,19 @@
           :key="i">{{item.name}}
       </li>
     </ul>
-    <all_accounts v-if="active.menu === 0"/>
+    <all_accounts v-if="active.menu === 0" :action="action" v-model="action"/>
   </div>
 </template>
 <script>
   import { mapGetters } from 'vuex'
   import All_accounts from "./all_accounts";
   import Add from "../../../components/add/index";
+  import Create_account from "./create";
 
   export default {
     name: "accounts",
     components:{
+      Create_account,
       Add,
       All_accounts,
     },
@@ -32,6 +35,7 @@
           menu: 0,
           create: false
         },
+        action: null,
         menu_items:[
           { name: 'ALLE' },
           { name: 'EINGANG' },

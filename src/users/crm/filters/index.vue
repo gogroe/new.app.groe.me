@@ -18,25 +18,6 @@
 </template>
 
 <script>
-// columns:[
-//   {
-//     no: 1,
-//     placeholder: 'Image',
-//     name: 'image',
-//     show: true,
-//     show2: false,
-//     data: [],
-//     onclick: false,
-//     options: [
-//       {
-//       name: 'one',
-//       filter: 'range',
-//       value: 100,
-//       show: true
-//       },
-//     ],
-//   },
-// ]
 import Add from "../../../components/add/index";
 import Drag from "./drag";
 export default {
@@ -74,7 +55,7 @@ export default {
   top:90px;
   right:0;
   border-left: 1px solid #e6e6e6;
-  padding: 20px 0 0 15px;
+  padding: 5% 1%;
   height: 100vh;
   .draggable{
     height: calc(100vh - 250px);

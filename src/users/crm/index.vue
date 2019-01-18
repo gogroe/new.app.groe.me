@@ -1,5 +1,5 @@
 <template>
-  <div class="userCRM">
+  <div class="user_crm">
     <div class="table" @scroll="scrollFunction()" ref="table">
       <div class="table_head" ref="head">
         <span v-for="(column, i) in columns"
@@ -14,9 +14,10 @@
           :key="i"
            v-if="column.show"
           :class="column.name">
-        <cell v-for="cell, i in column.data"
+        <cell
+        v-for="cell, i in column.data"
         :key="i"
-        :cell_obj="cell" :options="column.options" :filter="column.options"/>
+        :cell_obj="cell"/>
       </span>
     </div>
 
@@ -26,17 +27,18 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   import Request from "../../components/functions/request";
   import Edit from "../../components/inputs/edit";
-  import Cell from "./cell";
   import drag_filter from "./filters/index";
+  import { mapGetters } from 'vuex'
+  import Cell from "./cell";
+
   export default {
-    name: "userCRM",
+    name: "user_crm",
     components:{
+      Cell,
       Request,
       Edit,
-      Cell,
       drag_filter
     },
     data(){
@@ -54,7 +56,7 @@
               {
                 name: 'one',
                 filter: 'range',
-                value: 100,
+                value: 0,
                 show: false
               },
               {
@@ -66,7 +68,7 @@
               {
                 name: 'three',
                 filter: 'range',
-                value: '',
+                value: 0,
                 show: false
               }
             ],
@@ -185,7 +187,8 @@
             user_columns: null,
             user_order: ''
           },
-          url: 'http://newbackend.groe.me/users/get_users',
+          // url: 'http://newbackend.groe.me/users/get_users',
+          url: 'http://newbackend.groe.me/users/get_user_navigation',
           data: {},
           request: false
         }
@@ -194,7 +197,7 @@
 
     computed:{
       ...mapGetters([
-        'users_filter'
+        'users_filter',
       ]),
       request_users_data(){
         return this.request_users.data
@@ -205,11 +208,12 @@
     },
 
     watch:{
-
       request_users_data(obj){
         this.load_columns()
       },
-
+      users_filter(obj){
+        this.filter_users(obj)
+      },
       request_sorting(obj){
         this.sorting(obj)
       }
@@ -246,8 +250,21 @@
 
       scrollFunction: function(){
         this.$refs.head.scrollLeft = this.$refs.table.scrollLeft
+      },
+
+      filter_users: function(obj){
+        var a = this.users_filter
+        console.log(a);
+        switch (a){
+          case 'age':
+            return obj.name<a;
+            break;
+          case 'name':
+            return obj.name.includes(a);
+            break;
+        }
       }
-    }
+    },
   }
 </script>
 
@@ -270,30 +287,36 @@
     background: #555;
   }
 
-  .userCRM{
-    width: 85%;
-    margin-top: 64px;
+  .user_crm{
+    width: 90%;
+    display: inline-block;
+    position: absolute;
+    right: 16%;
+
   }
 
   .table{
     background-color: white;
-    outline: 20px solid white;
-    margin: 90px auto 20px;
-    width: 80%;
-    height: calc(100vh - 180px);
+    outline: 15px solid white;
+    width: calc(100% - 200px);
+    float: right;
+    height: calc(100% - 192px);
     overflow: auto;
+    margin: 128px 64px 20px;
     white-space: nowrap;
+    // box-shadow: 0px 0px 40px 20px red inset;
     .table_head{
-      outline: 20px solid white;
+      outline: 15px solid white;
       background: white;
-      margin-bottom: 20px;
       position: absolute;
-      width: 68%;
-      bottom: calc(100vh - 180px);
+      top: 84px;
+      /*left: calc(16%-15px);*/
+      height: 34px;
+      width: calc(100% - 200px);
       text-align: center;
       overflow: hidden;
       white-space: nowrap;
-      border-bottom: 3px solid lightgray;
+      border-bottom: 2px solid lightgray;
       span{
         width: calc(100vw / 8);
         text-align: center;

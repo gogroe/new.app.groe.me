@@ -1,68 +1,34 @@
 <template>
   <div class="text_filter">
     <label>
-      <input type="checkbox" v-model="option.show" class="checkbox">
-      <span class="checkmark"></span>
-      <p class="paragraph_label">{{ option.name}}</p>
-      <input type="text" :name="option.name" v-model="option.value" @keyup.enter="update_filter(text_filter.table, text_filter.value_key, text_filter.value)">
+      <p class="paragraph_label">aaaaaaa</p>
+      <input type="text" :name="" v-model="value" @keyup.enter="update_filter(table, value_key, value)">
     </label>
   </div>
 </template>
-
 <script>
-
-// option: [
-//   {
-//   name: 'one',
-//   filter: 'range',
-//   value: 100,
-//   show: true
-//   },
-// ],
-
-import { mapGetters } from 'vuex'
 export default {
-  name: "text_filter",
+  name: "text",
   props:{
-    option:{
-      type: Object,
+    table:{
+      type: String,
+      required: true
+    },
+    value_key:{
+      type: String,
       required: true
     }
   },
   data(){
     return{
-      active: '',
-      text_filter: {
-        table:'users',
-        value_key: 'search->lastname',
-        value:'ad'
-      }
+      value: null
     }
   },
-
-  computed:{
-    ...mapGetters([
-      'users_filter',
-    ])
-  },
-  // watch:{
-  //   request_active_filter: function(){
-  //       this.option.show = true
-  //     var json = this.text_filter.users.conditions.key
-  //     json.search = this.option.value
-  //     json = JSON.stringify(json)
-  //     json = json.replace("search", ("search->" + this.option.name))
-  //     if (this.option.show) {
-  //       console.log(json);
-  //       this.$store.commit('update_users_filter', json)
-  //     }
-  //   }
-  // },
   methods:{
     update_filter(table, value_key, value){
       const update_object = {
         table : table,
-        value_key : value_key,
+        value_key : 'search->' + value_key,
         value : value
       }
       this.$store.commit('update_users_filter', update_object)

@@ -30,6 +30,7 @@
 //     ],
 //   },
 // ]
+import { mapGetters } from 'vuex'
 export default {
   name: "range_filter",
   props:{
@@ -38,13 +39,30 @@ export default {
       required: true
     }
   },
-  //-------------------------------------------------------------
-  // computed:{
-  //   update_columns
-  // }
+  data(){
+    return{
+      active: ''
+    }
+  },
 
-
-  //-------------------------------------------------------------
+  computed:{
+    ...mapGetters([
+      'users_filter',
+    ]),
+    // value_change(){
+    //
+    // },
+    request_active_filter(){
+      return this.option.value
+    }
+  },
+  watch:{
+    request_active_filter: function(object){
+      this.$store.commit('update_users_filter', this.option.name)
+      this.option.show = true
+      //is it possible to implement a watcher on a store component
+    }
+  },
   methods: {
     filter_func: function(obj){
       return parseInt(obj)

@@ -36,6 +36,11 @@
       Request,
       Dropdown
     },
+    props:{
+      action:{
+        required: true,
+      }
+    },
     data(){
       return {
         request_user_accounts: {
@@ -60,6 +65,14 @@
         return 'accounts' in this.request_user_accounts.data
           ? this.request_user_accounts.data.accounts
           : []
+      }
+    },
+    watch:{
+      action: function (string) {
+        if(string === 'reload'){
+          this.request_user_accounts.request = true
+          this.$emit('input', null)
+        }
       }
     },
     mounted(){

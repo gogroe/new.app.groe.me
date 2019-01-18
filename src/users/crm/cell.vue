@@ -1,6 +1,6 @@
 <template>
   <div class="cell">
-    <p v-if="show" @click="show=false">{{(cell_obj===null) ? cell_obj= ' a ' : cell_obj=cell_obj}}</p>
+    <p v-if="show" @click="show=false">{{(cell_content===null) ? cell_content= ' a ' : cell_content=cell_content}}</p>
     <input v-if="!show" @keyup.enter="show=true" type="text" name="" value="" class="edit_field" :style="">
     <!-- <edit :url:"" :label="" :name="" :value="" :select="" :placeholder="" :type="" :input_class="" :label_class="" :required_params="" :error_class=""/> -->
   </div>
@@ -17,24 +17,16 @@ import Fill_edit from '../../components/inputs/fill_edit'
       cell_obj:{
         type: String,
         required: false
-      },
-      id:{
-        type: Number,
-        required: true
-      },
-      filter:{
-        type: Array,
-        required: false
       }
     },
     data(){
       return {
         show : true,
-        key:{
-          name: this.cell_obj,
-          type: 'text'
-        }
+        cell_content : ''
       }
+    },
+    mounted(){
+      this.cell_content = this.cell_obj;
     },
     mixins:[Fill_edit]
   }
