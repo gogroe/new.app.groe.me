@@ -18,6 +18,7 @@
     "less-loader": "^4.0.5",
     "node": "^11.1.0",
     "vue": "^2.5.2",
+    "vue-click-outside": "^1.0.7",
     "vue-moment": "^4.0.0",
     "vue-router": "^3.0.1",
     "vue2-google-maps": "^0.10.5",

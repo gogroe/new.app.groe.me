@@ -3,7 +3,10 @@
     <div class="inner_full_fixed">
       <crm_bar/>
       <div class="floater_wrapper">
-        <crm_table class="floater"/>
+        <crm_table class="floater"
+                   :request_data="request_users_data"
+                   :columns_settings="columns_settings"
+                   :request_groups="request_groups"/>
         <crm_filter class="floater"/>
       </div>
       <div class="clear"></div>
@@ -40,6 +43,73 @@
           url: 'http://newbackend.groe.me/users/get_users',
           data: {},
           request: false
+        },
+        request_groups: {
+          users: {
+            required_params: {
+                    user_id: '1'
+                  },
+            create_url: 'http...',
+            edit_url: 'http...',
+          },
+          status: {
+            required_params: {
+              user_id: '1'
+            },
+            create_url: 'http...',
+            edit_url: 'http...',
+          }
+        },
+        columns_settings: {
+          image:{
+            name: '',
+            type: 'image',
+            edit: false,
+            request_group: 'users',
+            rows: []
+          },
+          firstname:{
+            name: 'Vorname',
+            type: 'text',
+            edit: false,
+            request_group: 'users',
+            rows: []
+          },
+          lastname:{
+            name: 'Nachname',
+            type: 'text',
+            edit: false,
+            request_group: 'users',
+             rows: []
+          },
+          type:{
+            name: 'Type',
+            type: 'text',
+            edit: false,
+            request_group: 'users',
+             rows: []
+          },
+          gender:{
+            name: 'Geschlecht',
+            type: 'select',
+            edit: true,
+            request_group: 'users',
+             rows: []
+          },
+          status:{
+            name: 'Status',
+            type: 'select',
+            edit: true,
+            request_group: 'status',
+             rows: []
+          },
+          status_details:{
+            name: 'Status Details',
+            type: 'select',
+            edit: true,
+            request_group: 'status_details',
+            rows: []
+          },
         }
       }
     },
