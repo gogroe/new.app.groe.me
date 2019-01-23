@@ -58,8 +58,15 @@ const dependencies = {
       media : 16,
     },
 
-    translations:{   //buidl a mixins witch searches in translate
-      phone: 'Telefon'
+    translations:{
+      inaktive: 'Inaktiv',
+      aktive: 'Aktiv',
+      registered: 'Registriert',
+      negotiation: 'Verhandlungen',
+      male: 'Mann',
+      unknown: 'Unbekannt',
+      female: 'Frau',
+      phone: 'Telefon',
     }
   },
 
@@ -74,7 +81,10 @@ const dependencies = {
     },
     list_relations(state){
       return state.relations
-    }
+    },
+    list_translations(state){
+      return state.translations
+    },
   },
 
   actions: {}

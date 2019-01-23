@@ -5,10 +5,20 @@ export default {
   computed:{
     ...mapGetters([
       'get_header',
-      'list_relations'
+      'list_relations',
+      'list_translations'
     ])
   },
   methods:{
+    translate(string){
+      if(string in this.list_translations){
+        return this.list_translations[string]
+      }
+      else {
+        return string
+      }
+    },
+
     cut_route_name_prefix(route_name){
       return route_name.substring(0,route_name.indexOf('_', 1))
     },

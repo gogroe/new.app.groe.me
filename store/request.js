@@ -4,7 +4,10 @@ import axios from 'axios'
 const request = {
   state: {
     response: {},
-    reload: false,
+    reload: {
+      action: null,
+      section: null
+    },
     auth: {
       uid: 2,
       token: 'abcdefghijklmnopqrstuvwxyz',
@@ -15,8 +18,8 @@ const request = {
     update_response (state, object) {
       state.response = object
     },
-    update_reload (state, boolean) {
-      state.reload = boolean
+    update_reload (state, object) {
+      state.reload = object
     },
     update_auth (state, object) {
       state.auth.uid = object.uid

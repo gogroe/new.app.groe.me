@@ -34,6 +34,10 @@
       obj:{
         type: Object,
         required: true,
+      },
+      reload:{
+        type: Object,
+        required: false,
       }
     },
     data(){
@@ -58,9 +62,17 @@
       },
       inputs_event(){
         return this.inputs.event
+      },
+      send_data(){
+        return this.send.data
       }
     },
     watch:{
+      send_data:function (object) {
+        if('update' in object && this.reload !== null){
+          this.$store.commit('update_reload', {action: this.reload.action, section: this.reload.section})
+        }
+      },
       inputs_event: function (event){
         this.cur_value = this.inputs_value
         if(
@@ -85,7 +97,6 @@
         if(this.cur_value !== this.old_value){
           this.send.params[this.obj.name] = this.cur_value
           this.send.request = true
-          this.$store.commit('update_reload', true)
         }
       },
       set_params(){

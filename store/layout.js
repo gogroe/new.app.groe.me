@@ -15,7 +15,8 @@ const layout = {
     user_navigation: [],
     user_profiles: [],
     user_vitas: [],
-    user_progress: []
+    user_progress: [],
+    lists:{}
   },
 
   mutations: {
@@ -36,6 +37,9 @@ const layout = {
     },
     update_active_navigation(state, boolean){
       state.active.navigation = boolean
+    },
+    update_lists(state, object){
+      state.lists[object.list_group] = object.list
     }
   },
 
@@ -63,6 +67,9 @@ const layout = {
     },
     active_navigation(state){
       return state.active.navigation
+    },
+    lists(state){
+      return state.lists
     }
   },
 

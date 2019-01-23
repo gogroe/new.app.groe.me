@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from '../store'
 import * as VueGoogleMaps from "vue2-google-maps";
+import vSelect from 'vue-select'
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -15,6 +16,8 @@ Vue.use(VueGoogleMaps, {
 
 Vue.config.productionTip = false
 Vue.use(require('vue-moment'));
+
+Vue.component('v-select', vSelect)
 
 /* eslint-disable no-new */
 new Vue({

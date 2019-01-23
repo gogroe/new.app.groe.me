@@ -254,15 +254,19 @@
 
     &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
       font-family: 'Roboto', sans-serif;
+      font-size: var(--font-size);
     }
     &::-moz-placeholder { /* Firefox 19+ */
       font-family: 'Roboto', sans-serif;
+      font-size: var(--font-size);
     }
     &:-ms-input-placeholder { /* IE 10+ */
       font-family: 'Roboto', sans-serif;
+      font-size: var(--font-size);
     }
     &:-moz-placeholder { /* Firefox 18- */
       font-family: 'Roboto', sans-serif;
+      font-size: var(--font-size);
     }
   }
 
@@ -284,11 +288,52 @@
     }
   }
 
-  .create_input_label {
+  .create_input_label, .crm_label {
     display: none;
     width: 100%;
     font-size: var(--font-size);
     color:#cdcdcd;
+  }
+
+  .crm_input{
+    font-size: 13px;
+    width: 140px;
+    border: 1px solid #3da0f5;
+    padding: 5px;
+    margin: 19px 12px;
+  }
+
+  .crm_input_select{
+    .v-select {
+      .dropdown-toggle {
+        position: absolute;
+        font-size: 13px;
+        width: 140px;
+        height: 27px;
+        margin-top: 19px;
+        margin-left: 12px;
+        padding: 0 0 5px;
+        border: 1px solid #3da0f5;
+        border-radius: 2px;
+      }
+
+      .dropdown-menu {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        min-width: 140px;
+        padding: 5px 0;
+        margin: 0;
+        width: 100%;
+        overflow-y: auto;
+        border: 1px solid #3da0f5;
+        box-shadow: 0 3px 6px 0 rgba(0,0,0,.15);
+        border-top: none;
+        border-radius: 0 0 2px 2px;
+      }
+    }
   }
 
   .edit_input{
@@ -310,9 +355,6 @@
     text-align: right;
     margin-bottom: 8px;
   }
-
-
-
 
 
   ////////////////////////////////////////////////////////////////////////////////// Component classes images
