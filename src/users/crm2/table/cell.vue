@@ -88,14 +88,22 @@
     },
     mounted(){
       this.set_create()
-      this.build_input_object('create')
-      this.build_input_object('edit')
+      this.build_input_object()
     },
     watch:{
       list:{
         handler: function (array) {
          this.set_list_value()
         }, deep:true
+      },
+      cell:{
+        handler:function () {
+          this.set_create()
+          this.build_input_object()
+          if(this.column.type === 'select'){
+            this.set_list_value()
+          }
+        }, deep: true
       }
     },
     methods:{
@@ -115,6 +123,9 @@
           this.cell.name === null
         ){
           this.active.create = true
+        }
+        else {
+          this.active.create = false
         }
       },
       hide(){

@@ -12,6 +12,9 @@
       <div class="clear"></div>
     </div>
     <request :obj="request_users" v-model="request_users"/>
+    <list list_name="gender"/>
+    <list list_name="user_status"/>
+    <list list_name="user_status_details"/>
   </div>
 </template>
 
@@ -22,10 +25,12 @@
   import Crm_table from "../crm2/table/index";
   import Crm_bar from "../crm2/bar/index";
   import Crm_filter from "../crm2/filters/index";
+  import List from "../../components/list/index";
 
   export default {
     name: "user_crm",
     components:{
+      List,
       Crm_filter,
       Crm_bar,
       Crm_table,
@@ -48,8 +53,8 @@
                     uid: null,
                     user_id:'get_users.id'
                   },
-            create_url: 'https://newbackend.groe.me/users/create_user',
-            edit_url: 'https://newbackend.groe.me/users/update_user',
+            create_url: 'http://newbackend.groe.me/users/create_user',
+            edit_url: 'http://newbackend.groe.me/users/update_user',
           },
           status: {
             indicator: false,
@@ -58,8 +63,8 @@
               user_id: 'get_users.id',
               status_id: 'get_status.id'
             },
-            create_url: 'https://newbackend.groe.me/users/create_user_status',
-            edit_url: 'https://newbackend.groe.me/users/update_user_status',
+            create_url: 'http://newbackend.groe.me/users/create_user_status',
+            edit_url: 'http://newbackend.groe.me/users/update_user_status',
           },
           status_details: {
             indicator: false,
@@ -68,8 +73,8 @@
               status_id: 'get_status.id',
               status_details_id: 'get_status_details.id'
             },
-            create_url: 'https://newbackend.groe.me/users/create_user_status_details',
-            edit_url: 'https://newbackend.groe.me/users/update_user_status_details',
+            create_url: 'http://newbackend.groe.me/users/create_user_status_details',
+            edit_url: 'http://newbackend.groe.me/users/update_user_status_details',
           }
         },
         columns_settings: {
@@ -154,6 +159,7 @@
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'users_crm'){
           this.request_users.request = true
+          this.$store.commit('update_reload', {action: null, section: null})
         }
       }
     },

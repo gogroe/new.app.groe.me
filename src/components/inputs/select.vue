@@ -46,6 +46,9 @@
       }
     },
     watch:{
+      select_value: function(){
+        this.set_cur_value()
+      },
       cur_value_value: function(string){
         if(string !== null){
           this.send_parrent()

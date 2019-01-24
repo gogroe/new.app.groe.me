@@ -69,7 +69,10 @@
     },
     watch:{
       send_data:function (object) {
-        if('update' in object && this.reload !== null){
+        if('update' in object){ // && this.reload !== null todo ??
+          this.$store.commit('update_reload', {action: this.reload.action, section: this.reload.section})
+        }
+        if('create' in object){ // && this.reload !== null todo ??
           this.$store.commit('update_reload', {action: this.reload.action, section: this.reload.section})
         }
       },

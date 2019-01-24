@@ -66,6 +66,9 @@ const dependencies = {
       male: 'Mann',
       unknown: 'Unbekannt',
       female: 'Frau',
+      qualify: 'Qualifizieren',
+      call_back: 'Zurückrufen',
+      get_contact: 'Kontaktdaten',
       phone: 'Telefon',
     }
   },
