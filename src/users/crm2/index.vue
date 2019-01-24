@@ -4,10 +4,12 @@
       <crm_bar/>
       <div class="floater_wrapper">
         <crm_table class="floater"
-                   :request_data="request_users_data"
-                   :columns_settings="columns_settings"
-                   :request_groups="request_groups"/>
-        <crm_filter class="floater"/>
+                    :request_data="request_users_data"
+                    :columns_settings="columns_settings"
+                    :request_groups="request_groups"/>
+        <crm_filter class="floater"
+                    :columns="columns_settings"
+                    :params="request_users.params"/>
       </div>
       <div class="clear"></div>
     </div>
@@ -76,6 +78,7 @@
           'users.image':{
             id: 'users.image',
             name: '',
+            display: true,
             type: 'image',
             edit: false,
             request_group: 'users',
@@ -84,6 +87,7 @@
           'users.firstname':{
             id: 'users.firstname',
             name: 'Vorname',
+            display: true,
             type: 'text',
             edit: false,
             request_group: 'users',
@@ -92,6 +96,7 @@
           'users.lastname':{
             id: 'users.lastname',
             name: 'Nachname',
+            display: true,
             type: 'text',
             edit: false,
             request_group: 'users',
@@ -100,6 +105,7 @@
           'users.type':{
             id: 'users.type',
             name: 'Type',
+            display: true,
             type: 'select',
             select: 'user_status',
             edit: false,
@@ -109,6 +115,7 @@
           'users.gender':{
             id: 'users.gender',
             name: 'Geschlecht',
+            display: true,
             type: 'select',
             select: 'gender',
             edit: true,
@@ -118,6 +125,7 @@
           'status.value':{
             id: 'status.value',
             name: 'Status',
+            display: true,
             type: 'select',
             select: 'user_status',
             edit: true,
@@ -127,7 +135,8 @@
           'status_details.value':{
             id: 'status_details.value',
             name: 'Status Details',
-            type: 'select',
+            display: true,
+            type: 'range',
             select: 'user_status_details',
             edit: true,
             request_group: 'status_details',
