@@ -1,18 +1,17 @@
 <template>
   <div class="filter_head">
-    HEAD
   </div>
 </template>
 
 <script>
-export default {
-  name: "filter_head",
-  data(){
-    return {
+  export default {
+    name: "filter_head",
+    data(){
+      return {
 
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>

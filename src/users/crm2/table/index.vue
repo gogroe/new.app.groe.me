@@ -89,7 +89,7 @@
   //   }
   // }
 
-  import  custom_helper from '../../../components/functions/custom_helper'
+  import custom_helper from '../../../components/functions/custom_helper'
   import Table_cell from "./cell";
 
   export default {
@@ -111,22 +111,25 @@
     },
     data(){
       return{
-        columns: []
+        columns: [],
+        stored_request_data:[]
       }
     },
     watch:{
-      request_data: function () {
+      request_data:function () {
+        this.stored_request_data = this.request_data
         this.set_columns()
+      },
+      columns_settings:function () {
+        if(this.columns !== this.columns_settings){
+          this.set_columns()
+        }
       }
     },
     methods:{
       set_columns(){
-        if(
-          Object.keys(this.request_data).length === 0 &&
-          this.request_data.constructor === Object
-        ){
+        if(this.object_length(this.stored_request_data) === 0){
           console.log('empty request_data in crm_table')
-          return false
         }
         else {
           this.columns = this.columns_settings
@@ -150,8 +153,8 @@
         }
       },
       set_rows(){
-        for(let request_data_key in this.request_data){
-          let row = this.request_data[request_data_key]
+        for(let request_data_key in this.stored_request_data){
+          let row = this.stored_request_data[request_data_key]
 
           for(let row_key in row){
             let cell = row[row_key]
@@ -178,8 +181,8 @@
           if(typeof param === 'string' && param.indexOf('get_') !== -1){
             let search_id = param.substring(4)
 
-            if(search_id in this.request_data[row_index]){
-              ids_object[param_key] = this.request_data[row_index][search_id]
+            if(search_id in this.stored_request_data[row_index]){
+              ids_object[param_key] = this.stored_request_data[row_index][search_id]
             }
           }
         }

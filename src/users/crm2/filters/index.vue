@@ -5,97 +5,88 @@
       <draggable :list="sort_array"
                  :options="{handle:'.material-icons'}"
                  class="draggable">
-        <!-- <div class="drag_item"
+        <div class="drag_item"
              v-for="(sort_item, i) in sort_array"
              :key="i">
           {{sort_item.name}}
           <i class="material-icons">drag_handle</i>
-        </div> -->
-        <!-- <filter_item :obj="sort_array"/> -->
-        <!-- <filter_cell v-if="element.name != ''"
-        :name = 'element.name'
-        :type = 'element.type'
-        :edit = 'element.edit'
-        :display = 'element.display'
-        :request_group = 'element.request_group'/> -->
+        </div>
       </draggable>
     </div>
   </div>
 </template>
 
 <script>
-import filter_head from "./filter_head";
-import filter_cell from "./filter_cell";
-import draggable from 'vuedraggable';
+  import filter_head from "./filter_head";
+  import draggable from 'vuedraggable';
 
-export default {
-  name: "crm_filter",
-  components:{
-    filter_head,
-    filter_cell,
-    draggable,
-  },
-  props:{
-    columns:{
-      type: Object,
-      required: true
-    }
-  },
-  data(){
-    return {
-      sort_array:[],
-      order:[]
-      }
-  },
-  mounted(){
-    this.load_array()
-  },
-  watch:{
-    sort_array: {
-      handler:function(array){
-        this.set_order(array)
-      }, deep: true
-    }
-  },
-  methods:{
-    load_array: function(){
-      for(let columns_key in this.columns){
-        let column = this.columns[columns_key]
-
-
-        let sort_item = {
-          id: column.id,
-          name: column.name,
-          type: column.type,
-          edit: column.edit,
-        }
-
-        this.sort_array.push(sort_item)
+  export default {
+    name: "crm_filter",
+    components:{
+      filter_head,
+      draggable,
+    },
+    props:{
+      columns:{
+        type: Object,
+        required: true
       }
     },
-    set_order(array){
-      this.order = []
-      for(let key in array){
-        let sort_item = array[key]
-
-        this.order.push(sort_item.id)
+    data(){
+      return {
+        sort_array:[],
+        order:[]
       }
-      this.$store.commit('update_users_crm_order', this.order)
-    }
-  },
-}
+    },
+    mounted(){
+      this.load_array()
+    },
+    watch:{
+      sort_array: {
+        handler:function(array){
+          this.set_order(array)
+        }, deep: true
+      }
+    },
+    methods:{
+      load_array: function(){
+        for(let columns_key in this.columns){
+          let column = this.columns[columns_key]
+
+
+          let sort_item = {
+            id: column.id,
+            name: column.name,
+            type: column.type,
+            edit: column.edit,
+          }
+
+          this.sort_array.push(sort_item)
+        }
+      },
+      set_order(array){
+        this.order = []
+        for(let key in array){
+          let sort_item = array[key]
+
+          this.order.push(sort_item.id)
+        }
+        this.$store.commit('update_users_crm_order', this.order)
+      }
+    },
+  }
 </script>
 
 <style lang="scss" scoped>
-.drag_item{
-  width: 100%;
-  padding: 17px;
+  .drag_item{
+    width: 100%;
+    padding: 17px;
 
-  i {
-    display: inline-block;
-    margin-left: 17px;
+    i {
+      display: inline-block;
+      margin-left: 17px;
+    }
   }
-}
   .crm_filter{
     position: relative;
     width: 450px;
