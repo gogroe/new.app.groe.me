@@ -1,5 +1,8 @@
 <template>
   <div class="user_crm full_fixed">
+    <list list_name="gender"/>
+    <list list_name="user_status"/>
+    <list list_name="user_status_details"/>
     <div class="inner_full_fixed">
       <crm_bar/>
       <div class="floater_wrapper">
@@ -12,9 +15,7 @@
       <div class="clear"></div>
     </div>
     <request :obj="request_users" v-model="request_users"/>
-    <list list_name="gender"/>
-    <list list_name="user_status"/>
-    <list list_name="user_status_details"/>
+    <list list_name="gender" :use_store="true"/>
   </div>
 </template>
 

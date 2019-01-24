@@ -140,6 +140,7 @@
           this[obj].select = 'select' in this.column
             ? this.column.select
             : null
+          //this[obj].use_store = true
           this[obj].placeholder = this.column.name
           this[obj].type = this.column.type
           this[obj].name = this.column.id.substring(this.column.id.indexOf('.') + 1)
