@@ -14,6 +14,9 @@
     props:{
       list_name:{
         required: true
+      },
+      use_store:{
+        required: false
       }
     },
     components: {Request},
@@ -65,12 +68,14 @@
         }
       },
       get_list(){
-        if(this.list_name in this.lists){
-          this.$emit('input', this.lists[this.list_name])
-        }
-        else {
-          this.request_get_list.params.list_group = this.list_name
-          this.request_get_list.request = true
+        if(this.use_store === undefined || this.use_store === false || this.use_store ===  null){
+          if(this.list_name in this.lists){
+            this.$emit('input', this.lists[this.list_name])
+          }
+          else {
+            this.request_get_list.params.list_group = this.list_name
+            this.request_get_list.request = true
+          }
         }
       }
     },

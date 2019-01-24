@@ -88,14 +88,22 @@
     },
     mounted(){
       this.set_create()
-      this.build_input_object('create')
-      this.build_input_object('edit')
+      this.build_input_object()
     },
     watch:{
       list:{
         handler: function (array) {
          this.set_list_value()
         }, deep:true
+      },
+      cell:{
+        handler:function () {
+          this.set_create()
+          this.build_input_object()
+          if(this.column.type === 'select'){
+            this.set_list_value()
+          }
+        }, deep: true
       }
     },
     methods:{
@@ -116,6 +124,9 @@
         ){
           this.active.create = true
         }
+        else {
+          this.active.create = false
+        }
       },
       hide(){
         this.active.edit = false
@@ -129,6 +140,7 @@
           this[obj].select = 'select' in this.column
             ? this.column.select
             : null
+          //this[obj].use_store = true
           this[obj].placeholder = this.column.name
           this[obj].type = this.column.type
           this[obj].name = this.column.id.substring(this.column.id.indexOf('.') + 1)
