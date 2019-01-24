@@ -1,8 +1,9 @@
 const states = {
   state: {
-    users_filter: {
+    users_crm_filter: {
 
-    }
+    },
+    users_crm_order: []
   },
 
   mutations: {
@@ -17,6 +18,10 @@ const states = {
         state.users_filter[object.table]['condition'][object.value_key] =  object.value
       }
     },
+
+    update_users_crm_order(state, array){
+      state.users_crm_order = array
+    }
 
 
     // update_user_conditions(state, object){
@@ -58,8 +63,11 @@ const states = {
     // },
   },
   getters: {
-    users_filter(state){
-      return state.users_filter
+    users_crm_filter(state){
+      return state.users_crm_filter
+    },
+    users_crm_order(state){
+      return state.users_crm_order
     }
   },
 

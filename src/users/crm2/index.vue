@@ -149,7 +149,8 @@
       ...mapGetters([
         'users_filter',
         'get_header',
-        'reload'
+        'reload',
+        'users_crm_order'
       ]),
       request_users_data(){
         return this.request_users.data
@@ -164,6 +165,9 @@
         if(object.action === 'reload' && object.section === 'users_crm'){
           this.request_users.request = true
         }
+      },
+      users_crm_order:function (array) {
+        this.reorder_columns_settings()
       }
     },
     mounted(){
@@ -172,6 +176,15 @@
       this.request_users.request = true
     },
     methods:{
+      reorder_columns_settings(){
+        let new_order = {}
+
+        for(let order_key in this.users_crm_order){
+          let order_item = this.users_crm_order[order_key]
+          new_order[order_item] = this.columns_settings[order_item]
+        }
+        this.columns_settings = new_order
+      },
       set_image_data(object){
         for(let key in object){
           if('users.image' in object[key]){

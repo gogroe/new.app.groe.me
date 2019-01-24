@@ -1,70 +1,101 @@
 <template>
   <div class="crm_filter">
     <filter_head/>
-    <filter_body :columns="columns" :params="params" :array="sort_array"/>
+    <div class="filter_body">
+      <draggable :list="sort_array"
+                 :options="{handle:'.material-icons'}"
+                 class="draggable">
+        <!-- <div class="drag_item"
+             v-for="(sort_item, i) in sort_array"
+             :key="i">
+          {{sort_item.name}}
+          <i class="material-icons">drag_handle</i>
+        </div> -->
+        <!-- <filter_item :obj="sort_array"/> -->
+        <!-- <filter_cell v-if="element.name != ''"
+        :name = 'element.name'
+        :type = 'element.type'
+        :edit = 'element.edit'
+        :display = 'element.display'
+        :request_group = 'element.request_group'/> -->
+      </draggable>
+    </div>
   </div>
 </template>
 
 <script>
 import filter_head from "./filter_head";
-import filter_body from "./filter_body";
+import filter_cell from "./filter_cell";
+import draggable from 'vuedraggable';
+
 export default {
   name: "crm_filter",
   components:{
     filter_head,
-    filter_body
+    filter_cell,
+    draggable,
   },
   props:{
     columns:{
-      type: Object,
-      required: true
-    },
-    params:{
       type: Object,
       required: true
     }
   },
   data(){
     return {
-      sort_array:[]
-    }
+      sort_array:[],
+      order:[]
+      }
   },
   mounted(){
     this.load_array()
   },
-  methods:{
-    load_array: function(){
-      // this.sort_array.push(Object.keys(this.columns))
-      let i = 0
-      for(i in this.columns){
-        this.sort_array.push(this.columns[i].name)
-      }
+  watch:{
+    sort_array: {
+      handler:function(array){
+        this.set_order(array)
+      }, deep: true
     }
   },
-  watch:{
-    // sort_array: function(){
-    //   let tmp_obj = {}
-    //   let i = 0
-    //   let j = 0
-    //   for(i in this.sort_array){
-    //     for(j in this.columns){
-    //       if(this.sort_array[i] === this.columns[j].name){
-    //         console.log(Object.keys(this.columns)[i]);
-    //         tmp_obj[Object.keys(this.columns)[j]] = this.columns[j]
-    //         console.log(tmp_obj);
-    //         break
-    //       }
-    //     }
-    //   }
-    //   this.columns = tmp_obj;
-    //   console.log(this.sort_array);
-    //   console.log(this.columns);
-    // }
-  }
+  methods:{
+    load_array: function(){
+      for(let columns_key in this.columns){
+        let column = this.columns[columns_key]
+
+
+        let sort_item = {
+          id: column.id,
+          name: column.name,
+          type: column.type,
+          edit: column.edit,
+        }
+
+        this.sort_array.push(sort_item)
+      }
+    },
+    set_order(array){
+      this.order = []
+      for(let key in array){
+        let sort_item = array[key]
+
+        this.order.push(sort_item.id)
+      }
+      this.$store.commit('update_users_crm_order', this.order)
+    }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+.drag_item{
+  width: 100%;
+  padding: 17px;
+
+  i {
+    display: inline-block;
+    margin-left: 17px;
+  }
+}
   .crm_filter{
     position: relative;
     width: 450px;
@@ -83,5 +114,6 @@ export default {
     width: 100%;
     height: calc(100% - 64px);
     background: #fff;
+    padding: 17px;
   }
 </style>
