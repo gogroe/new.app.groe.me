@@ -288,6 +288,20 @@
     }
   }
 
+  .create_input_select {
+    .v-select {
+      .dropdown-toggle {
+        padding: 4px 5px 9px 4px;
+        border-radius: 4px;
+        border: 2px solid transparent;
+
+        &:hover, &:focus{
+          border: 2px solid #3da0f5;
+        }
+      }
+    }
+  }
+
   .create_input_label, .crm_label {
     display: none;
     width: 100%;

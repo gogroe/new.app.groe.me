@@ -83,7 +83,7 @@
           input_class:'crm_input',
           label_class: 'crm_label',
           required_params: {},
-          error_class: 'crm_error'
+          error_class: 'input_error'
         },
         list:[],
         list_value: null

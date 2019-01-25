@@ -5,18 +5,14 @@
       <draggable :list="sort_array"
                  :options="{handle:'.material-icons'}"
                  class="draggable default_scrollbar">
-          <filter_cell v-for="(element, i) in stored_columns"
+          <filter_cell v-for="(column, i) in stored_columns"
                         :key = "i"
-                        :id="element.id"
-                        :name = "element.name"
-                        :type = "element.type"
-                        :request_group = "element.request_group"
-                        :edit = "element.edit"
+                        :column="column"
                         v-model="unset"/>
       </draggable>
     </div>
     <div class="option_wrapper">
-      <!-- button -->
+      <button @click="$store.commit('update_reload', {action: 'filter', section:'users_crm'})">FILTER ANWENDEN</button>
     </div>
   </div>
 </template>

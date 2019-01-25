@@ -181,6 +181,13 @@
           this.request_users.request = true
           this.$store.commit('update_reload', {action: null, section: null})
         }
+        if(object.action === 'filter' && object.section === 'users_crm'){
+          this.request_users.params = this.users_crm_filter
+          this.set_user_id(this.request_users)
+          this.request_users.request = true
+          this.$store.commit('update_reload', {action: null, section: null})
+          this.$store.commit('unset_users_crm_filter')
+        }
       },
       users_crm_order:function (array) {
         this.reorder_columns_settings(array)

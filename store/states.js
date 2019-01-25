@@ -1,22 +1,25 @@
 const states = {
   state: {
-    users_crm_filter: {
-
-    },
+    users_crm_filter: {},
     users_crm_order: []
   },
 
   mutations: {
-    update_users_filter(state, object){
-      if(!(object.table in state.users_filter)){
+    unset_users_crm_filter(state){
+      state.users_crm_filter = {}
+    },
+
+    update_users_crm_filter(state, object){
+      if((object.table in state.users_crm_filter) === false){
         state.users_crm_filter[object.table] = {}
+        console.log(object.table in state.users_crm_filter)
       }
-      if(!('conditions' in state.users_filter[object.table])){
-        state.users_crm_filter[object.table]['condition'] =  {}
+      if(('conditions' in state.users_crm_filter[object.table]) === false){
+        state.users_crm_filter[object.table]['conditions'] = {}
+        console.log('conditions' in state.users_crm_filter[object.table])
       }
-      if('conditions' in state.users_filter[object.table]){
-        state.users_crm_filter[object.table]['condition'][object.value_key] =  object.value
-      }
+
+      state.users_crm_filter[object.table]['conditions'][object.key] = object.value
     },
 
     update_users_crm_order(state, array){
@@ -32,7 +35,11 @@ const states = {
     }
   },
 
-  actions: {}
+  actions: {
+    update_users_crm_filter(){
+
+    }
+  }
 }
 
 export default states
