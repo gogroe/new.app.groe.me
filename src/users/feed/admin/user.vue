@@ -3,7 +3,8 @@
     <p class="section_name">NUTZER DETAILS</p>
     <edit v-for="(input, key, i) in update_user.inputs"
           :key="i"
-          :obj="fill_inputs_edit(key, update_user, request_get_user.data)"/>
+          :obj="fill_inputs_edit(key, update_user, request_get_user.data)"
+          :reload="{action: 'reload', section:'users_admin'}"/>
     <request :obj="request_get_user" v-model="request_get_user"/>
   </div>
 </template>
@@ -55,13 +56,17 @@
             },
             gender: {
               name: 'Geschlecht',
-              type: 'text'
+              type: 'select',
+              select: 'gender',
             }
           }
         }
       }
     },
     computed:{
+      ...mapGetters([
+        'reload'
+      ]),
       route_id(){
         return this.$route.params.id
       }
@@ -70,6 +75,13 @@
       route_id: function(){
         this.set_user_id(this.request_get_user)
         this.request_get_user.request = true
+      },
+      reload:{
+        handler: function (object) {
+          if(object.action === 'reload' && object.section === 'users_admin'){
+            this.request_get_user.request = true
+          }
+        }, deep:true
       }
     },
     mounted(){

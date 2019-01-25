@@ -10,7 +10,7 @@ import vSelect from 'vue-select'
 Vue.use(VueGoogleMaps, {
   load: {
     key: "AIzaSyA2oXySLjVrmLn6tAzy7wQWZrKqnBao0Y0",
-    libraries: "places" // necessary for places input
+    libraries: "places,drawing,visualization"
   }
 });
 

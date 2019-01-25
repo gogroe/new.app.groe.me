@@ -43,8 +43,12 @@ export default {
           input_obj.value = obj.inputs[key].input.value
 
           input_obj.input_class = obj.input_class,
-            input_obj.label_class = obj.label_class,
-            input_obj.error_class = obj.error_class
+          input_obj.label_class = obj.label_class,
+          input_obj.error_class = obj.error_class
+
+          if('select' in obj.inputs[key]){
+            input_obj.select = obj.inputs[key].select
+          }
         }
       }
 
@@ -66,6 +70,10 @@ export default {
             edit_obj.label_class = obj.label_class,
             edit_obj.error_class = obj.error_class,
             edit_obj.required_params = obj.required_params
+
+          if('select' in obj.inputs[key]){
+            edit_obj.select = obj.inputs[key].select
+          }
         }
       }
 

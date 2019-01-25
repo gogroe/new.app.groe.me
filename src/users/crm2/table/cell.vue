@@ -29,6 +29,9 @@
                    :name="cell.name.name"
                    size="35"/>
     </div>
+    <div v-if="column.type === 'link'" @click="$router.push({ path: set_path(cell.name) })">
+        <i class="material-icons link">open_in_new</i>
+    </div>
     <div v-if="column.type === 'select'">
       <list :list_name="column.select" v-model="list"/>
     </div>
@@ -107,6 +110,17 @@
       }
     },
     methods:{
+      set_path(path){
+        if(typeof path === 'string'){
+          let id = path.substr(path.indexOf(':'))
+          id = id.substr(1, id.indexOf('/') - 1)
+
+          if(id in this.cell){
+            //console.log(path.replace(':'+id, this.cell[id]))
+            return path.replace(':'+id, this.cell[id])
+          }
+        }
+      },
       set_list_value(){
         for(let list_key in this.list){
           if('value' in this.list[list_key] && this.list[list_key].value === this.cell.name){
@@ -185,6 +199,16 @@
 
   i{
     font-weight: 700;
+  }
+
+  .link{
+    padding: 18.5px 47px 18.5px 17px;
+    font-size: 27px;
+    color: #bbbbbb;
+
+    &:hover{
+      color: #3da0f5;
+    }
   }
 
   .user_visual{

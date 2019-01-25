@@ -345,7 +345,45 @@
     &:hover, &:focus{
       border-bottom: 1px solid #3da0f5;
     }
+  }
 
+  .edit_input_select{
+    display: inline-block;
+    .v-select {
+      .dropdown-toggle {
+        font-size: 13px;
+        width: 226px;
+        height: 27px;
+        padding: 0 0 4px 0;
+        margin-top: 0;
+        margin-bottom: 8px;
+        border: none;
+        border-bottom: 1px solid transparent;
+        border-radius: 2px;
+
+        .form-control{
+          margin-top: 0;
+          padding: 0;
+        }
+      }
+
+      .dropdown-menu {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        min-width: 140px;
+        padding: 5px 0;
+        margin: 0;
+        width: 100%;
+        overflow-y: auto;
+        border: 1px solid #3da0f5;
+        box-shadow: 0 3px 6px 0 rgba(0,0,0,.15);
+        border-top: none;
+        border-radius: 0 0 2px 2px;
+      }
+    }
   }
 
   .edit_input_label{

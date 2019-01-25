@@ -48,6 +48,14 @@
           request: false
         },
         request_groups: {
+          link: {
+            indicator: true,
+            required_params: {
+              id:'get_users.id'
+            },
+            create_url: '',
+            edit_url: '',
+          },
           users: {
             indicator: true,
             required_params: {
@@ -79,6 +87,14 @@
           }
         },
         columns_settings: {
+          'link':{
+            id: 'link',
+            name: 'Link',
+            type: 'link',
+            edit: false,
+            request_group: 'link',
+            rows: []
+          },
           'users.image':{
             id: 'users.image',
             name: 'Bild',
@@ -139,12 +155,13 @@
             request_group: 'status_details',
             rows: []
           },
-        }
+        },
+        stored_columns_settings:{}
       }
     },
     computed:{
       ...mapGetters([
-        'users_filter',
+        'users_crm_filter',
         'get_header',
         'reload',
         'users_crm_order'
@@ -155,6 +172,7 @@
     },
     watch:{
       request_users_data:function(){
+        this.set_link(this.request_users.data)
         this.set_image_data(this.request_users.data)
         this.set_required_params()
       },
@@ -169,20 +187,25 @@
       }
     },
     mounted(){
+      this.stored_columns_settings = this.columns_settings
       this.set_user_id(this.request_users)
       this.set_required_params()
       this.request_users.request = true
     },
     methods:{
-      reorder_columns_settings(array){
-
+      reorder_columns_settings(){
         let new_order = {}
 
         for(let order_key in this.users_crm_order){
           let order_item = this.users_crm_order[order_key]
-          new_order[order_item] = this.columns_settings[order_item]
+          new_order[order_item] = this.stored_columns_settings[order_item]
         }
         this.columns_settings = new_order
+      },
+      set_link(object){
+        for(let key in object){
+          object[key]['link'] = 'users/:id/vita'
+        }
       },
       set_image_data(object){
         for(let key in object){

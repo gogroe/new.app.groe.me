@@ -1,16 +1,7 @@
 <template>
   <div>
-    <!--<div>-->
-      <!--<label>-->
-        <!--<gmap-autocomplete-->
-          <!--@place_changed="setPlace">-->
-        <!--</gmap-autocomplete>-->
-        <!--<button @click="addMarker">Add</button>-->
-      <!--</label>-->
-      <!--<br/>-->
-    <!--</div>-->
-    <br>
     <gmap-map
+      :options="mapOptions"
       :center="center"
       :zoom="12"
       style="width:100%;  height: 300px;">
@@ -24,6 +15,8 @@
 </template>
 
 <script>
+  import {gmapApi} from 'vue2-google-maps'
+
   export default {
     name: "map_location",
     props: {
@@ -33,55 +26,41 @@
     },
     data() {
       return {
-        // default to Montreal to keep it simple
-        // change this to whatever makes sense
-        center: { lat: 45.508, lng: -73.587 },
+        center: { lat: 52.519, lng: 13.406 },
         markers: [],
-        places: [],
-        currentPlace: null,
+        mapOptions: {
+          disableDefaultUI : true
+        }
       };
     },
-    mounted() {
-      this.geolocate();
+    computed: {
+      google: gmapApi
+    },
+    mounted(){
+      this.search_location()
+    },
+    watch:{
+      google: function () {
+        this.search_location()
+      }
     },
     methods: {
-      // receives a place object via the autocomplete component
-      setPlace(place) {
-        this.currentPlace = place;
-      },
-      addMarker() {
-        if (this.currentPlace) {
-          const marker = {
-            lat: this.currentPlace.geometry.location.lat(),
-            lng: this.currentPlace.geometry.location.lng()
-          };
-          this.markers.push({ position: marker });
-          this.places.push(this.currentPlace);
-          this.center = marker;
-          this.currentPlace = null;
-        }
-      },
-      geolocate: function() {
-        // let geocoder = new google.maps.Geocoder();
-        // geocoder.geocode({'address': this.locations}, (results, status) => {
-        //   if (status === 'OK') {
-        //     this.center = {
-        //       lat: results[0].geometry.location.lat(),
-        //       lng: results[0].geometry.location.lng()
-        //     }
-        //   }
-        //   else {
-        //     console.log(status);
-        //     return null
-        //   }
-        // });
+      search_location: function() {
+        let position = {}
+        let geocoder = new this.google.maps.Geocoder();
+        geocoder.geocode({'address': this.locations}, (results, status) => {
+          if (status === 'OK') {
+            position = {
+              lat: results[0].geometry.location.lat(),
+              lng: results[0].geometry.location.lng()
+            }
 
-        navigator.geolocation.getCurrentPosition(position => {
-          this.center = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-        });
+            if(position.lat !== this.center.lat && position.lng !== this.center.lng){
+              this.markers.push({ 'position': position });
+              this.center = position
+            }
+          }
+        })
       }
     }
   };

@@ -89,6 +89,7 @@
   //   }
   // }
 
+  import $ from 'jquery'
   import custom_helper from '../../../components/functions/custom_helper'
   import Table_cell from "./cell";
 
@@ -123,15 +124,43 @@
       columns_settings:function () {
         if(this.columns !== this.columns_settings){
           this.set_columns()
+          this.set_column_with()
         }
       }
     },
+    updated: function(){
+      this.set_column_with()
+    },
     methods:{
-      set_columns(){
-        if(this.object_length(this.stored_request_data) === 0){
-          console.log('empty request_data in crm_table')
+      //jquery
+      set_column_with(){
+        let table_width = $( '.table_footer' ).width()
+        let columns_count = this.object_length(this.columns_settings)
+        let columns_width = 0
+
+        let inner_tables = $( '.inner_table' )
+
+        inner_tables.each( function () {
+          columns_width += parseInt($( this ).width())
+        })
+
+        if(table_width > columns_width){
+          let new_column_width = table_width / columns_count
+
+          inner_tables.each( function () {
+            $( this ).width(new_column_width)
+          })
         }
-        else {
+        else{
+          inner_tables.each( function () {
+            $( this ).css('width', 'auto')
+          })
+        }
+      },
+
+      //table methods
+      set_columns(){
+        if(this.object_length(this.stored_request_data) !== 0){
           this.columns = this.columns_settings
           this.set_request_groups()
           this.set_rows_empty()
