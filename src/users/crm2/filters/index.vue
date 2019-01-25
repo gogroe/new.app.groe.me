@@ -5,9 +5,10 @@
       <draggable :list="sort_array"
                  :options="{handle:'.material-icons'}"
                  class="draggable default_scrollbar">
-          <filter_cell v-for="(column, i) in stored_columns"
+          <filter_cell v-for="(column, i, key) in sort_array"
                         :key = "i"
-                        :column="column"
+                        :class="{'first_item': i === 0}"
+                        :column="stored_columns[column.id]"
                         v-model="unset"/>
       </draggable>
     </div>
@@ -80,13 +81,15 @@
         for(let columns_key in this.stored_columns){
           let column = this.stored_columns[columns_key]
 
-
           let sort_item = {
             id: column.id,
             name: column.name,
             type: column.type,
             edit: column.edit,
           }
+
+          console.log(column)
+          console.log(sort_item)
 
           this.sort_array.push(sort_item)
         }
@@ -97,7 +100,6 @@
           let sort_item = array[key]
 
           if(this.object_length(this.unsets) === 0){
-
             this.order.push(sort_item.id)
           }
           else{
@@ -178,6 +180,11 @@
   .draggable{
     height: calc(100vh - 250px);
     overflow: auto;
+
+    .first_item{
+      padding-top: 27px;
+    }
+
     .checkbox_container{
       display: block;
       position: relative;
