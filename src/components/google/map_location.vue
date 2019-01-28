@@ -36,9 +36,6 @@
     computed: {
       google: gmapApi
     },
-    mounted(){
-      this.search_location()
-    },
     watch:{
       google: function () {
         this.search_location()
@@ -47,6 +44,7 @@
     methods: {
       search_location: function() {
         let position = {}
+
         let geocoder = new this.google.maps.Geocoder();
         geocoder.geocode({'address': this.locations}, (results, status) => {
           if (status === 'OK') {

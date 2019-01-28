@@ -63,15 +63,14 @@
     li{
       display: inline-block;
       cursor: pointer;
-      padding: 22px 0 18px 0;
+      padding: 22px 0 20px 0;
       margin: 0 20px;
-      font-size: 18px;
       line-height: 18px;
       color: #ddd;
 
       &.active{
         color: #ff3434;
-        border-bottom: 4px solid #ff3434;
+        border-bottom: 2px solid #ff3434;
       }
     }
   }

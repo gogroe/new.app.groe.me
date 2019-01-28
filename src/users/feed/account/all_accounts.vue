@@ -11,7 +11,10 @@
       <tr v-for="(account, i) in accounts"
           :key="i"
           :class="{'last_row': i+1 === accounts.length }">
-        <td>{{timestamp_to_date(account.date)}}</td>
+        <td>
+          <ddmmmyy :timestamp="account.date"
+                     color="#333333"/>
+        </td>
         <td>{{account.description}}</td>
         <td>{{account.value + ' ' + account.currency}}</td>
         <td><dropdown/></td>
@@ -28,10 +31,12 @@
   import Dropdown from "./dropdown"
   import U_head from "../../../components/u_head/index";
   import moment from 'moment'
+  import Ddmmmyy from "../../../components/date/ddmmmyy";
 
   export default {
     name: "all_accounts",
     components:{
+      Ddmmmyy,
       U_head,
       Request,
       Dropdown
@@ -80,7 +85,6 @@
     },
     methods:{
       timestamp_to_date(timestamp){
-        console.log(timestamp)
         return moment.unix(timestamp).locale("de").format('ll')
       }
     },

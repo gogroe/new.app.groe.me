@@ -20,8 +20,8 @@
 
 <script>
   import custom_helper from '../../../components/functions/custom_helper'
-  import filter_cell from "./filter_cell";
-  import filter_head from "./filter_head";
+  import filter_cell from "./cell";
+  import filter_head from "./head";
   import draggable from 'vuedraggable';
 
   export default {
@@ -83,13 +83,7 @@
 
           let sort_item = {
             id: column.id,
-            name: column.name,
-            type: column.type,
-            edit: column.edit,
           }
-
-          console.log(column)
-          console.log(sort_item)
 
           this.sort_array.push(sort_item)
         }

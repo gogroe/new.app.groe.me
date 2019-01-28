@@ -12,11 +12,9 @@ const states = {
     update_users_crm_filter(state, object){
       if((object.table in state.users_crm_filter) === false){
         state.users_crm_filter[object.table] = {}
-        console.log(object.table in state.users_crm_filter)
       }
       if(('conditions' in state.users_crm_filter[object.table]) === false){
         state.users_crm_filter[object.table]['conditions'] = {}
-        console.log('conditions' in state.users_crm_filter[object.table])
       }
 
       state.users_crm_filter[object.table]['conditions'][object.key] = object.value
@@ -35,11 +33,7 @@ const states = {
     }
   },
 
-  actions: {
-    update_users_crm_filter(){
-
-    }
-  }
+  actions: {}
 }
 
 export default states

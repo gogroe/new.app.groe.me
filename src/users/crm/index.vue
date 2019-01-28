@@ -23,13 +23,13 @@
   import { mapGetters } from 'vuex'
   import Load_request from '../../components/functions/load_request'
   import Request from "../../components/functions/request"
-  import Crm_table from "../crm2/table/index";
-  import Crm_bar from "../crm2/bar/index";
-  import Crm_filter from "../crm2/filters/index";
+  import Crm_table from "../../components/crm/table/index";
+  import Crm_bar from "./bar";
+  import Crm_filter from "../../components/crm/filters/index";
   import List from "../../components/list/index";
 
   export default {
-    name: "user_crm",
+    name: "user_crm_bar",
     components:{
       List,
       Crm_filter,

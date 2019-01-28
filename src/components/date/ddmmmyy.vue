@@ -1,6 +1,6 @@
 <template>
   <span class="ddmmyy">
-    <span>{{timestamp_to_date(timestamp)}}</span>
+    <span :style="{ color: color}">{{timestamp_to_date(timestamp)}}</span>
   </span>
 </template>
 
@@ -12,7 +12,10 @@
     props:{
       timestamp:{
         required: true
-      }
+      },
+      color:{
+        required: false
+      },
     },
     methods:{
       timestamp_to_date(timestamp){

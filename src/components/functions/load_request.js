@@ -83,6 +83,18 @@ export default {
 
 
 
+    create_update_reload(request_data, reload_obj){
+      if('update' in request_data && reload_obj !== undefined){
+        this.$store.commit('update_reload', {action: reload_obj.action, section: reload_obj.section})
+      }
+      if('create' in request_data && reload_obj !== undefined){
+        this.$store.commit('update_reload', {action: reload_obj.action, section: reload_obj.section})
+      }
+    },
+
+
+
+
     get_user_request(request_obj){
       this.set_user_id(request_obj)
       request_obj.request = true

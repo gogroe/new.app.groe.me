@@ -4,8 +4,7 @@
       <li v-for="(navigation, i) in navigations"
           :key="i"
           @click="$router.push({name: navigation.route})"
-          :class="{'active': cut_route_name_prefix($route.name) ===  navigation.route || $route.name === navigation.route
-          }">
+          :class="{'active': set_active_class(navigation)}">
         <i class="material-icons">{{navigation.icon}}</i>
         <span>{{navigation.name}}</span>
       </li>
@@ -26,7 +25,7 @@
         navigations:{
           homepage:{
             name: 'Startseite',
-            route: 'user_profile',
+            route: 'user_vita',
             icon: 'home'
           },
           user:{
@@ -61,6 +60,23 @@
       ...mapGetters([
         'active_navigation'
       ])
+    },
+    methods:{
+      set_active_class(navigation){
+        if( this.cut_route_name_prefix(this.$route.name) === this.cut_route_name_prefix(navigation.route) &&
+            this.cut_route_name_prefix(this.$route.name) !== '' ){
+          return true
+        }
+        else if(this.cut_route_name_prefix(this.$route.name) ===  navigation.route){
+          return true
+        }
+        else if(this.$route.name === navigation.route){
+          return true
+        }
+        else {
+          return false
+        }
+      }
     },
     mixins:[Helper]
   }

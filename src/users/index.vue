@@ -6,7 +6,6 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import User_navigation from "./navigation";
   import Users_feed from "./feed";
   import Global_header from "../components/header";
 
@@ -14,8 +13,7 @@
     name: "users",
     components:{
       Global_header,
-      Users_feed,
-      User_navigation,
+      Users_feed
     },
     data(){
       return {

@@ -21,6 +21,7 @@
   //     error_class: ''
   // }
 
+  import load_request from '../functions/load_request'
   import Request from '../functions/request'
   import Inputs from './index'
 
@@ -69,12 +70,7 @@
     },
     watch:{
       send_data:function (object) {
-        if('update' in object && this.reload !== undefined){
-          this.$store.commit('update_reload', {action: this.reload.action, section: this.reload.section})
-        }
-        if('create' in object && this.reload !== undefined){
-          this.$store.commit('update_reload', {action: this.reload.action, section: this.reload.section})
-        }
+        this.create_update_reload(object, this.reload)
       },
       inputs_event: function (event){
         this.cur_value = this.inputs_value
@@ -110,7 +106,8 @@
           this.send.params[key] = this.obj.required_params[key]
         }
       }
-    }
+    },
+    mixins:[load_request]
   }
 </script>
 

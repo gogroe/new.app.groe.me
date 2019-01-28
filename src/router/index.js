@@ -8,7 +8,7 @@ import projects_news from '@/projects/feed/news'
 import projects_reports from '@/projects/feed/reports'
 
 
-import users from '@/users/crm2'
+import users from '@/users/crm'
 import users_account from '@/users/feed/account'
 import users_profile from '@/users/feed/profile'
 import users_progress from '@/users/feed/progress'
@@ -23,7 +23,7 @@ export default new Router({
     //user
     {
       path: '/',
-      name: 'user_profile',
+      name: 'user_vita',
       component: users_vita
     },
     {
@@ -35,11 +35,6 @@ export default new Router({
       path: '/progress',
       name: 'user_progress',
       component: users_progress
-    },
-    {
-      path: '/vita',
-      name: 'user_vita',
-      component: users_vita
     },
     {
       path: '/admin',

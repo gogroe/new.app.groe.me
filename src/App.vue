@@ -169,20 +169,42 @@
   }
 
 
+  .default_popup_background{
+    position: fixed;
+    top:64px;
+    left:0;
+    width: 100%;
+    height: calc(100% - 64px);
+    z-index: 9000;
+    background: rgba(0,0,0,0.9);
+
+    .inner_popup{
+      width: 450px;
+      padding: 17px;
+      position: relative;
+      background: #fff;
+      margin-left: calc(50% - 225px);
+      margin-top: 101px;
+      border-radius: 2px;
+    }
+  }
+
+
   ////////////////////////////////////////////////////////////////////////////////// Buttons
 
   button {
     border: none;
     padding: 10px 17px;
-    border-radius: 2px;
+    border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
     color: #3da0f5;
     background: transparent;
     font-family: 'Roboto', sans-serif;
 
-    &:hover{
+    &:hover, &:focus{
       color: #383838;
+      outline: 2px solid rgba(61,160,245,0.5);
     }
   }
 
@@ -291,7 +313,9 @@
   .create_input_select {
     .v-select {
       .dropdown-toggle {
-        padding: 4px 5px 9px 4px;
+        margin-left: 7px;
+        margin-bottom: 8px;
+        padding: 4px 5px 8px 0px;
         border-radius: 4px;
         border: 2px solid transparent;
 
