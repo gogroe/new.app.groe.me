@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="table_footer">
-
+      <table_limit_offset/>
     </div>
   </div>
 </template>
@@ -92,10 +92,11 @@
   import $ from 'jquery'
   import custom_helper from '../../../components/functions/custom_helper'
   import Table_cell from "./cell";
+  import Table_limit_offset from "./limit_offset";
 
   export default {
     name: "crm_table",
-    components: {Table_cell},
+    components: {Table_limit_offset, Table_cell},
     props:{
       request_data:{
         //type: 'Array',

@@ -1,7 +1,12 @@
 const states = {
   state: {
     users_crm_filter: {},
-    users_crm_order: []
+    users_crm_order: [],
+    users_crm_sorting: [],
+    users_crm_limit_offset: {
+      limit: null,
+      offset: null
+    }
   },
 
   mutations: {
