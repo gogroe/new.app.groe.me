@@ -7,7 +7,7 @@
       <crm_bar/>
       <div class="floater_wrapper">
         <crm_table class="floater"
-                   :request_data="request_users_data"
+                   :request_data="request_users.data"
                    :columns_settings="columns_settings"
                    :request_groups="request_groups"/>
         <crm_filter class="floater" :columns="columns_settings"/>
@@ -29,7 +29,7 @@
   import List from "../../components/list/index";
 
   export default {
-    name: "user_crm_bar",
+    name: "user_crm",
     components:{
       List,
       Crm_filter,
@@ -161,37 +161,40 @@
     },
     computed:{
       ...mapGetters([
-        'users_crm_filter',
         'get_header',
         'reload',
-        'users_crm_order'
+        'users_crm_order',
+        'users_crm_filter',
+        'users_crm_sorting',
+        'users_crm_limit_offset',
       ]),
       request_users_data(){
-        return this.request_users.data
+        return this.request_users.data.rows
       }
     },
     watch:{
       request_users_data:function(){
-        this.set_link(this.request_users.data)
-        this.set_image_data(this.request_users.data)
+        this.set_link(this.request_users.data.rows)
+        this.set_image_data(this.request_users.data.rows)
         this.set_required_params()
       },
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'users_crm'){
           this.request_users.request = true
-          this.$store.commit('update_reload', {action: null, section: null})
         }
         if(object.action === 'filter' && object.section === 'users_crm'){
-          this.request_users.params = this.users_crm_filter
+          this.request_users.data.rows = []
+          this.add_filters_conditions(this.users_crm_filter)
+          this.add_filters_conditions(this.users_crm_sorting)
+          this.add_limit_offset()
           this.set_user_id(this.request_users)
           this.request_users.request = true
-          this.$store.commit('update_reload', {action: null, section: null})
-          this.$store.commit('unset_users_crm_filter')
+          this.$store.commit('update_reload', {action: 'reload', section: 'filters_actives'})
         }
       },
       users_crm_order:function (array) {
         this.reorder_columns_settings(array)
-      }
+      },
     },
     mounted(){
       this.stored_columns_settings = this.columns_settings
@@ -200,6 +203,40 @@
       this.request_users.request = true
     },
     methods:{
+      set_request_param(table, type, prams_key, param){
+        console.log(table, type, prams_key, param)
+        if((table in this.request_users.params) === false){
+          this.request_users.params[table] = {}
+        }
+        if((type in this.request_users.params[table]) === false){
+          this.request_users.params[table][type] = {}
+        }
+
+        this.request_users.params[table][type][prams_key] = param
+      },
+      add_filters_conditions(object){
+        for(let table_key in object){
+          let table = object[table_key]
+
+          for(let type_key in table){
+            let type =  table[type_key]
+
+            for(let param_key in type){
+              let param =  type[param_key]
+
+              this.set_request_param(table_key, type_key, param_key, param)
+            }
+          }
+        }
+      },
+      add_limit_offset(){
+        if('limit' in this.users_crm_limit_offset){
+          this.request_users.params.limit = this.users_crm_limit_offset.limit
+        }
+        if('offset' in this.users_crm_limit_offset){
+          this.request_users.params.offset = this.users_crm_limit_offset.offset
+        }
+      },
       reorder_columns_settings(){
         let new_order = {}
 

@@ -2,6 +2,7 @@
   <div class="crm_filter">
     <filter_head/>
     <div class="filter_body">
+      <filters_actives :columns="stored_columns"/>
       <draggable :list="sort_array"
                  :options="{handle:'.material-icons'}"
                  class="draggable default_scrollbar">
@@ -23,10 +24,12 @@
   import filter_cell from "./cell";
   import filter_head from "./head";
   import draggable from 'vuedraggable';
+  import Filters_actives from "./actives";
 
   export default {
     name: "crm_filter",
     components:{
+      Filters_actives,
       filter_head,
       filter_cell,
       draggable,

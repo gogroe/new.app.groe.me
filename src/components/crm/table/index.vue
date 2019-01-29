@@ -10,12 +10,12 @@
             <tr>
               <th :class="{'first_column': i === 0}">
                 <p class="head">
-                  {{column.name}}
+                  <table_sorting :column="column"/>
                 </p>
               </th>
             </tr>
             </thead>
-            <tbody>
+            <tbody v-if="active.table">
             <tr v-for="(row, row_i) in column.rows"
                 :key="row_i">
               <td :class="[{'last_td': object_length(column.rows) -1 === row_i}, {'first_column': i === 0}]">
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="table_footer">
-      <table_limit_offset/>
+      <table_limit_offset :request_data="request_data"/>
     </div>
   </div>
 </template>
@@ -93,10 +93,11 @@
   import custom_helper from '../../../components/functions/custom_helper'
   import Table_cell from "./cell";
   import Table_limit_offset from "./limit_offset";
+  import Table_sorting from "./sorting";
 
   export default {
     name: "crm_table",
-    components: {Table_limit_offset, Table_cell},
+    components: {Table_sorting, Table_limit_offset, Table_cell},
     props:{
       request_data:{
         //type: 'Array',
@@ -114,12 +115,15 @@
     data(){
       return{
         columns: [],
-        stored_request_data:[]
+        stored_request_data:[],
+        active:{
+          table: true
+        }
       }
     },
     watch:{
       request_data:function () {
-        this.stored_request_data = this.request_data
+        this.stored_request_data = this.request_data.rows
         this.set_columns()
       },
       columns_settings:function () {
@@ -162,10 +166,15 @@
       //table methods
       set_columns(){
         if(this.object_length(this.stored_request_data) !== 0){
+          this.active.table = true
           this.columns = this.columns_settings
           this.set_request_groups()
           this.set_rows_empty()
           this.set_rows()
+        }
+        else {
+          this.columns = this.columns_settings
+          this.active.table = false
         }
       },
       set_request_groups(){
