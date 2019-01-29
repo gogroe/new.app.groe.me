@@ -20,7 +20,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   import checkbox from '../../../components/checkbox'
   import Inputs from "../../../components/inputs/index";
 
@@ -60,24 +59,15 @@
         filter:{
           value: null,
           event:null
-        }
+        },
       }
     },
     computed:{
-      ...mapGetters([
-        'reload'
-      ]),
       active_column(){
         return this.active.column
       }
     },
     watch:{
-      reload: function (object) {
-        if(object.action === 'reload' && object.section === 'filters_cell'){
-          //todo this.input.value = 'test' no access to data object
-          this.$store.commit('update_reload', {action: null, section: null})
-        }
-      },
       active_column: function(boolean){
         this.$emit('input', {id: this.column.id, active: boolean})
       },

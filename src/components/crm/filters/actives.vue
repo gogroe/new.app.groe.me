@@ -36,7 +36,7 @@
     watch:{
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'filters_actives'){
-          this.$store.commit('update_reload', {action: null, section: null})
+          this.$store.commit('update_reload', {action: 'reload', section: 'filters_cell'})
           this.set_filters()
         }
       }

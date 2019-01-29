@@ -123,6 +123,9 @@
       },
       request_data:{
         required: true,
+      },
+      clear_value:{
+        required: false,
       }
     },
     data(){
@@ -136,6 +139,15 @@
       }
     },
     watch:{
+      clear_value: function(boolean){
+        if(boolean){
+          this.cur_value =  '',
+            this.sel_value = {
+              event: null,
+              value: null
+            }
+        }
+      },
       obj: {
         handler: function(){
           this.set_params()

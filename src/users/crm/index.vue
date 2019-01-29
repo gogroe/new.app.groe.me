@@ -189,7 +189,6 @@
           this.add_filters_conditions(this.users_crm_sorting)
           this.add_limit_offset()
           this.set_user_id(this.request_users)
-          console.log( this.request_users )
           this.request_users.request = true
           this.$store.commit('update_reload', {action: 'reload', section: 'filters_actives'})
         }
