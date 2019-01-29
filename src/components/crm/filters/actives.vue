@@ -46,12 +46,12 @@
         if( this.object_length(this.users_crm_filter[filter.table].conditions) > 1 ){
 
           this.$store.commit('unset_users_crm_filter_condition', filter)
-          this.$store.commit('update_reload', {action: 'reload', section: 'users_crm'})
+          this.$store.commit('update_reload', {action: 'filter', section: 'users_crm'})
           this.set_filters()
         }
         else {
           this.$store.commit('unset_users_crm_filter_table', filter.table)
-          this.$store.commit('update_reload', {action: 'reload', section: 'users_crm'})
+          this.$store.commit('update_reload', {action: 'filter', section: 'users_crm'})
           this.set_filters()
         }
       },

@@ -184,10 +184,12 @@
         }
         if(object.action === 'filter' && object.section === 'users_crm'){
           this.request_users.data.rows = []
+          this.request_users.params = {}
           this.add_filters_conditions(this.users_crm_filter)
           this.add_filters_conditions(this.users_crm_sorting)
           this.add_limit_offset()
           this.set_user_id(this.request_users)
+          console.log( this.request_users )
           this.request_users.request = true
           this.$store.commit('update_reload', {action: 'reload', section: 'filters_actives'})
         }
@@ -203,8 +205,7 @@
       this.request_users.request = true
     },
     methods:{
-      set_request_param(table, type, prams_key, param){
-        console.log(table, type, prams_key, param)
+      set_request_param_filters_condtions(table, type, prams_key, param){
         if((table in this.request_users.params) === false){
           this.request_users.params[table] = {}
         }
@@ -224,7 +225,7 @@
             for(let param_key in type){
               let param =  type[param_key]
 
-              this.set_request_param(table_key, type_key, param_key, param)
+              this.set_request_param_filters_condtions(table_key, type_key, param_key, param)
             }
           }
         }
