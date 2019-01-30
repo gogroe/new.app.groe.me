@@ -1,13 +1,15 @@
 <template>
-    <div>
-      <p>register</p>
-    </div>
+  <div>
+    <facebook_signin_button/>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "register"
-    }
+  import Facebook_signin_button from "../components/facebook_signin_button/index";
+  export default {
+    name: "register",
+    components: {Facebook_signin_button}
+  }
 </script>
 
 <style>

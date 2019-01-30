@@ -6,6 +6,7 @@ import router from './router'
 import store from '../store'
 import * as VueGoogleMaps from "vue2-google-maps";
 import vSelect from 'vue-select'
+import FBSignInButton from 'vue-facebook-signin-button'
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -18,6 +19,8 @@ Vue.config.productionTip = false
 Vue.use(require('vue-moment'));
 
 Vue.component('v-select', vSelect)
+
+Vue.use(FBSignInButton)
 
 /* eslint-disable no-new */
 new Vue({

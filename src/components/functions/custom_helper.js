@@ -20,7 +20,9 @@ export default {
     },
 
     cut_route_name_prefix(route_name){
-      return route_name.substring(0,route_name.indexOf('_', 1))
+      if(route_name !== null){
+        return route_name.substring(0,route_name.indexOf('_', 1))
+      }
     },
     search_relations(value){
       for (let key in this.list_relations){

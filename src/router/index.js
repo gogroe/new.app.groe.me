@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import register from '@/register'
+
 import projects from '@/projects'
 import projects_accounts from '@/projects/feed/accounts'
 import projects_tasks from '@/projects/feed/tasks'
@@ -20,6 +22,11 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/register',
+      name: 'register',
+      component: register
+    },
     //user
     {
       path: '/',
