@@ -1,6 +1,10 @@
 <template>
   <div class="user">
     <p class="section_name">NUTZER DETAILS</p>
+    <add :active="active.upload" name="Nutzerbild" v-model="active.upload"/>
+    <upload v-if="active.upload"
+            :request_create="upload_user_image"
+            name="NUTZER BILD HOCHLADEN"/>
     <edit v-for="(input, key, i) in update_user.inputs"
           :key="i"
           :obj="fill_inputs_edit(key, update_user, request_get_user.data)"
@@ -15,15 +19,22 @@
   import Load_request from "../../../components/functions/load_request"
   import Edit from "../../../components/inputs/edit"
   import custom_helper from "../../../components/functions/custom_helper";
+  import Upload from "../../../components/upload/index";
+  import Add from "../../../components/add/index";
 
   export default {
     name: "admin_user",
     components:{
+      Add,
+      Upload,
       Edit,
       Request,
     },
     data(){
       return{
+        active:{
+          upload: false
+        },
         request_get_user: {
           params: {
             user_id: null
@@ -60,6 +71,13 @@
               select: 'gender',
             }
           }
+        },
+        upload_user_image:{
+          url: 'http://new.backend/upload',
+          required_params:{
+            user_id: null,
+            filetype: 'user_image'
+          }
         }
       }
     },
@@ -86,6 +104,7 @@
     },
     mounted(){
       this.set_user_id(this.request_get_user)
+      this.set_inputs_user_id(this.upload_user_image)
       this.request_get_user.request = true
     },
     mixins:[custom_helper, Load_request]

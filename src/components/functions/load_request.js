@@ -104,6 +104,12 @@ export default {
       return request_obj.params.user_id = 'id' in this.$route.params
         ? this.$route.params.id
         : this.get_header.id
+    },
+
+    set_inputs_user_id(input_obj){
+      return input_obj.required_params.user_id = 'id' in this.$route.params
+        ? this.$route.params.id
+        : this.get_header.id
     }
   }
 }

@@ -12,15 +12,10 @@
          v-model="active.create"
          class="add"/>
     <div v-if="active.create">
-      <inputs v-for="(input, key, i) in create_user_bank.inputs"
-              :key="i"
-              :obj="fill_inputs(key, create_user_bank)"
-              :request_data="request_create_user_bank.data"
-              v-model="create_user_bank.inputs[key].input"/>
-      <button @click="send_create_user_bank">BANKDATEN HINZUFÜGEN</button>
+      <create_section :create_inputs="create_user_bank"
+                      v-model="request_create_user_bank"/>
     </div>
     <request :obj="request_get_user_bank" v-model="request_get_user_bank"/>
-    <request :obj="request_create_user_bank" v-model="request_create_user_bank"/>
   </div>
 </template>
 
@@ -31,10 +26,12 @@
   import Custom_helper from '../../../components/functions/custom_helper'
   import Add from "../../../components/add/index";
   import Inputs from "../../../components/inputs/index";
+  import Create_section from "../../../components/inputs/create";
 
   export default {
     name: "user_contact",
     components:{
+      Create_section,
       Inputs,
       Add,
       Edit,
@@ -95,15 +92,7 @@
             }
           }
         },
-        request_create_user_bank: {
-          params: {
-            user_id: null,
-            uid: 1
-          },
-          url: 'https://newbackend.groe.me/users/create_user_bank',
-          data: {},
-          request: false
-        },
+        request_create_user_bank: {},
         create_user_bank:{
           url: 'https://newbackend.groe.me/users/create_user_bank',
           input_class:'create_input',
@@ -182,40 +171,30 @@
         return this.request_get_user_bank.data
       },
       request_create_user_bank_data(){
-        return this.request_create_user_bank.data
+        return this.request_create_user_bank
       }
     },
     watch:{
       route_id: function(){
         this.set_user_id(this.request_get_user_bank)
-        this.set_user_id(this.request_create_user_bank)
+        this.set_inputs_user_id(this.create_user_bank)
         this.request_get_user_bank.request = true
       },
       request_get_user_bank_data(){
         this.set_active_update()
       },
       request_create_user_bank_data(){
-        if('create' in this.request_create_user_bank.data){
+        if('create' in this.request_create_user_bank){
           this.request_get_user_bank.request = true
         }
       }
     },
     mounted(){
       this.set_user_id(this.request_get_user_bank)
-      this.set_user_id(this.request_create_user_bank)
+      this.set_inputs_user_id(this.create_user_bank)
       this.request_get_user_bank.request = true
     },
     methods:{
-      send_create_user_bank(){
-        this.request_create_user_bank.params.name = this.create_user_bank.inputs.name.input.value
-        this.request_create_user_bank.params.iban = this.create_user_bank.inputs.iban.input.value
-        this.request_create_user_bank.params.swift = this.create_user_bank.inputs.swift.input.value
-        this.request_create_user_bank.params.street = this.create_user_bank.inputs.street.input.value
-        this.request_create_user_bank.params.zip = this.create_user_bank.inputs.zip.input.value
-        this.request_create_user_bank.params.city = this.create_user_bank.inputs.city.input.value
-        this.request_create_user_bank.params.country = this.create_user_bank.inputs.country.input.value
-        this.request_create_user_bank.request = true
-      },
       set_active_update(){
         if(Object.keys(this.request_get_user_bank.data).length !== 0 && this.request_get_user_bank.data.constructor === Object){
           this.active.update = true

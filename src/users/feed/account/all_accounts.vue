@@ -1,26 +1,7 @@
 
 <template>
   <div class="accounts">
-    <table class="default_box">
-      <tr>
-        <th>Datum</th>
-        <th>Verwendungszweck</th>
-        <th>Betrag</th>
-        <th></th>
-      </tr>
-      <tr v-for="(account, i) in accounts"
-          :key="i"
-          :class="{'last_row': i+1 === accounts.length }">
-        <td>
-          <ddmmmyy :timestamp="account.date"
-                     color="#333333"/>
-        </td>
-        <td>{{account.description}}</td>
-        <td>{{account.value + ' ' + account.currency}}</td>
-        <td><dropdown/></td>
-      </tr>
-    </table>
-
+    <accounts_table :request_accounts="accounts"/>
     <request :obj="request_user_accounts" v-model="request_user_accounts"/>
   </div>
 </template>
@@ -28,18 +9,15 @@
   import { mapGetters } from 'vuex'
   import Load_request from '../../../components/functions/load_request'
   import Request from "../../../components/functions/request"
-  import Dropdown from "./dropdown"
   import U_head from "../../../components/u_head/index";
-  import moment from 'moment'
-  import Ddmmmyy from "../../../components/date/ddmmmyy";
+  import Accounts_table from "../../../components/accounts/index";
 
   export default {
     name: "all_accounts",
     components:{
-      Ddmmmyy,
+      Accounts_table,
       U_head,
-      Request,
-      Dropdown
+      Request
     },
     props:{
       action:{
@@ -82,11 +60,6 @@
     },
     mounted(){
       this.get_user_request(this.request_user_accounts)
-    },
-    methods:{
-      timestamp_to_date(timestamp){
-        return moment.unix(timestamp).locale("de").format('ll')
-      }
     },
     mixins:[Load_request]
   }

@@ -45,12 +45,13 @@ const request = {
       headers.headers = { 'Content-Type': 'multipart/form-data'}
 
       let formData = new FormData()
-      formData.append('file', object.files)
-      formData.append('type', object.type)
+      for(let param_key in object){
+        formData.append(param_key, object[param_key])
+      }
 
       if (state.auth.uid && state.auth.token)
       {
-        formData.append('uid', state.auth.userid)
+        formData.append('uid', state.auth.uid)
         formData.append('token', state.auth.token)
       }
       else

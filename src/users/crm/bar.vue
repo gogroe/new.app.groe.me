@@ -7,10 +7,12 @@
          v-model="active"/>
     <div v-if="active"
          class="default_popup_background">
-      <create_popup create_name="BENUTZER"
-                    :create_inputs="create_user"
-                    :reload="{action: 'reload', section: 'users_crm'}"
-                    v-click-outside="hide"/>
+      <div class="create_popup inner_popup">
+        <create_section create_name="BENUTZER"
+                      :create_inputs="create_user"
+                      :reload="{action: 'reload', section: 'users_crm'}"
+                      v-click-outside="hide"/>
+      </div>
     </div>
   </div>
 </template>
@@ -18,11 +20,11 @@
 <script>
   import ClickOutside from 'vue-click-outside'
   import Add from "../../components/add/index";
-  import Create_popup from "../../components/popups/create";
+  import Create_section from "../../components/inputs/create";
 
   export default {
     name: "crm_bar",
-    components: {Create_popup, Add},
+    components: {Create_section, Add},
     data(){
       return{
         active: false,

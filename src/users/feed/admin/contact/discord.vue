@@ -11,15 +11,10 @@
          v-model="active.create"
          class="add"/>
     <div v-if="active.create">
-      <inputs v-for="(input, key, i) in create_user_contact.inputs"
-              :key="i"
-              :obj="fill_inputs(key, create_user_contact)"
-              :request_data="request_create_user_contact.data"
-              v-model="create_user_contact.inputs[key].input"/>
-      <button @click="send_create_user_contact">Discord HINZUFÜGEN</button>
+      <create_section :create_inputs="create_user_contact"
+                      v-model="request_create_user_contact"/>
     </div>
     <request :obj="request_get_user_contact" v-model="request_get_user_contact"/>
-    <request :obj="request_create_user_contact" v-model="request_create_user_contact"/>
   </div>
 </template>
 
@@ -29,12 +24,12 @@
   import Edit from "../../../../components/inputs/edit"
   import Custom_helper from '../../../../components/functions/custom_helper'
   import Add from "../../../../components/add/index";
-  import Inputs from "../../../../components/inputs/index";
+  import Create_section from "../../../../components/inputs/create";
 
   export default {
     name: "user_contact_discord",
     components:{
-      Inputs,
+      Create_section,
       Add,
       Edit,
       Request,
@@ -72,16 +67,7 @@
             }
           }
         },
-        request_create_user_contact: {
-          params: {
-            user_id: null,
-            uid: 1,
-            name: 'discord'
-          },
-          url: 'https://newbackend.groe.me/users/create_user_contact',
-          data: {},
-          request: false
-        },
+        request_create_user_contact:{},
         create_user_contact:{
           url: 'https://newbackend.groe.me/users/create_user_contact',
           input_class:'create_input',
@@ -113,34 +99,30 @@
         return this.request_get_user_contact.data
       },
       request_create_user_contact_data(){
-        return this.request_create_user_contact.data
+        return this.request_create_user_contact
       }
     },
     watch:{
       route_id: function(){
         this.set_user_id(this.request_get_user_contact)
-        this.set_user_id(this.request_create_user_contact)
+        this.set_inputs_user_id(this.create_user_contact)
         this.request_get_user_contact.request = true
       },
       request_get_user_contact_data(){
         this.set_active_update()
       },
       request_create_user_contact_data(){
-        if('create' in this.request_create_user_contact.data){
+        if('create' in this.request_create_user_contact){
           this.request_get_user_contact.request = true
         }
       }
     },
     mounted(){
       this.set_user_id(this.request_get_user_contact)
-      this.set_user_id(this.request_create_user_contact)
+      this.set_inputs_user_id(this.create_user_contact)
       this.request_get_user_contact.request = true
     },
     methods:{
-      send_create_user_contact(){
-        this.request_create_user_contact.params.value = this.create_user_contact.inputs.value.input.value
-        this.request_create_user_contact.request = true
-      },
       set_active_update(){
         if(Object.keys(this.request_get_user_contact.data).length !== 0 && this.request_get_user_contact.data.constructor === Object){
           this.active.update = true

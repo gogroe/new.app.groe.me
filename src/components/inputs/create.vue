@@ -1,6 +1,6 @@
 <template>
-  <div class="create_popup inner_popup">
-    <p class="section_name">{{create_name}} HINZUFÜGEN</p>
+  <div class="create_section" :class="section_class">
+    <p class="section_name" :class="{'active': create_name !== undefined}">{{create_name}} HINZUFÜGEN</p>
     <inputs v-for="(input, key, i) in create_inputs.inputs"
             :key="i"
             :obj="fill_inputs(key, create_inputs)"
@@ -14,16 +14,16 @@
 <script>
   import Load_request from "../functions/load_request"
   import Custom_helper from '../functions/custom_helper'
-  import Inputs from "../inputs/index"
+  import Inputs from "./index"
   import Request from "../functions/request"
 
   export default {
-    name: "create_popup",
+    name: "create_section",
     components: {Request, Inputs},
     props:{
       create_name:{
         // type: 'String',
-        required: true
+        required: false
       },
       create_inputs:{
         // type: 'Object',
@@ -32,11 +32,14 @@
       reload:{
         type: Object,
         required: false,
-      }
+      },
+      section_class:{
+        // type: 'String',
+        required: false,
+      },
     },
     data(){
       return{
-        active: false,
         request_create: {
           params: {
             uid: 1 //todo auth uid
@@ -56,6 +59,7 @@
       request_create_data(object){
         this.create_update_reload(object, this.reload)
         this.set_values_null()
+        this.$emit('input', object)
       }
     },
     mounted (){
@@ -89,4 +93,11 @@
 
 <style lang="scss" scoped>
 
+  .section_name{
+    display: none;
+
+    &.active{
+      display: block;
+    }
+  }
 </style>

@@ -11,15 +11,10 @@
          v-model="active.create"
          class="add"/>
     <div v-if="active.create">
-      <inputs v-for="(input, key, i) in create_user_adress.inputs"
-              :key="i"
-              :obj="fill_inputs(key, create_user_adress)"
-              :request_data="request_create_user_adress.data"
-              v-model="create_user_adress.inputs[key].input"/>
-      <button @click="send_create_user_adress">ADRESSE HINZUFÜGEN</button>
+      <create_section :create_inputs="create_user_adress"
+                      v-model="request_create_user_adress"/>
     </div>
     <request :obj="request_get_user_adress" v-model="request_get_user_adress"/>
-    <request :obj="request_create_user_adress" v-model="request_create_user_adress"/>
   </div>
 </template>
 
@@ -29,12 +24,12 @@
   import Edit from "../../../../components/inputs/edit"
   import Custom_helper from '../../../../components/functions/custom_helper'
   import Add from "../../../../components/add/index";
-  import Inputs from "../../../../components/inputs/index";
+  import Create_section from "../../../../components/inputs/create";
 
   export default {
     name: "user_adress_shipping",
     components:{
-      Inputs,
+      Create_section,
       Add,
       Edit,
       Request,
@@ -80,20 +75,12 @@
             },
             country: {
               name: 'Land',
-              type: 'text'
+              type: 'select',
+              select: 'countrys',
             }
           }
         },
-        request_create_user_adress: {
-          params: {
-            user_id: null,
-            uid: 1,
-            type: 'shipping'
-          },
-          url: 'https://newbackend.groe.me/users/create_user_adress',
-          data: {},
-          request: false
-        },
+        request_create_user_adress: {},
         create_user_adress:{
           url: 'https://newbackend.groe.me/users/create_user_adress',
           input_class:'create_input',
@@ -131,7 +118,8 @@
             },
             country: {
               name: 'Land',
-              type: 'text',
+              type: 'select',
+              select: 'countrys',
               input: {
                 value: null,
                 event:null
@@ -149,37 +137,30 @@
         return this.request_get_user_adress.data
       },
       request_create_user_adress_data(){
-        return this.request_create_user_adress.data
+        return this.request_create_user_adress
       }
     },
     watch:{
       route_id: function(){
         this.set_user_id(this.request_get_user_adress)
-        this.set_user_id(this.request_create_user_adress)
+        this.set_inputs_user_id(this.create_user_adress)
         this.request_get_user_adress.request = true
       },
       request_get_user_adress_data(){
         this.set_active_update()
       },
       request_create_user_adress_data(){
-        if('create' in this.request_create_user_adress.data){
+        if('create' in this.request_create_user_adress){
           this.request_get_user_adress.request = true
         }
       }
     },
     mounted(){
       this.set_user_id(this.request_get_user_adress)
-      this.set_user_id(this.request_create_user_adress)
+      this.set_inputs_user_id(this.create_user_adress)
       this.request_get_user_adress.request = true
     },
     methods:{
-      send_create_user_adress(){
-        this.request_create_user_adress.params.street = this.create_user_adress.inputs.street.input.value
-        this.request_create_user_adress.params.zip = this.create_user_adress.inputs.zip.input.value
-        this.request_create_user_adress.params.city = this.create_user_adress.inputs.city.input.value
-        this.request_create_user_adress.params.country = this.create_user_adress.inputs.country.input.value
-        this.request_create_user_adress.request = true
-      },
       set_active_update(){
         if(Object.keys(this.request_get_user_adress.data).length !== 0 && this.request_get_user_adress.data.constructor === Object){
           this.active.update = true

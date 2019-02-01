@@ -71,6 +71,7 @@
     watch:{
       send_data:function (object) {
         this.create_update_reload(object, this.reload)
+        this.$emit('input', object)
       },
       inputs_event: function (event){
         this.cur_value = this.inputs_value
