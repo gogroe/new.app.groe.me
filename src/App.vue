@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <global_header/>
-    <navigation/>
-    <div class="main_content" :class="{'active_navigation': active_navigation}">
+    <global_header v-if="basic_component"/>
+    <navigation v-if="basic_component"/>
+    <div class="main" :class="[{'active_navigation': active_navigation}, {'main_content': basic_component}]">
       <projects v-if="cut_route_name_prefix($route.name) === 'projects' ||
                       cut_route_name_prefix($route.name) === 'project' "/>
       <users v-else-if="cut_route_name_prefix($route.name) === 'users' ||
@@ -32,10 +32,41 @@
       Users,
       Projects
     },
+    data(){
+      return{
+        basic_component: true,
+      }
+    },
+    mounted(){
+      this.set_basic_component()
+    },
     computed:{
       ...mapGetters([
         'active_navigation'
-      ])
+      ]),
+      route: function(){
+        return this.$route
+      }
+    },
+    watch:{
+      route (to, from) {
+        console.log('aaaaa');
+        this.set_basic_component()
+      }
+    },
+    methods:{
+     set_basic_component: function(){
+     switch(this.$route.name)
+      {
+        case 'register':
+        case 'login':
+          this.basic_component = false
+          break;
+        default:
+          this.basic_component = true
+          break;
+        }
+      }
     },
     mixins:[Helper]
   }

@@ -12,8 +12,8 @@
          v-model="active.create"
          class="add"/>
     <div v-if="active.create">
-      <create_section :create_inputs="create_user_bank"
-                      v-model="request_create_user_bank"/>
+      <create_section :create_inputs="register_user"
+                      v-model="request_register_user"/>
     </div>
     <request :obj="request_get_user_bank" v-model="request_get_user_bank"/>
   </div>
@@ -92,9 +92,9 @@
             }
           }
         },
-        request_create_user_bank: {},
-        create_user_bank:{
-          url: 'https://newbackend.groe.me/users/create_user_bank',
+        request_register_user: {},
+        register_user:{
+          url: 'https://newbackend.groe.me/users/register_user',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',
@@ -170,28 +170,28 @@
       request_get_user_bank_data(){
         return this.request_get_user_bank.data
       },
-      request_create_user_bank_data(){
-        return this.request_create_user_bank
+      request_register_user_data(){
+        return this.request_register_user
       }
     },
     watch:{
       route_id: function(){
         this.set_user_id(this.request_get_user_bank)
-        this.set_inputs_user_id(this.create_user_bank)
+        this.set_inputs_user_id(this.register_user)
         this.request_get_user_bank.request = true
       },
       request_get_user_bank_data(){
         this.set_active_update()
       },
-      request_create_user_bank_data(){
-        if('create' in this.request_create_user_bank){
+      request_register_user_data(){
+        if('create' in this.request_register_user){
           this.request_get_user_bank.request = true
         }
       }
     },
     mounted(){
       this.set_user_id(this.request_get_user_bank)
-      this.set_inputs_user_id(this.create_user_bank)
+      this.set_inputs_user_id(this.register_user)
       this.request_get_user_bank.request = true
     },
     methods:{
