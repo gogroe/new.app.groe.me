@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="user_image" :class="image_class">
-      <div class="image_wrapper" :style="{ width: size + 'px', height: size + 'px', borderRadius: size + 'px'}">
-        <img :src="path_check(path, gender)"/>
+      <div class="image_wrapper" :style="{ backgroundImage: `url('${path}')`, width: size + 'px', height: size + 'px', borderRadius: size + 'px' }">
       </div>
     </div>
   </div>
@@ -19,30 +18,9 @@
         type: String,
         required: false
       },
-      gender:{
-        required: false
-      },
       image_class:{
         type: String,
         required: false
-      }
-    },
-    mounted(){
-      this.path_check()
-    },
-    methods:{
-      path_check(path, gender){
-        if (path === null || path === '') {
-          if(gender === 'male'){
-            return '/static/layout/default_profile_image_male.png'
-          }
-          else{
-            return '/static/layout/default_profile_image_female.jpg'
-          }
-        }
-        else {
-          return path
-        }
       }
     }
   }
@@ -52,6 +30,9 @@
   .image_wrapper{
     overflow: hidden;
     border: 1px solid #ebebeb;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
     img{
       height: 100%;

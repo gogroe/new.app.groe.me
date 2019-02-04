@@ -13,6 +13,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import Load_request from '../functions/load_request'
   import Request from "../functions/request";
   import User_name from "../user_name/index";
@@ -40,6 +41,9 @@
       }
     },
     computed:{
+      ...mapGetters([
+        'reload'
+      ]),
       user_id(){
         return 'id' in this.request_head.data
           ? this.request_head.data.id
@@ -65,6 +69,12 @@
       }
     },
     watch:{
+      reload: function (object) {
+        if(object.action === 'reload' && object.section === 'u_head'){
+          this.request_head.request = true
+          this.$store.commit('update_reload', {action: null, section: null})
+        }
+      },
       route_params_id: function () {
         this.get_user_request(this.request_head)
       },

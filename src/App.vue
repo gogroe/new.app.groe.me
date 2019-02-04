@@ -50,7 +50,6 @@
     },
     watch:{
       route (to, from) {
-        console.log('aaaaa');
         this.set_basic_component()
       }
     },

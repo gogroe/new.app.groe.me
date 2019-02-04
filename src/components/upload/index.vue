@@ -6,20 +6,33 @@
              id="file"
              class="input_file"
              @change="set_single_file"/>
-      <label for="file">auswählen</label>
-      <div class="file_name"
-         v-if="image">
-        {{image.name}}
-        <span>{{format_bytes(image.size)}}</span>
-      </div>
+      <label for="file" v-if="request_obj.params.files === null">auswählen</label>
+      <label class="selection"
+             v-else>
+        <i class="material-icons" @click="request_obj.params.files = null">delete_outline</i>
+        {{is_cuted(request_obj.params.files.name)}}
+        <span>{{format_bytes(request_obj.params.files.size)}}</span>
+      </label>
+      <p class="error" v-if="active.is_error_size">Maximalgröße von {{format_bytes(max_size)}} überschritten.</p>
+      <p class="error" v-if="active.is_error_type">
+        Datentyp
+        <span v-for="(type,i) in types"
+              :key="i">{{type}}
+        </span>
+         erforderlich.
+      </p>
     </div>
-    <button @click="upload_file">{{name}}</button>
+    <button @click="send">{{name}}</button>
+    <file_request :obj="request_obj" v-model="request_obj"/>
   </div>
 </template>
 
 <script>
+  import File_request from "../functions/file_request";
+
   export default {
     name: "upload",
+    components: {File_request},
     props:{
       request_create:{
         required: true
@@ -29,17 +42,94 @@
       },
       upload_class:{
         required: false
+      },
+      reload:{
+        required:false
+      },
+      max_size:{
+        //type: 'Number',
+        required: false
+      },
+      types:{
+        //type: 'Array',
+        required: false
       }
     },
     data(){
       return{
         active: {
-          info: false
+          info: false,
+          is_error_size: false,
+          is_error_type: false
+
         },
-        image: null
+        request_obj:{
+          params: {
+            files: null,
+          },
+          url: '',
+          data: {},
+          request: false
+        }
       }
     },
+    computed:{
+      files(){
+        return this.request_obj.params.files
+      },
+      request_obj_data(){
+        return this.request_obj.data
+      }
+    },
+    watch:{
+      files: function () {
+        if(this.request_obj.params.files === null) {
+          this.active.is_error_size = false
+          this.active.is_error_type = false
+        }
+        this.validate_file_size()
+        this.validate_file_type()
+      },
+      request_create: function () {
+        this.set_request_obj()
+      },
+      request_obj_data: function (object) {
+        this.$emit('input', object)
+      }
+    },
+    mounted(){
+      this.set_request_obj()
+    },
     methods:{
+      validate_file_size(){
+        if(this.max_size !== undefined && this.request_obj.params.files !== null){
+          this.active.is_error_size = this.max_size < this.request_obj.params.files.size
+        }
+      },
+      validate_file_type(){
+        let is_valid = false
+        if(this.types !== undefined && this.request_obj.params.files !== null){
+          for(let type_key in this.types){
+            if(
+              this.request_obj.params.files.type.indexOf(this.types[type_key]) !== -1 ||
+              this.request_obj.params.files.type.indexOf(this.types[type_key].toUpperCase()) !== -1){
+              is_valid = true
+            }
+          }
+          if(is_valid){
+            this.active.is_error_type = false
+          } else {
+            this.active.is_error_type = true
+          }
+        }
+      },
+      is_cuted(name){
+        let extension = name.substr(name.indexOf('.'))
+
+        return name.length > 10
+          ? name.substr(0,10) + '.. ' + extension
+          : name
+      },
       format_bytes(bytes){
         var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
         if (bytes == 0) return '0 Byte';
@@ -47,42 +137,18 @@
         return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
       },
       set_single_file (e) {
-        let file = e.target.files[0]
-        let errors = {
-          type: this.check_type(file.type),
-          size: file.size > 1000000
-        }
-        if( !errors.size || !errors.type ) {
-          this.image = file
+        this.request_obj.params.files = e.target.files[0]
+      },
+      set_request_obj(){
+        this.request_obj.url = this.request_create.url
+
+        for(let param_key in this.request_create.required_params){
+          this.request_obj.params[param_key] = this.request_create.required_params[param_key]
         }
       },
-      upload_file(){
-        if( this.image !== null ) {
-          let request = {
-            uri: this.request_create.url,
-            files: this.image,
-            type: this.image.type
-          }
-
-          let params = this.request_create.required_params
-          for(let param_key in params){
-            request[param_key] = params[param_key]
-          }
-
-          this.$store.dispatch('file_request', request)
-        }
-      },
-      check_type(type){
-        switch(type)
-        {
-          case 'image/jpg':
-          case 'image/jpeg':
-          case 'image/png':
-          case 'application/pdf':
-          case 'image/gif':
-            return false
-          default:
-            return true
+      send(){
+        if( this.active.is_error_size === false && this.active.is_error_type === false){
+          this.request_obj.request = true
         }
       }
     }
@@ -90,9 +156,8 @@
 </script>
 
 <style lang="scss" scoped>
-
   .upload{
-    margin-bottom: 47px;
+    padding-bottom: 10px;
   }
 
   .file{
@@ -110,14 +175,32 @@
   }
 
   .input_file + label {
-    width: calc(38% - 34px);
-    margin-left: 17px;
-    padding: 5px 10px;
-    border-radius: 2px;
+    position: relative;
+    width: 100%;
+    padding: 10px 17px;
+    border-radius: 4px;
     text-align: center;
     color: white;
     background-color: #3da0f5;
     display: inline-block;
+
+    i{
+      position: absolute;
+      left: 17px;
+      margin-top: -5px;
+      font-size: 25px;
+      margin-right: 17px;
+    }
+
+    span{
+      opacity: 0.5;
+    }
+  }
+
+  .error{
+    font-size: 10px;
+    margin-top: 2px;
+    color: red;
   }
 
   .input_file:focus + label,
@@ -127,26 +210,5 @@
 
   .input_file + label {
     cursor: pointer; /* "hand" cursor */
-  }
-
-  .input_file:focus + label {
-    outline: 1px dotted #dadada;
-    outline: -webkit-focus-ring-color auto 5px;
-  }
-
-  .file_name{
-    position: relative;
-    width: 62%;
-    padding: 5px 17px;
-    display: inline;
-
-
-    span{
-      color: #bababa;
-    }
-  }
-
-  button{
-   margin-left: 17px;
   }
 </style>
