@@ -5,33 +5,87 @@
         <th>Datum</th>
         <th>Verwendungszweck</th>
         <th>Betrag</th>
-        <th></th>
+        <th v-if="active_options"></th>
       </tr>
-      <tr v-for="(account, i) in request_accounts"
+      <tr v-for="(account, i) in accounts"
           :key="i"
-          :class="{'last_row': i+1 === request_accounts.length }">
+          :class="{'last_row': i+1 === accounts.length }">
         <td>
           <ddmmmyy :timestamp="account.date"
                    color="#333333"/>
         </td>
         <td>{{account.description}}</td>
         <td>{{account.value + ' ' + account.currency}}</td>
-        <td><i class="material-icons">more_horiz</i></td>
+        <td v-if="active_options">
+          <popup_menu class="popup_menu"
+                      :id="account.id"
+                      type="list"
+                      :options="options"
+                      icon="more_horiz"
+                      v-model="action"/></td>
       </tr>
     </table>
+    <edit_accounts :edit_account="edit_account" :active="active.edit" v-model="active.edit"/>
   </div>
 </template>
 <script>
   import Ddmmmyy from "../date/ddmmmyy";
+  import Popup_menu from "../popup_menu/index";
+  import Edit_accounts from "./edit";
 
   export default {
     name: "accounts_table",
     components:{
+      Edit_accounts,
+      Popup_menu,
       Ddmmmyy
     },
     props:{
-      request_accounts:{
+      request_get_accounts:{
         required: true,
+      },
+    },
+    data(){
+      return{
+        active:{
+          edit: false
+        },
+        action: {},
+        options:[
+          {
+            name: 'bearbeiten',
+            action: 'edit',
+          }
+        ],
+        edit_account:{}
+      }
+    },
+    computed:{
+      active_options(){
+        return this.options !== undefined
+      },
+      accounts(){
+        return 'accounts' in this.request_get_accounts.data
+          ? this.request_get_accounts.data.accounts
+          : []
+      }
+    },
+    watch:{
+      action: function (object) {
+        if(object.action === 'edit'){
+          this.set_edit_account(object.id)
+          this.action = {}
+        }
+      }
+    },
+    methods:{
+      set_edit_account(action_id){
+        for(let account_key in this.accounts){
+          if(this.accounts[account_key]['id'] === action_id){
+            this.edit_account = this.accounts[account_key]
+          }
+        }
+        this.active.edit = true
       }
     }
   }

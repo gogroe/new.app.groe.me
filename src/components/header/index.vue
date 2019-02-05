@@ -63,13 +63,13 @@
       request_header_data: function (object) {
         this.$store.commit('update_header', object)
       },
-
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'all'){
           this.request_header.params.uid = this.uid //todo auth/change
           this.request_header.request = true
+          this.$store.commit('update_reload', {action: null, section: null})
         }
-      }
+      },
     },
     mounted(){
       this.get_request_header()

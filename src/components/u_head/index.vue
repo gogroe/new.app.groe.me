@@ -3,10 +3,12 @@
     <div class="u_head default_box">
       <user_visual class="user_image" :name="user_name" :path="users_image" size="110"/>
       <user_name :name="user_name" :id="user_id" class="user_name"/>
-      <a @click="active.description = !active.description" class="desription">
-        Steckbrief <i class="material-icons">arrow_drop_down</i>
-      </a>
-      <p v-if="active.description">{{user_description}}</p>
+      <div v-if="active_description">
+        <a @click="active.description = !active.description" class="desription">
+          Steckbrief <i v-if="active.description" class="material-icons">arrow_drop_up</i><i v-else class="material-icons">arrow_drop_down</i>
+        </a>
+        <p v-if="active.description">{{request_head.data.description}}</p>
+      </div>
     </div>
     <request :obj="request_head" v-model="request_head"/>
   </div>
@@ -44,6 +46,9 @@
       ...mapGetters([
         'reload'
       ]),
+      active_description(){
+        return 'description' in this.request_head.data && this.request_head.data.description !== null
+      },
       user_id(){
         return 'id' in this.request_head.data
           ? this.request_head.data.id
@@ -59,18 +64,13 @@
           ? this.request_head.data.image
           : null
       },
-      user_description(){
-        return 'decription' in this.request_head.data
-          ? this.request_head.data.description
-          : null
-      },
       route_params_id(){
         return this.$route.params.id
       }
     },
     watch:{
       reload: function (object) {
-        if(object.action === 'reload' && object.section === 'u_head'){
+        if(object.action === 'reload' && object.section === 'all'){
           this.request_head.request = true
           this.$store.commit('update_reload', {action: null, section: null})
         }
@@ -92,7 +92,7 @@
 <style lang="scss" scoped>
 
   .u_head {
-    height: 280px;
+    min-height: 280px;
     margin-bottom: 17px;
     text-align: center;
   }
@@ -119,6 +119,10 @@
 
   .desription{
     color: #3da0f5;
+  }
+
+  p{
+    margin: 0 64px 17px 64px;
   }
 
 </style>

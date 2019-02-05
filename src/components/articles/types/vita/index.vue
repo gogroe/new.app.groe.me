@@ -8,7 +8,13 @@
       <div class="clear"></div>
       <div class="options">
         <p class="option"
-           v-if="active_article"><i class="material-icons">more_horiz</i>
+           v-if="active_article">
+          <popup_menu
+            icon="more_horiz"
+            type="list"
+            :options="options"
+            :id="obj.id"
+            v-model="action"/>
         </p>
         <p v-else 
            class="date">
@@ -34,27 +40,30 @@
         <p> {{obj.description}} </p>
       </div>
     </div>
-    <map_location locations="Ostpreußendamm 18b, 12207 Berlin"/>
+    <map_location :locations="obj.adress"/>
     <div class="content">
       <p class="subject">{{obj.company}}</p>
       <p v-for="(adress, i) in obj.adress" :key="i" class="place">
         <i class="material-icons">place</i> {{adress.street}}, {{adress.zip}} {{adress.city}} {{adress.country}}
       </p>
     </div>
+    <edit_vita :edit_vita="obj" :active="active.edit" v-model="active.edit"/>
   </div>
 </template>
 
 <script>
-  import User_image from "../../user_image/index";
-  import User_name from "../../user_name/index";
-  import From_now from "../../date/from_now";
-  import Ddmmmyy from "../../date/ddmmmyy";
-  import Map_location from "../../google/map_location";
-  import User_initials from "../../user_initals/index";
+  import User_image from "../../../user_image/index";
+  import User_name from "../../../user_name/index";
+  import From_now from "../../../date/from_now";
+  import Ddmmmyy from "../../../date/ddmmmyy";
+  import Map_location from "../../../google/map_location";
+  import User_initials from "../../../user_initals/index";
+  import Popup_menu from "../../../popup_menu/index";
+  import Edit_vita from "./edit";
 
   export default {
     name: "vita",
-    components: {User_initials, Map_location, Ddmmmyy, From_now, User_name, User_image},
+    components: {Edit_vita, Popup_menu, User_initials, Map_location, Ddmmmyy, From_now, User_name, User_image},
     props:{
       obj:{
         required: true
@@ -67,10 +76,30 @@
       return{
         active:{
           more: false,
-          open: false
+          open: false,
+          edit: false
+        },
+        options:[
+          {
+            name: 'Bearbeiten',
+            action: 'edit'
+          },
+          {
+            name: 'Löschen',
+            action: 'delete' //todo und datum machen
+          }
+        ],
+        action:{},
+      }
+    },
+    watch:{
+      action: function (object) {
+        if(object.action === 'edit'){
+          // this.action = {}
+          this.active.edit = true
         }
       }
-    }
+    },
   }
 </script>
 

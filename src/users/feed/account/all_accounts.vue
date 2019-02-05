@@ -1,7 +1,7 @@
 
 <template>
   <div class="accounts">
-    <accounts_table :request_accounts="accounts"/>
+    <accounts_table :request_get_accounts="request_user_accounts" :options="options"/>
     <request :obj="request_user_accounts" v-model="request_user_accounts"/>
   </div>
 </template>
@@ -35,26 +35,31 @@
           data: {},
           request: false
         },
-        active:{
-          menu: 0
-        }
+        options:[
+          {
+            name: 'bearbeiten',
+            value: 'edit'
+          }
+        ],
       }
     },
     computed:{
       ...mapGetters([
-        'uid'
-      ]),
-      accounts(){
-        return 'accounts' in this.request_user_accounts.data
-          ? this.request_user_accounts.data.accounts
-          : []
-      }
+        'uid',
+        'reload'
+      ])
     },
     watch:{
       action: function (string) {
         if(string === 'reload'){
           this.request_user_accounts.request = true
           this.$emit('input', null)
+        }
+      },
+      reload: function (object) {
+        if(object.action === 'reload' && object.section === 'accounts'){
+          this.$store.commit('update_reload', {action: null, section: null})
+          this.get_user_request(this.request_user_accounts)
         }
       }
     },

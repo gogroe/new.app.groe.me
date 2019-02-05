@@ -14,6 +14,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import Load_request from '../../../components/functions/load_request'
   import Request from "../../../components/functions/request";
   import Edit from "../../../components/inputs/edit";
@@ -49,6 +50,9 @@
       }
     },
     computed:{
+      ...mapGetters([
+        'reload'
+      ]),
       request_vitas_data(){
         return this.request_vitas.data
       },
@@ -57,6 +61,12 @@
       }
     },
     watch:{
+      reload: function (object) {
+        if(object.action === 'reload' && object.section === 'vitas'){
+          this.$store.commit('update_reload', {action: null, section: null})
+          this.get_user_request(this.request_vitas)
+        }
+      },
       route_id: function () {
         this.get_user_request(this.request_vitas)
       },

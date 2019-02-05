@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import Admin_user from "./user";
+  import Admin_user from "./users/index";
   import Admin_contact from "./contact/index";
   import Admin_adress from "./adress/index";
   import Admin_bank from "./bank";

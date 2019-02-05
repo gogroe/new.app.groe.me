@@ -64,7 +64,7 @@
   import User_name from "../user_name/index";
   import From_now from "../date/from_now";
   import Post from "./types/post";
-  import Vita from "./types/vita";
+  import Vita from "./types/vita/index";
 
   export default {
     name: "articles",

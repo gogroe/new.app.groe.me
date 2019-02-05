@@ -20,7 +20,7 @@
   import { mapGetters } from 'vuex'
   import All_accounts from "./all_accounts";
   import Add from "../../../components/add/index";
-  import Create_account from "./create";
+  import Create_account from "../../../components/accounts/create";
 
   export default {
     name: "accounts",

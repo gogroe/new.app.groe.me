@@ -13,10 +13,10 @@
 </template>
 
 <script>
-  import Inputs from "../../../components/inputs/index";
-  import Request from "../../../components/functions/request";
-  import Load_request from "../../../components/functions/load_request"
-  import Custom_helper from '../../../components/functions/custom_helper'
+  import Inputs from "../inputs/index";
+  import Request from "../functions/request";
+  import Load_request from "../functions/load_request"
+  import Custom_helper from '../functions/custom_helper'
 
   export default {
     name: "create_account",

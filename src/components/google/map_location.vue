@@ -34,19 +34,22 @@
       };
     },
     computed: {
-      google: gmapApi
+      google: gmapApi,
     },
     watch:{
       google: function () {
-        this.search_location()
+        for(let location_key in this.locations){
+          let location = this.locations[location_key]
+          this.search_location(location.street + ', ' + location.zip + ' ' + location.city)
+        }
       }
     },
     methods: {
-      search_location: function() {
+      search_location(location) {
         let position = {}
 
         let geocoder = new this.google.maps.Geocoder();
-        geocoder.geocode({'address': this.locations}, (results, status) => {
+        geocoder.geocode({'address': location}, (results, status) => {
           if (status === 'OK') {
             position = {
               lat: results[0].geometry.location.lat(),
