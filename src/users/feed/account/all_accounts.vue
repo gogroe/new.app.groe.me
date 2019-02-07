@@ -1,6 +1,7 @@
 
 <template>
   <div class="accounts">
+    <account_balance :request_accounts_data="request_user_accounts.data"/>
     <accounts_table :request_get_accounts="request_user_accounts" :options="options"/>
     <request :obj="request_user_accounts" v-model="request_user_accounts"/>
   </div>
@@ -11,10 +12,12 @@
   import Request from "../../../components/functions/request"
   import U_head from "../../../components/u_head/index";
   import Accounts_table from "../../../components/accounts/index";
+  import Account_balance from "../../../components/accounts/balance";
 
   export default {
     name: "all_accounts",
     components:{
+      Account_balance,
       Accounts_table,
       U_head,
       Request
