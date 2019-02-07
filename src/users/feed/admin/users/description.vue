@@ -12,7 +12,8 @@
     <edit v-if="active_update === true"
           v-for="(input, key, i) in update_user_description.inputs"
           :key="i"
-          :obj="fill_inputs_edit(key, update_user_description, request_get_user.data)"/>
+          :obj="fill_inputs_edit(key, update_user_description, request_get_user.data)"
+          :reload="{action: 'reload', section: 'u_head'}"/>
   </div>
 </template>
 
@@ -88,6 +89,7 @@
         if('create' in object){
           this.$emit('input', true)
         }
+        this.create_update_reload(object, {action: 'reload', section: 'u_head'})
       },
       route_id: function(){
         this.set_inputs_user_id(this.update_user_description)

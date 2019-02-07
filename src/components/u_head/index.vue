@@ -74,6 +74,10 @@
           this.request_head.request = true
           this.$store.commit('update_reload', {action: null, section: null})
         }
+        if(object.action === 'reload' && object.section === 'u_head'){
+          this.request_head.request = true
+          this.$store.commit('update_reload', {action: null, section: null})
+        }
       },
       route_params_id: function () {
         this.get_user_request(this.request_head)
