@@ -3,7 +3,7 @@
       <header>
         <div class="menu">
           <i class="material-icons" @click="$store.commit('update_active_navigation', !active_navigation)">menu</i>
-          <span class="groe">groe</span><span class="dot">.</span><span class="ad">ads</span> <span>&nbsp | &nbsp Benutzer</span>
+          <span class="groe">groe</span><span class="dot">.</span><span class="ad">ads</span>
         </div>
         <div class="profile">
           <user_visual class="user_image" :path="get_header.image" :name="get_header.firstname + ' ' + get_header.lastname" size="35"/>
@@ -65,6 +65,11 @@
       },
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'all'){
+          this.request_header.params.uid = this.uid //todo auth/change
+          this.request_header.request = true
+          this.$store.commit('update_reload', {action: null, section: null})
+        }
+        if(object.action === 'reload' && object.section === 'header'){
           this.request_header.params.uid = this.uid //todo auth/change
           this.request_header.request = true
           this.$store.commit('update_reload', {action: null, section: null})

@@ -25,18 +25,6 @@
            :placeholder="obj.placeholder"
            :class="obj.input_class"
            v-model="cur_value"/>
-    <input v-if="obj.type === 'date'"
-           @blur="send_parrent('blur')"
-           @keyup="send_parrent('keyup')"
-           @keyup.enter="send_parrent('enter')"
-           @keyup.tab="send_parrent('tab')"
-           :type="obj.type"
-           :title="obj.name"
-           :id="obj.name"
-           :name="obj.name"
-           :placeholder="obj.placeholder"
-           :class="obj.input_class"
-           v-model="cur_value"/>
     <input v-if="obj.type === 'url'"
            @blur="send_parrent('blur')"
            @keyup="send_parrent('keyup')"
@@ -85,6 +73,11 @@
       :placeholder="obj.placeholder"
       :class="obj.input_class"
       v-model="cur_value"/>
+    <datepicker v-if="obj.type === 'date'"
+                :class="obj.input_class"
+                :placeholder="obj.placeholder"
+                :language="languages['de']"
+                v-model="cur_value"></datepicker>
     <custom_select v-if="obj.type === 'select'"
                    :list_name="obj.select"
                    :id="obj.name"
@@ -112,10 +105,13 @@
 
   import Errors from "../errors"
   import Custom_select from "./select";
+  import Datepicker from 'vuejs-datepicker';
+  import * as lang from "vuejs-datepicker/src/locale";
+  import moment from 'moment'
 
   export default {
     name: "inputs",
-    components: {Custom_select, Errors},
+    components: {Custom_select, Errors, Datepicker},
     props:{
       obj:{
         type: Object,
@@ -135,7 +131,8 @@
           event: null,
           value: null
         },
-        error_class: 'input_error'
+        error_class: 'input_error',
+        languages: lang,
       }
     },
     watch:{
@@ -159,6 +156,11 @@
             this.send_parrent_select(object.event, object.value)
           }
         }, deep:true
+      },
+      cur_value:function () {
+        if(this.obj.type === 'date'){
+          this.send_parrent('enter')
+        }
       }
     },
     mounted(){
@@ -169,12 +171,22 @@
         if('error_class' in this.obj){
           this.error_class =  this.obj.error_class
         }
-        this.cur_value = this.obj.value
+        if(this.obj.type === 'date'){
+          if(this.obj.value !== null){
+            this.cur_value = moment(this.obj.value * 1000).locale("de").format()
+          }
+        }
+        else{
+          this.cur_value = this.obj.value
+        }
       },
       send_parrent(event){
         const inputs = {
           event: event,
           value: this.cur_value
+        }
+        if(this.obj.type === 'date'){
+          inputs.value = moment(this.cur_value).format("X")
         }
         this.$emit('input', inputs)
       },
@@ -193,6 +205,10 @@
 
   label{
     vertical-align: top;
+  }
+
+  .date_picker{
+    display: inline;
   }
 
 </style>

@@ -5,6 +5,7 @@
       <edit v-for="(input, key, i) in update_user_account.inputs"
             :key="i"
             :obj="fill_inputs_edit(key, update_user_account, edit_account)"
+            :reload="{action: 'reload', section: 'accounts'}"
             v-model="edit_request"/>
     </div>
     <close_popup/>
@@ -43,7 +44,7 @@
           label_class: 'edit_input_label',
           error_class: '',
           required_params: {
-            user_id: null,
+            account_id: null,
             uid: 1,
             description: 'Manuelle Transaktion',
             currency: 'EUR'
@@ -55,25 +56,19 @@
             },
             date: {
               name: 'Buchungsdatum',
-              type: 'number',
+              type: 'date',
             }
           }
         }
       }
     },
     watch:{
-      edit_account: function () {
-        this.set_inputs_user_id(this.update_user_account)
-      },
-      edit_request: function (object) {
-        if('update' in object){
-          this.$store.commit('update_reload', {action: 'reload', section: 'accounts'} )
-          this.$emit('input', false)
-        }
+      edit_account:function (object) {
+        this.update_user_account.required_params.account_id = object.id
       }
     },
     mounted(){
-      this.set_inputs_user_id(this.update_user_account)
+      this.update_user_account.required_params.account_id = this.edit_account.id
     },
     methods:{
       hide(){

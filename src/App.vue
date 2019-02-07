@@ -3,9 +3,7 @@
     <global_header v-if="basic_component"/>
     <navigation v-if="basic_component"/>
     <div class="main" :class="[{'active_navigation': active_navigation}, {'main_content': basic_component}]">
-      <projects v-if="cut_route_name_prefix($route.name) === 'projects' ||
-                      cut_route_name_prefix($route.name) === 'project' "/>
-      <users v-else-if="cut_route_name_prefix($route.name) === 'users' ||
+      <users v-if="cut_route_name_prefix($route.name) === 'users' ||
                          cut_route_name_prefix($route.name) === 'user' "/>
       <router-view v-else/>
     </div>
@@ -15,7 +13,6 @@
 <script>
   import Helper from './components/functions/custom_helper'
   import { mapGetters } from 'vuex'
-  import Projects from "./projects/index";
   import Users from "./users/index";
   import Login from "./login/index";
   import Register from "./register/index";
@@ -29,8 +26,7 @@
       Global_header,
       Register,
       Login,
-      Users,
-      Projects
+      Users
     },
     data(){
       return{
@@ -409,6 +405,15 @@
     &:hover, &:focus{
       border-bottom: 1px solid #3da0f5;
     }
+
+    &.vdp-datepicker{
+      font-size: 13px;
+      display: inline-block;
+
+      input{
+        padding: 0;
+      }
+    }
   }
 
   .edit_input_select{
@@ -424,6 +429,12 @@
         border: none;
         border-bottom: 1px solid transparent;
         border-radius: 2px;
+
+        .selected-tag{
+          margin: 0;
+          padding: 0 0 0 1px;
+          font-weight: 400;
+        }
 
         .form-control{
           margin-top: 0;

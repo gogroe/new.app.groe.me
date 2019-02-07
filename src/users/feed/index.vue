@@ -43,16 +43,6 @@
             route: 'users_account',
             section: 'menu'
           },
-          // trophies:{
-          //   name: 'Beiträge',
-          //   route: 'users_profile',
-          //   section: 'menu'
-          // },
-          // progress:{
-          //   name: 'Verlauf',
-          //   route: 'users_progress',
-          //   section: 'menu'
-          // },
           admin:{
             name: 'Verwalten',
             route: 'users_admin',
@@ -70,16 +60,6 @@
             route: 'user_account',
             section: 'menu'
           },
-          // trophies:{
-          //   name: 'Tropähen',
-          //   route: 'user_profile',
-          //   section: 'menu'
-          // },
-          // progress:{
-          //   name: 'Verlauf',
-          //   route: 'user_progress',
-          //   section: 'menu'
-          // },
           admin:{
             name: 'Verwalten',
             route: 'user_admin',

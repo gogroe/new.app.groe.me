@@ -123,7 +123,7 @@
             id: 'users.type',
             name: 'Type',
             type: 'select',
-            select: 'user_status',
+            select: 'user_type',
             edit: false,
             request_group: 'users',
              rows: []

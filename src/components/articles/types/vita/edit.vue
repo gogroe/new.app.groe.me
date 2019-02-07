@@ -10,6 +10,14 @@
             :key="key"
             :obj="fill_inputs_edit(key, update_user_vita_date, edit_vita)"
             v-model="edit_request"/>
+      <edit v-for="(input, key, i) in update_user_vita_company.inputs"
+            :key="key"
+            :obj="fill_inputs_edit(key, update_user_vita_company, edit_vita)"
+            v-model="edit_request"/>
+      <edit v-for="(input, key, i) in update_user_vita_adress.inputs"
+            :key="key"
+            :obj="fill_inputs_edit(key, update_user_vita_adress, edit_vita.adress[0])"
+            v-model="edit_request"/>
     </div>
     <close_popup/>
   </div>
@@ -79,6 +87,53 @@
             end_date: {
               name: 'Abschlussdatum',
               type: 'number',
+            },
+          }
+        },
+        update_user_vita_company:{
+          url: 'https://newbackend.groe.me/users/update_user_vita_company',
+          input_class:'edit_input',
+          label_class: 'edit_input_label',
+          error_class: '',
+          required_params: {
+            user_id: null,
+            uid: 1,
+            vita_id: this.edit_vita.id
+          },
+          inputs:{
+            company: {
+              name: 'Unternehmen',
+              type: 'text',
+            }
+          }
+        },
+        update_user_vita_adress:{
+          url: 'https://newbackend.groe.me/users/update_user_vita_adress',
+          input_class:'edit_input',
+          label_class: 'edit_input_label',
+          error_class: '',
+          required_params: {
+            user_id: null,
+            uid: 1,
+            vita_id: this.edit_vita.id
+          },
+          inputs:{
+            street: {
+              name: 'Straße',
+              type: 'text',
+            },
+            zip: {
+              name: 'Postleitzahl',
+              type: 'number',
+            },
+            city: {
+              name: 'Stadt',
+              type: 'text',
+            },
+            country: {
+              name: 'Land',
+              type: 'select',
+              select: 'countrys',
             }
           }
         }
@@ -88,7 +143,7 @@
       edit_vita: function () {
         this.set_inputs_user_id(this.update_user_vita)
       },
-      edit_request: function (object) {
+      edit_request: function (object) { //todo
         if('update' in object){
           this.$store.commit('update_reload', {action: 'reload', section: 'vitas'} )
         }

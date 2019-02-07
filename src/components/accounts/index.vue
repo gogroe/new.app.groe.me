@@ -2,9 +2,9 @@
   <div class="accounts_table">
     <table class="default_box">
       <tr>
-        <th>Datum</th>
+        <th class="date">Datum</th>
         <th>Verwendungszweck</th>
-        <th>Betrag</th>
+        <th class="value">Betrag</th>
         <th v-if="active_options"></th>
       </tr>
       <tr v-for="(account, i) in accounts"
@@ -14,8 +14,8 @@
           <ddmmmyy :timestamp="account.date"
                    color="#333333"/>
         </td>
-        <td>{{account.description}}</td>
-        <td>{{account.value + ' ' + account.currency}}</td>
+        <td class="date">{{account.description}}</td>
+        <td class="value">{{account.value + ' ' + account.currency}}</td>
         <td v-if="active_options">
           <popup_menu class="popup_menu"
                       :id="account.id"
@@ -116,5 +116,13 @@
         padding: 17.5px 5px;
       }
     }
+  }
+
+  .date, .value{
+    min-width: 100px;
+  }
+
+  .value{
+    text-align: right;
   }
 </style>

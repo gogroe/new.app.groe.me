@@ -36,7 +36,7 @@
       section_class:{
         // type: 'String',
         required: false,
-      },
+      }
     },
     data(){
       return{
@@ -86,6 +86,9 @@
 
         this.request_create.request = true
       },
+      callback(){
+
+      }
     },
     mixins:[Custom_helper, Load_request]
   }

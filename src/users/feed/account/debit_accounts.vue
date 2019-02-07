@@ -13,7 +13,7 @@
   import Accounts_table from "../../../components/accounts/index";
 
   export default {
-    name: "all_accounts",
+    name: "debit_accounts",
     components:{
       Accounts_table,
       U_head,
@@ -24,7 +24,8 @@
         request_user_accounts: {
           params: {
             uid: this.uid,
-            user_id: this.$route.params.id
+            user_id: this.$route.params.id,
+            'bigger->value': -1
           },
           url: 'http://newbackend.groe.me/users/get_user_accounts',
           data: {},

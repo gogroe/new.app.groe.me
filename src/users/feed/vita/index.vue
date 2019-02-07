@@ -4,33 +4,34 @@
          :active="active.create"
          name="Vita"
          v-model="active.create"/>
-    <create_vita v-if="active.create" v-model="action"/>
+    <div class="create_vita default_box" v-if="active.create">
+      <create_section create_name="VITA"
+                      :create_inputs="create_user_vita"
+                      v-model="request_create_user_vita"/>
+    </div>
     <h6>VITAS</h6>
-    <posts v-for="(article, i) in request_vitas_data"
+    <posts v-for="(article, i) in request_user_vitas_data"
            :key="i"
            :obj="article"/>
-    <request :obj="request_vitas" v-model="request_vitas"/>
+    <request :obj="request_user_vitas" v-model="request_user_vitas"/>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
+  import Custom_helper from '../../../components/functions/custom_helper'
   import Load_request from '../../../components/functions/load_request'
   import Request from "../../../components/functions/request";
-  import Edit from "../../../components/inputs/edit";
   import Posts from "../../../components/articles/index";
-  import Create_article from "../../../components/articles/create";
   import Add from "../../../components/add/index";
-  import Create_vita from "./create";
+  import Create_section from "../../../components/inputs/create";
 
   export default {
     name: "users_profile",
     components:{
-      Create_vita,
+      Create_section,
       Add,
-      Create_article,
       Posts,
-      Edit,
       Request,
     },
     data(){
@@ -38,14 +39,94 @@
         active:{
           create: false
         },
-        action: null,
-        request_vitas: {
+        request_user_vitas: {
           params: {
             user_id: null
           },
           url: 'https://newbackend.groe.me/users/get_user_vitas',
           data: {},
           request: false
+        },
+        request_create_user_vita:{},
+        create_user_vita:{
+          url: 'https://newbackend.groe.me/users/create_user_vita',
+          input_class:'create_input',
+          label_class: 'create_input_label',
+          error_class: '',
+          required_params: {},
+          inputs:{
+            position: {
+              name: 'Position',
+              type: 'text',
+              input: {
+                value: null,
+                event:null
+              }
+            },
+            description: {
+              name: 'Stellenbeschreibung',
+              type: 'text',
+              input: {
+                value: null,
+                event:null
+              }
+            },
+            start_date: {
+              name: 'Datum des Beginns',
+              type: 'date',
+              input: {
+                value: null,
+                event:null
+              }
+            },end_date: {
+              name: 'Datum der Abschluss',
+              type: 'date',
+              input: {
+                value: null,
+                event:null
+              }
+            },company: {
+              name: 'Firmanname',
+              type: 'text',
+              input: {
+                value: null,
+                event:null
+              }
+            },
+            street: {
+              name: 'Straße',
+              type: 'text',
+              input: {
+                value: null,
+                event:null
+              }
+            },
+            zip: {
+              name: 'Postleitzahl',
+              type: 'number',
+              input: {
+                value: null,
+                event:null
+              }
+            },
+            city: {
+              name: 'Stadt',
+              type: 'text',
+              input: {
+                value: null,
+                event:null
+              }
+            },
+            country: {
+              name: 'Land',
+              type: 'select',
+              select: 'countrys',
+              input: {
+                value: null,
+                event:null
+              }
+            }
+          }
         }
       }
     },
@@ -53,34 +134,27 @@
       ...mapGetters([
         'reload'
       ]),
-      request_vitas_data(){
-        return this.request_vitas.data
-      },
-      route_id(){
-        return this.$route.params.id
+      request_user_vitas_data(){
+        return this.request_user_vitas.data
       }
     },
     watch:{
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'vitas'){
           this.$store.commit('update_reload', {action: null, section: null})
-          this.get_user_request(this.request_vitas)
+          this.get_user_request(this.request_user_vitas)
         }
       },
-      route_id: function () {
-        this.get_user_request(this.request_vitas)
-      },
-      action: function (string) {
-        if(string === 'reload'){
-          this.request_vitas.request = true
-          this.action = null
-        }
+      request_create_user_vita:function () {
+        this.get_user_request(this.request_user_vitas)
+        this.active.create = false
       }
     },
     mounted(){
-      this.get_user_request(this.request_vitas)
+      this.get_user_request(this.request_user_vitas)
+      this.set_inputs_user_id(this.create_user_vita)
     },
-    mixins:[Load_request]
+    mixins:[Load_request, Custom_helper]
   }
 </script>
 
@@ -88,6 +162,10 @@
 
   .add{
     text-align: right;
+  }
+
+  .create_vita{
+    margin-bottom: 17px;
   }
 
 </style>

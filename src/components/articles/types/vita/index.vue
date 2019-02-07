@@ -48,6 +48,7 @@
       </p>
     </div>
     <edit_vita :edit_vita="obj" :active="active.edit" v-model="active.edit"/>
+    <request :obj="request_delete_user_vita" v-model="request_delete_user_vita"/>
   </div>
 </template>
 
@@ -60,10 +61,11 @@
   import User_initials from "../../../user_initals/index";
   import Popup_menu from "../../../popup_menu/index";
   import Edit_vita from "./edit";
+  import Request from "../../../functions/request";
 
   export default {
     name: "vita",
-    components: {Edit_vita, Popup_menu, User_initials, Map_location, Ddmmmyy, From_now, User_name, User_image},
+    components: {Request, Edit_vita, Popup_menu, User_initials, Map_location, Ddmmmyy, From_now, User_name, User_image},
     props:{
       obj:{
         required: true
@@ -90,6 +92,20 @@
           }
         ],
         action:{},
+        request_delete_user_vita: {
+          params: {
+            vita_id: this.obj.id,
+            uid: 1,
+          },
+          url: 'https://newbackend.groe.me/users/delete_user_vita',
+          data: {},
+          request: false
+        },
+      }
+    },
+    computed:{
+      request_delete_user_vita_data(){
+        return this.request_delete_user_vita.data
       }
     },
     watch:{
@@ -97,6 +113,15 @@
         if(object.action === 'edit'){
           // this.action = {}
           this.active.edit = true
+        }
+        if(object.action === 'delete'){
+          this.request_delete_user_vita.params.vita_id = this.obj.id
+          this.request_delete_user_vita.request = true
+        }
+      },
+      request_delete_user_vita_data: function (object) {
+        if('update' in object){
+          this.$store.commit('update_reload', {action: 'reload', section: 'vitas'} )
         }
       }
     },
