@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import register from '@/register'
+import signup from '@/signup'
 
 import users from '@/users/crm'
 import users_account from '@/users/feed/account'
@@ -14,11 +14,11 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/register',
-      name: 'register',
-      component: register
+      path: '/signup',
+      name: 'signup',
+      component: signup
     },
-    //user
+    // user
     {
       path: '/',
       name: 'user_vita',

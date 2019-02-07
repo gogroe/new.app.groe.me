@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script>
+<script> //todo select filter ar not displayed in current filter
   import checkbox from '../../../components/checkbox'
   import Inputs from "../../../components/inputs/index";
 

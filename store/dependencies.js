@@ -70,6 +70,18 @@ const dependencies = {
       call_back: 'Zurückrufen',
       get_contact: 'Kontaktdaten',
       phone: 'Telefon',
+      executive: 'Führungskraft',
+      admin: 'Administrator',
+      member: 'Mitglied',
+      leader: 'Führung',
+      user: 'Benutzer',
+      company: 'Unternehmen',
+      partner: 'Partner',
+      candidate: 'Bewerber',
+      standard: 'Standard',
+      premium: 'Premium',
+      elite: 'Elite',
+      contact_person: 'Ansprechpartner'
     }
   },
 

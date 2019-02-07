@@ -60,13 +60,24 @@
               name: 'Nachname',
               type: 'text'
             },
-            gender: {
-              name: 'Geschlecht',
-              type: 'select',
-              select: 'gender',
-            }
           }
-        }
+        },
+        // update_user_gender:{
+        //   url: 'https://newbackend.groe.me/users/update_user_gender',
+        //   input_class:'edit_input',
+        //   label_class: 'edit_input_label',
+        //   error_class: '',
+        //   required_params: {
+        //     user_id: this.$route.params.id,
+        //     uid: 1
+        //   },
+        //   inputs:{
+        //     value: {
+        //       name: 'Benutzer',
+        //       type: 'text'
+        //     }
+        //   }
+        // }
       }
     },
     computed:{

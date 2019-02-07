@@ -14,8 +14,6 @@
   import Helper from './components/functions/custom_helper'
   import { mapGetters } from 'vuex'
   import Users from "./users/index";
-  import Login from "./login/index";
-  import Register from "./register/index";
   import Global_header from "./components/header/index";
   import Navigation from "./components/navigation/index";
 
@@ -24,8 +22,6 @@
     components: {
       Navigation,
       Global_header,
-      Register,
-      Login,
       Users
     },
     data(){
@@ -53,7 +49,7 @@
      set_basic_component: function(){
      switch(this.$route.name)
       {
-        case 'register':
+        case 'signup':
         case 'login':
           this.basic_component = false
           break;

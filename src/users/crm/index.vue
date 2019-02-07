@@ -65,6 +65,15 @@
             create_url: 'http://newbackend.groe.me/users/create_user',
             edit_url: 'http://newbackend.groe.me/users/update_user',
           },
+          gender: {
+            indicator: false,
+            required_params: {
+              uid: null,
+              user_id: 'get_users.id',
+            },
+            create_url: 'http://newbackend.groe.me/users/create_user_gender',
+            edit_url: 'http://newbackend.groe.me/users/update_user_gender',
+          },
           status: {
             indicator: false,
             required_params: {
@@ -119,22 +128,22 @@
             request_group: 'users',
              rows: []
           },
-          'users.type':{
-            id: 'users.type',
-            name: 'Type',
+          'users.role':{
+            id: 'users.role',
+            name: 'Position',
             type: 'select',
-            select: 'user_type',
+            select: 'user_role',
             edit: false,
             request_group: 'users',
              rows: []
           },
-          'users.gender':{
-            id: 'users.gender',
+          'gender.value':{
+            id: 'gender.value',
             name: 'Geschlecht',
             type: 'select',
             select: 'gender',
             edit: true,
-            request_group: 'users',
+            request_group: 'gender',
              rows: []
           },
           'status.value':{

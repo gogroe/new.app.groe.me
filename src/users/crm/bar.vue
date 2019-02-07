@@ -34,13 +34,14 @@
           label_class: 'create_input_label',
           error_class: '',
           required_params: {
-            uid: 1
+            uid: 1,
+            type: 2
           },
           inputs:{
-            type: {
-              name: 'Rolle',
+            role: {
+              name: 'Position',
               type: 'select',
-              select: 'gender',
+              select: 'user_role',
               input: {
                 value: null,
                 event:null
@@ -70,15 +71,6 @@
                 event:null
               }
             },
-            gender: {
-              name: 'Geschlecht',
-              type: 'select',
-              select: 'gender',
-              input: {
-                value: null,
-                event:null
-              }
-            }
           }
         }
       }
