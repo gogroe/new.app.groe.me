@@ -18,8 +18,8 @@
       </li>
     </ul>
     <all_accounts v-if="active.menu === 0"/>
-    <credit_accounts v-if="active.menu === 1"/>
-    <debit_accounts v-if="active.menu === 2"/>
+    <credit_accounts v-if="active.menu === 2"/>
+    <debit_accounts v-if="active.menu === 1"/>
   </div>
 </template>
 <script>
