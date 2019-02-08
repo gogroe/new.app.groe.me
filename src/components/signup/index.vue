@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
   import Create_section from "../inputs/create";
   import Facebook from './facebook'
   import Google from './gmail'

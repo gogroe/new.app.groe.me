@@ -1,7 +1,7 @@
 <template>
   <div class="account_balance default_box">
     <span class="description">Aktueller Kontostand:</span>
-    <span class="balance">{{balance}} EUR</span>
+    <span class="balance">{{balance.replace('.',',')}} EUR</span>
   </div>
 </template>
 

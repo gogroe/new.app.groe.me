@@ -15,7 +15,7 @@
                    color="#333333"/>
         </td>
         <td class="date">{{account.description}}</td>
-        <td class="value">{{account.value + ' ' + account.currency}}</td>
+        <td class="value">{{account.value.replace('.',',') + ' ' + account.currency}}</td>
         <td v-if="active_options">
           <popup_menu class="popup_menu"
                       :id="account.id"

@@ -8,7 +8,7 @@
         <div class="profile">
           <user_visual class="user_image" :path="get_header.image" :name="get_header.firstname + ' ' + get_header.lastname" size="35"/>
           <div class="details">
-            <user_name :name="get_header.firstname + ' ' + get_header.lastname" :id="get_header.id" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account}}</a>
+            <user_name :name="get_header.firstname + ' ' + get_header.lastname" :id="get_header.id" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account.replace('.',',')}}</a>
           </div>
         </div>
       </header>

@@ -63,8 +63,8 @@
                 event:null
               }
             },
-            name: {
-              name: 'Spitzname',
+            email: {
+              name: 'Email',
               type: 'text',
               input: {
                 value: null,

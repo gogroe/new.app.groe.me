@@ -7,6 +7,10 @@
           :key="i"
           :obj="fill_inputs_edit(key, update_user, request_get_user.data)"
           :reload="{action: 'reload', section:'users_admin'}"/>
+    <edit v-for="(input, key, i) in update_user_gender.inputs"
+          :key="i"
+          :obj="fill_inputs_edit(key, update_user_gender, request_get_user.data)"
+          :reload="{action: 'reload', section:'users_admin'}"/>
     <request :obj="request_get_user" v-model="request_get_user"/>
   </div>
 </template>
@@ -48,10 +52,6 @@
             uid: 1
           },
           inputs:{
-            name: {
-              name: 'Benutzer',
-              type: 'text'
-            },
             firstname: {
               name: 'Vorname',
               type: 'text'
@@ -62,22 +62,23 @@
             },
           }
         },
-        // update_user_gender:{
-        //   url: 'https://newbackend.groe.me/users/update_user_gender',
-        //   input_class:'edit_input',
-        //   label_class: 'edit_input_label',
-        //   error_class: '',
-        //   required_params: {
-        //     user_id: this.$route.params.id,
-        //     uid: 1
-        //   },
-        //   inputs:{
-        //     value: {
-        //       name: 'Benutzer',
-        //       type: 'text'
-        //     }
-        //   }
-        // }
+        update_user_gender:{
+          url: 'https://newbackend.groe.me/users/update_user_gender',
+          input_class:'edit_input',
+          label_class: 'edit_input_label',
+          error_class: '',
+          required_params: {
+            user_id: this.$route.params.id,
+            uid: 1
+          },
+          inputs:{
+            gender: {
+              name: 'Geschlecht',
+              type: 'select',
+              select: 'gender'
+            }
+          }
+        }
       }
     },
     computed:{
