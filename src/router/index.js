@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import signup from '@/signup'
+import verification from '@/signup/verification'
 
 import users from '@/users/crm'
 import users_account from '@/users/feed/account'
@@ -17,6 +18,11 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       component: signup
+    },
+    {
+      path: '/verification/:token',
+      name: 'verification',
+      component: verification
     },
     // user
     {

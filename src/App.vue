@@ -50,6 +50,7 @@
      switch(this.$route.name)
       {
         case 'signup':
+        case 'verification':
         case 'login':
           this.basic_component = false
           break;
