@@ -3,8 +3,10 @@ const states = {
     users_crm_filter: {},
     users_crm_order: [],
     users_crm_sorting: [],
-    users_crm_limit_offset: {}
-  },
+    users_crm_limit_offset: {},
+    social_login: {},
+
+    },
 
   mutations: {
     unset_users_crm_filter_table(state, string){
@@ -31,6 +33,9 @@ const states = {
     },
     update_users_crm_limit_offset(state, object){
       state.users_crm_limit_offset = object
+    },
+    update_social_login(state, object){
+      state.social_login = object
     }
   },
   getters: {
@@ -45,7 +50,10 @@ const states = {
     },
     users_crm_limit_offset(state){
       return state.users_crm_limit_offset
-    }
+    },
+    social_login(state){
+      return state.social_login
+    },
   },
 
   actions: {}

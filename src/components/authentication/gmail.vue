@@ -45,11 +45,11 @@ export default {
   width: 100%;
   display: inline-block;
   text-align: center;
-  padding: 4px 8px;
-  border-radius: 3px;
-  background-color: #3c82f7;
+  padding: 10px 5px;
+  border-radius: 4px;
+  background-color: #dd4b39;
   color: #fff;
-  box-shadow: 0 3px 0 #0f69ff;
+  font-size: 14px;
 
   &:hover{
     cursor: pointer;

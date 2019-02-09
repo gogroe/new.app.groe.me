@@ -7,6 +7,7 @@ import store from '../store'
 import * as VueGoogleMaps from "vue2-google-maps";
 import vSelect from 'vue-select'
 import FBSignInButton from 'vue-facebook-signin-button'
+import GSignInButton from 'vue-google-signin-button'
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -14,13 +15,11 @@ Vue.use(VueGoogleMaps, {
     libraries: "places,drawing,visualization"
   }
 });
-
 Vue.config.productionTip = false
-Vue.use(require('vue-moment'));
-
+Vue.use(require('vue-moment'))
 Vue.component('v-select', vSelect)
-
 Vue.use(FBSignInButton)
+Vue.use(GSignInButton)
 
 /* eslint-disable no-new */
 new Vue({

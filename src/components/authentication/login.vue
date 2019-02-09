@@ -45,7 +45,7 @@
       }
     },
     watch:{
-      request_login_user:function (object) {
+      request_login_user:function (object){
         if('create' in object){
           //go to login page
           alert('succsess')
