@@ -6,6 +6,7 @@
            v-model="active.create"/>
       <create_section v-if="active.create"
                       class="create_user_description"
+                      button_name="STECKBRIEF ERSTELLEN"
                       :create_inputs="create_user_description"
                       v-model="request_create_user_description"/>
     </div>

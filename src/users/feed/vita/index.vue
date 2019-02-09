@@ -5,7 +5,8 @@
          name="Vita"
          v-model="active.create"/>
     <div class="create_vita default_box" v-if="active.create">
-      <create_section create_name="VITA"
+      <create_section create_name="VITA HINZUFÜGEN"
+                      button_name="VITA ERSTELLEN"
                       :create_inputs="create_user_vita"
                       v-model="request_create_user_vita"/>
     </div>

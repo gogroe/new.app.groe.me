@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import signup from '@/signup'
-import verification from '@/signup/verification'
+import signup from '@/authentication/signup'
+import verification from '@/authentication/verification'
+import login from '@/authentication/login'
 
 import users from '@/users/crm'
 import users_account from '@/users/feed/account'
@@ -14,6 +15,12 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+    // authentication
+    {
+      path: '/login',
+      name: 'login',
+      component: login
+    },
     {
       path: '/signup',
       name: 'signup',
@@ -24,6 +31,7 @@ export default new Router({
       name: 'verification',
       component: verification
     },
+
     // user
     {
       path: '/',

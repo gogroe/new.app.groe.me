@@ -1,12 +1,12 @@
 <template>
   <div class="create_section" :class="section_class">
-    <p class="section_name" :class="{'active': create_name !== undefined}">{{create_name}} HINZUFÜGEN</p>
+    <p class="section_name" :class="{'active': create_name !== undefined}">{{create_name}}</p>
     <inputs v-for="(input, key, i) in create_inputs.inputs"
             :key="i"
             :obj="fill_inputs(key, create_inputs)"
             :request_data="request_create.data"
             v-model="create_inputs.inputs[key].input"/>
-    <button @click="send_create_inputs">{{create_name}} HINZUFÜGEN</button>
+    <button @click="send_create_inputs">{{button_name}}</button>
     <request :obj="request_create" v-model="request_create"/>
   </div>
 </template>
@@ -22,6 +22,10 @@
     components: {Request, Inputs},
     props:{
       create_name:{
+        // type: 'String',
+        required: false
+      },
+      button_name:{
         // type: 'String',
         required: false
       },

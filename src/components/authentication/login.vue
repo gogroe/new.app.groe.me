@@ -1,23 +1,22 @@
 <template>
-  <div class="default_popup_background">
-    <div class="inner_popup">
-      <create_section :create_inputs="create_user_password"
-                      v-model="request_create_user_password"/>
-    </div>
+  <div >
+    <create_section :create_inputs="login_user"
+                    button_name="ANMELDEN"
+                    v-model="request_login_user"/>
   </div>
 </template>
 
 <script>
-  import Create_section from "../components/inputs/create";
+  import Create_section from "../inputs/create";
 
   export default {
-    name: "verification",
+    name: "login",
     components: {Create_section},
     data(){
       return{
-        request_create_user_password:{},
-        create_user_password:{
-          url: 'https://newbackend.groe.me/authenticate/reset_password',
+        request_login_user:{},
+        login_user:{
+          url: 'https://newbackend.groe.me/authenticate/login',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',
@@ -25,8 +24,16 @@
             reset_token: this.$route.params.token
           },
           inputs:{
+            email: {
+              name: 'Email',
+              type: 'text',
+              input: {
+                value: null,
+                event:null
+              }
+            },
             password: {
-              name: 'Geben Sie hier Ihr Passwort ein.',
+              name: 'Passwort',
               type: 'text',
               input: {
                 value: null,
@@ -38,7 +45,7 @@
       }
     },
     watch:{
-      request_create_user_password:function (object) {
+      request_login_user:function (object) {
         if('create' in object){
           //go to login page
           alert('succsess')
@@ -49,9 +56,5 @@
 </script>
 
 <style lang="scss" scoped>
-
-  .default_popup_background{
-    background: transparent;
-  }
 
 </style>

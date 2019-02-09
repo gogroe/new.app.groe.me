@@ -12,6 +12,7 @@
          class="add"/>
     <div v-if="active.create">
       <create_section :create_inputs="create_user_contact"
+                      button_name="TELEFON ERSTELLEN"
                       v-model="request_create_user_contact"/>
     </div>
     <request :obj="request_get_user_contact" v-model="request_get_user_contact"/>

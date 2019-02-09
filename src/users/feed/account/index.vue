@@ -6,7 +6,8 @@
          class="add_feed"/>
     <h6>TRANSAKTIONEN</h6>
     <div class="create_account default_box" v-if="active.create">
-      <create_section create_name="TRANSAKTION"
+      <create_section create_name="TRANSAKTION HINZUFÜGEN"
+                      button_name="TRANSAKTION ERSTELLEN"
                       :create_inputs="create_user_account"
                       v-model="request_create_user_account"/>
     </div>

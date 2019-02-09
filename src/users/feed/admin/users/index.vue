@@ -4,11 +4,11 @@
     <upload_user_image :request_get_user="request_get_user" v-model="reload"/>
     <user_description :request_get_user="request_get_user" v-model="reload"/>
     <edit v-for="(input, key, i) in update_user.inputs"
-          :key="i"
+          :key="key"
           :obj="fill_inputs_edit(key, update_user, request_get_user.data)"
           :reload="{action: 'reload', section:'users_admin'}"/>
     <edit v-for="(input, key, i) in update_user_gender.inputs"
-          :key="i"
+          :key="key"
           :obj="fill_inputs_edit(key, update_user_gender, request_get_user.data)"
           :reload="{action: 'reload', section:'users_admin'}"/>
     <request :obj="request_get_user" v-model="request_get_user"/>

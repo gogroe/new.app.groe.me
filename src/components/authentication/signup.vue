@@ -1,12 +1,13 @@
 <template>
   <div class="signup">
-    <h1 v-if="header !== undefined">{{header}}</h1>
-    <p v-if="content !== undefined">{{content}}</p>
       <create_section :create_inputs="signup_user"
+                      button_name="REGISTRIEREN"
                       v-model="request_signup_user"
                       section_class="signup_inputs"/>
     <div class="social_buttons_wrapper">
       <facebook/>
+    </div>
+    <div class="social_buttons_wrapper">
       <google/>
     </div>
   </div>
@@ -20,14 +21,6 @@
 
   export default {
     name: "signup",
-    props:{
-      header:{
-        required: false
-      },
-      content:{
-        required: false
-      }
-    },
     components:{
       Create_section,
       Facebook,
@@ -83,7 +76,7 @@
       }
     },
     watch:{
-      request_social_login: function (obj){
+      request_social_login: function (){
         this.signup_user.inputs.firstname.value = this.social_login.name
         this.signup_user.inputs.lastname.value = this.social_login.lastname
         this.signup_user.inputs.email.value = this.social_login.email
@@ -103,16 +96,6 @@
 
 <style lang="scss">
 
-  .signup{
-    h1, p{
-      padding: 0 17px;
-    }
-
-    p{
-      margin-bottom: 27px;
-    }
-  }
-
   .signup_inputs{
     button{
       width: calc(100% - 20px);
@@ -129,6 +112,6 @@
 
   .social_buttons_wrapper{
     padding: 0 10px;
-    margin: 0;
+    margin: 8px 0 0 0;
   }
 </style>

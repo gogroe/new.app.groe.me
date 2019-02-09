@@ -8,7 +8,8 @@
     <div v-if="active"
          class="default_popup_background">
       <div class="create_popup inner_popup">
-        <create_section create_name="BENUTZER"
+        <create_section create_name="BENUTZER HINZUFÜGEN"
+                        button_name="BENUTZER ERSTELLEN"
                       :create_inputs="create_user"
                       :reload="{action: 'reload', section: 'users_crm'}"
                       v-click-outside="hide"/>

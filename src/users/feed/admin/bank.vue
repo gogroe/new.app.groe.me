@@ -13,6 +13,7 @@
          class="add"/>
     <div v-if="active.create">
       <create_section :create_inputs="register_user"
+                      button_name="BANKDATEN ERSTELLEN"
                       v-model="request_register_user"/>
     </div>
     <request :obj="request_get_user_bank" v-model="request_get_user_bank"/>
