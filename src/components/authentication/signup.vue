@@ -10,11 +10,14 @@
     <div class="social_buttons_wrapper">
       <google/>
     </div>
+
+    <!-- <bubble text="descriptive text of the pointed stuff" info_link="request_create"/> -->
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
+  import Bubble from "../bubble/index"
   import Create_section from "../inputs/create";
   import Facebook from './facebook'
   import Google from './gmail'
@@ -24,7 +27,8 @@
     components:{
       Create_section,
       Facebook,
-      Google
+      Google,
+      Bubble
     },
     data(){
       return{
@@ -89,7 +93,13 @@
       }
     },
     methods:{
-
+      load_to_store: function(firstname, lastname, email){
+        this.$store.commit('update_social_login', {
+          firstname : firstname,
+          lastname : lastname,
+          email : email
+        })
+      }
     }
   }
 </script>
