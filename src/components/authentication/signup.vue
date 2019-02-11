@@ -52,7 +52,8 @@
         social_signup_data: {},
         request_signup_user: {
           params: {
-            type: 2
+            type: 2,
+            uid: 1
           },
           url: 'https://newbackend.groe.me/authenticate/signup',
           data: {},
@@ -64,7 +65,8 @@
           label_class: 'create_input_label',
           error_class: '',
           required_params: {
-            type: 2
+            type: 2,
+            uid: 1
           },
           inputs:{
             firstname: {
@@ -110,7 +112,7 @@
         if('errors' in object){
           this.errors = object.errors
         }
-        else {
+        else if('create' in object){
           this.$router.push({name: this.redirect})
         }
       }

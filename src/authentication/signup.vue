@@ -15,7 +15,10 @@
   export default {
     name: "main_signup",
     components: {Mini_footer, Signup},
-    mounted(){
+    mounted() {
+      this.set_notification()
+    },
+    set_notification(){
       const note = {
         header: 'Ihre Registrierung war erfolgreich, bitte überprüfen Sie Ihr Email Postfach.',
         content: 'Ums die Registrierung abzuschließen folgen Sie den Anweisungen in der Email.'
