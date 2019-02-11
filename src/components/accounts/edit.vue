@@ -45,7 +45,6 @@
           error_class: '',
           required_params: {
             account_id: null,
-            uid: 1,
             description: 'Manuelle Transaktion',
             currency: 'EUR'
           },

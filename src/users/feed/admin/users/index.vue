@@ -49,7 +49,6 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1
           },
           inputs:{
             firstname: {
@@ -69,7 +68,6 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1
           },
           inputs:{
             gender: {

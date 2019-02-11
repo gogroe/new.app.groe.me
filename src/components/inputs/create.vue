@@ -45,9 +45,7 @@
     data(){
       return{
         request_create: {
-          params: {
-            uid: 1 //todo auth uid
-          },
+          params: {},
           url: '',
           data: {},
           request: false

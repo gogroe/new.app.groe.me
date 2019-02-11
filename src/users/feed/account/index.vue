@@ -62,7 +62,6 @@
             currency: 'EUR',
             user_id: null,
             description: 'Manuelle Transaktion',
-            uid: 1
           },
           inputs:{
             value: {

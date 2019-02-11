@@ -59,7 +59,6 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1,
             id: null
           },
           inputs:{
@@ -101,7 +100,6 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1
           },
           inputs:{
             iban: {

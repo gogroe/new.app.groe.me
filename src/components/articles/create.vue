@@ -35,7 +35,6 @@
       return{
         request_articles_create: {
           params: {
-            uid: null,
             type: this.type, //posts
             relation_id: null,
             relation_type: 0, //relations
@@ -87,7 +86,6 @@
       create_article(){
         this.request_articles_create.params.name = this.inputs.name.value
         this.request_articles_create.params.value = this.inputs.value.value
-        this.request_articles_create.params.uid = this.$route.params.id
         this.request_articles_create.params.relation_id = this.$route.params.id
         this.request_articles_create.request = true
       }

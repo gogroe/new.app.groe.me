@@ -57,7 +57,6 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1,
             id: null,
             name: 'facebook'
           },
@@ -76,7 +75,6 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1,
             name: 'facebook'
           },
           inputs:{

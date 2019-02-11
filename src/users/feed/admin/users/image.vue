@@ -70,7 +70,6 @@
         request_delete_user_image:{
           params: {
             user_id: null,
-            uid: 1
           },
           url: 'https://newbackend.groe.me/users/delete_user_image',
           data: {},

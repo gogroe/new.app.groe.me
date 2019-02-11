@@ -59,7 +59,6 @@
           users: {
             indicator: true,
             required_params: {
-                    uid: null,
                     user_id:'get_users.id'
                   },
             create_url: 'http://newbackend.groe.me/users/create_user',
@@ -68,7 +67,6 @@
           gender: {
             indicator: false,
             required_params: {
-              uid: null,
               user_id: 'get_users.id',
             },
             create_url: 'http://newbackend.groe.me/users/create_user_gender',
@@ -77,7 +75,6 @@
           status: {
             indicator: false,
             required_params: {
-              uid: null,
               user_id: 'get_users.id',
               status_id: 'get_status.id'
             },
@@ -87,7 +84,6 @@
           status_details: {
             indicator: false,
             required_params: {
-              uid: null,
               status_id: 'get_status.id',
               status_details_id: 'get_status_details.id'
             },
@@ -185,7 +181,6 @@
       request_users_data:function(){
         this.set_link(this.request_users.data.rows)
         this.set_image_data(this.request_users.data.rows)
-        this.set_required_params()
       },
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'users_crm'){
@@ -209,7 +204,6 @@
     mounted(){
       this.stored_columns_settings = this.columns_settings
       this.set_user_id(this.request_users)
-      this.set_required_params()
       this.request_users.request = true
     },
     methods:{
@@ -269,13 +263,6 @@
                 ? object[key]['users.firstname'] + ' ' + object[key]['users.lastname']
                 : null
             }
-          }
-        }
-      },
-      set_required_params(){
-        for(let key in this.request_groups){
-          if('uid' in this.request_groups[key].required_params){
-            this.request_groups[key].required_params.uid = this.get_header.id
           }
         }
       }

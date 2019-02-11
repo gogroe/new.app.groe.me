@@ -23,7 +23,6 @@ const test = {
         user_profile:{
           id:'',
           state:'',
-          uid:'',
           date:'',
           country:'',
           city:'',

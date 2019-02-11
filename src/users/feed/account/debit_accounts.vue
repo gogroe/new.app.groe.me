@@ -26,7 +26,6 @@
       return {
         request_user_accounts: {
           params: {
-            uid: this.uid,
             user_id: this.$route.params.id,
             'bigger->value': -1
           },
@@ -44,7 +43,6 @@
     },
     computed:{
       ...mapGetters([
-        'uid',
         'reload'
       ])
     },

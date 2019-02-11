@@ -44,8 +44,7 @@
           label_class: 'edit_input_label',
           error_class: '',
           required_params: {
-            user_id: this.$route.params.id,
-            uid: 1
+            user_id: this.$route.params.id
           },
           inputs:{
             description: {
@@ -62,7 +61,6 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1,
           },
           inputs: {
             description: {

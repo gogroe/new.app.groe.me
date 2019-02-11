@@ -34,7 +34,6 @@
         request_create_user_secret: {
           params: {
             user_id: null,
-            uid: 1,
           },
           url: 'https://newbackend.groe.me/users/create_user_secret',
           data: {},
@@ -47,7 +46,6 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1,
           },
           inputs:{
             old_hash: {

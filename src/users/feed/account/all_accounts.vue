@@ -26,7 +26,6 @@
       return {
         request_user_accounts: {
           params: {
-            uid: this.uid,
             user_id: this.$route.params.id
           },
           url: 'http://newbackend.groe.me/users/get_user_accounts',
@@ -43,7 +42,6 @@
     },
     computed:{
       ...mapGetters([
-        'uid',
         'reload'
       ])
     },

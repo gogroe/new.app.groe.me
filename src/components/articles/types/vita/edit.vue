@@ -56,7 +56,6 @@
           error_class: '',
           required_params: {
             user_id: null,
-            uid: 1,
           },
           inputs:{
             position: {
@@ -76,7 +75,6 @@
           error_class: '',
           required_params: {
             user_id: null,
-            uid: 1,
             vita_id: this.edit_vita.id
           },
           inputs:{
@@ -97,7 +95,6 @@
           error_class: '',
           required_params: {
             user_id: null,
-            uid: 1,
             vita_id: this.edit_vita.id
           },
           inputs:{
@@ -114,7 +111,6 @@
           error_class: '',
           required_params: {
             user_id: null,
-            uid: 1,
             vita_id: this.edit_vita.id
           },
           inputs:{

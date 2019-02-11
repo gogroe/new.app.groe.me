@@ -33,7 +33,6 @@
       return{
         request_create_comments: {
           params: {
-            uid: this.$route.params.id, //todo delet after auth
             comment: '',
             relation_type: this.relation_type,
             relation_id: this.relation_id

@@ -57,7 +57,6 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1,
             id: null,
             type: 'shipping'
           },
@@ -89,7 +88,6 @@
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            uid: 1,
             type: 'shipping'
           },
           inputs:{

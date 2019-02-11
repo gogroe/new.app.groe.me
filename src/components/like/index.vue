@@ -44,7 +44,6 @@
             state: 0,
             relation_id: this.relation_id,
             relation_type: '',
-            uid: this.$route.params.id
           },
           url: 'https://newbackend.groe.me/posts/set_post_like',
           data: {},

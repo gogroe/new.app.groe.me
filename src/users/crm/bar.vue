@@ -35,7 +35,6 @@
           label_class: 'create_input_label',
           error_class: '',
           required_params: {
-            uid: 1,
             type: 2
           },
           inputs:{
