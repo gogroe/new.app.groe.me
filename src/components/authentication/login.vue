@@ -3,17 +3,28 @@
     <create_section :create_inputs="login_user"
                     button_name="ANMELDEN"
                     v-model="request_login_user"/>
+    <p v-if="errors !== null"
+       class="errors">
+      {{errors}}
+    </p>
   </div>
 </template>
 
 <script>
+  var cookie = require('js-cookie')
   import Create_section from "../inputs/create";
 
   export default {
     name: "login",
     components: {Create_section},
+    props:{
+      redirect:{
+        required: true
+      }
+    },
     data(){
       return{
+        errors: null,
         request_login_user:{},
         login_user:{
           url: 'https://newbackend.groe.me/authenticate/login',
@@ -46,9 +57,18 @@
     },
     watch:{
       request_login_user:function (object){
-        if('create' in object){
-          //go to login page
-          alert('succsess')
+        if('uid' in object && 'token' in object){
+          const auth = {
+            uid: object.uid,
+            token: object.token
+          }
+
+          cookie.set('auth', auth, {expires: 1})
+          this.$store.commit('update_auth', auth)
+          this.$router.push({name: this.redirect})
+        }
+        else if('errors' in object){
+          this.errors = object.errors
         }
       }
     }

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import notification from '@/notification'
+
 import signup from '@/authentication/signup'
 import verification from '@/authentication/verification'
 import login from '@/authentication/login'
@@ -15,6 +17,13 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+    // notification
+    {
+      path: '/notification',
+      name: 'notification',
+      component: notification
+    },
+
     // authentication
     {
       path: '/login',

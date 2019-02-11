@@ -46,12 +46,11 @@ export default {
       })
       FB.api('/me', {fields: 'email'}, function(response) {
         obj.email = response.email
-        console.log('login success!');
       });
-      this.$store.commit('update_social_login', obj)
+      this.$emit('input', obj)
     },
     onSignInError (error) {
-      console.log('login failed!');
+      console.warn('login failed!');
     }
   }
 }

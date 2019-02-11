@@ -8,12 +8,15 @@
     <button @click="send_signup_user">ANMELDEN</button>
     <request :obj="request_signup_user" v-model="request_signup_user"/>
     <div class="social_buttons_wrapper">
-      <facebook/>
+      <facebook v-model="social_signup_data"/>
     </div>
     <div class="social_buttons_wrapper">
-      <google/>
+      <google v-model="social_signup_data"/>
     </div>
-
+    <p v-if="errors !== null"
+       class="errors">
+      {{errors}}
+    </p>
     <!-- <bubble text="descriptive text of the pointed stuff" info_link="request_signup_user"/> -->
   </div>
 </template>
@@ -26,33 +29,43 @@
   import Google from './gmail'
   import Inputs from "../inputs/index";
   import Request from "../functions/request";
+  import Errors from "../errors/index";
 
   export default {
     name: "signup",
     components:{
+      Errors,
       Request,
       Inputs,
       Facebook,
       Google,
       Bubble
     },
+    props:{
+      redirect:{
+        required: true
+      }
+    },
     data(){
       return{
+        errors: null,
+        social_signup_data: {},
         request_signup_user: {
           params: {
-            uid: 1
-
+            type: 2
           },
-          url: 'https://newbackend.groe.me/signup_user',
+          url: 'https://newbackend.groe.me/authenticate/signup',
           data: {},
           request: false
         },
         signup_user:{
-          url: 'https://newbackend.groe.me/signup_user',
+          url: 'https://newbackend.groe.me/authenticate/signup',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',
-          required_params: {},
+          required_params: {
+            type: 2
+          },
           inputs:{
             firstname: {
               name: 'Vorname',
@@ -83,43 +96,32 @@
       }
     },
     computed:{
-      ...mapGetters([
-        'social_login',
-      ]),
-      request_social_login: function(){
-        return this.social_login
-      },
       request_signup_user_data(){
-        return this.request_signup_user
+        return this.request_signup_user.data
       }
     },
     watch:{
-      request_social_login: function (){
-        this.signup_user.inputs.firstname.value = this.social_login.name
-        this.signup_user.inputs.lastname.value = this.social_login.lastname
-        this.signup_user.inputs.email.value = this.social_login.email
+      social_signup_data: function (){
+          this.signup_user.inputs.firstname.value = this.social_signup_data.name
+          this.signup_user.inputs.lastname.value = this.social_signup_data.lastname
+          this.signup_user.inputs.email.value = this.social_signup_data.email
       },
-      request_signup_user_data(){
-        if('create' in this.request_signup_user){
-          // create new page wher we can push to  like an aler button notiffying about recieved email or sth
-          // use a store variable which includes some text
+      request_signup_user_data(object){
+        if('errors' in object){
+          this.errors = object.errors
+        }
+        else {
+          this.$router.push({name: this.redirect})
         }
       }
     },
     methods:{
-      load_to_store: function(firstname, lastname, email){
-        this.$store.commit('update_social_login', {
-          firstname : firstname,
-          lastname : lastname,
-          email : email
-        })
-      },
       send_signup_user(){
         for(let value_key in this.signup_user.inputs){
           this.request_signup_user.params[value_key] = this.signup_user.inputs[value_key].input.value
         }
-
         this.request_signup_user.request = true
+        this.errors = null
       }
     },
     mixins:[Custom_helper]
@@ -145,5 +147,11 @@
   .social_buttons_wrapper{
     padding: 0 10px;
     margin: 8px 0 0 0;
+  }
+
+  .errors{
+    text-align: center;
+    margin-top: 17px;
+    color: #990000;
   }
 </style>

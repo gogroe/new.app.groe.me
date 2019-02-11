@@ -2,17 +2,26 @@
   <div class="default_popup_background">
     <div class="inner_popup">
       <h1>Registrierung</h1>
-      <signup/>
+      <signup redirect="notification"/>
     </div>
+    <mini_footer class="mini_footer inner_popup"/>
   </div>
 </template>
 
 <script>
   import Signup from "../components/authentication/signup";
+  import Mini_footer from "../components/mini_footer/index";
 
   export default {
     name: "main_signup",
-    components: {Signup},
+    components: {Mini_footer, Signup},
+    mounted(){
+      const note = {
+        header: 'Ihre Registrierung war erfolgreich, bitte überprüfen Sie Ihr Email Postfach.',
+        content: 'Ums die Registrierung abzuschließen folgen Sie den Anweisungen in der Email.'
+      }
+      this.$store.commit('update_notification', note)
+    }
   }
 </script>
 
@@ -22,9 +31,20 @@
     background: transparent;
   }
 
+  h1{
+    margin-bottom: 27px;
+    padding-left: 17px;
+  }
+
   .inner_popup{
-    padding-top: 47px;
-    padding-bottom: 27px;
+    padding: 47px 64px 47px 64px;
+  }
+
+  .mini_footer {
+    &.inner_popup {
+      margin-top: 0;
+      background: transparent;
+    }
   }
 
 </style>

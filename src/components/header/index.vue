@@ -6,9 +6,9 @@
           <span class="groe">groe</span><span class="dot">.</span><span class="ad">ads</span>
         </div>
         <div class="profile">
-          <user_visual class="user_image" :path="get_header.image" :name="get_header.firstname + ' ' + get_header.lastname" size="35"/>
+          <user_visual class="user_image" :path="request_header_data.image" :name="request_header_data.firstname + ' ' + request_header_data.lastname" size="35"/>
           <div class="details">
-            <user_name :name="get_header.firstname + ' ' + get_header.lastname" :id="get_header.id" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account.replace('.',',')}}</a>
+            <user_name :name="request_header_data.firstname + ' ' + request_header_data.lastname" :id="request_header_data.id" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account.replace('.',',')}}</a>
           </div>
         </div>
       </header>
@@ -34,9 +34,7 @@
     data(){
       return{
         request_header: {
-          params: {
-            uid: null //todo auth/change
-          },
+          params: {},
           url: 'http://newbackend.groe.me/users/get_user_header',
           data: {},
           request: false
@@ -46,7 +44,6 @@
     computed:{
       ...mapGetters([
         'active_navigation',
-        'get_header',
         'uid',
         'reload'
       ]),
@@ -81,9 +78,7 @@
     },
     methods:{
       get_request_header(){
-        this.request_header.params.uid = this.uid
         this.request_header.request = true
-        return true
       }
     }
   }

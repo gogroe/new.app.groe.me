@@ -4,8 +4,7 @@ const states = {
     users_crm_order: [],
     users_crm_sorting: [],
     users_crm_limit_offset: {},
-    social_login: {},
-
+    notification:{},
     },
 
   mutations: {
@@ -34,8 +33,8 @@ const states = {
     update_users_crm_limit_offset(state, object){
       state.users_crm_limit_offset = object
     },
-    update_social_login(state, object){
-      state.social_login = object
+    update_notification(state, object){
+      state.notification = object
     }
   },
   getters: {
@@ -51,8 +50,8 @@ const states = {
     users_crm_limit_offset(state){
       return state.users_crm_limit_offset
     },
-    social_login(state){
-      return state.social_login
+    notification(state){
+      return state.notification
     },
   },
 

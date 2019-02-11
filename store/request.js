@@ -9,8 +9,8 @@ const request = {
       section: null
     },
     auth: {
-      uid: 2,
-      token: 'abcdefghijklmnopqrstuvwxyz',
+      uid: null,
+      token: null,
     }
   },
 

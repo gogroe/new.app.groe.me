@@ -31,10 +31,10 @@ export default {
           email: profile.U3
       }
       console.log('login success!');
-      this.$store.commit('update_social_login', obj)
+      this.$emit('input', obj)
     },
     onSignInError (error) {
-      console.log('login failed, please try again', error)
+      console.warn('login failed!', error);
     }
   }
 }
