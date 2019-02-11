@@ -1,9 +1,12 @@
 <template>
   <div class="signup">
-      <create_section :create_inputs="signup_user"
-                      button_name="REGISTRIEREN"
-                      v-model="request_signup_user"
-                      section_class="signup_inputs"/>
+    <inputs v-for="(input, key, i) in signup_user.inputs"
+            :key="i"
+            :obj="fill_inputs(key, signup_user)"
+            :request_data="request_signup_user.data"
+            v-model="signup_user.inputs[key].input"/>
+    <button @click="send_signup_user">ANMELDEN</button>
+    <request :obj="request_signup_user" v-model="request_signup_user"/>
     <div class="social_buttons_wrapper">
       <facebook/>
     </div>
@@ -11,28 +14,39 @@
       <google/>
     </div>
 
-    <!-- <bubble text="descriptive text of the pointed stuff" info_link="request_create"/> -->
+    <!-- <bubble text="descriptive text of the pointed stuff" info_link="request_signup_user"/> -->
   </div>
 </template>
 
 <script>
+  import Custom_helper from '../functions/custom_helper'
   import { mapGetters } from 'vuex'
   import Bubble from "../bubble/index"
-  import Create_section from "../inputs/create";
   import Facebook from './facebook'
   import Google from './gmail'
+  import Inputs from "../inputs/index";
+  import Request from "../functions/request";
 
   export default {
     name: "signup",
     components:{
-      Create_section,
+      Request,
+      Inputs,
       Facebook,
       Google,
       Bubble
     },
     data(){
       return{
-        request_signup_user: {},
+        request_signup_user: {
+          params: {
+            uid: 1
+
+          },
+          url: 'https://newbackend.groe.me/signup_user',
+          data: {},
+          request: false
+        },
         signup_user:{
           url: 'https://newbackend.groe.me/signup_user',
           input_class:'create_input',
@@ -99,14 +113,22 @@
           lastname : lastname,
           email : email
         })
+      },
+      send_signup_user(){
+        for(let value_key in this.signup_user.inputs){
+          this.request_signup_user.params[value_key] = this.signup_user.inputs[value_key].input.value
+        }
+
+        this.request_signup_user.request = true
       }
-    }
+    },
+    mixins:[Custom_helper]
   }
 </script>
 
 <style lang="scss">
 
-  .signup_inputs{
+  .signup{
     button{
       width: calc(100% - 20px);
       margin: 0 10px;

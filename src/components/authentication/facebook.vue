@@ -36,13 +36,13 @@ export default {
     }(document, 'script', 'facebook-jssdk'));
   },
   methods: {
-    onSignInSuccess (response) {
+    onSignInSuccess (response) { //todo renameing variables
       let obj = {}
       FB.api('/me', dude => {
-        obj.name= dude.name.substring(0, dude.name.indexOf(' ')),
-        obj.lastname= dude.name.substring(dude.name.indexOf(' '), dude.name.length),
+        obj.name = dude.name.substring(0, dude.name.indexOf(' ')),
+        obj.lastname = dude.name.substring(dude.name.indexOf(' '), dude.name.length),
         obj.login_type = 'f',
-        obj.login_token= dude.id
+        obj.login_token = dude.id
       })
       FB.api('/me', {fields: 'email'}, function(response) {
         obj.email = response.email
