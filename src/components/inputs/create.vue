@@ -5,9 +5,8 @@
             :key="i"
             :obj="fill_inputs(key, create_inputs)"
             :request_data="request_create.data"
-            v-model="create_inputs.inputs[key].input"
-            @focus=""/>
-    <button @click="set_inputs()">{{button_name}}</button>
+            v-model="create_inputs.inputs[key].input"/>
+    <button @click="send_create_inputs">{{button_name}}</button>
     <request :obj="request_create" v-model="request_create"/>
   </div>
 </template>
@@ -20,7 +19,7 @@
 
   export default {
     name: "create_section",
-    components: { Request, Inputs },
+    components: {Request, Inputs},
     props:{
       create_name:{
         // type: 'String',
@@ -51,8 +50,7 @@
           },
           url: '',
           data: {},
-          request: false,
-          inputs: {}
+          request: false
         }
       }
     },
@@ -91,16 +89,6 @@
         }
 
         this.request_create.request = true
-      },
-      callback(){
-
-      },
-      set_inputs(){
-        let obj = {}
-        for(let i in this.create_inputs.inputs){
-          obj[this.create_inputs.inputs[i].name] = this.create_inputs.inputs[i].input.value;
-        }
-        this.$emit('input', obj)
       }
     },
     mixins:[Custom_helper, Load_request]
