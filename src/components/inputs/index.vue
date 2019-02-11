@@ -118,7 +118,7 @@
         required: true,
       },
       request_data:{
-        required: true,
+        required: false,
       },
       clear_value:{
         required: false,
