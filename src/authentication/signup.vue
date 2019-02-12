@@ -18,12 +18,14 @@
     mounted() {
       this.set_notification()
     },
-    set_notification(){
-      const note = {
-        header: 'Ihre Registrierung war erfolgreich, bitte überprüfen Sie Ihr Email Postfach.',
-        content: 'Ums die Registrierung abzuschließen folgen Sie den Anweisungen in der Email.'
+    methods:{
+      set_notification(){
+        const note = {
+          header: 'Ihre Registrierung war erfolgreich, bitte überprüfen Sie Ihr Email Postfach.',
+          content: 'Ums die Registrierung abzuschließen folgen Sie den Anweisungen in der Email.'
+        }
+        this.$store.commit('update_notification', note)
       }
-      this.$store.commit('update_notification', note)
     }
   }
 </script>
