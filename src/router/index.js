@@ -26,7 +26,7 @@ export default new Router({
 
     // authentication
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: login
     },
@@ -43,7 +43,7 @@ export default new Router({
 
     // user
     {
-      path: '/',
+      path: '/user_vita',
       name: 'user_vita',
       component: users_vita
     },
