@@ -41,6 +41,9 @@
       }
     },
     watch:{
+      list_name: function(){
+        this.get_list()
+      },
       request_get_list_data: function (array) {
         let list = array
 

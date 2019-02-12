@@ -67,7 +67,7 @@
           label_class: 'edit_input_label',
           error_class: '',
           required_params: {
-            user_id: this.$route.params.id,
+            user_id: null,
           },
           inputs:{
             gender: {
@@ -79,26 +79,17 @@
         }
       }
     },
-    computed:{
-      route_id(){
-        return this.$route.params.id
-      }
-    },
     watch:{
       reload: function (boolean) {
         if(boolean){
           this.request_get_user.request = true
           this.reload = false
         }
-      },
-      route_id: function(){
-        this.set_user_id(this.request_get_user)
-        this.set_inputs_user_id(this.update_user)
-        this.request_get_user.request = true
       }
     },
     mounted(){
       this.set_user_id(this.request_get_user)
+      this.set_inputs_user_id(this.update_user_gender)
       this.set_inputs_user_id(this.update_user)
       this.request_get_user.request = true
     },

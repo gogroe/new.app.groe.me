@@ -4,7 +4,7 @@
     <ul v-for="(filter, filter_key, i) in filters"
         :key="i">
       <li @click="unset_filter(filter)">
-        <i class="material-icons">delete_outline</i> <span>{{columns[filter.table + '.' + filter.column].name}}: {{filter.value}}</span>
+        <i class="material-icons">delete_outline</i> <span>{{columns[build_key(filter)].name}}: {{translate_value(filter)}}</span>
       </li>
     </ul>
   </div>
@@ -13,9 +13,11 @@
 <script>
   import Custom_helper from '../../functions/custom_helper'
   import { mapGetters } from 'vuex'
+  import List from "../../list/index";
 
   export default {
     name: "filters_actives",
+    components: {List},
     props:{
       columns:{
         required: true
@@ -24,24 +26,43 @@
     data(){
       return{
         active: false,
-        filters:[]
+        filters:[],
       }
     },
     computed:{
       ...mapGetters([
         'users_crm_filter',
-        'reload'
+        'reload',
+        'lists'
       ])
     },
     watch:{
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'filters_actives'){
-          this.$store.commit('update_reload', {action: 'reload', section: 'filters_cell'})
+          this.$store.commit('update_reload', {action: null, section: null})
           this.set_filters()
         }
       }
     },
     methods:{
+      build_key(object){
+        return object.table + '.' + object.column
+      },
+      translate_value(object){
+        let column = this.columns[this.build_key(object)]
+        if(column.type === 'select'){
+          let list =  this.lists[column.select]
+
+          for(let list_key in list){
+            if(list[list_key].value == object.value){
+              return list[list_key].name
+            }
+          }
+        }
+        else {
+          return object.value
+        }
+      },
       unset_filter(filter){
         if( this.object_length(this.users_crm_filter[filter.table].conditions) > 1 ){
 
@@ -71,7 +92,9 @@
                   ? conditions_key.substr( 0, conditions_key.indexOf('->'))
                   : null,
                 conditions_key: conditions_key,
-                column: conditions_key.substr( conditions_key.indexOf('->') + 2),
+                column: conditions_key.indexOf('->') >= 0
+                  ? conditions_key.substr( conditions_key.indexOf('->') + 2)
+                  : conditions_key,
                 value: condition,
               }
 
