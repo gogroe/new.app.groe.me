@@ -17,7 +17,9 @@
 </template>
 
 <script>
+
   import { mapGetters } from 'vuex'
+  import Load_request from "../../components/functions/load_request"
   import Request from "../../components/functions/request";
   import User_name from "../user_name/index";
   import User_visual from "../user_visual/index";
@@ -34,8 +36,10 @@
     data(){
       return{
         request_header: {
-          params: {},
-          url: 'https://newbackend.groe.me/user/header/get_one',
+          params: {
+            user_id: this.uid
+          },
+          url: 'https://newbackend.groe.me/layout/header/get_one',
           data: {},
           request: false
         }
@@ -44,7 +48,8 @@
     computed:{
       ...mapGetters([
         'active_navigation',
-        'reload'
+        'reload',
+        'uid'
       ]),
       user_account(){
         return 'account' in this.request_header.data
@@ -71,13 +76,10 @@
       },
     },
     mounted(){
-      this.get_request_header()
+      this.request_header.user_id = this.uid
+      this.request_header.request = true
     },
-    methods:{
-      get_request_header(){
-        this.request_header.request = true
-      }
-    }
+    mixins:[Load_request],
   }
 </script>
 
