@@ -26,7 +26,7 @@
           params: {
             list_group: this.list_name
           },
-          url: 'https://newbackend.groe.me/lists/get_list',
+          url: 'https://newbackend.groe.me/list/get_one',
           data: {},
           request: false
         }

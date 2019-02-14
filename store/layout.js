@@ -40,7 +40,7 @@ const layout = {
     },
     update_lists(state, object){
       state.lists[object.list_group] = object.list
-    }
+    },
   },
 
   getters: {

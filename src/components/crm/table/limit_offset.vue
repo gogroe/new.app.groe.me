@@ -17,7 +17,8 @@
     props:{
       request_data:{
         required: true
-      }
+      },
+
     },
     data(){
       return{

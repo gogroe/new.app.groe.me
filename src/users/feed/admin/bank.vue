@@ -12,9 +12,9 @@
          v-model="active.create"
          class="add"/>
     <div v-if="active.create">
-      <create_section :create_inputs="register_user"
+      <create_section :create_inputs="create_user_bank"
                       button_name="BANKDATEN ERSTELLEN"
-                      v-model="request_register_user"/>
+                      v-model="request_create_user_bank"/>
     </div>
     <request :obj="request_get_user_bank" v-model="request_get_user_bank"/>
   </div>
@@ -48,12 +48,12 @@
           params: {
             user_id: null
           },
-          url: 'https://newbackend.groe.me/users/get_user_bank',
+          url: 'https://newbackend.groe.me/user/bank/get_one',
           data: {},
           request: false
         },
         update_user_bank:{
-          url: 'https://newbackend.groe.me/users/update_user_bank',
+          url: 'https://newbackend.groe.me/user/bank/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
@@ -92,9 +92,9 @@
             }
           }
         },
-        request_register_user: {},
-        register_user:{
-          url: 'https://newbackend.groe.me/users/register_user',
+        request_create_user_bank: {},
+        create_user_bank:{
+          url: 'https://newbackend.groe.me/user/bank/create',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',
@@ -169,28 +169,28 @@
       request_get_user_bank_data(){
         return this.request_get_user_bank.data
       },
-      request_register_user_data(){
-        return this.request_register_user
+      request_create_user_bank_data(){
+        return this.request_create_user_bank
       }
     },
     watch:{
       route_id: function(){
         this.set_user_id(this.request_get_user_bank)
-        this.set_inputs_user_id(this.register_user)
+        this.set_inputs_user_id(this.create_user_bank)
         this.request_get_user_bank.request = true
       },
       request_get_user_bank_data(){
         this.set_active_update()
       },
-      request_register_user_data(){
-        if('create' in this.request_register_user){
+      request_create_user_bank_data(){
+        if('create' in this.request_create_user_bank){
           this.request_get_user_bank.request = true
         }
       }
     },
     mounted(){
       this.set_user_id(this.request_get_user_bank)
-      this.set_inputs_user_id(this.register_user)
+      this.set_inputs_user_id(this.create_user_bank)
       this.request_get_user_bank.request = true
     },
     methods:{

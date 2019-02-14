@@ -39,7 +39,7 @@
       return{
         edit_request:{},
         update_user_account:{
-          url: 'https://newbackend.groe.me/users/update_user_account',
+          url: 'https://newbackend.groe.me/user/account/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',

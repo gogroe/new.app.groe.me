@@ -35,7 +35,7 @@
       return{
         request_header: {
           params: {},
-          url: 'http://newbackend.groe.me/users/get_user_header',
+          url: 'https://newbackend.groe.me/user/header/get_one',
           data: {},
           request: false
         }

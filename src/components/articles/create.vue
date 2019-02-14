@@ -41,13 +41,13 @@
             name: '',
             value: ''
           },
-          url: 'http://newbackend.groe.me/posts/create_post',
+          url: 'https://newbackend.groe.me/posts/create_post',
           data: {},
           request: false
         },
         inputs_create_article:{
           name:{
-            url: 'http://newbackend.groe.me/posts/create_post',
+            url: 'https://newbackend.groe.me/posts/create_post',
             label: 'Überschrift',
             name: 'name',
             value:'',
@@ -59,7 +59,7 @@
             error_class: '',
           },
           value:{
-            url: 'http://newbackend.groe.me/posts/create_post',
+            url: 'https://newbackend.groe.me/posts/create_post',
             label: 'Beitrag',
             name: 'value',
             value:'',

@@ -46,12 +46,12 @@
             user_id: null,
             type: 'shipping'
           },
-          url: 'https://newbackend.groe.me/users/get_user_adress',
+          url: 'https://newbackend.groe.me/user/adress/get_one',
           data: {},
           request: false
         },
         update_user_adress:{
-          url: 'https://newbackend.groe.me/users/update_user_adress',
+          url: 'https://newbackend.groe.me/user/adress/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
@@ -82,7 +82,7 @@
         },
         request_create_user_adress: {},
         create_user_adress:{
-          url: 'https://newbackend.groe.me/users/create_user_adress',
+          url: 'https://newbackend.groe.me/user/adress/create',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',

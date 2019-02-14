@@ -90,6 +90,7 @@
   // }
 
   import $ from 'jquery'
+  import preload from '../../../components/functions/preload'
   import custom_helper from '../../../components/functions/custom_helper'
   import Table_cell from "./cell";
   import Table_limit_offset from "./limit_offset";
@@ -136,7 +137,30 @@
     updated: function(){
       this.set_column_with()
     },
+    created(){
+      // this.preload_lists()
+    },
     methods:{
+      // preload_lists(){
+      //   let lists = []
+      //
+      //   for(let columns_key in this.columns_settings){
+      //     let column = this.columns_settings[columns_key]
+      //
+      //     if('select' in column){
+      //       lists.push(column.select)
+      //     }
+      //   }
+      //
+      //   let request = {
+      //     name: 'lists',
+      //     uri: 'https://newbackend.groe.me/list/get_all',
+      //     list_groups: lists
+      //   }
+      //
+      //   this.request_preload(request)
+      // },
+
       //jquery
       set_column_with(){
         let table_width = $( '.table_footer' ).width()
@@ -229,7 +253,7 @@
        return ids_object
       }
     },
-    mixins:[custom_helper]
+    mixins:[custom_helper, preload]
   }
 </script>
 

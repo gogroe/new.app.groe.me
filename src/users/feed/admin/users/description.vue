@@ -39,7 +39,7 @@
           create: false
         },
         update_user_description:{
-          url: 'https://newbackend.groe.me/users/update_user_description',
+          url: 'https://newbackend.groe.me/user/description/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
@@ -55,7 +55,7 @@
         },
         request_create_user_description:{},
         create_user_description: {
-          url: 'https://newbackend.groe.me/users/create_user_description',
+          url: 'https://newbackend.groe.me/user/description/create',
           input_class: 'create_input',
           label_class: 'create_input_label',
           error_class: '',

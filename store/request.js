@@ -36,7 +36,7 @@ const request = {
     },
     uid(state){
       return state.auth.uid
-    }
+    },
   },
 
   actions: {
@@ -60,10 +60,6 @@ const request = {
         formData.append('uid', cookieData.uid)
         formData.append('token', cookieData.token)
       }
-
-      // let uri = process.env.NODE_ENV === 'development'
-      //   ? object.uri
-      //   : object.uri.replace( 'http://new.backend', 'https://newbackend.groe.me' )
 
       let uri = object.uri
       await axios.post( uri, formData, headers )
@@ -109,9 +105,6 @@ const request = {
       Object.assign(request, object);
 
       let uri = object.uri
-      // let uri = process.env.NODE_ENV === 'development'
-      //   ? object.uri
-      //   : object.uri.replace( 'http://new.backend', 'https://newbackend.groe.me' )
 
       await axios.post( uri, request)
         .then((response) => {
@@ -133,3 +126,21 @@ const request = {
 }
 
 export default request
+
+
+
+// //preload
+// Vue.mixin({
+//   mounted () {
+//     let response = this.$store.state.request.response
+//
+//     for(let token_key in this.$store.state.request.preload_token){
+//       let token = this.$store.state.request.preload_token[token_key]
+//
+//       if('request_token' in response && response.request_token === token)
+//       {
+//         this.$store.commit('update');
+//       }
+//     }
+//   },
+// })

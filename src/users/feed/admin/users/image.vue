@@ -60,7 +60,7 @@
           edit_upload: false
         },
         upload_user_image:{
-          url: 'http://newbackend.groe.me/users/upload_user_image',
+          url: 'https://newbackend.groe.me/user/image/upload',
           required_params:{
             user_id: null,
             file_type: 'user_image'
@@ -71,7 +71,7 @@
           params: {
             user_id: null,
           },
-          url: 'https://newbackend.groe.me/users/delete_user_image',
+          url: 'https://newbackend.groe.me/user/image/delete',
           data: {},
           request: false
         }

@@ -43,7 +43,7 @@
           params: {
             user_id: null,
           },
-          url: 'http://newbackend.groe.me/users/get_users',
+          url: 'https://newbackend.groe.me/user/crm/get_all',
           data: {},
           request: false
         },
@@ -61,16 +61,16 @@
             required_params: {
                     user_id:'get_users.id'
                   },
-            create_url: 'http://newbackend.groe.me/users/create_user',
-            edit_url: 'http://newbackend.groe.me/users/update_user',
+            create_url: 'https://newbackend.groe.me/users/create',
+            edit_url: 'https://newbackend.groe.me/users/update_user',
           },
           gender: {
             indicator: false,
             required_params: {
               user_id: 'get_users.id',
             },
-            create_url: 'http://newbackend.groe.me/users/create_user_gender',
-            edit_url: 'http://newbackend.groe.me/users/update_user_gender',
+            create_url: 'https://newbackend.groe.me/user/gender/create',
+            edit_url: 'https://newbackend.groe.me/user/gender/update',
           },
           status: {
             indicator: false,
@@ -78,8 +78,8 @@
               user_id: 'get_users.id',
               status_id: 'get_status.id'
             },
-            create_url: 'http://newbackend.groe.me/users/create_user_status',
-            edit_url: 'http://newbackend.groe.me/users/update_user_status',
+            create_url: 'https://newbackend.groe.me/user/status/create',
+            edit_url: 'https://newbackend.groe.me/user/update_user_status',
           },
           status_details: {
             indicator: false,
@@ -87,8 +87,8 @@
               status_id: 'get_status.id',
               status_details_id: 'get_status_details.id'
             },
-            create_url: 'http://newbackend.groe.me/users/create_user_status_details',
-            edit_url: 'http://newbackend.groe.me/users/update_user_status_details',
+            create_url: 'https://newbackend.groe.me/user/status_details/create',
+            edit_url: 'https://newbackend.groe.me/user/status_details/update',
           }
         },
         columns_settings: {
@@ -192,7 +192,6 @@
           this.add_filters_conditions(this.users_crm_filter)
           this.add_filters_conditions(this.users_crm_sorting)
           this.add_limit_offset()
-          this.set_user_id(this.request_users)
           this.request_users.request = true
           this.$store.commit('update_reload', {action: 'reload', section: 'filters_actives'})
         }
@@ -203,7 +202,6 @@
     },
     mounted(){
       this.stored_columns_settings = this.columns_settings
-      this.set_user_id(this.request_users)
       this.request_users.request = true
     },
     methods:{
