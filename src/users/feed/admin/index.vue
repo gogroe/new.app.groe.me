@@ -41,7 +41,13 @@
       return{
         active:{
           menu: 'user'
-        }
+        },
+        navigation:[
+          {
+            name: 'Nutzer',
+            route: 'user'
+          }
+        ]
       }
     }
   }

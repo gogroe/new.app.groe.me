@@ -48,12 +48,12 @@
           params: {
             user_id: null
           },
-          url: 'https://newbackend.groe.me/user/bank/get_one',
+          url: 'https://newbackend.groe.me/user_admin/bank/get_one',
           data: {},
           request: false
         },
         update_user_bank:{
-          url: 'https://newbackend.groe.me/user/bank/update',
+          url: 'https://newbackend.groe.me/user_admin/bank/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
@@ -94,7 +94,7 @@
         },
         request_create_user_bank: {},
         create_user_bank:{
-          url: 'https://newbackend.groe.me/user/bank/create',
+          url: 'https://newbackend.groe.me/user_admin/bank/create',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',

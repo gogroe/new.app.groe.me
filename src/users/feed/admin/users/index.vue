@@ -38,12 +38,12 @@
           params: {
             user_id: null
           },
-          url: 'https://newbackend.groe.me/user/get_one',
+          url: 'https://newbackend.groe.me/user_admin/get_one',
           data: {},
           request: false
         },
         update_user:{
-          url: 'https://newbackend.groe.me/user/update',
+          url: 'https://newbackend.groe.me/user_admin/user/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
@@ -62,7 +62,7 @@
           }
         },
         update_user_gender:{
-          url: 'https://newbackend.groe.me/user/gender/update',
+          url: 'https://newbackend.groe.me/user_admin/gender/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',

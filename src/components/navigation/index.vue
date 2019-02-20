@@ -10,7 +10,10 @@
       </li>
     </ul>
     <hr>
-    <a>Einstellungen</a>
+    <a v-for="(navigation, i) in navigations_admin"
+       :key="i"
+       @click="$router.push({name: navigation.route})">
+      {{navigation.name}}</a>
   </div>
 </template>
 
@@ -53,6 +56,12 @@
             route: 'communitys',
             icon: 'group_work'
           }
+        },
+        navigations_admin:{
+          homepage:{
+            name: 'Einstellungen',
+            route: 'settings',
+          },
         }
       }
     },
@@ -130,6 +139,7 @@
   }
 
   a{
+    cursor: pointer;
     font-size: 14px;
     font-weight: 400;
     color: #bfbfbf;

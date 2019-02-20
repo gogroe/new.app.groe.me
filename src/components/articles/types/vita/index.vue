@@ -96,7 +96,7 @@
           params: {
             vita_id: this.obj.id,
           },
-          url: 'https://newbackend.groe.me/user/vita/delete',
+          url: 'https://newbackend.groe.me/user_vita/vita/delete',
           data: {},
           request: false
         },

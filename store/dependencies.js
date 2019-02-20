@@ -58,6 +58,15 @@ const dependencies = {
       media : 16,
     },
 
+    permission_types:{
+      get_one: 0,
+      get_all: 1,
+      read: 2,
+      update: 3,
+      create: 4,
+      write: 5
+    },
+
     translations:{
       inaktive: 'Inaktiv',
       aktive: 'Aktiv',
@@ -81,7 +90,23 @@ const dependencies = {
       standard: 'Standard',
       premium: 'Premium',
       elite: 'Elite',
-      contact_person: 'Ansprechpartner'
+      contact_person: 'Ansprechpartner',
+      buildup:'Buildup',
+      authenticate:'Authentifierung',
+      test:'Test',
+      list:'Listen',
+      settings_permission:'Nutzerrechte',
+      user_admin:'Startseite',
+      users_admin:'Nutzer Verwaltung',
+      user_account:'Nutzer Konto',
+      user_vita:'Nutzer Vita',
+      user_crm:'Nutzer CRM',
+      header:'Header',
+      post:'Post',
+      comment:'Kommentar',
+      like:'Gefällt mir',
+      media:'Medien',
+      tag:'Tag',
     }
   },
 
@@ -99,6 +124,9 @@ const dependencies = {
     },
     list_translations(state){
       return state.translations
+    },
+    list_permission_types(state){
+      return state.permission_types
     },
   },
 

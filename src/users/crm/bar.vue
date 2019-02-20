@@ -30,7 +30,7 @@
       return{
         active: false,
         create_user:{
-          url: 'https://newbackend.groe.me/user/create',
+          url: 'https://newbackend.groe.me/user_crm/user/create',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',

@@ -33,7 +33,7 @@
           params: {
             user_id: null
           },
-          url: 'https://newbackend.groe.me/user/get_one',
+          url: 'https://newbackend.groe.me/u_head/get_one',
           data: {},
           request: false
         },

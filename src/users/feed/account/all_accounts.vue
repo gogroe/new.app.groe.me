@@ -28,7 +28,7 @@
           params: {
             user_id: this.$route.params.id
           },
-          url: 'https://newbackend.groe.me/user/account/get_all',
+          url: 'https://newbackend.groe.me/user_account/get_all',
           data: {},
           request: false
         },

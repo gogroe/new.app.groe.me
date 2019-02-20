@@ -50,7 +50,7 @@
       return{
         edit_request:{},
         update_user_vita:{
-          url: 'https://newbackend.groe.me/user/vita/update',
+          url: 'https://newbackend.groe.me/user_vita/vita/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
@@ -69,7 +69,7 @@
           }
         },
         update_user_vita_date:{
-          url: 'https://newbackend.groe.me/user/vita/date/update',
+          url: 'https://newbackend.groe.me/user_vita/date/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
@@ -89,7 +89,7 @@
           }
         },
         update_user_vita_company:{
-          url: 'https://newbackend.groe.me/user/vita/company/update',
+          url: 'https://newbackend.groe.me/user_vita/company/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
@@ -105,7 +105,7 @@
           }
         },
         update_user_vita_adress:{
-          url: 'https://newbackend.groe.me/user/vita/adress/update',
+          url: 'https://newbackend.groe.me/user_vita/adress/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',

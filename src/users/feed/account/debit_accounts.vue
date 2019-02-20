@@ -29,7 +29,7 @@
             user_id: this.$route.params.id,
             'bigger->value': -1
           },
-          url: 'https://newbackend.groe.me/user/account/get_all',
+          url: 'https://newbackend.groe.me/user_account/get_all',
           data: {},
           request: false
         },

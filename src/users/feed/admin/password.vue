@@ -35,7 +35,7 @@
           params: {
             user_id: null,
           },
-          url: 'https://newbackend.groe.me/user/secret/create',
+          url: 'https://newbackend.groe.me/user_admin/secret/create',
           data: {},
           request: false
         },

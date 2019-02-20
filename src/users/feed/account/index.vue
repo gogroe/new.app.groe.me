@@ -54,7 +54,7 @@
         ],
         request_create_user_account:{},
         create_user_account:{
-          url: 'https://newbackend.groe.me/user/account/create',
+          url: 'https://newbackend.groe.me/user_account/create',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',

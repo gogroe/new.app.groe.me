@@ -44,13 +44,13 @@
           params: {
             user_id: null
           },
-          url: 'https://newbackend.groe.me/user/vita/get_all',
+          url: 'https://newbackend.groe.me/user_vita/get_all',
           data: {},
           request: false
         },
         request_create_user_vita:{},
         create_user_vita:{
-          url: 'https://newbackend.groe.me/user/vita/create',
+          url: 'https://newbackend.groe.me/user_vita/vita/create',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',

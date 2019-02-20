@@ -46,12 +46,12 @@
             user_id: null,
             name: 'skype'
           },
-          url: 'https://newbackend.groe.me/user/contact/get_one',
+          url: 'https://newbackend.groe.me/user_admin/contact/get_one',
           data: {},
           request: false
         },
         update_user_contact:{
-          url: 'https://newbackend.groe.me/user/contact/update',
+          url: 'https://newbackend.groe.me/user_admin/contact/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
@@ -69,7 +69,7 @@
         },
         request_create_user_contact:{},
         create_user_contact:{
-          url: 'https://newbackend.groe.me/user/contact/create',
+          url: 'https://newbackend.groe.me/user_admin/contact/create',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',

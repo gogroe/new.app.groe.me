@@ -39,7 +39,7 @@
           params: {
             user_id: this.uid
           },
-          url: 'https://newbackend.groe.me/layout/header/get_one',
+          url: 'https://newbackend.groe.me/header/get_one',
           data: {},
           request: false
         }

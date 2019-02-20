@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import settings from '@/settings'
+
 import notification from '@/notification'
 
 import signup from '@/authentication/signup'
@@ -17,6 +19,18 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
+    // settings
+    {
+      path: '/settings',
+      name: 'settings',
+      component: settings
+    },
+    {
+      path: '/settings/permissions',
+      name: 'permissions',
+      component: settings
+    },
+
     // notification
     {
       path: '/notification',
