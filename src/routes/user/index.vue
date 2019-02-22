@@ -88,7 +88,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .feed{
+  .user{
     position:relative;
     width: 800px;
     padding-top: 55px;
