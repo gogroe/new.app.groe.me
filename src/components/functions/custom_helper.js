@@ -10,6 +10,32 @@ export default {
     ])
   },
   methods:{
+    render_list_name(response_data, value){
+      let name = 'test'
+
+      for(let response_data_key in response_data){
+        let list_item = response_data[response_data_key]
+
+        if(list_item.value === value){
+          name = list_item.name
+        }
+      }
+
+      return name
+    },
+
+    build_list(response_data){
+      const list = {}
+
+      for(let response_data_key in response_data){
+        let list_item = response_data[response_data_key]
+
+        list[list_item.name] = list_item.value
+      }
+
+      return list
+    },
+
     translate(string){
       if(string in this.list_translations){
         return this.list_translations[string]
@@ -56,7 +82,7 @@ export default {
 
       return input_obj
     },
-    fill_inputs_edit(key, obj, request_data ){
+    fill_inputs_edit(key, obj, request_data, required_params = null ){
       const edit_obj = {}
 
       for(let oe_key in obj.inputs){
@@ -73,6 +99,12 @@ export default {
             edit_obj.error_class = obj.error_class,
             edit_obj.required_params = obj.required_params
 
+          if(required_params !== null){
+            for(let required_params_key in required_params){
+              edit_obj.required_params[required_params_key] = required_params[required_params_key]
+            }
+          }
+
           if('select' in obj.inputs[key]){
             edit_obj.select = obj.inputs[key].select
           }
@@ -86,7 +118,7 @@ export default {
       if('id' in request_data){
         edit_obj.required_params.id = request_data['id']
       }
-
+      
       return edit_obj
     },
 

@@ -1,10 +1,10 @@
 <template>
-  <div class="user_bank">
-    <p class="section_name">NUTZER BANKDATEN</p>
-    <create_update name="bank"
-                   :create_inputs="create_bank"
-                   :update_inputs="update_bank"
-                   :request_get_data="request_get_user_bank"
+  <div class="user_adress">
+    <p class="section_name">NUTZER ADRESSE</p>
+    <create_update name="phone"
+                   :create_inputs="create_adress"
+                   :update_inputs="update_adress"
+                   :request_get_data="shipping_adress"
                    :reload="{action: 'reload', section: 'users_admin'}"/>
   </div>
 </template>
@@ -15,38 +15,27 @@
 
   export default {
     name: "user_contact",
-    components:{
+    components: {
       Create_update,
     },
     props:{
-      request_get_user_bank:{
+      request_get_user_adress:{
         required:true
       }
     },
     data(){
       return{
-        update_bank:{
-          url: 'https://newbackend.groe.me/user_admin/bank/update',
+        update_adress:{
+          url: 'https://newbackend.groe.me/user_admin/adress/update',
           input_class:'edit_input',
           label_class: 'edit_input_label',
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
-            id: null
+            id: null,
+            type: 'shipping'
           },
           inputs:{
-            iban: {
-              name: 'IBAN',
-              type: 'text'
-            },
-            swift: {
-              name: 'SWIFT',
-              type: 'text'
-            },
-            name: {
-              name: 'Bankname',
-              type: 'text'
-            },
             street: {
               name: 'Straße',
               type: 'text'
@@ -66,39 +55,16 @@
             }
           }
         },
-        create_bank:{
-          url: 'https://newbackend.groe.me/user_admin/bank/create',
+        create_adress:{
+          url: 'https://newbackend.groe.me/user_admin/adress/create',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',
           required_params: {
             user_id: this.$route.params.id,
+            type: 'shipping'
           },
           inputs:{
-            iban: {
-              name: 'IBAN',
-              type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
-            },
-            swift: {
-              name: 'SWIFT',
-              type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
-            },
-            name: {
-              name: 'Bankname',
-              type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
-            },
             street: {
               name: 'Straße',
               type: 'text',
@@ -139,28 +105,23 @@
     computed:{
       route_id(){
         return this.$route.params.id
-      }
+      },
+      shipping_adress(){
+        return 'shipping' in this.request_get_user_adress && this.request_get_user_adress.shipping !== null
+          ? this.request_get_user_adress.shipping
+          : {}
+      },
     },
     watch:{
       route_id: function(){
-        this.set_inputs_user_id(this.create_bank)
-        this.set_inputs_user_id(this.update_bank)
+        this.set_inputs_user_id(this.create_adress)
+        this.set_inputs_user_id(this.update_adress)
       }
     },
     mounted(){
-      this.set_inputs_user_id(this.create_bank)
-      this.set_inputs_user_id(this.update_bank)
+      this.set_inputs_user_id(this.create_adress)
+      this.set_inputs_user_id(this.update_adress)
     },
     mixins:[Load_request]
   }
 </script>
-
-<style lang="scss" scoped>
-  .add{
-    margin-bottom: 17px;
-  }
-
-  button{
-    margin: 10px 0;
-  }
-</style>

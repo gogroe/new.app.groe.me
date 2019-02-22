@@ -126,21 +126,3 @@ const request = {
 }
 
 export default request
-
-
-
-// //preload
-// Vue.mixin({
-//   mounted () {
-//     let response = this.$store.state.request.response
-//
-//     for(let token_key in this.$store.state.request.preload_token){
-//       let token = this.$store.state.request.preload_token[token_key]
-//
-//       if('request_token' in response && response.request_token === token)
-//       {
-//         this.$store.commit('update');
-//       }
-//     }
-//   },
-// })

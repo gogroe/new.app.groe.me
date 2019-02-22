@@ -2,8 +2,8 @@
   <div>
     <div v-if="active_image" class="user_image_wrapper">
       <user_visual class="user_image"
-                   :name="request_get_user.data.firstname + ' ' + request_get_user.data.lastname"
-                   :path="request_get_user.data.image" size="64"/>
+                   :name="request_get_user.firstname + ' ' + request_get_user.lastname"
+                   :path="request_get_user.image" size="64"/>
       <p class="options">
         <span @click="active.edit_upload = true">bearbeiten</span> |
         <span @click="request_delete_user_image.request = true">entfernen</span>
@@ -60,7 +60,7 @@
           edit_upload: false
         },
         upload_user_image:{
-          url: 'https://newbackend.groe.me/user_admin/image/upload',
+          url: 'https://newbackend.groe.me/user_admin/image/create',
           required_params:{
             user_id: null,
             file_type: 'user_image'
@@ -79,7 +79,7 @@
     },
     computed:{
       active_image(){
-        return 'image' in this.request_get_user.data && this.request_get_user.data.image !== null
+        return 'image' in this.request_get_user && this.request_get_user.image !== null
       },
       upload_user_image_data(){
         return this.upload_user_image.data
@@ -93,16 +93,14 @@
         if('update' in object){
           this.active.edit_upload = false
           this.active.upload = false
-          this.$store.commit('update_reload', {action: 'reload', section: 'all'})
-          this.$emit('input', true)
+          this.$store.commit('update_reload', {action: 'reload', section: 'users_admin'})
         }
       },
       request_delete_user_image_data: function(object){
         if('update' in object){
           this.active.edit_upload = false
           this.active.upload = false
-          this.$store.commit('update_reload', {action: 'reload', section: 'all'})
-          this.$emit('input', true)
+          this.$store.commit('update_reload', {action: 'reload', section: 'users_admin'})
         }
       },
       route_id: function(){

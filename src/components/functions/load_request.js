@@ -3,7 +3,8 @@ import { mapGetters } from 'vuex'
 export default {
   computed:{
     ...mapGetters([
-      'get_header'
+      'get_header',
+      'uid'
     ])
   },
   methods:{
@@ -24,13 +25,13 @@ export default {
     set_user_id(request_obj){
       return request_obj.params.user_id = 'id' in this.$route.params
         ? this.$route.params.id
-        : this.get_header.id
+        : this.uid
     },
 
     set_inputs_user_id(input_obj){
       return input_obj.required_params.user_id = 'id' in this.$route.params
         ? this.$route.params.id
-        : this.get_header.id
+        : this.uid
     }
   }
 }

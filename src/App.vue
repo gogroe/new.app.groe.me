@@ -11,6 +11,7 @@
 </template>
 
 <script>
+  var cookie = require('js-cookie')
   import Helper from './components/functions/custom_helper'
   import { mapGetters } from 'vuex'
   import Users from "./users/index";
@@ -44,6 +45,15 @@
       route (to, from) {
         this.set_basic_component()
       }
+    },
+    created(){
+      let cookieData = cookie.getJSON('auth')
+      let auth = {
+        uid: cookieData.uid,
+        token: cookieData.token
+      }
+      this.$store.commit('update_auth', auth)
+
     },
     methods:{
      set_basic_component: function(){

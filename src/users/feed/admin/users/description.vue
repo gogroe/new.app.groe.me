@@ -13,8 +13,8 @@
     <edit v-if="active_update === true"
           v-for="(input, key, i) in update_user_description.inputs"
           :key="i"
-          :obj="fill_inputs_edit(key, update_user_description, request_get_user.data)"
-          :reload="{action: 'reload', section: 'u_head'}"/>
+          :obj="fill_inputs_edit(key, update_user_description, request_get_user)"
+          :reload="{action: 'reload', section: 'users_admin'}"/>
   </div>
 </template>
 
@@ -77,19 +77,13 @@
     },
     computed:{
       active_update(){
-        return 'description' in this.request_get_user.data && this.request_get_user.data.description !== null
+        return 'description' in this.request_get_user && this.request_get_user.description !== null
       },
       route_id(){
         return this.$route.params.id
       }
     },
     watch:{
-      request_create_user_description: function (object) {
-        if('create' in object){
-          this.$emit('input', true)
-        }
-        this.create_update_reload(object, {action: 'reload', section: 'u_head'})
-      },
       route_id: function(){
         this.set_inputs_user_id(this.update_user_description)
         this.set_inputs_user_id(this.create_user_description)

@@ -9,7 +9,8 @@
       </li>
     </ul>
     <div class="content">
-      <permission_table :permissions="permissions_data" :name="translate(active.navigation)"/>
+      <permission_table :permissions="permissions_data"
+                        :name="active.navigation"/>
     </div>
     <div class="clear"></div>
     <request :obj="request_get_permissions" v-model="request_get_permissions"/>
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import Custom_helper from '../../components/functions/custom_helper'
   import Request from "../../components/functions/request";
   import Permission_table from "./table";
@@ -38,11 +40,22 @@
       }
     },
     computed:{
+      ...mapGetters([
+        'reload'
+      ]),
       permissions_data(){
         return this.active.navigation in this.request_get_permissions.data
           ? this.request_get_permissions.data[this.active.navigation]
           : {}
       }
+    },
+    watch:{
+      reload: function (object) {
+        if(object.action === 'reload' && object.section === 'settings_permission'){
+          this.$store.commit('update_reload', { action: null, section: null })
+          this.request_get_permissions.request = true
+        }
+      },
     },
     mounted(){
       this.request_get_permissions.request = true
@@ -52,6 +65,10 @@
 </script>
 
 <style lang="scss" scoped>
+
+  .permission{
+    height: 100%;
+  }
 
   ul{
     float: left;

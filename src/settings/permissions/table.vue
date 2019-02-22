@@ -1,27 +1,26 @@
 <template>
     <div class="permission_table">
       <div class="options">
-        <p class="section_name">{{name.toUpperCase()}} VERWALTEN</p>
+        <p class="section_name">{{translate(name).toUpperCase()}} RECHTE VERWALTEN</p>
         <add :active="active.create"
              class="add_create"
-             :name="name"
+             :name="translate(name) + ' Rechte'"
              v-model="active.create"/>
-        <div v-if="active"
+        <div v-if="active.create"
              class="default_popup_background">
           <div class="create_popup inner_popup">
-            <create_section create_name="BENUTZER HINZUFÜGEN"
-                            button_name="BENUTZER ERSTELLEN"
-                            :create_inputs="create_user"
-                            :reload="{action: 'reload', section: 'users_crm'}"
-                            v-click-outside="hide"/>
+            <permissions_create :name="name"
+                                :type="0"
+                                v-model="active.create"
+                                v-click-outside="hide"/>
           </div>
         </div>
       </div>
       <table>
         <thead>
           <tr>
-            <td>Benutzer Typ</td>
-            <td>Benutzer Role</td>
+            <td colspan="2">Benutzer Typ</td>
+            <td>Benutzer Rolle</td>
             <td class="rights">Rechte</td>
           </tr>
         </thead>
@@ -30,16 +29,45 @@
               v-for="(permission , i) in permissions.permissions"
               :key="i">
             <td>
-              <i class="material-icons" @click="delete_function()">delete</i>
-              <p>
-                {{permission.user_type}}
-              </p>
+              <delete icon="delete_outline"
+                      :reload="{ action: 'reload', section:'settings_permission' }"
+                      :obj="{
+                        params: {
+                          permission_id: permission.id
+                        },
+                        url: 'https://newbackend.groe.me/settings_permission/delete',
+                        data: {},
+                        request: false
+                      }"/>
             </td>
-            <td>{{permission.user_role}}</td>
-            <td>{{(permission.permission)}}</td>
+            <td>
+              {{render_list_name(lists.user_type, permission.user_type)}}
+            </td>
+            <td>{{render_list_name(lists[permission.user_type + '_role'], permission.user_role)}}</td>
+            <td class="rights">
+              <edit :reload="{ action: 'reload', section:'settings_permission'}"
+                    :obj="{
+                      url: 'https://newbackend.groe.me/settings_permission/update',
+                      label: 'Rechte',
+                      name: 'permission',
+                      value: permission.permission,
+                      select:'permissions',
+                      placeholder: 'Rechte',
+                      type: 'select',
+                      input_class:'create_input',
+                      label_class: 'create_input_label',
+                      required_params: {permission_id: permission.id},
+                      error_class: ''
+                    }"/>
+            </td>
           </tr>
         </tbody>
       </table>
+      <list list_name="user_type" v-model="lists.user_type"/>
+      <list list_name="0_role" v-model="lists['0_role']"/>
+      <list list_name="1_role" v-model="lists['1_role']"/>
+      <list list_name="2_role" v-model="lists['2_role']"/>
+      <list list_name="3_role" v-model="lists['3_role']"/>
     </div>
 </template>
 
@@ -48,9 +76,11 @@
     import ClickOutside from 'vue-click-outside'
     import { mapGetters } from 'vuex'
     import Custom_helper from '../../components/functions/custom_helper'
-    import Permission_method from "./method";
     import Add from "../../components/add/index";
-    import Create_section from "../../components/inputs/create";
+    import Permissions_create from "./create";
+    import List from "../../components/list/index";
+    import Edit from "../../components/inputs/edit";
+    import Delete from "../../components/inputs/delete";
     
     export default {
       name: "permission_table",
@@ -62,68 +92,26 @@
         name:{
           type: String,
           required: true
-        }
+        },
       },
-      components: {Create_section, Add, Permission_method},
+      components: {Delete, Edit, List, Permissions_create, Add},
       data(){
         return{
           active:{
             create: false
           },
-          create_user:{
-            url: 'https://newbackend.groe.me/user_crm/user/create',
-            input_class:'create_input',
-            label_class: 'create_input_label',
-            error_class: '',
-            required_params: {
-              type: 2
-            },
-            inputs:{
-              role: {
-                name: 'Position',
-                type: 'select',
-                select: 'user_role',
-                input: {
-                  value: null,
-                  event:null
-                }
-              },
-              firstname: {
-                name: 'Vorname',
-                type: 'text',
-                input: {
-                  value: null,
-                  event:null
-                }
-              },
-              lastname: {
-                name: 'Nachname',
-                type: 'text',
-                input: {
-                  value: null,
-                  event:null
-                }
-              },
-              email: {
-                name: 'Email',
-                type: 'text',
-                input: {
-                  value: null,
-                  event:null
-                }
-              },
-            }
-          }
+          lists:{
+            user_type:{},
+            '0_role':{},
+            '1_role':{},
+            '2_role':{},
+            '3_role':{},
+          },
         }
-      },
-      computed:{
-        ...mapGetters([
-         'list_permission_types' 
-        ])
       },
       methods:{
         hide(){
-          this.active = false
+          this.active.create = false
         },
       },
       directives: {
@@ -135,6 +123,7 @@
 
 <style lang="scss" scoped>
   .permission_table{
+    position: relative;
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
@@ -157,26 +146,34 @@
   table{
     width: 100%;
 
-    .rights{
-      text-align: right;
-    }
-
     thead tr{
-      color: gray;
+      color: #bbbbbb;
       font-weight: bold;
+
+      td{
+        padding-bottom: 10px;
+      }
     }
 
     tbody tr{
       td{
+        line-height: 13px;
+
         i{
-          font-size: 20px;
-          color: gray;
+          cursor: pointer;
+          vertical-align: middle;
+          font-size: 24px;
+          color: #bbbbbb;
 
           &:hover{
-            cursor: pointer;
+            color: #3da0f5;
           }
         }
       }
+    }
+
+    .rights{
+      /*text-align: right;*/
     }
   }
 </style>
