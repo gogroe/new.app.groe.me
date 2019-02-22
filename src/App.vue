@@ -14,7 +14,7 @@
   var cookie = require('js-cookie')
   import Helper from './components/functions/custom_helper'
   import { mapGetters } from 'vuex'
-  import Users from "./users/index";
+  import Users from "./routes/user/index";
   import Global_header from "./components/header/index";
   import Navigation from "./components/navigation/index";
 

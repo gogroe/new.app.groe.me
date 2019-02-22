@@ -1,20 +1,20 @@
 <template>
   <div class="default_popup_background">
     <div class="inner_popup">
-      <h1>Anmeldung</h1>
-      <login redirect="user_vita"/>
+      <h1>Passwort</h1>
+      <verification redirect="login"/>
     </div>
     <mini_footer class="mini_footer inner_popup"/>
   </div>
 </template>
 
 <script>
-  import Login from "../components/authentication/login";
-  import Mini_footer from "../components/mini_footer/index";
+  import Verification from "../../components/authentication/verification";
+  import Mini_footer from "../../components/mini_footer/index";
 
   export default {
-    name: "main_login",
-    components: {Mini_footer, Login},
+    name: "main_verification",
+    components: {Mini_footer, Verification},
   }
 </script>
 

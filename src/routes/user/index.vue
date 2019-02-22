@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="feed">
+      <div class="user">
         <u_head class="u_head"/>
         <ul>
           <h6 class="lable">MENU</h6>
@@ -28,7 +28,7 @@
   import U_head from "../../components/u_head/index";
 
   export default {
-    name: "users_feed",
+    name: "users",
     components: {U_head},
     data(){
       return{

@@ -18,11 +18,11 @@
 </template>
 
 <script>
-  import Request from "../../components/functions/request"
-  import Load_request from "../../components/functions/load_request"
-  import Edit from "../../components/inputs/edit"
-  import Custom_helper from '../../components/functions/custom_helper'
-  import Inputs from "../../components/inputs/index";
+  import Request from "../../../components/functions/request"
+  import Load_request from "../../../components/functions/load_request"
+  import Edit from "../../../components/inputs/edit"
+  import Custom_helper from '../../../components/functions/custom_helper'
+  import Inputs from "../../../components/inputs/index";
 
   export default {
     name: "permission_create",

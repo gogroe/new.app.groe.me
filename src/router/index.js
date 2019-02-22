@@ -1,18 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import settings from '@/settings'
+import settings from '@/routes/settings'
 
-import notification from '@/notification'
+import notification from '@/routes/notification'
 
-import signup from '@/authentication/signup'
-import verification from '@/authentication/verification'
-import login from '@/authentication/login'
+import signup from '@/routes/authentication/signup'
+import verification from '@/routes/authentication/verification'
+import login from '@/routes/authentication/login'
 
-import users from '@/users/crm'
-import users_account from '@/users/feed/account'
-import users_vita from '@/users/feed/vita'
-import users_admin from '@/users/feed/admin'
+import crm from '@/routes/crm'
+
+import users_account from '@/routes/user/account'
+import users_vita from '@/routes/user/vita'
+import users_admin from '@/routes/user/admin'
 
 Vue.use(Router)
 
@@ -76,7 +77,7 @@ export default new Router({
     {
       path: '/users',
       name: 'users',
-      component: users
+      component: crm
     },
     {
       path: '/users/:id/account',

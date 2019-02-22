@@ -19,8 +19,8 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import Custom_helper from '../../components/functions/custom_helper'
-  import Request from "../../components/functions/request";
+  import Custom_helper from '../../../components/functions/custom_helper'
+  import Request from "../../../components/functions/request";
   import Permission_table from "./table";
 
   export default {

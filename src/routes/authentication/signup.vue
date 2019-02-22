@@ -9,8 +9,8 @@
 </template>
 
 <script>
-  import Signup from "../components/authentication/signup";
-  import Mini_footer from "../components/mini_footer/index";
+  import Signup from "../../components/authentication/signup";
+  import Mini_footer from "../../components/mini_footer/index";
 
   export default {
     name: "main_signup",

@@ -75,12 +75,12 @@
 <script>
     import ClickOutside from 'vue-click-outside'
     import { mapGetters } from 'vuex'
-    import Custom_helper from '../../components/functions/custom_helper'
-    import Add from "../../components/add/index";
+    import Custom_helper from '../../../components/functions/custom_helper'
+    import Add from "../../../components/add/index";
     import Permissions_create from "./create";
-    import List from "../../components/list/index";
-    import Edit from "../../components/inputs/edit";
-    import Delete from "../../components/inputs/delete";
+    import List from "../../../components/list/index";
+    import Edit from "../../../components/inputs/edit";
+    import Delete from "../../../components/inputs/delete";
     
     export default {
       name: "permission_table",
