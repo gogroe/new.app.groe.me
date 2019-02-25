@@ -3,16 +3,18 @@
       <div class="user">
         <u_head class="u_head"/>
         <ul>
-          <h6 class="lable">MENU</h6>
-          <li v-for="(navigation, i) in navigations" :key="i"
+          <h6 class="lable">PROFIL</h6>
+          <li v-for="(navigation, i) in user_navigations" :key="i"
               @click="$router.push({ name: navigation.route, params: { id: user_id } })"
               :class="{'active': $route.name === navigation.route}"
               v-if="navigation.section === 'menu'"><span class="dot">&#9679;</span> {{navigation.name}}</li>
-          <h6 class="lable more">EINSTELLUNGEN</h6>
-          <li v-for="(navigation, i) in navigations" :key="i"
-              @click="$router.push({ name: navigation.route, params: { id: user_id } })"
-              :class="{'active': $route.name === navigation.route}"
-              v-if="navigation.section === 'settings'"><span class="dot">&#9679;</span> {{navigation.name}}</li>
+          <div v-if="is_self()">
+            <h6 class="lable more">EINSTELLUNGEN</h6>
+            <li v-for="(navigation, i) in user_navigations" :key="i"
+                @click="$router.push({ name: navigation.route, params: { id: user_id } })"
+                :class="{'active': $route.name === navigation.route}"
+                v-if="navigation.section === 'settings'"><span class="dot">&#9679;</span> {{navigation.name}}</li>
+          </div>
         </ul>
         <div class="router_feed">
           <router-view/>
@@ -23,6 +25,7 @@
 </template>
 
 <script>
+  import Permission from '../../components/functions/permission'
   import Custom_helper from '../../components/functions/custom_helper'
   import { mapGetters } from 'vuex'
   import U_head from "../../components/u_head/index";
@@ -32,58 +35,45 @@
     components: {U_head},
     data(){
       return{
-        users_navigations:{
+        user_navigations:{
           vita:{
             name: 'Vita',
             route: 'users_vita',
-            section: 'menu'
+            section: 'menu',
+            types: ['developer', 'admin', 'user']
           },
           accounts:{
             name: 'Konto',
             route: 'users_account',
-            section: 'menu'
+            section: 'settings',
+            types: ['developer', 'admin', 'user', 'company']
           },
           admin:{
             name: 'Verwalten',
             route: 'users_admin',
-            section: 'settings'
-          }
-        },
-        user_navigations:{
-          vita:{
-            name: 'Vita',
-            route: 'user_vita',
-            section: 'menu'
-          },
-          accounts:{
-            name: 'Konto',
-            route: 'user_account',
-            section: 'menu'
-          },
-          admin:{
-            name: 'Verwalten',
-            route: 'user_admin',
-            section: 'settings'
+            section: 'settings',
+            types: ['developer', 'admin', 'user', 'company']
           }
         }
       }
     },
     computed:{
       ...mapGetters([
-        'uid'
+        'uid',
+        'perm'
       ]),
-      navigations(){
-        return this.cut_route_name_prefix(this.$route.name) === 'users'
-          ? this.users_navigations
-          : this.user_navigations
-      },
       user_id(){
         return 'id' in this.$route.params
           ? this.$route.params.id
           : this.uid
       }
     },
-    mixins:[Custom_helper]
+    methods:{
+      is_self(){
+        return true
+      }
+    },
+    mixins:[Custom_helper, Permission]
   }
 </script>
 

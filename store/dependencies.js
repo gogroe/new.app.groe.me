@@ -58,13 +58,45 @@ const dependencies = {
       media : 16,
     },
 
-    permission_types:{
+    user_types: {
+      developer: 0,
+      admin: 1,
+      user: 2,
+      company: 3,
+//    partner: 4
+    },
+
+    user_roles: {
+      '0_role': {
+        standard: 0,
+      },
+      '1_role': {
+        manager: 0,
+        editor: 1,
+        stuff: 2,
+      },
+      '2_role': {
+        lead: 0,
+        customer: 1,
+        member: 2,
+        data: 3
+      },
+      '3_role': {
+        lead: 0,
+        customer: 1,
+        member: 2,
+        data: 3
+      }
+    },
+
+    permissions:{
       get_one: 0,
-      get_all: 1,
-      read: 2,
-      update: 3,
-      create: 4,
-      write: 5
+      get_all:1,
+      read:2,
+      update:3,
+      delete:4,
+      create:5,
+      write:6,
     },
 
     translations:{

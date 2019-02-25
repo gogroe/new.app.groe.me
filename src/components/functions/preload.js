@@ -40,7 +40,7 @@ export default {
      *  name, uri, list_groups
      * }
      */
-    request_preload(object){
+    request_preload_list(object){
       let request_token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
       this.preload_token[object.name] = request_token
 

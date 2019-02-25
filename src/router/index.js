@@ -58,17 +58,17 @@ export default new Router({
 
     // user
     {
-      path: '/user_vita',
+      path: '/user/vita',
       name: 'user_vita',
       component: users_vita
     },
     {
-      path: '/account',
+      path: '/user/account',
       name: 'user_account',
       component: users_account
     },
     {
-      path: '/admin',
+      path: '/user/admin',
       name: 'user_admin',
       component: users_admin
     },

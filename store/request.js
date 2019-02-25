@@ -11,7 +11,12 @@ const request = {
     auth: {
       uid: null,
       token: null,
-    }
+    },
+    perm: {
+      perm: null,
+      type: null,
+      role: null
+    },
   },
 
   mutations: {
@@ -24,6 +29,9 @@ const request = {
     update_auth (state, object) {
       state.auth.uid = object.uid
       state.auth.token = object.token
+    },
+    update_perm (state, object) {
+      state.perm = object
     }
   },
 
@@ -36,6 +44,9 @@ const request = {
     },
     uid(state){
       return state.auth.uid
+    },
+    perm(state){
+      return state.perm
     },
   },
 
@@ -72,6 +83,10 @@ const request = {
             }
             cookie.set('auth', auth, {expires: 1})
             commit('update_auth', auth)
+          }
+
+          if('permission' in response.data){
+            commit('update_perm', response.data.permission)
           }
 
           commit('update_response', response.data)
@@ -116,6 +131,10 @@ const request = {
             }
             cookie.set('auth', auth, {expires: 1})
             commit('update_auth', auth)
+          }
+
+          if('permission' in response.data){
+            commit('update_perm', response.data.permission)
           }
 
           commit('update_response', response.data)

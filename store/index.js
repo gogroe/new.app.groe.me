@@ -4,7 +4,6 @@ import Layout from './layout'
 import Request from './request'
 import Dependencies from './dependencies'
 import States from './states'
-import Test from './test'
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -16,7 +15,6 @@ const store = new Vuex.Store({
     Layout,
     Dependencies,
     States,
-    Test,
   }
 });
 
