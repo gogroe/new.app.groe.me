@@ -32,6 +32,9 @@ const request = {
     },
     update_perm (state, object) {
       state.perm = object
+    },
+    update_perm_perm (state, object) {
+      state.perm.perm = object
     }
   },
 

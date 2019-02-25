@@ -1,9 +1,12 @@
 <template>
   <div class="accounts">
-    <add name="Transaktion"
-         :active="active.create"
-         v-model="active.create"
-         class="add_feed"/>
+    <div class="add_wrapper">
+      <add name="Transaktion"
+           :create="true"
+           :active="active.create"
+           v-model="active.create"
+           class="add_feed"/>
+    </div>
     <h6>TRANSAKTIONEN</h6>
     <div class="create_account default_box" v-if="active.create">
       <create_section create_name="TRANSAKTION HINZUFÜGEN"

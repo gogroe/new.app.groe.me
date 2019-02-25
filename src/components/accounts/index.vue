@@ -18,6 +18,7 @@
         <td class="value">{{account.value.replace('.',',') + ' ' + account.currency}}</td>
         <td v-if="active_options">
           <popup_menu class="popup_menu"
+                      v-if="is_perm('update')"
                       :id="account.id"
                       type="list"
                       :options="options"
@@ -29,6 +30,7 @@
   </div>
 </template>
 <script>
+  import Permission from '../functions/permission'
   import Ddmmmyy from "../date/ddmmmyy";
   import Popup_menu from "../popup_menu/index";
   import Edit_accounts from "./edit";
@@ -87,7 +89,8 @@
         }
         this.active.edit = true
       }
-    }
+    },
+    mixins:[Permission]
   }
 </script>
 

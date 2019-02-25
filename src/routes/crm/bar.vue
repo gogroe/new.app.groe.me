@@ -1,6 +1,7 @@
 <template>
   <div class="crm_bar">
     <add class="add_user"
+         :create="true"
          :class="{'active': active}"
          name="Benutzer"
          :active="active"

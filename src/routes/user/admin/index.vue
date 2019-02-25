@@ -1,5 +1,6 @@
 <template>
   <div class="admin">
+    <div class="add_wrapper"></div>
     <h6>VERWALTEN</h6>
     <div class="default_box">
       <ul>
@@ -7,18 +8,18 @@
         <li :class="{'active': active.menu === 'contact'}" @click="active.menu = 'contact'">Kontakt</li>
         <li :class="{'active': active.menu === 'adress'}" @click="active.menu = 'adress'">Adresse</li>
         <li :class="{'active': active.menu === 'bank'}" @click="active.menu = 'bank'">Bankdaten</li>
-        <li :class="{'active': active.menu === 'password'}" @click="active.menu = 'password'">Password ändern</li>
+        <li v-if="is_perm('create')" :class="{'active': active.menu === 'password'}" @click="active.menu = 'password'">Password ändern</li>
       </ul>
       <div class="content">
         <admin_user v-if="active.menu === 'user'"
                     :request_get_user="request_get_user_data_user"/>
         <admin_contact v-if="active.menu === 'contact'"
-                       :request_get_user_contact="request_get_user_data_contact"/>
+                     :request_get_user_contact="request_get_user_data_contact"/>
         <admin_adress v-if="active.menu === 'adress'"
                       :request_get_user_adress="request_get_user_data_adress"/>
         <admin_bank v-if="active.menu === 'bank'"
                     :request_get_user_bank="request_get_user_data_bank"/>
-        <admin_password v-if="active.menu === 'password'"/>
+        <admin_password v-if="active.menu === 'password' && is_perm('create')"/>
       </div>
       <div class="clear"></div>
     </div>
@@ -29,6 +30,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import Load_request from '../../../components/functions/load_request'
+  import Permission from '../../../components/functions/permission'
   import Admin_user from "./users/index";
   import Admin_contact from "./contact";
   import Admin_adress from "./adress";
@@ -104,15 +106,11 @@
       this.set_user_id(this.request_get_user)
       this.request_get_user.request = true
     },
-    mixins:[Load_request]
+    mixins:[Load_request,Permission]
   }
 </script>
 
 <style lang="scss" scoped>
-  .admin{
-    margin-top: 42px;
-  }
-
   .default_box{
     padding: 0 17px;
   }

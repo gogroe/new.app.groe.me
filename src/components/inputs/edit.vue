@@ -1,7 +1,11 @@
 <template>
   <div>
-    <inputs :obj="obj" :request_data="send.data" v-model="inputs"/>
-    <request :obj="send" v-model="send"/>
+    <inputs :obj="obj"
+            :readonly="is_perm('update') === false"
+            :request_data="send.data"
+            v-model="inputs"/>
+    <request :obj="send"
+             v-model="send"/>
   </div>
 </template>
 
@@ -21,6 +25,7 @@
   //     error_class: ''
   // }
 
+  import Permission from '../functions/permission'
   import load_request from '../functions/load_request'
   import Request from '../functions/request'
   import Inputs from './index'
@@ -108,7 +113,7 @@
         }
       }
     },
-    mixins:[load_request]
+    mixins:[load_request,Permission]
   }
 </script>
 

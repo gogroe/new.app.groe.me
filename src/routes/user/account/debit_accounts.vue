@@ -57,7 +57,6 @@
     mounted(){
       this.get_user_request(this.request_user_accounts)
     },
-    mixins:[Load_request]
   }
 </script>
 

@@ -172,9 +172,15 @@ const dependencies = {
     list_translations(state){
       return state.translations
     },
-    list_permission_types(state){
-      return state.permission_types
+    list_user_types(state) {
+      return state.user_types
     },
+    list_user_roles(state) {
+      return state.user_roles
+    },
+    list_permissions(state) {
+      return state.permissions
+    }
   },
 
   actions: {}

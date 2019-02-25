@@ -1,5 +1,6 @@
 <template>
-  <div class="add"
+  <div v-if="is_create"
+       class="add"
        @click="$emit('input', !active)"
        :class="{'inactive': active}">
     <p v-if="active === false">
@@ -12,6 +13,8 @@
 </template>
 
 <script>
+  import Permission from '../functions/permission'
+
   export default {
     name: "add",
     props:{
@@ -20,8 +23,22 @@
       },
       active:{
         required: true
+      },
+      create:{
+        required: false
       }
     },
+    computed: {
+      is_create(){
+        if(this.create){
+          return this.is_perm('create')
+        }
+        else {
+          return true
+        }
+      }
+    },
+    mixins:[Permission]
   }
 </script>
 

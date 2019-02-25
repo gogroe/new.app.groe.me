@@ -1,9 +1,12 @@
 <template>
   <div class="profile">
-    <add class="add"
-         :active="active.create"
-         name="Vita"
-         v-model="active.create"/>
+    <div class="add_wrapper">
+      <add class="add"
+           :create="true"
+           :active="active.create"
+           name="Vita"
+           v-model="active.create"/>
+    </div>
     <div class="create_vita default_box" v-if="active.create">
       <create_section create_name="VITA HINZUFÜGEN"
                       button_name="VITA ERSTELLEN"

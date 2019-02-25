@@ -7,6 +7,7 @@
             :obj="fill_inputs_edit(key, update_inputs, request_get_data)"/>
     </div>
     <add v-if="active.update === false"
+         :create="true"
          :name="name.charAt(0).toUpperCase() + name.slice(1)"
          :active="active.create"
          v-model="active.create"

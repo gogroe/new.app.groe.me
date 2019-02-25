@@ -3,20 +3,20 @@
       <div class="user">
         <u_head class="u_head"/>
         <ul>
-          <h6 class="lable">PROFIL</h6>
-          <li v-for="(navigation, i) in user_navigations" :key="i"
+          <h6 class="lable">MENU</h6>
+          <li v-for="(navigation, i) in navigations" :key="i"
               @click="$router.push({ name: navigation.route, params: { id: user_id } })"
               :class="{'active': $route.name === navigation.route}"
               v-if="navigation.section === 'menu'"><span class="dot">&#9679;</span> {{navigation.name}}</li>
-          <div v-if="is_self()">
-            <h6 class="lable more">EINSTELLUNGEN</h6>
-            <li v-for="(navigation, i) in user_navigations" :key="i"
+          <div v-if="is_self(user_id) || is_ptype('admin')">
+            <h6 class="lable more">VERWALTEN</h6>
+            <li v-for="(navigation, i) in navigations" :key="i"
                 @click="$router.push({ name: navigation.route, params: { id: user_id } })"
                 :class="{'active': $route.name === navigation.route}"
                 v-if="navigation.section === 'settings'"><span class="dot">&#9679;</span> {{navigation.name}}</li>
           </div>
         </ul>
-        <div class="router_feed">
+        <div class="router_feed" v-if="is_perm('read')">
           <router-view/>
         </div>
         <div class="clear"></div>
@@ -35,43 +35,59 @@
     components: {U_head},
     data(){
       return{
-        user_navigations:{
+        users_navigations:{
           vita:{
             name: 'Vita',
             route: 'users_vita',
             section: 'menu',
-            types: ['developer', 'admin', 'user']
           },
           accounts:{
             name: 'Konto',
             route: 'users_account',
-            section: 'settings',
-            types: ['developer', 'admin', 'user', 'company']
+            section: 'settings'
           },
           admin:{
-            name: 'Verwalten',
+            name: 'Profildaten',
             route: 'users_admin',
-            section: 'settings',
-            types: ['developer', 'admin', 'user', 'company']
+            section: 'settings'
+          }
+        },
+        user_navigations:{
+          vita:{
+            name: 'Vita',
+            route: 'user_vita',
+            section: 'menu'
+          },
+          accounts:{
+            name: 'Konto',
+            route: 'user_account',
+            section: 'settings'
+          },
+          admin:{
+            name: 'Profildaten',
+            route: 'user_admin',
+            section: 'settings'
           }
         }
       }
     },
     computed:{
       ...mapGetters([
-        'uid',
-        'perm'
+        'uid'
       ]),
+      navigations(){
+        return this.cut_route_name_prefix(this.$route.name) === 'users'
+          ? this.users_navigations
+          : this.user_navigations
+      },
       user_id(){
         return 'id' in this.$route.params
           ? this.$route.params.id
           : this.uid
       }
     },
-    methods:{
-      is_self(){
-        return true
-      }
+    created(){
+      this.$store.commit('update_perm_perm', 0)
     },
     mixins:[Custom_helper, Permission]
   }

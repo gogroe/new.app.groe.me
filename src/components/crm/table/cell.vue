@@ -10,7 +10,7 @@
               class="edit"
               :obj="edit_obj" :reload="{action: 'reload', section:'users_crm'}"/>
         <i class="material-icons add"
-           v-if="active.creating === false" @click="active.creating = true">
+           v-if="active.creating === false && is_perm('create')" @click="active.creating = true">
           add
         </i>
       </div>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+  import Permission from '../../../components/functions/permission'
   import Custom_heler from '../../../components/functions/custom_helper'
   import ClickOutside from 'vue-click-outside'
   import User_visual from "../../../components/user_visual/index";
@@ -182,7 +183,7 @@
     directives: {
       ClickOutside
     },
-    mixins:[Custom_heler]
+    mixins:[Custom_heler, Permission]
   }
 </script>
 

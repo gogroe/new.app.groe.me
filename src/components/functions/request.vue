@@ -36,7 +36,7 @@
         if(response.request_token === this.request_token) {
           this.object.data = response.response
           this.$emit('input', this.object)
-          this.request_token =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+          this.request_token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
         }
       },
 
@@ -72,7 +72,7 @@
     },
     created(){
       this.setObject()
-      this.request_token =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+      this.request_token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     },
   }
 </script>

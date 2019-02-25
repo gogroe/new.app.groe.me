@@ -11,7 +11,7 @@ export default {
   },
   methods:{
     render_list_name(response_data, value){
-      let name = 'test'
+      let name = ''
 
       for(let response_data_key in response_data){
         let list_item = response_data[response_data_key]

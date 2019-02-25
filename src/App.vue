@@ -4,8 +4,8 @@
     <navigation v-if="basic_component"/>
     <div class="main" :class="[{'active_navigation': active_navigation}, {'main_content': basic_component}]">
       <users v-if="cut_route_name_prefix($route.name) === 'users' ||
-                         cut_route_name_prefix($route.name) === 'user' "/>
-      <router-view v-else/>
+                   cut_route_name_prefix($route.name) === 'user' "/>
+      <router-view v-else-if="is_perm('read')"/>
     </div>
   </div>
 </template>
@@ -13,6 +13,7 @@
 <script>
   var cookie = require('js-cookie')
   import Helper from './components/functions/custom_helper'
+  import Permission from './components/functions/permission'
   import { mapGetters } from 'vuex'
   import Users from "./routes/user/index";
   import Global_header from "./components/header/index";
@@ -54,6 +55,7 @@
       }
       this.$store.commit('update_auth', auth)
 
+      this.$store.commit('update_perm_perm', 0)
     },
     methods:{
      set_basic_component: function(){
@@ -70,7 +72,7 @@
         }
       }
     },
-    mixins:[Helper]
+    mixins:[Helper,Permission]
   }
 </script>
 
@@ -195,6 +197,11 @@
   .section_name{
     color: #bbbbbb;
     margin-bottom: 17px;
+  }
+
+  .add_wrapper{
+    width: 100%;
+    height: 43px;
   }
 
 

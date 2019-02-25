@@ -10,6 +10,7 @@
       </p>
     </div>
     <add v-if="active_image === false"
+         :create="true"
          :active="active.upload"
          name="Nutzerbild"
          v-model="active.upload"/>

@@ -2,6 +2,7 @@
   <div>
     <div v-if="active_update === false">
       <add name="Steckbrief"
+           :create="true"
            :active="active.create"
            v-model="active.create"/>
       <create_section v-if="active.create"
