@@ -1,12 +1,12 @@
 <template>
   <div class="permission">
     <ul>
-      <li v-for="(permission, p_key) in request_get_users.data"
-          :key="p_key"
-          :class="{'active': active.navigation === p_key}"
-          @click="active.navigation = p_key">
-        {{translate(p_key)}}
-      </li>
+      <!--<li v-for="(permission, p_key) in request_get_users.data"-->
+          <!--:key="p_key"-->
+          <!--:class="{'active': active.navigation === p_key}"-->
+          <!--@click="active.navigation = p_key">-->
+        <!--{{translate(p_key)}}-->
+      <!--</li>-->
     </ul>
     <div class="content">
       
