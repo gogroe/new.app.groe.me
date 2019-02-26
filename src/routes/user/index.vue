@@ -87,7 +87,7 @@
       }
     },
     created(){
-      this.$store.commit('update_perm_perm', 0)
+      this.$store.commit('update_perm_perm', this.list_permissions['read'])
     },
     mixins:[Custom_helper, Permission]
   }

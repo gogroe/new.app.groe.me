@@ -5,7 +5,8 @@
     <div class="main" :class="[{'active_navigation': active_navigation}, {'main_content': basic_component}]">
       <users v-if="cut_route_name_prefix($route.name) === 'users' ||
                    cut_route_name_prefix($route.name) === 'user' "/>
-      <router-view v-else-if="is_perm('read')"/>
+      <router-view v-else-if="is_perm('read')"
+      />
     </div>
   </div>
 </template>
@@ -55,7 +56,7 @@
       }
       this.$store.commit('update_auth', auth)
 
-      this.$store.commit('update_perm_perm', 0)
+      this.$store.commit('update_perm_perm', this.list_permissions['read'])
     },
     methods:{
      set_basic_component: function(){

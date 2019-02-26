@@ -30,6 +30,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import Load_request from '../../../components/functions/load_request'
+  import Custom_helper from '../../../components/functions/custom_helper'
   import Permission from '../../../components/functions/permission'
   import Admin_user from "./users/index";
   import Admin_contact from "./contact";
@@ -103,10 +104,21 @@
       }
     },
     mounted(){
+      this.set_request_url()
       this.set_user_id(this.request_get_user)
       this.request_get_user.request = true
     },
-    mixins:[Load_request,Permission]
+    methods:{
+      set_request_url(){
+        if(this.cut_route_name_prefix(this.$route.name) === 'user'){
+          this.request_get_user.url = 'https://newbackend.groe.me/user_admin/get_one'
+        }
+        else if(this.cut_route_name_prefix(this.$route.name) === 'users'){
+          this.request_get_user.url = 'https://newbackend.groe.me/users_admin/get_one'
+        }
+      }
+    },
+    mixins:[Load_request,Permission, Custom_helper]
   }
 </script>
 
