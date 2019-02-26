@@ -65,6 +65,7 @@
         case 'signup':
         case 'verification':
         case 'login':
+        case 'notification':
           this.basic_component = false
           break;
         default:

@@ -60,7 +60,7 @@
         navigations_admin:{
           homepage:{
             name: 'Einstellungen',
-            route: 'settings',
+            route: 'appuser',
           },
         }
       }

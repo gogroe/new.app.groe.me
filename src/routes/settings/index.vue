@@ -10,6 +10,7 @@
           </ul>
           <div class="content">
             <permissions v-if="$route.name === 'permissions'"/>
+            <appuser v-if="$route.name === 'appuser'"/>
           </div>
           <div class="clear"></div>
       </div>
@@ -20,16 +21,17 @@
 <script>
   import Permissions from "./permissions/index";
   import Settings_bar from "./bar";
+  import Appuser from "./appuser/index";
   export default {
 
     name: "settings",
-    components: {Settings_bar, Permissions},
+    components: {Appuser, Settings_bar, Permissions},
     data(){
       return{
         navigations:[
           {
             name: 'Nutzer',
-            route: 'user_types'
+            route: 'appuser'
           },
           {
             name: 'Nutzerrechte',

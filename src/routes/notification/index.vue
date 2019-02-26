@@ -1,7 +1,7 @@
 <template>
   <div class="notification default_popup_background">
     <div class="inner_popup">
-      <image v-if="image !== null" :src="image"/>
+      <img v-if="image !== null" :src="image"/>
       <h1 v-if="header !== null">{{header}}</h1>
       <p v-if="content !== null">{{content}}</p>
     </div>
@@ -47,7 +47,14 @@
 <style scoped>
 
   .default_popup_background{
-    background: #fff
+    background: #fff;
+    top:0;
+    height: 100%;
+  }
+
+
+  h1{
+    margin-bottom: 17px;
   }
 
 </style>

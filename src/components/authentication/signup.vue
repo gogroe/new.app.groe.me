@@ -104,9 +104,9 @@
     },
     watch:{
       social_signup_data: function (){
-          this.signup_user.inputs.firstname.value = this.social_signup_data.name
-          this.signup_user.inputs.lastname.value = this.social_signup_data.lastname
-          this.signup_user.inputs.email.value = this.social_signup_data.email
+          this.signup_user.inputs.firstname.input.value = this.social_signup_data.name
+          this.signup_user.inputs.lastname.input.value = this.social_signup_data.lastname
+          this.signup_user.inputs.email.input.value = this.social_signup_data.email
       },
       request_signup_user_data(object){
         if('errors' in object){
