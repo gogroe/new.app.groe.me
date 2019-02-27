@@ -128,7 +128,7 @@ const dependencies = {
       authenticate:'Authentifierung',
       test:'Test',
       list:'Listen',
-      settings_permission:'Nutzer Rechte',
+      settings_permission:'Einstellung Rechte',
       user_admin:'Nutzer Daten (selbst)',
       users_admin:'Nutzer Daten (global)',
       user_account:'Nutzer Konto',
@@ -153,7 +153,8 @@ const dependencies = {
       delete: 'Löschen',
       create: 'Hinzufügen',
       write: 'Editieren',
-      u_head: 'Nutzer Profilkopf'
+      u_head: 'Nutzer Profilkopf',
+      settings_user: 'Einstellung Nutzer'
     }
   },
 

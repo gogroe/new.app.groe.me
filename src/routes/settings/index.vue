@@ -4,6 +4,7 @@
         <settings_bar/>
         <div class="default_box">
           <ul>
+            <h6>EINSTELLUNGEN</h6>
             <li :class="{'active': $route.name === navigation.route}"
                 v-for="(navigation, i) in navigations" :key="i"
                 @click="$router.push({name: navigation.route})">{{navigation.name}}</li>

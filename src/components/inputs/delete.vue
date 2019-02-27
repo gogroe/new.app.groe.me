@@ -1,5 +1,5 @@
 <template>
-  <div class="delete">
+  <div class="delete" v-if="is_perm('delete')">
     <i class="material-icons"
        @click="request_delete.request = true"
        :style="{fontSize: size, color: color}">{{icon}}</i>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  import Permission from '../functions/permission'
   import Load_request from '../functions/load_request'
   import Request from "../functions/request";
 
@@ -65,7 +66,7 @@
     mounted(){
       this.request_delete = this.obj
     },
-    mixins:[Load_request]
+    mixins:[Load_request, Permission]
   }
 </script>
 

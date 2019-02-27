@@ -3,6 +3,7 @@
       <div class="options">
         <p class="section_name">{{translate(name).toUpperCase()}} RECHTE VERWALTEN</p>
         <add :active="active.create"
+             :create="true"
              class="add_create"
              :name="translate(name) + ' Rechte'"
              v-model="active.create"/>

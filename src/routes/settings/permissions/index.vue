@@ -1,6 +1,7 @@
 <template>
   <div class="permission">
     <ul>
+      <h6>RECHTE MENU</h6>
       <li v-for="(permission, p_key) in request_get_permissions.data"
           :key="p_key"
           :class="{'active': active.navigation === p_key}"
@@ -72,11 +73,15 @@
 
   ul{
     float: left;
-    width: 180px;
+    width: 280px;
     height: 100%;
-    padding-top: 36px;
+    padding-top: 27px;
     padding-left: 17px;
     border-right: 1px solid #e6e6e6;
+
+    h6{
+      margin-bottom: 10px;
+    }
 
     li{
       cursor: pointer;
@@ -92,7 +97,7 @@
 
   .content{
     float: left;
-    width: calc(100% - 180px);
+    width: calc(100% - 280px);
   }
 
 </style>
