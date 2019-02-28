@@ -49,16 +49,21 @@
       }
     },
     created(){
-      let cookieData = cookie.getJSON('auth')
-      let auth = {
-        uid: cookieData.uid,
-        token: cookieData.token
-      }
-      this.$store.commit('update_auth', auth)
-
+      this.update_auth()
       this.$store.commit('update_perm_perm', this.list_permissions['read'])
     },
     methods:{
+      update_auth(){
+        let cookieData = cookie.getJSON('auth')
+
+        if('uid' in cookieData && 'token' in cookieData){
+          let auth = {
+            uid: cookieData.uid,
+            token: cookieData.token
+          }
+          this.$store.commit('update_auth', auth)
+        }
+      },
      set_basic_component: function(){
      switch(this.$route.name)
       {

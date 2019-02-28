@@ -1,88 +1,71 @@
 <template>
-  <div class="user_password">
-    <p class="section_name">RECHTE HINZUFÜGEN</p>
-    <inputs :obj="fill_inputs('user_type', create_permission)"
-            :request_data="request_create_permission.data"
-            v-model="create_permission.inputs['user_type'].input"/>
-    <inputs v-if="active.user_role"
-            :obj="fill_inputs('user_role', create_permission)"
-            :request_data="request_create_permission.data"
-            v-model="create_permission.inputs['user_role'].input"/>
-    <inputs :obj="fill_inputs('permission', create_permission)"
-            :request_data="request_create_permission.data"
-            v-model="create_permission.inputs['permission'].input"/>
-    <p class="request_message">{{message}}</p>
-    <button @click="send_create_permission">RECHTE HINZUFÜGEN</button>
-    <request :obj="request_create_permission" v-model="request_create_permission"/>
+  <div class="appuser_create">
+    <add :create="true"
+         :class="{'active': active}"
+         name="Benutzer"
+         :active="active"
+         v-model="active"/>
+    <div v-if="active"
+         class="default_popup_background">
+      <div class="create_popup inner_popup">
+        <create_section create_name="BENUTZER HINZUFÜGEN"
+                        button_name="BENUTZER ERSTELLEN"
+                        :create_inputs="create_user"
+                        :reload="{action: 'reload', section: 'users_crm'}"
+                        v-click-outside="hide"/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import Request from "../../../components/functions/request"
-  import Load_request from "../../../components/functions/load_request"
-  import Edit from "../../../components/inputs/edit"
-  import Custom_helper from '../../../components/functions/custom_helper'
-  import Inputs from "../../../components/inputs/index";
+  import ClickOutside from 'vue-click-outside'
+  import Add from "../../../components/add/index";
+  import Create_section from "../../../components/inputs/create";
 
   export default {
     name: "appuser_create",
-    components:{
-      Inputs,
-      Edit,
-      Request,
-    },
-    props:{
-      type:{
-        required: true
-      },
-      name:{
-        required: true
-      }
-    },
+    components: {Create_section, Add},
     data(){
       return{
-        active: {
-          user_role: false
-        },
-        message: '',
-        request_create_permission: {
-          params: {
-            type: null,
-            name: null
-          },
-          url: 'https://newbackend.groe.me/settings_permission/create',
-          data: {},
-          request: false
-        },
-        create_permission:{
-          url: 'https://newbackend.groe.me/settings_permission/create',
+        active: false,
+        create_user:{
+          url: 'https://newbackend.groe.me/user_crm/user/create',
           input_class:'create_input',
           label_class: 'create_input_label',
           error_class: '',
-          required_params: {},
+          required_params: {
+            type: 2
+          },
           inputs:{
-            user_type: {
-              name: 'Nutzer Typ',
+            role: {
+              name: 'Position',
               type: 'select',
-              select: 'user_type',
+              select: 'user_role',
               input: {
                 value: null,
                 event:null
               }
             },
-            user_role: {
-              name: 'Nutzer Rolle',
-              type: 'select',
-              select: '',
+            firstname: {
+              name: 'Vorname',
+              type: 'text',
               input: {
                 value: null,
                 event:null
               }
             },
-            permission: {
-              name: 'Berichtigung',
-              type: 'select',
-              select: 'permissions',
+            lastname: {
+              name: 'Nachname',
+              type: 'text',
+              input: {
+                value: null,
+                event:null
+              }
+            },
+            email: {
+              name: 'Email',
+              type: 'text',
               input: {
                 value: null,
                 event:null
@@ -92,54 +75,17 @@
         }
       }
     },
-    computed:{
-      user_type(){
-        return this.create_permission.inputs.user_type.input.value
-      },
-      request_create_permission_data(){
-        return this.request_create_permission.data
-      }
-    },
-    watch:{
-      user_type: function(string){
-        if(string !== null){
-          this.active.user_role = true
-          this.create_permission.inputs.user_role.select = this.create_permission.inputs.user_type.input.value + '_role'
-        }
-      },
-      request_create_permission_data: function (object) {
-        this.create_update_reload(object, { action: 'reload', section: 'settings_permission' })
-        this.$emit('input', false)
-      }
-    },
-    mounted(){
-      this.request_create_permission.params.type = this.type
-      this.request_create_permission.params.name = this.name
-    },
     methods:{
-      send_create_permission(){
-        for(let value_key in this.create_permission.inputs){
-          this.request_create_permission.params[value_key] = this.create_permission.inputs[value_key].input.value
-        }
-
-        this.request_create_permission.request = true
-      }
+      hide(){
+        this.active = false
+      },
     },
-    mixins:[Custom_helper, Load_request]
+    directives: {
+      ClickOutside
+    }
   }
 </script>
 
 <style lang="scss" scoped>
-  .add{
-    margin-bottom: 17px;
-  }
 
-  button{
-    margin: 10px 0;
-  }
-
-  .request_message{
-    margin-top: 10px;
-    margin-left: 17px;
-  }
 </style>

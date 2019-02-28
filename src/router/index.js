@@ -30,9 +30,15 @@ export default new Router({
       path: '/settings/permissions',
       name: 'permissions',
       component: settings
-    },{
+    },
+    {
       path: '/settings/appuser',
       name: 'appuser',
+      component: settings
+    },
+    {
+      path: '/settings/tables',
+      name: 'custom_tables',
       component: settings
     },
 

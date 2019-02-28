@@ -25,6 +25,7 @@
 </template>
 
 <script>
+
   import Permission from '../../components/functions/permission'
   import Custom_helper from '../../components/functions/custom_helper'
   import { mapGetters } from 'vuex'

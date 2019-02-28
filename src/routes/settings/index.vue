@@ -12,6 +12,7 @@
           <div class="content">
             <permissions v-if="$route.name === 'permissions'"/>
             <appuser v-if="$route.name === 'appuser'"/>
+            <custom_tables v-if="$route.name === 'custom_tables'"/>
           </div>
           <div class="clear"></div>
       </div>
@@ -23,10 +24,11 @@
   import Permissions from "./permissions/index";
   import Settings_bar from "./bar";
   import Appuser from "./appuser/index";
+  import Custom_tables from "./tables/index";
   export default {
 
     name: "settings",
-    components: {Appuser, Settings_bar, Permissions},
+    components: {Custom_tables, Appuser, Settings_bar, Permissions},
     data(){
       return{
         navigations:[
@@ -40,7 +42,7 @@
           },
           {
             name: 'Tabellen',
-            route: 'tables'
+            route: 'custom_tables'
           },
           {
             name: 'Listen',

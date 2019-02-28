@@ -28,6 +28,8 @@
 </template>
 
 <script>
+  //todo alle user request auf http... users oder user umstellen
+  
   import { mapGetters } from 'vuex'
   import Load_request from '../../../components/functions/load_request'
   import Custom_helper from '../../../components/functions/custom_helper'

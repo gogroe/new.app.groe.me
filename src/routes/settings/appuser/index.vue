@@ -1,20 +1,20 @@
 <template>
   <div class="appuser">
     <ul>
-      <h6>NUTZER MENU</h6>
+      <h6>NUTZER</h6>
       <li v-for="(user, p_key) in request_get_users.data"
           :key="p_key"
           :class="{'active': active.navigation === p_key}"
           @click="active.navigation = p_key">
         <user_visual class="user_visual"
-                     :name="user.firstname + ' ' + user.lastname"
+                     :name="user_name(user)"
                      :path="user.image"
                      size="35"/>
-        <span class="user_name">{{user.firstname + ' ' + user.lastname}}</span>
+        <span class="user_name">{{ user_name(user) }}</span>
       </li>
     </ul>
     <div class="content">
-      <appuser_content/>
+      <appuser_content :user="user_data"/>
     </div>
     <div class="clear"></div>
     <request :obj="request_get_users" v-model="request_get_users"/>
@@ -48,12 +48,16 @@
     },
     computed:{
       ...mapGetters([
-        'reload'
+        'reload',
+        'list_user_types'
       ]),
       user_data(){
         return this.active.navigation in this.request_get_users.data
           ? this.request_get_users.data[this.active.navigation]
           : {}
+      },
+      request_get_user_data(){
+        return this.request_get_users.data
       }
     },
     watch:{
@@ -63,9 +67,21 @@
           this.request_get_users.request = true
         }
       },
+      request_get_user_data: function (array){
+        if(array.length > 0){
+          this.active.navigation = 0
+        }
+      }
     },
     mounted(){
       this.request_get_users.request = true
+    },
+    methods:{
+      user_name(user){
+        return  user.type == this.list_user_types['company']
+          ? user.name
+          : user.firstname + ' ' + user.lastname
+      },
     },
     mixins:[Custom_helper]
   }
@@ -73,7 +89,7 @@
 
 <style lang="scss" scoped>
 
-  .permission{
+  .appuser{
     height: 100%;
   }
 

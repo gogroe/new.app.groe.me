@@ -1,5 +1,5 @@
 <template>
-    <div class="permission_table">
+    <div class="permission_content">
       <div class="options">
         <p class="section_name">{{translate(name).toUpperCase()}} RECHTE VERWALTEN</p>
         <add :active="active.create"
@@ -84,7 +84,7 @@
     import Delete from "../../../components/inputs/delete";
     
     export default {
-      name: "permission_table",
+      name: "permission_content",
       props:{
         permissions:{
           type: Object,
@@ -123,7 +123,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .permission_table{
+  .permission_content{
     position: relative;
     max-width: 600px;
     width: 100%;
