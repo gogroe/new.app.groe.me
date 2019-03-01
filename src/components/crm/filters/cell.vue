@@ -8,6 +8,7 @@
             @click="active.filter = !active.filter">
         {{column.name}}
       </span>
+      <bubble text="aaaaa" info_link="a" :size="200"/>
       <i class="material-icons">drag_handle</i>
     </div>
     <div class="column_filter"
@@ -16,18 +17,21 @@
               :request_data="[]"
               v-model="filter"/>
     </div>
+
   </div>
 </template>
 
 <script> //todo select filter ar not displayed in current filter
   import checkbox from '../../../components/checkbox'
+  import bubble from '../../../components/bubble'
   import Inputs from "../../../components/inputs/index";
 
   export default {
     name: "filter_cell",
     components:{
       Inputs,
-      checkbox
+      checkbox,
+      bubble
     },
     props:{
       column:{

@@ -15,6 +15,8 @@ import users_account from '@/routes/user/account'
 import users_vita from '@/routes/user/vita'
 import users_admin from '@/routes/user/admin'
 
+import not_found from '@/routes/not_found'
+
 Vue.use(Router)
 
 export default new Router({
@@ -103,6 +105,17 @@ export default new Router({
       path: '/users/:id/admin',
       name: 'users_admin',
       component: users_admin
-    }
+    },
+    // 404
+    {
+      path: '/404',
+      name: 'not_found',
+      component: not_found
+    },
+    {
+      path: '*',
+      redirect: '/404'
+    },
+
   ]
 })

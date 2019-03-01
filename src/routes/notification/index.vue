@@ -30,8 +30,9 @@
       this.type = 'type' in this.notification
         ? this.notification.type
         : null
+        console.log(this.notification.type);
       this.image = 'image' in this.notification
-        ? this.notification.image
+        ? this.image = this.notification.image
         : null
       this.header = 'header' in this.notification
         ? this.notification.header

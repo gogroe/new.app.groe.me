@@ -26,9 +26,13 @@
             </tr>
             </tbody>
           </table>
-        </td></tr></table>
+        </td></tr>
+      </table>
         <div style="clear: both;">&nbsp;</div>
       </div>
+      <placeholders v-if="!active.table"
+                    request_get_data="columns"
+                    placeholder_type="table"/>
     </div>
     <div class="table_footer">
       <table_limit_offset :request_data="request_data"/>
@@ -91,6 +95,7 @@
 
   import $ from 'jquery'
   import preload from '../../../components/functions/preload'
+  import placeholders from '../../../components/gray_placeholders'
   import custom_helper from '../../../components/functions/custom_helper'
   import Table_cell from "./cell";
   import Table_limit_offset from "./limit_offset";
@@ -98,7 +103,7 @@
 
   export default {
     name: "crm_table",
-    components: {Table_sorting, Table_limit_offset, Table_cell},
+    components: {Table_sorting, Table_limit_offset, Table_cell, placeholders},
     props:{
       request_data:{
         //type: 'Array',

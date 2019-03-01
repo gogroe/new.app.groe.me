@@ -71,6 +71,7 @@
         case 'verification':
         case 'login':
         case 'notification':
+        case '404':
           this.basic_component = false
           break;
         default:
