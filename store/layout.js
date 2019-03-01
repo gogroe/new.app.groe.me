@@ -12,6 +12,14 @@ const layout = {
       image: null,
       type: "visitor",
     },
+    bubble: {
+      text: null,
+      info_link: null,
+      size: 200,
+      show: false,
+      x: 0,
+      y: 0
+    },
     user_navigation: [],
     user_profiles: [],
     user_vitas: [],
@@ -20,6 +28,9 @@ const layout = {
   },
 
   mutations: {
+    update_bubble(state, object){
+      state.bubble = object
+    },
     update_header(state, object){
       state.header = object
     },
@@ -44,6 +55,9 @@ const layout = {
   },
 
   getters: {
+    get_bubble(state){
+      return state.bubble
+    },
     get_header(state){
       return state.header
     },

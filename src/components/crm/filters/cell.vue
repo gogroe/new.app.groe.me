@@ -7,8 +7,8 @@
       <span class="column_name" :class="{'active': active.filter}"
             @click="active.filter = !active.filter">
         {{column.name}}
+        <set_x_y text="aaaaaaaaaaaaaa"/>
       </span>
-      <bubble text="aaaaa" info_link="a" :size="200"/>
       <i class="material-icons">drag_handle</i>
     </div>
     <div class="column_filter"
@@ -23,16 +23,12 @@
 
 <script> //todo select filter ar not displayed in current filter
   import checkbox from '../../../components/checkbox'
-  import bubble from '../../../components/bubble'
+  import set_x_y from '../../../components/bubble/set_x_and_y'
   import Inputs from "../../../components/inputs/index";
 
   export default {
     name: "filter_cell",
-    components:{
-      Inputs,
-      checkbox,
-      bubble
-    },
+    components:{Inputs, checkbox, set_x_y},
     props:{
       column:{
         required: true

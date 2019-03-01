@@ -2,6 +2,7 @@
   <div id="app">
     <global_header v-if="basic_component"/>
     <navigation v-if="basic_component"/>
+    <bubble/>
     <div class="main" :class="[{'active_navigation': active_navigation}, {'main_content': basic_component}]">
       <users v-if="cut_route_name_prefix($route.name) === 'users' ||
                    cut_route_name_prefix($route.name) === 'user' "/>
@@ -14,6 +15,7 @@
 <script>
   var cookie = require('js-cookie')
   import Helper from './components/functions/custom_helper'
+  import Bubble from './components/bubble'
   import Permission from './components/functions/permission'
   import { mapGetters } from 'vuex'
   import Users from "./routes/user/index";
@@ -25,7 +27,8 @@
     components: {
       Navigation,
       Global_header,
-      Users
+      Users,
+      Bubble
     },
     data(){
       return{
