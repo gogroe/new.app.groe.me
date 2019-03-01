@@ -1,7 +1,7 @@
 <template>
   <div class="table_cell"
        v-click-outside="hide">
-    <div v-if="column.type === 'text' || column.type === 'select'">
+    <div v-if="column.type === 'text' || column.type === 'select' || column.type === 'date'">
       <div v-if="active.create">
         <edit v-if="active.creating && column.indicator === false"
               class="edit"
@@ -20,6 +20,7 @@
       <div v-if="active.edit === false && active.create === false"
          @click="active.edit = !active.edit">
         <p v-if="column.type === 'select'">{{list_value}}</p>
+        <p v-else-if="column.type === 'date'"><ddmmmyy :timestamp="cell.name" color="#333333"/> </p>
         <p v-else>{{cell.name}}</p>
       </div>
     </div>
@@ -48,10 +49,11 @@
   import Request from "../../../components/functions/request";
   import Inputs from "../../../components/inputs/index";
   import List from "../../../components/list/index";
+  import Ddmmmyy from "../../date/ddmmmyy";
 
   export default {
     name: "table_cell",
-    components: {List, Inputs, Request, Edit, User_visual},
+    components: {Ddmmmyy, List, Inputs, Request, Edit, User_visual},
     props:{
       column:{
         required: true
@@ -87,7 +89,7 @@
           error_class: 'input_error'
         },
         list:[],
-        list_value: null
+        list_value: null,
       }
     },
     mounted(){

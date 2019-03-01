@@ -56,6 +56,20 @@ const dependencies = {
       like : 14,
       tag : 15,
       media : 16,
+      position : 17,
+      adress : 18,
+      contact : 19,
+      bank : 20,
+      ip : 21,
+      lists : 22,
+      secret : 23,
+      relations : 24,
+      date : 25,
+      description : 26,
+      gender : 27,
+      permission : 28,
+      table_field : 29,
+      field : 30
     },
 
     user_types: {

@@ -45,6 +45,9 @@ const request = {
     reload(state){
       return state.reload
     },
+    auth(state){
+      return state.auth
+    },
     uid(state){
       return state.auth.uid
     },
@@ -101,7 +104,7 @@ const request = {
       let request = {}
       request.headers = { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8' }
 
-      if (state.auth.userid && state.auth.token)
+      if (state.auth.uid && state.auth.token)
       {
         request.uid = state.auth.uid
         request.token = state.auth.token

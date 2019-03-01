@@ -7,7 +7,7 @@
       </li>
     </ul>
     <div class="content">
-
+      <tables_content name="Tables"/>
     </div>
     <div class="clear"></div>
   </div>
@@ -15,16 +15,11 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import Custom_helper from '../../../components/functions/custom_helper'
+  import Tables_content from "./content";
 
   export default {
     name: "custom_tables",
-    data(){
-      return {
-
-      }
-    },
-    mixins:[Custom_helper]
+    components: {Tables_content},
   }
 </script>
 

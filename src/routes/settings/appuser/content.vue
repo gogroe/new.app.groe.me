@@ -10,9 +10,7 @@
                 :reload="{action: 'reload', section:'users_admin'}"/>
         </div>
         <div class="section">
-          <button>
-            <delete :obj="{}" icon="delete_outline" class="delete"/> NUTZER LOSCHEN
-          </button>
+          <delete :obj="request_delete_user" icon="delete_outline" class="delete" name="NUTZER LÖSCHEN"/>
         </div>
       </div>
     </div>
@@ -75,7 +73,7 @@
         create_user:{
           url: 'https://newbackend.groe.me/user_vita/vita/create',
           input_class:'create_input',
-          label_class: 'create_input_label',
+          label_class: 'edit_input_label',
           error_class: '',
           required_params: {},
           inputs:{
@@ -151,7 +149,23 @@
               }
             }
           }
-        }
+        },
+        request_delete_user:{
+          params: {
+            user_id: null,
+          },
+          url: 'https://newbackend.groe.me/settings_user/delete',
+          data: {},
+          request: false
+        },
+      }
+    },
+    mounted(){
+      this.request_delete_user.params.user_id = this.user.id
+    },
+    watch:{
+      user: function (object) {
+        this.request_delete_user.params.user_id = object.id
       }
     },
     computed:{
@@ -190,16 +204,10 @@
     margin-top: 47px;
    }
 
-  button{
+  .delete{
     padding: 5px 43px;
     color: #bababa;
     margin-left:calc( 50% - 127px);
-
-    .delete{
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 17px;
-    }
   }
 
 </style>

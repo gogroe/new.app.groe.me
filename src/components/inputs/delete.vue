@@ -1,8 +1,7 @@
 <template>
-  <div class="delete" v-if="is_perm('delete')">
+  <div class="delete" v-if="is_perm('delete')"  @click="request_delete.request = true">
     <i class="material-icons"
-       @click="request_delete.request = true"
-       :style="{fontSize: size, color: color}">{{icon}}</i>
+       :style="{fontSize: size, color: color}">{{icon}}</i> <span v-if="name !== undefined"  :style="{color: color}">{{name}}</span>
     <request :obj="request_delete" v-model="request_delete"/>
   </div>
 </template>
@@ -23,6 +22,10 @@
       icon:{
         type: String,
         required: true
+      },
+      name:{
+        type: String,
+        required: false
       },
       reload:{
         type: Object,
@@ -72,13 +75,22 @@
 
 <style lang="scss" scoped>
 
-  i{
+  .delete{
     cursor: pointer;
-    font-size: 24px;
 
     &:hover{
       color: #3da0f5;
     }
   }
+
+  i{
+    font-size: 24px;
+    vertical-align: middle;
+  }
+
+  span{
+    margin-left: 17px;
+  }
+
 
 </style>

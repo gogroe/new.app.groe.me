@@ -10,7 +10,7 @@
                    :request_data="request_users.data"
                    :columns_settings="columns_settings"
                    :request_groups="request_groups"/>
-        <crm_filter class="floater" :columns="columns_settings"/>
+        <crm_filter class="floater" :columns="columns_settings" :store_columns="stored_columns_settings"/>
       </div>
       <div class="clear"></div>
     </div>
@@ -124,24 +124,6 @@
             request_group: 'users',
              rows: []
           },
-          'users.role':{
-            id: 'users.role',
-            name: 'Position',
-            type: 'select',
-            select: 'user_role',
-            edit: false,
-            request_group: 'users',
-             rows: []
-          },
-          'gender.value':{
-            id: 'gender.value',
-            name: 'Geschlecht',
-            type: 'select',
-            select: 'gender',
-            edit: true,
-            request_group: 'gender',
-             rows: []
-          },
           'status.value':{
             id: 'status.value',
             name: 'Status',
@@ -161,7 +143,7 @@
             rows: []
           },
         },
-        stored_columns_settings:{}
+        stored_columns_settings:{},
       }
     },
     computed:{
@@ -174,13 +156,15 @@
         'users_crm_limit_offset',
       ]),
       request_users_data(){
-        return this.request_users.data.rows
+        return this.request_users.data
       }
     },
     watch:{
-      request_users_data:function(){
-        this.set_link(this.request_users.data.rows)
-        this.set_image_data(this.request_users.data.rows)
+      request_users_data:function(object){
+        this.build_custom_fields(object.fields)
+        this.set_link(object.rows)
+        this.set_image_data(object.rows)
+        this.stored_columns_settings = this.columns_settings
       },
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'users_crm'){
@@ -205,6 +189,55 @@
       this.request_users.request = true
     },
     methods:{
+      build_custom_fields(table_fields){
+
+        let request_groups = {}
+        let columns_settings = {}
+
+        for(let table_fields_key in table_fields){
+          let field = table_fields[table_fields_key]
+
+          let relation_type = 'users'
+          for(let relation_key in this.list_relations){
+            if(this.list_relations[relation_key] === field.relation_type){
+              relation_type = relation_key
+            }
+          }
+
+          //build request_groups
+          if((field.name in request_groups) === false){
+
+            request_groups[field.name] = {
+              indicator: false,
+              required_params: {
+                relation_id: 'get_' + relation_type + '.id',
+                table: relation_type,
+                name: field.name
+
+              },
+              create_url: 'https://newbackend.groe.me/custom_field/create',
+              edit_url: 'https://newbackend.groe.me/custom_field/update',
+            }
+          }
+
+          //build column_settings
+          columns_settings[field.name + '.value'] = {
+            id: field.name + '.value',
+            name: field.name.charAt(0).toUpperCase() + field.name.slice(1),
+            type: field.field_type,
+            edit: true,
+            request_group: field.name,
+            rows: []
+          }
+
+          if(field.field_type === 'select'){
+            columns_settings[field.name + '.value']['select'] = relation_type + '_' + field.name
+          }
+        }
+
+        Object.assign(this.request_groups, request_groups)
+        Object.assign(this.columns_settings, columns_settings)
+      },
       set_request_param_filters_condtions(table, type, prams_key, param){
         if((table in this.request_users.params) === false){
           this.request_users.params[table] = {}
