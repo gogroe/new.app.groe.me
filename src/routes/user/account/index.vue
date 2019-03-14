@@ -8,46 +8,49 @@
            class="add_feed"/>
     </div>
     <h6>TRANSAKTIONEN</h6>
-    <div class="create_account default_box" v-if="active.create">
-      <create_section create_name="TRANSAKTION HINZUFÜGEN"
-                      button_name="TRANSAKTION ERSTELLEN"
-                      :create_inputs="create_user_account"
-                      v-model="request_create_user_account"/>
+    <div class="create_box default_box" v-if="active.create">
+      <edit_elements
+        name="TRANSAKTION HINZUFÜGEN"
+        button="TRANSAKTION ERSTELLEN"
+        :url="create_user_account.url"
+        :inputs="create_user_account.inputs"
+        :params="create_user_account.params"
+        :reload="create_user_account.reload"
+        method="create"/>
     </div>
     <ul class="default_box account_menu">
-      <li @click="active.menu = i"
-          :class="{'active': active.menu === i}"
+      <li @click="active.menu = item.name"
+          :class="{'active': active.menu === item.name}"
           v-for="(item, i) in menu_items"
           :key="i">{{item.name}}
       </li>
     </ul>
-    <all_accounts v-if="active.menu === 0"/>
-    <credit_accounts v-if="active.menu === 2"/>
-    <debit_accounts v-if="active.menu === 1"/>
+    <account_balance :request_accounts_data="cLoad.data"/>
+    <accounts_table :request_get_accounts="cLoad" :options="options"/>
   </div>
 </template>
 <script>
-  import Load_request from '../../../components/functions/load_request'
-  import Custom_helper from '../../../components/functions/custom_helper'
-  import All_accounts from "./all_accounts";
+  import { mapGetters } from 'vuex'
+  import Accounts_table from "../../../components/accounts/index";
+  import Account_balance from "../../../components/accounts/balance";
   import Add from "../../../components/add/index";
-  import Credit_accounts from "./credit_accounts";
-  import Debit_accounts from "./debit_accounts";
   import Create_section from "../../../components/inputs/create";
+  import Edit_elements from "../../../components/edit/elements";
+  import loader from "../../../components/functions/loader";
 
   export default {
     name: "accounts",
     components:{
+      Edit_elements,
       Create_section,
-      Debit_accounts,
-      Credit_accounts,
       Add,
-      All_accounts,
+      Account_balance,
+      Accounts_table,
     },
     data(){
       return {
         active:{
-          menu: 0,
+          menu: 'ALLE',
           create: false
         },
         menu_items:[
@@ -55,13 +58,10 @@
           { name: 'EINGANG' },
           { name: 'AUSGANG' },
         ],
-        request_create_user_account:{},
         create_user_account:{
           url: 'https://newbackend.groe.me/user_account/create',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
+          reload: {action: 'reload', section: 'accounts'},
+          params: {
             currency: 'EUR',
             user_id: null,
             description: 'Manuelle Transaktion',
@@ -70,33 +70,89 @@
             value: {
               name: 'Betrag in Euro',
               type: 'number',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null,
+              placeholder: 'Betrag in Euro'
             },
             date: {
               name: 'Buchungsdatum',
               type: 'date',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null,
+              placeholder: 'Buchungsdatum'
             }
           }
-        }
+        },
+        cLoad:{
+          url: 'https://newbackend.groe.me/user_account/get_all',
+          params: {
+            user_id: null,
+            //AUSGANG 'smaller->value': 0
+            //EINGANG 'bigger->value': -1
+          },
+          data: {},
+        },
+        options:[
+          {
+            name: 'bearbeiten',
+            value: 'edit'
+          }
+        ],
+      }
+    },
+    computed:{
+      ...mapGetters([
+        'reload'
+      ]),
+      active_menu () {
+        return this.active.menu
       }
     },
     watch:{
-      request_create_user_account:function (object) {
-        this.create_update_reload(object, {action: 'reload', section: 'accounts'})
-        this.active.create = false
+      reload: function (object) {
+        if(object.action === 'reload' && object.section === 'accounts'){
+          this.$store.commit('update_reload', {action: 'reload', section: 'header'})
+          this.get_cLoad()
+          this.active.create = false
+        }
+      },
+      active_menu: function () {
+        this.get_cLoad()
       }
     },
     mounted(){
-      this.set_inputs_user_id(this.create_user_account)
+      this.set_user_id(this.create_user_account)
+      this.set_user_id(this.cLoad)
+      this.get_cLoad()
     },
-    mixins:[Load_request, Custom_helper]
+    methods:{
+      get_cLoad () {
+        switch(this.active.menu){
+          case 'ALLE':
+            if( 'smaller->value' in  this.cLoad.params){
+              delete this.cLoad.params['smaller->value']
+            }
+            if( 'bigger->value' in  this.cLoad.params){
+              delete this.cLoad.params['bigger->value']
+            }
+            break
+          case 'EINGANG':
+            if( 'smaller->value' in  this.cLoad.params){
+              delete this.cLoad.params['smaller->value']
+            }
+            this.cLoad.params['bigger->value'] =  -1
+            break
+          case 'AUSGANG':
+            if( 'bigger->value' in  this.cLoad.params){
+              delete this.cLoad.params['bigger->value']
+            }
+            this.cLoad.params['smaller->value'] =  0
+            break
+        }
+
+        this.$$request.post.data(this.cLoad.url, this.cLoad.params)
+          .then((response) => this.cLoad.data = response)
+      },
+    },
+    mixins:[loader]
   }
 </script>
 
@@ -131,6 +187,7 @@
 
   .create_account{
     margin-bottom: 17px;
+    padding-left: 34px
   }
 
 </style>

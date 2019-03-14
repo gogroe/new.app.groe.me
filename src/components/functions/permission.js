@@ -2,11 +2,6 @@ import { mapGetters} from 'vuex'
 
 export default {
   name: 'permission',
-  data(){
-    return{
-
-    }
-  },
   computed:{
     ...mapGetters([
       'uid',

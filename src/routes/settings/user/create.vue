@@ -1,5 +1,5 @@
 <template>
-  <div class="appuser_create">
+  <div class="settings_user_create">
     <add :create="true"
          :class="{'active': active}"
          name="Benutzer"
@@ -24,7 +24,7 @@
   import Create_section from "../../../components/inputs/create";
 
   export default {
-    name: "appuser_create",
+    name: "settings_user_create",
     components: {Create_section, Add},
     data(){
       return{

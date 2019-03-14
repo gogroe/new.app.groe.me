@@ -38,6 +38,10 @@
       columns:{
         type: Object,
         required: true
+      },
+      store_columns:{
+        type: Object,
+        required: true
       }
     },
     data(){
@@ -52,11 +56,15 @@
         stored_columns:{}
       }
     },
-    mounted(){
-      this.stored_columns = this.columns
-      this.load_array()
-    },
+    // mounted(){
+    //   this.stored_columns = this.columns
+    //   this.load_array()
+    // },
     watch:{
+      store_columns: function(){
+        this.stored_columns = this.store_columns
+        this.load_array()
+      },
       sort_array: {
         handler:function(array){
           this.set_order(array)
@@ -81,6 +89,8 @@
         }
       },
       load_array: function(){
+        this.sort_array = []
+
         for(let columns_key in this.stored_columns){
           let column = this.stored_columns[columns_key]
 
@@ -99,10 +109,11 @@
           if(this.object_length(this.unsets) === 0){
             this.order.push(sort_item.id)
           }
-          else{
-            if(this.unsets[sort_item.id]){
+          else if(this.unsets[sort_item.id]){
               this.order.push(sort_item.id)
-            }
+          }
+          else if((sort_item.id in this.unsets) === false){
+            this.order.push(sort_item.id)
           }
         }
         this.$store.commit('update_users_crm_order', this.order)

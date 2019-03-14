@@ -1,25 +1,27 @@
 <template>
   <div class="user_bank">
     <p class="section_name">NUTZER BANKDATEN</p>
-    <create_update name="bank"
-                   :create_inputs="create_bank"
-                   :update_inputs="update_bank"
-                   :request_get_data="request_get_user_bank"
-                   :reload="{action: 'reload', section: 'users_admin'}"/>
+    <div class="section_wrapper">
+      <edit_section
+        name="Bank"
+        :create="create_bank"
+        :update="update_bank"
+        :cload="cload"/>
+    </div>
   </div>
 </template>
 
 <script>
-  import Load_request from "../../../components/functions/load_request"
-  import Create_update from "../../../components/inputs/create_update";
+  import Edit_section from "../../../components/edit/section";
+  import loader from "../../../components/functions/loader";
 
   export default {
-    name: "user_contact",
+    name: "user_bank",
     components:{
-      Create_update,
+      Edit_section,
     },
     props:{
-      request_get_user_bank:{
+      cload:{
         required:true
       }
     },
@@ -27,12 +29,10 @@
       return{
         update_bank:{
           url: 'https://newbackend.groe.me/user_admin/bank/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
-            id: null
+          reload:{action: 'reload', section: 'users_admin'},
+          params: {
+            user_id: null,
+            id: 'get->id'
           },
           inputs:{
             iban: {
@@ -62,75 +62,52 @@
             country: {
               name: 'Land',
               type: 'select',
-              select: 'countrys',
+              list: 'countrys',
             }
           }
         },
         create_bank:{
           url: 'https://newbackend.groe.me/user_admin/bank/create',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
+          reload:{action: 'reload', section: 'users_admin'},
+          params: {
             user_id: this.$route.params.id,
           },
           inputs:{
             iban: {
               name: 'IBAN',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             },
             swift: {
               name: 'SWIFT',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             },
             name: {
               name: 'Bankname',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             },
             street: {
               name: 'Straße',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             },
             zip: {
               name: 'Postleitzahl',
               type: 'number',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             },
             city: {
               name: 'Stadt',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             },
             country: {
               name: 'Land',
               type: 'select',
-              select: 'countrys',
-              input: {
-                value: null,
-                event:null
-              }
+              list: 'countrys',
+              value: null
             }
           }
         }
@@ -143,24 +120,18 @@
     },
     watch:{
       route_id: function(){
-        this.set_inputs_user_id(this.create_bank)
-        this.set_inputs_user_id(this.update_bank)
+        this.set_all_user_ids ()
       }
     },
     mounted(){
-      this.set_inputs_user_id(this.create_bank)
-      this.set_inputs_user_id(this.update_bank)
+      this.set_all_user_ids ()
     },
-    mixins:[Load_request]
+    methods:{
+      set_all_user_ids () {
+        this.set_user_id(this.create_bank)
+        this.set_user_id(this.update_bank)
+      }
+    },
+    mixins:[loader]
   }
 </script>
-
-<style lang="scss" scoped>
-  .add{
-    margin-bottom: 17px;
-  }
-
-  button{
-    margin: 10px 0;
-  }
-</style>

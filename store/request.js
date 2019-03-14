@@ -17,6 +17,7 @@ const request = {
       type: null,
       role: null
     },
+    errors: []
   },
 
   mutations: {
@@ -29,6 +30,9 @@ const request = {
     update_auth (state, object) {
       state.auth.uid = object.uid
       state.auth.token = object.token
+    },
+    update_errors (state, object) {
+      state.errors.push(object)
     },
     update_perm (state, object) {
       state.perm = object
@@ -44,6 +48,12 @@ const request = {
     },
     reload(state){
       return state.reload
+    },
+    auth(state){
+      return state.auth
+    },
+    errors(state){
+      return state.errors
     },
     uid(state){
       return state.auth.uid
@@ -101,7 +111,7 @@ const request = {
       let request = {}
       request.headers = { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8' }
 
-      if (state.auth.userid && state.auth.token)
+      if (state.auth.uid && state.auth.token)
       {
         request.uid = state.auth.uid
         request.token = state.auth.token

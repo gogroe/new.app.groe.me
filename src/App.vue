@@ -6,13 +6,14 @@
     <div class="main" :class="[{'active_navigation': active_navigation}, {'main_content': basic_component}]">
       <users v-if="cut_route_name_prefix($route.name) === 'users' ||
                    cut_route_name_prefix($route.name) === 'user' "/>
-      <router-view v-else-if="is_perm('read')"
-      />
+      <router-view v-else-if="is_perm('read')"/>
     </div>
+    <snotes class="system_notes"/>
   </div>
 </template>
 
 <script>
+  import Snotes from "./components/snotes/index";
   var cookie = require('js-cookie')
   import Helper from './components/functions/custom_helper'
   import Bubble from './components/bubble'
@@ -25,6 +26,7 @@
   export default {
     name: 'App',
     components: {
+      Snotes,
       Navigation,
       Global_header,
       Users,
@@ -57,12 +59,12 @@
     },
     methods:{
       update_auth(){
-        let cookieData = cookie.getJSON('auth')
+        let cookie_auth = cookie.getJSON('auth')
 
-        if('uid' in cookieData && 'token' in cookieData){
+        if(cookie_auth !== undefined){
           let auth = {
-            uid: cookieData.uid,
-            token: cookieData.token
+            uid: cookie_auth.uid,
+            token: cookie_auth.token
           }
           this.$store.commit('update_auth', auth)
         }
@@ -175,10 +177,6 @@
   }
 
 
-
-
-
-
   ////////////////////////////////////////////////////////////////////////////////// Box-Modes
 
   .default_box{
@@ -195,19 +193,20 @@
     .head{
       padding-bottom: 27px;
     }
+  }
 
-    .content{
-
-    }
-
-    .footer{
-
-    }
+  .create_box{
+    padding: 27px 17px;
+    margin-bottom: 17px;
   }
 
   .section_name{
     color: #bbbbbb;
     margin-bottom: 17px;
+  }
+
+  .section_wrapper{
+    margin-left: 17px;
   }
 
   .add_wrapper{
@@ -497,6 +496,12 @@
 
   ////////////////////////////////////////////////////////////////////////////////// Component classes images
 
+  .system_notes{
+    position: fixed;
+    top:90px;
+    left: calc(50% - 150px)
+  }
+
   hr{
     display: block;
     height: 1px;
@@ -508,6 +513,19 @@
 
   .clear{
     clear: both;
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////////// Animation
+
+  @-webkit-keyframes fadeinout {
+    0%,100% { opacity: 0; }
+    5% { opacity: 1; }
+  }
+
+  @keyframes fadeinout {
+    0%,100% { opacity: 0; }
+    5% { opacity: 1; }
   }
 
 </style>

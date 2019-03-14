@@ -1,25 +1,27 @@
 <template>
   <div class="user_adress">
     <p class="section_name">NUTZER ADRESSE</p>
-    <create_update name="phone"
-                   :create_inputs="create_adress"
-                   :update_inputs="update_adress"
-                   :request_get_data="shipping_adress"
-                   :reload="{action: 'reload', section: 'users_admin'}"/>
+    <div class="section_wrapper">
+      <edit_section
+        name="Telefon"
+        :create="create_adress"
+        :update="update_adress"
+        :cload="shipping_adress"/>
+    </div>
   </div>
 </template>
 
 <script>
-  import Load_request from "../../../components/functions/load_request"
-  import Create_update from "../../../components/inputs/create_update";
+  import Edit_section from "../../../components/edit/section";
+  import loader from "../../../components/functions/loader";
 
   export default {
     name: "user_contact",
     components: {
-      Create_update,
+      Edit_section,
     },
     props:{
-      request_get_user_adress:{
+      cload:{
         required:true
       }
     },
@@ -27,12 +29,10 @@
       return{
         update_adress:{
           url: 'https://newbackend.groe.me/user_admin/adress/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
-            id: null,
+          reload: {action: 'reload', section: 'users_admin'},
+          params: {
+            user_id: null,
+            id: 'get->id',
             type: 'shipping'
           },
           inputs:{
@@ -51,52 +51,38 @@
             country: {
               name: 'Land',
               type: 'select',
-              select: 'countrys',
+              list: 'countrys',
             }
           }
         },
         create_adress:{
           url: 'https://newbackend.groe.me/user_admin/adress/create',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
+          reload: {action: 'reload', section: 'users_admin'},
+          params: {
+            user_id: null,
             type: 'shipping'
           },
           inputs:{
             street: {
               name: 'Straße',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             },
             zip: {
               name: 'Postleitzahl',
               type: 'number',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             },
             city: {
               name: 'Stadt',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             },
             country: {
               name: 'Land',
               type: 'select',
-              select: 'countrys',
-              input: {
-                value: null,
-                event:null
-              }
+              list: 'countrys',
+              value: null
             }
           }
         }
@@ -107,21 +93,25 @@
         return this.$route.params.id
       },
       shipping_adress(){
-        return 'shipping' in this.request_get_user_adress && this.request_get_user_adress.shipping !== null
-          ? this.request_get_user_adress.shipping
+        return 'shipping' in this.cload && this.cload.shipping !== null
+          ? this.cload.shipping
           : {}
       },
     },
     watch:{
       route_id: function(){
-        this.set_inputs_user_id(this.create_adress)
-        this.set_inputs_user_id(this.update_adress)
+        this.set_all_user_ids ()
       }
     },
     mounted(){
-      this.set_inputs_user_id(this.create_adress)
-      this.set_inputs_user_id(this.update_adress)
+      this.set_all_user_ids ()
     },
-    mixins:[Load_request]
+    methods:{
+      set_all_user_ids () {
+        this.set_user_id(this.create_adress)
+        this.set_user_id(this.update_adress)
+      }
+    },
+    mixins:[loader]
   }
 </script>

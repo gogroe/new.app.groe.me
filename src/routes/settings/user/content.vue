@@ -1,5 +1,5 @@
 <template>
-    <div class="appuser_content">
+    <div class="settings_user_content">
       <div class="content">
         <p class="section_name">{{ user_name.toUpperCase() }} VERWALTEN</p>
        <appuser_create class="add_create"/>
@@ -10,9 +10,7 @@
                 :reload="{action: 'reload', section:'users_admin'}"/>
         </div>
         <div class="section">
-          <button>
-            <delete :obj="{}" icon="delete_outline" class="delete"/> NUTZER LOSCHEN
-          </button>
+          <delete :obj="request_delete_user" icon="delete_outline" class="delete" name="NUTZER LÖSCHEN"/>
         </div>
       </div>
     </div>
@@ -28,7 +26,7 @@
   import Delete from "../../../components/inputs/delete";
 
   export default {
-    name: "appuser_content",
+    name: "settings_user_content",
     components: {Delete, Appuser_create, Create_section, Inputs, Add, Edit},
     props:{
       user:{
@@ -75,7 +73,7 @@
         create_user:{
           url: 'https://newbackend.groe.me/user_vita/vita/create',
           input_class:'create_input',
-          label_class: 'create_input_label',
+          label_class: 'edit_input_label',
           error_class: '',
           required_params: {},
           inputs:{
@@ -151,7 +149,23 @@
               }
             }
           }
-        }
+        },
+        request_delete_user:{
+          params: {
+            user_id: null,
+          },
+          url: 'https://newbackend.groe.me/settings_user/delete',
+          data: {},
+          request: false
+        },
+      }
+    },
+    mounted(){
+      this.request_delete_user.params.user_id = this.user.id
+    },
+    watch:{
+      user: function (object) {
+        this.request_delete_user.params.user_id = object.id
       }
     },
     computed:{
@@ -165,7 +179,7 @@
 
 <style lang="scss" scoped>
 
-  .appuser_content{
+  .settings_user_content{
     position: relative;
     max-width: 600px;
     //width: 100%;
@@ -190,16 +204,10 @@
     margin-top: 47px;
    }
 
-  button{
+  .delete{
     padding: 5px 43px;
     color: #bababa;
     margin-left:calc( 50% - 127px);
-
-    .delete{
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 17px;
-    }
   }
 
 </style>

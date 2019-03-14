@@ -24,7 +24,8 @@ const layout = {
     user_profiles: [],
     user_vitas: [],
     user_progress: [],
-    lists:{}
+    lists:{},
+    dlists:{}
   },
 
   mutations: {
@@ -51,6 +52,9 @@ const layout = {
     },
     update_lists(state, object){
       state.lists[object.list_group] = object.list
+    },
+    update_dlists(state, object){
+      state.dlists[object.list_group] = object.value
     },
   },
 
@@ -84,6 +88,9 @@ const layout = {
     },
     lists(state){
       return state.lists
+    },
+    dlists(state){
+      return state.dlists
     }
   },
 

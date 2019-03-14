@@ -3,7 +3,7 @@
       <header>
         <div class="menu">
           <i class="material-icons" @click="$store.commit('update_active_navigation', !active_navigation)">menu</i>
-          <span class="groe">groe</span><span class="dot">.</span><span class="ad">ads</span>
+          <span class="groe">groe</span> <span class="ad">verwalten</span>
         </div>
         <div class="profile">
           <user_visual class="user_image" :path="request_header_data.image" :name="request_header_data.firstname + ' ' + request_header_data.lastname" size="35"/>

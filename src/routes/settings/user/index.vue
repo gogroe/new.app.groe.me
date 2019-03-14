@@ -1,5 +1,5 @@
 <template>
-  <div class="appuser">
+  <div class="settings_user">
     <ul>
       <h6>NUTZER</h6>
       <li v-for="(user, p_key) in request_get_users.data"
@@ -14,7 +14,7 @@
       </li>
     </ul>
     <div class="content">
-      <appuser_content :user="user_data"/>
+      <settings_user_content :user="user_data"/>
     </div>
     <div class="clear"></div>
     <request :obj="request_get_users" v-model="request_get_users"/>
@@ -28,11 +28,11 @@
   import User_visual from "../../../components/user_visual/index";
   import User_name from "../../../components/user_name/index";
   import Edit from "../../../components/inputs/edit";
-  import Appuser_content from "./content";
+  import settings_user_content from "./content";
 
   export default {
-    name: "appuser",
-    components: {Appuser_content, Edit, User_name, User_visual, Request},
+    name: "settings_user",
+    components: {settings_user_content, Edit, User_name, User_visual, Request},
     data(){
       return {
         active:{
@@ -89,7 +89,7 @@
 
 <style lang="scss" scoped>
 
-  .appuser{
+  .settings_user{
     height: 100%;
   }
 

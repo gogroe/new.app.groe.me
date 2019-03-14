@@ -1,5 +1,5 @@
 <template>
-  <div class="custom_tables">
+  <div class="settings_table">
     <ul>
       <h6>TABELLEN</h6>
       <li>
@@ -7,7 +7,7 @@
       </li>
     </ul>
     <div class="content">
-
+      <tables_content name="Tables"/>
     </div>
     <div class="clear"></div>
   </div>
@@ -15,22 +15,17 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import Custom_helper from '../../../components/functions/custom_helper'
+  import Tables_content from "./content";
 
   export default {
-    name: "custom_tables",
-    data(){
-      return {
-
-      }
-    },
-    mixins:[Custom_helper]
+    name: "settings_table",
+    components: {Tables_content},
   }
 </script>
 
 <style lang="scss" scoped>
 
-  .custom_tables{
+  .settings_table{
     height: 100%;
   }
 

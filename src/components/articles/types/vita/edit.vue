@@ -2,41 +2,53 @@
   <div class="edit_vita default_popup_background" v-if="active">
     <div class="inner_popup" v-click-outside="hide">
       <p class="section_name">VITA BEARBEITEN</p>
-      <edit v-for="(input, key, i) in update_user_vita.inputs"
-            :key="key"
-            :obj="fill_inputs_edit(key, update_user_vita, edit_vita)"
-            v-model="edit_request"/>
-      <edit v-for="(input, key, i) in update_user_vita_date.inputs"
-            :key="key"
-            :obj="fill_inputs_edit(key, update_user_vita_date, edit_vita)"
-            v-model="edit_request"/>
-      <edit v-for="(input, key, i) in update_user_vita_company.inputs"
-            :key="key"
-            :obj="fill_inputs_edit(key, update_user_vita_company, edit_vita)"
-            v-model="edit_request"/>
-      <edit v-for="(input, key, i) in update_user_vita_adress.inputs"
-            :key="key"
-            :obj="fill_inputs_edit(key, update_user_vita_adress, edit_vita.adress[0])"
-            v-model="edit_request"/>
-    </div>
+      <div class="section_wrapper">
+        <edit_elements
+          method="update"
+          :url="update_user_vita.url"
+          :inputs="(update_user_vita.inputs)"
+          :params="update_user_vita.params"
+          :reload="update_user_vita.reload"
+          :cload="edit_vita"/>
+        <edit_elements
+          method="update"
+          :url="update_user_vita_date.url"
+          :inputs="(update_user_vita_date.inputs)"
+          :params="update_user_vita_date.params"
+          :reload="update_user_vita_date.reload"
+          :cload="edit_vita"/>
+        <edit_elements
+          method="update"
+          :url="update_user_vita_company.url"
+          :inputs="(update_user_vita_company.inputs)"
+          :params="update_user_vita_company.params"
+          :reload="update_user_vita_company.reload"
+          :cload="edit_vita"/>
+        <edit_elements
+          method="update"
+          :url="update_user_vita_adress.url"
+          :inputs="(update_user_vita_adress.inputs)"
+          :params="update_user_vita_adress.params"
+          :reload="update_user_vita_adress.reload"
+          :cload="edit_vita.adress[0]"/>
+      </div>
+      </div>
+
     <close_popup/>
   </div>
 </template>
 
 <script>
   import ClickOutside from 'vue-click-outside'
-  import Request from "../../../functions/request"
-  import Load_request from "../../../functions/load_request"
-  import Edit from "../../../inputs/edit"
-  import custom_helper from "../../../functions/custom_helper";
   import Close_popup from "../../../close_button/popup";
+  import Edit_elements from "../../../edit/elements";
+  import loader from "../../../functions/loader";
 
   export default {
     name: "edit_vita",
     components:{
+      Edit_elements,
       Close_popup,
-      Edit,
-      Request,
     },
     props:{
       edit_vita:{
@@ -48,14 +60,12 @@
     },
     data(){
       return{
-        edit_request:{},
         update_user_vita:{
           url: 'https://newbackend.groe.me/user_vita/vita/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
+          reload: {action: 'reload', section: 'vitas'},
+          params: {
             user_id: null,
+            vita_id:  'get->id'
           },
           inputs:{
             position: {
@@ -70,32 +80,28 @@
         },
         update_user_vita_date:{
           url: 'https://newbackend.groe.me/user_vita/date/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
+          reload: {action: 'reload', section: 'vitas'},
+          params: {
             user_id: null,
-            vita_id: this.edit_vita.id
+            vita_id:  'get->id'
           },
           inputs:{
             start_date: {
               name: 'Anfangsdatum',
-              type: 'number',
+              type: 'date',
             },
             end_date: {
               name: 'Abschlussdatum',
-              type: 'number',
+              type: 'date',
             },
           }
         },
         update_user_vita_company:{
           url: 'https://newbackend.groe.me/user_vita/company/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
+          reload: {action: 'reload', section: 'vitas'},
+          params: {
             user_id: null,
-            vita_id: this.edit_vita.id
+            vita_id:  'get->id'
           },
           inputs:{
             company: {
@@ -106,12 +112,10 @@
         },
         update_user_vita_adress:{
           url: 'https://newbackend.groe.me/user_vita/adress/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
+          reload: {action: 'reload', section: 'vitas'},
+          params: {
             user_id: null,
-            vita_id: this.edit_vita.id
+            vita_id: 'get->id'
           },
           inputs:{
             street: {
@@ -129,7 +133,7 @@
             country: {
               name: 'Land',
               type: 'select',
-              select: 'countrys',
+              list: 'countrys',
             }
           }
         }
@@ -137,24 +141,19 @@
     },
     watch:{
       edit_vita: function () {
-        this.set_inputs_user_id(this.update_user_vita)
-      },
-      edit_request: function (object) { //todo
-        if('update' in object){
-          this.$store.commit('update_reload', {action: 'reload', section: 'vitas'} )
-        }
+        this.set_user_id(this.update_user_vita)
       }
     },
     mounted(){
-      this.set_inputs_user_id(this.update_user_vita)
-      this.set_inputs_user_id(this.update_user_vita_date)
+      this.set_user_id(this.update_user_vita)
+      this.set_user_id(this.update_user_vita_date)
     },
     methods:{
       hide(){
         this.$emit('input', false)
       },
     },
-    mixins:[custom_helper, Load_request],
+    mixins:[loader],
     directives: {
       ClickOutside
     }
