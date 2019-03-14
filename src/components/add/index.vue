@@ -13,8 +13,6 @@
 </template>
 
 <script>
-  import Permission from '../functions/permission'
-
   export default {
     name: "add",
     props:{
@@ -31,14 +29,13 @@
     computed: {
       is_create(){
         if(this.create){
-          return this.is_perm('create')
+          return this.$$permission.is_perm('create')
         }
         else {
           return true
         }
       }
-    },
-    mixins:[Permission]
+    }
   }
 </script>
 

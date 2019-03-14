@@ -1,5 +1,5 @@
 <template>
-    <div class="appuser_content">
+    <div class="settings_user_content">
       <div class="content">
         <p class="section_name">{{ user_name.toUpperCase() }} VERWALTEN</p>
        <appuser_create class="add_create"/>
@@ -26,7 +26,7 @@
   import Delete from "../../../components/inputs/delete";
 
   export default {
-    name: "appuser_content",
+    name: "settings_user_content",
     components: {Delete, Appuser_create, Create_section, Inputs, Add, Edit},
     props:{
       user:{
@@ -179,7 +179,7 @@
 
 <style lang="scss" scoped>
 
-  .appuser_content{
+  .settings_user_content{
     position: relative;
     max-width: 600px;
     //width: 100%;

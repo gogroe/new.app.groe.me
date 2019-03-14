@@ -1,82 +1,123 @@
 <template>
   <div class="user">
     <p class="section_name">NUTZER DETAILS</p>
-    <upload_user_image :request_get_user="request_get_user"/>
-    <user_description :request_get_user="request_get_user"/>
-    <edit v-for="(input, key, i) in update_user.inputs"
-          :key="key"
-          :obj="fill_inputs_edit(key, update_user, request_get_user)"
-          :reload="{action: 'reload', section:'users_admin'}"/>
-    <edit v-for="(input, key, i) in update_user_gender.inputs"
-          :key="key"
-          :obj="fill_inputs_edit(key, update_user_gender, request_get_user)"
-          :reload="{action: 'reload', section:'users_admin'}"/>
+    <upload_user_image :request_get_user="cload"/>
+    <div class="section_wrapper">
+      <edit_section
+        :create="create_user_description"
+        :update="update_user_description"
+        :cload="cload"
+        name="Steckbrief hinzufügen"
+        button="HINZUFÜGEN"/>
+      <edit_elements
+        method="update"
+        :url="update_user.url"
+        :inputs="update_user.inputs"
+        :cload="cload"
+        :reload="update_user.reload"
+        :params="update_user.params"/>
+      <edit_elements
+        method="update"
+        :url="update_user_gender.url"
+        :inputs="update_user_gender.inputs"
+        :cload="cload"
+        :reload="update_user_gender.reload"
+        :params="update_user_gender.params"/>
+    </div>
   </div>
 </template>
 
 <script>
-  import Load_request from "../../../../components/functions/load_request"
-  import Edit from "../../../../components/inputs/edit"
-  import custom_helper from "../../../../components/functions/custom_helper";
   import Upload_user_image from "./image";
-  import User_description from "./description";
+  import Edit_elements from "../../../../components/edit/elements";
+  import loader from "../../../../components/functions/loader";
+  import Edit_section from "../../../../components/edit/section";
 
   export default {
     name: "admin_user",
     components:{
-      User_description,
+      Edit_section,
+      Edit_elements,
       Upload_user_image,
-      Edit,
     },
     props:{
-      request_get_user:{
+      cload:{
         required:true
-      }
+      },
     },
     data(){
       return{
         update_user:{
           url: 'https://newbackend.groe.me/user_admin/user/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
+          reload: { action: 'reload', section: 'users_admin' },
+          params: {
+            user_id: null,
           },
           inputs:{
             firstname: {
               name: 'Vorname',
-              type: 'text'
+              type: 'text',
+              value: null
             },
             lastname: {
               name: 'Nachname',
-              type: 'text'
+              type: 'text',
+              value: null
             },
           }
         },
         update_user_gender:{
           url: 'https://newbackend.groe.me/user_admin/gender/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
+          reload: { action: 'reload', section: 'users_admin' },
+          params: {
             user_id: null,
           },
           inputs:{
             gender: {
               name: 'Geschlecht',
               type: 'select',
-              select: 'gender'
+              value: null,
+              list: 'gender'
+            }
+          }
+        },
+        update_user_description:{
+          url: 'https://newbackend.groe.me/user_admin/description/update',
+          reload: { action: 'reload', section: 'users_admin' },
+          params: {
+            user_id: null
+          },
+          inputs:{
+            description: {
+              name: 'Steckbrief',
+              type: 'textarea',
+              value: null
+            },
+          }
+        },
+        create_user_description: {
+          url: 'https://newbackend.groe.me/user_admin/description/create',
+          reload: { action: 'reload', section: 'users_admin' },
+          params: {
+            user_id: null
+          },
+          inputs: {
+            description: {
+              name: 'Steckbrief',
+              type: 'textarea',
+              value: null
             }
           }
         }
       }
     },
     mounted(){
-      this.set_inputs_user_id(this.update_user_gender)
-      this.set_inputs_user_id(this.update_user)
+      this.set_user_id(this.update_user)
+      this.set_user_id(this.update_user_gender)
+      this.set_user_id(this.update_user_description)
+      this.set_user_id(this.create_user_description)
     },
-    mixins:[custom_helper, Load_request],
+    mixins:[loader]
   }
 </script>
 

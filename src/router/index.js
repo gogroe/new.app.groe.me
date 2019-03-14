@@ -11,6 +11,8 @@ import login from '@/routes/authentication/login'
 
 import crm from '@/routes/crm'
 
+import project from '@/routes/project'
+
 import users_account from '@/routes/user/account'
 import users_vita from '@/routes/user/vita'
 import users_admin from '@/routes/user/admin'
@@ -28,17 +30,21 @@ export default new Router({
     },
     {
       path: '/settings/permissions',
-      name: 'permissions',
+      name: 'settings_permissions',
       component: settings
     },
     {
-      path: '/settings/appuser',
-      name: 'appuser',
+      path: '/settings/users',
+      name: 'settings_users',
       component: settings
     },
     {
       path: '/settings/tables',
-      name: 'custom_tables',
+      name: 'settings_tables',
+      component: settings
+    },{
+      path: '/settings/lists',
+      name: 'settings_lists',
       component: settings
     },
 
@@ -64,6 +70,13 @@ export default new Router({
       path: '/verification/:token',
       name: 'verification',
       component: verification
+    },
+
+    // project
+    {
+      path: '/project',
+      name: 'project',
+      component: project
     },
 
     // user

@@ -38,7 +38,7 @@
           },
           project:{
             name: 'Projekte',
-            route: 'projects',
+            route: 'project',
             icon: 'work'
           },
           article:{
@@ -60,7 +60,7 @@
         navigations_admin:{
           homepage:{
             name: 'Einstellungen',
-            route: 'appuser',
+            route: 'settings_users',
           },
         }
       }

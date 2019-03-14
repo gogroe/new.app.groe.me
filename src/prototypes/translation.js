@@ -1,0 +1,66 @@
+const translations = {
+  inaktive: 'Inaktiv',
+  aktive: 'Aktiv',
+  registered: 'Registriert',
+  negotiation: 'Verhandlungen',
+  male: 'Mann',
+  unknown: 'Unbekannt',
+  female: 'Frau',
+  qualify: 'Qualifizieren',
+  call_back: 'Zurückrufen',
+  get_contact: 'Kontaktdaten',
+  phone: 'Telefon',
+  developer: 'Emtwickler',
+  executive: 'Führungskraft',
+  admin: 'Administrator',
+  member: 'Mitglied',
+  leader: 'Führung',
+  user: 'Benutzer',
+  company: 'Unternehmen',
+  partner: 'Partner',
+  candidate: 'Bewerber',
+  standard: 'Standard',
+  premium: 'Premium',
+  elite: 'Elite',
+  contact_person: 'Ansprechpartner',
+  buildup:'Buildup',
+  authenticate:'Authentifierung',
+  test:'Test',
+  list:'Listen',
+  settings_permission:'Einstellung Rechte',
+  user_admin:'Nutzer Daten (selbst)',
+  users_admin:'Nutzer Daten (global)',
+  user_account:'Nutzer Konto',
+  user_vita:'Nutzer Vita',
+  user_crm:'Nutzer CRM',
+  header:'Header',
+  post:'Post',
+  comment:'Kommentar',
+  like:'Gefällt mir',
+  media:'Medien',
+  tag:'Tag',
+  lead: 'Lead',
+  customer: 'Kunde',
+  data: 'Datensatz',
+  manager: 'Manager',
+  editor: 'Redakteur',
+  stuff: 'Innendienst',
+  get_one: 'Einzelabruf',
+  get_all: 'Mehrfachabruf',
+  read: 'Lesen',
+  update: 'Bearbeiten',
+  delete: 'Löschen',
+  create: 'Hinzufügen',
+  write: 'Editieren',
+  u_head: 'Nutzer Profilkopf',
+  settings_user: 'Einstellung Nutzer'
+}
+
+export default function (name) {
+    if(name in translations){
+      return translations[name]
+    }
+    else {
+      return name
+    }
+}

@@ -1,45 +1,49 @@
 <template>
   <div class="user_contact">
     <p class="section_name">NUTZER KONTAKT</p>
-    <create_update name="phone"
-                   :create_inputs="create_phone"
-                   :update_inputs="update_phone"
-                   :request_get_data="phone"
-                   :reload="{action: 'reload', section: 'users_admin'}"/>
-    <create_update name="email"
-                   :create_inputs="create_email"
-                   :update_inputs="update_email"
-                   :request_get_data="email"
-                   :reload="{action: 'reload', section: 'users_admin'}"/>
-    <create_update name="skype"
-                   :create_inputs="create_skype"
-                   :update_inputs="update_skype"
-                   :request_get_data="skype"
-                   :reload="{action: 'reload', section: 'users_admin'}"/>
-    <create_update name="discord"
-                   :create_inputs="create_discord"
-                   :update_inputs="update_discord"
-                   :request_get_data="discord"
-                   :reload="{action: 'reload', section: 'users_admin'}"/>
-    <create_update name="facebook"
-                   :create_inputs="create_facebook"
-                   :update_inputs="update_facebook"
-                   :request_get_data="facebook"
-                   :reload="{action: 'reload', section: 'users_admin'}"/>
+    <div class="section_wrapper">
+      <edit_section
+        name="Telefon"
+        :create="create_phone"
+        :update="update_phone"
+        :cload="phone"/>
+      <edit_section
+        name="Email"
+        :create="create_email"
+        :update="update_email"
+        :cload="email"/>
+      <edit_section
+        name="Skype"
+        :create="create_skype"
+        :update="update_skype"
+        :cload="skype"/>
+      <edit_section
+        name="Discord"
+        :create="create_discord"
+        :update="update_discord"
+        :cload="discord"/>
+      <edit_section
+        name="Facebook"
+        :create="create_facebook"
+        :update="update_facebook"
+        :cload="facebook"/>
+    </div>
   </div>
 </template>
 
 <script>
-  import Load_request from "../../../components/functions/load_request"
   import Create_update from "../../../components/inputs/create_update";
+  import Edit_section from "../../../components/edit/section";
+  import loader from "../../../components/functions/loader";
 
   export default {
     name: "user_contact",
     components: {
+      Edit_section,
       Create_update,
     },
     props:{
-      request_get_user_contact:{
+      cload:{
         required:true
       }
     },
@@ -47,49 +51,41 @@
       return{
         update_phone:{
           url: 'https://newbackend.groe.me/user_admin/contact/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
-            id: null,
-            name: 'phone'
-          },
-          inputs:{
-            value: {
-              name: 'Telefon',
-              type: 'text'
-            }
-          }
-        },
-        create_phone:{
-          url: 'https://newbackend.groe.me/user_admin/contact/create',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
+          reload: this.reload,
+          params: {
+            user_id: null,
+            id: 'get->id',
             name: 'phone'
           },
           inputs:{
             value: {
               name: 'Telefon',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
+            }
+          }
+        },
+        create_phone:{
+          url: 'https://newbackend.groe.me/user_admin/contact/create',
+          reload: this.reload,
+          params: {
+            user_id: null,
+            name: 'phone'
+          },
+          inputs:{
+            value: {
+              name: 'Telefon',
+              type: 'text',
+              value: null
             }
           }
         },
         update_email:{
           url: 'https://newbackend.groe.me/user_admin/contact/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
-            id: null,
+          reload: this.reload,
+          params: {
+            user_id: null,
+            id: 'get->id',
             name: 'email'
           },
           inputs:{
@@ -101,69 +97,55 @@
         },
         create_email:{
           url: 'https://newbackend.groe.me/user_admin/contact/create',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
+          reload: this.reload,
+          params: {
+            user_id: null,
             name: 'email'
           },
           inputs:{
             value: {
               name: 'Email',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             }
           }
         },
         update_discord:{
           url: 'https://newbackend.groe.me/user_admin/contact/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
-            id: null,
-            name: 'discord',
+          reload: this.reload,
+          params: {
+            user_id: null,
+            id: 'get->id',
+            name: 'phone'
           },
           inputs:{
             value: {
-              name: 'Discord',
+              name: 'discord',
               type: 'text'
             }
           }
         },
         create_discord:{
           url: 'https://newbackend.groe.me/user_admin/contact/create',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
+          reload: this.reload,
+          params: {
+            user_id: null,
             name: 'discord'
           },
           inputs:{
             value: {
               name: 'Discord',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             }
           }
         },
         update_skype:{
           url: 'https://newbackend.groe.me/user_admin/contact/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
-            id: null,
+          reload: this.reload,
+          params: {
+            user_id: null,
+            id: 'get->id',
             name: 'skype'
           },
           inputs:{
@@ -175,32 +157,25 @@
         },
         create_skype:{
           url: 'https://newbackend.groe.me/user_admin/contact/create',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
+          reload: this.reload,
+          params: {
+            user_id: null,
             name: 'skype'
           },
           inputs:{
             value: {
               name: 'Skype',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             }
           }
         },
         update_facebook:{
           url: 'https://newbackend.groe.me/user_admin/contact/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
-            id: null,
+          reload: this.reload,
+          params: {
+            user_id: null,
+            id: 'get->id',
             name: 'facebook'
           },
           inputs:{
@@ -212,90 +187,80 @@
         },
         create_facebook:{
           url: 'https://newbackend.groe.me/user_admin/contact/create',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
-            user_id: this.$route.params.id,
+          reload: this.reload,
+          params: {
+            user_id: null,
             name: 'facebook'
           },
           inputs:{
             value: {
               name: 'Facebook',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null
             }
           }
         }
       }
     },
     computed:{
+      reload () {
+        return { action: 'reload', section: 'users_admin' }
+      },
       route_id(){
         return this.$route.params.id
       },
       phone(){
-        return 'phone' in this.request_get_user_contact && this.request_get_user_contact.phone !== null
-          ? this.request_get_user_contact.phone
+        return 'phone' in this.cload && this.cload.phone !== null
+          ? this.cload.phone
           : {}
       },
       email(){
-        return 'email' in this.request_get_user_contact && this.request_get_user_contact.email !== null
-          ? this.request_get_user_contact.email
+        return 'email' in this.cload && this.cload.email !== null
+          ? this.cload.email
           : {}
       },
       skype(){
-        return 'skype' in this.request_get_user_contact && this.request_get_user_contact.skype !== null
-          ? this.request_get_user_contact.skype
+        return 'skype' in this.cload && this.cload.skype !== null
+          ? this.cload.skype
           : {}
       },
       discord(){
-        return 'discord' in this.request_get_user_contact && this.request_get_user_contact.discord !== null
-          ? this.request_get_user_contact.discord
+        return 'discord' in this.cload && this.cload.discord !== null
+          ? this.cload.discord
           : {}
       },
       facebook(){
-        return 'facebook' in this.request_get_user_contact && this.request_get_user_contact.facebook !== null
-          ? this.request_get_user_contact.facebook
+        return 'facebook' in this.cload && this.cload.facebook !== null
+          ? this.cload.facebook
           : {}
       },
     },
     watch:{
       route_id: function(){
-        this.set_inputs_user_id(this.create_phone)
-        this.set_inputs_user_id(this.update_phone)
-
-        this.set_inputs_user_id(this.create_email)
-        this.set_inputs_user_id(this.update_email)
-
-        this.set_inputs_user_id(this.create_skype)
-        this.set_inputs_user_id(this.update_skype)
-
-        this.set_inputs_user_id(this.create_discord)
-        this.set_inputs_user_id(this.update_discord)
-
-        this.set_inputs_user_id(this.create_facebook)
-        this.set_inputs_user_id(this.update_facebook)
+        this.set_all_user_ids ()
       }
     },
     mounted(){
-      this.set_inputs_user_id(this.create_phone)
-      this.set_inputs_user_id(this.update_phone)
-
-      this.set_inputs_user_id(this.create_email)
-      this.set_inputs_user_id(this.update_email)
-
-      this.set_inputs_user_id(this.create_skype)
-      this.set_inputs_user_id(this.update_skype)
-
-      this.set_inputs_user_id(this.create_discord)
-      this.set_inputs_user_id(this.update_discord)
-
-      this.set_inputs_user_id(this.create_facebook)
-      this.set_inputs_user_id(this.update_facebook)
+      this.set_all_user_ids ()
     },
-    mixins:[Load_request]
+    methods:{
+      set_all_user_ids () {
+        this.set_user_id(this.create_phone)
+        this.set_user_id(this.update_phone)
+
+        this.set_user_id(this.create_email)
+        this.set_user_id(this.update_email)
+
+        this.set_user_id(this.create_skype)
+        this.set_user_id(this.update_skype)
+
+        this.set_user_id(this.create_discord)
+        this.set_user_id(this.update_discord)
+
+        this.set_user_id(this.create_facebook)
+        this.set_user_id(this.update_facebook)
+      }
+    },
+    mixins:[loader]
   }
 </script>

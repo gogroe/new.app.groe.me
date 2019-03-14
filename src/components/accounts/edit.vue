@@ -2,11 +2,15 @@
   <div class="edit_account default_popup_background" v-if="active">
     <div class="inner_popup" v-click-outside="hide">
       <p class="section_name">TRANSAKTION BEARBEITEN</p>
-      <edit v-for="(input, key, i) in update_user_account.inputs"
-            :key="i"
-            :obj="fill_inputs_edit(key, update_user_account, edit_account)"
-            :reload="{action: 'reload', section: 'accounts'}"
-            v-model="edit_request"/>
+      <div class="section_wrapper">
+        <edit_elements
+          method="update"
+          :url="update_user_account.url"
+          :inputs="(update_user_account.inputs)"
+          :params="update_user_account.params"
+          :reload="update_user_account.reload"
+          :cload="edit_account"/>
+      </div>
     </div>
     <close_popup/>
   </div>
@@ -14,18 +18,14 @@
 
 <script>
   import ClickOutside from 'vue-click-outside'
-  import Request from "../functions/request"
-  import Load_request from "../functions/load_request"
-  import Edit from "../inputs/edit"
-  import custom_helper from "../functions/custom_helper";
   import Close_popup from "../close_button/popup";
+  import Edit_elements from "../edit/elements";
 
   export default {
     name: "edit_accounts",
     components:{
+      Edit_elements,
       Close_popup,
-      Edit,
-      Request,
     },
     props:{
       edit_account:{
@@ -37,14 +37,11 @@
     },
     data(){
       return{
-        edit_request:{},
         update_user_account:{
           url: 'https://newbackend.groe.me/user_account/update',
-          input_class:'edit_input',
-          label_class: 'edit_input_label',
-          error_class: '',
-          required_params: {
-            account_id: null,
+          reload: {action: 'reload', section: 'accounts'},
+          params: {
+            account_id: 'get->id',
             description: 'Manuelle Transaktion',
             currency: 'EUR'
           },
@@ -61,26 +58,13 @@
         }
       }
     },
-    watch:{
-      edit_account:function (object) {
-        this.update_user_account.required_params.account_id = object.id
-      }
-    },
-    mounted(){
-      this.update_user_account.required_params.account_id = this.edit_account.id
-    },
     methods:{
       hide(){
         this.$emit('input', false)
       },
     },
-    mixins:[custom_helper, Load_request],
     directives: {
       ClickOutside
     }
   }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

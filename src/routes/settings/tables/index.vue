@@ -1,5 +1,5 @@
 <template>
-  <div class="custom_tables">
+  <div class="settings_table">
     <ul>
       <h6>TABELLEN</h6>
       <li>
@@ -18,14 +18,14 @@
   import Tables_content from "./content";
 
   export default {
-    name: "custom_tables",
+    name: "settings_table",
     components: {Tables_content},
   }
 </script>
 
 <style lang="scss" scoped>
 
-  .custom_tables{
+  .settings_table{
     height: 100%;
   }
 

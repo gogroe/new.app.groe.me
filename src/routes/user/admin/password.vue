@@ -1,76 +1,64 @@
 <template>
   <div class="user_password">
     <p class="section_name">NUTZER PASSWORT</p>
-    <inputs v-for="(input, key, i) in create_user_secret.inputs"
-            :key="i"
-            :obj="fill_inputs(key, create_user_secret)"
-            :request_data="request_create_user_secret.data"
-            v-model="create_user_secret.inputs[key].input"/>
-    <p class="request_message">{{message}}</p>
-    <button @click="send_create_user_secret">PASSWORT ÄNDERN</button>
-    <request :obj="request_create_user_secret" v-model="request_create_user_secret"/>
+    <div class="section_wrapper">
+      <cinput v-for="(input, key, i) in create_user_secret.inputs"
+              :key="i"
+              :name="input.name"
+              :type="input.type"
+              :cvalue="input.value"
+              :placeholder="input.placeholder"
+              v-model="create_user_secret.inputs[key].input"/>
+      <p class="request_message">{{message}}</p>
+      <button @click="send_create_user_secret">PASSWORT ÄNDERN</button>
+    </div>
   </div>
 </template>
 
 <script>
-  import Request from "../../../components/functions/request"
-  import Load_request from "../../../components/functions/load_request"
-  import Edit from "../../../components/inputs/edit"
-  import Custom_helper from '../../../components/functions/custom_helper'
   import Add from "../../../components/add/index";
-  import Inputs from "../../../components/inputs/index";
+  import Cinput from "../../../components/input/index";
+  import loader from "../../../components/functions/loader";
 
   export default {
     name: "user_password",
     components:{
-      Inputs,
+      Cinput,
       Add,
-      Edit,
-      Request,
     },
     data(){
       return{
         message: '',
-        request_create_user_secret: {
+        rCreate_secret: {
+          url: 'https://newbackend.groe.me/user_admin/secret/create',
           params: {
             user_id: null,
           },
-          url: 'https://newbackend.groe.me/user_admin/secret/create',
           data: {},
-          request: false
         },
         create_user_secret:{
           url: '',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
+          params: {
             user_id: this.$route.params.id,
           },
           inputs:{
             old_hash: {
               name: 'Altes Passwort',
               type: 'text',
-              input: {
-                value: null,
-                event: null
-              }
+              value: null,
+              placeholder: 'Altes Passwort'
             },
             hash: {
               name: 'Neues Passwort',
               type: 'text',
-              input: {
-                value: null,
-                event: null
-              }
+              value: null,
+              placeholder:'Neues Passwort'
             },
             commit_hash: {
               name: 'Neues Passwort bestätigen',
               type: 'text',
-              input: {
-                value: null,
-                event: null
-              }
+              value: null,
+              placeholder:'Passwort bestätigen'
             }
           }
         }
@@ -81,12 +69,12 @@
         return this.$route.params.id
       },
       request_create_user_secret_data(){
-        return this.request_create_user_secret.data
+        return this.rCreate_secret.data
       }
     },
     watch:{
       route_id: function(){
-        this.set_user_id(this.request_create_user_secret)
+        this.set_user_id(this.rCreate_secret)
       },
       request_create_user_secret_data(object){
         if('create' in object){
@@ -95,30 +83,30 @@
       }
     },
     mounted(){
-      this.set_user_id(this.request_create_user_secret)
+      this.set_user_id(this.rCreate_secret)
     },
     methods:{
       send_create_user_secret(){
         //check empty
         if(
-          this.create_user_secret.inputs.old_hash.input.value === null ||
-          this.create_user_secret.inputs.hash.input.value === null ||
-          this.create_user_secret.inputs.commit_hash.input.value === null ||
-          this.create_user_secret.inputs.old_hash.input.value === '' ||
-          this.create_user_secret.inputs.hash.input.value === '' ||
-          this.create_user_secret.inputs.commit_hash.input.value === ''
+          this.create_user_secret.inputs.old_hash.value === null ||
+          this.create_user_secret.inputs.hash.value === null ||
+          this.create_user_secret.inputs.commit_hash.value === null ||
+          this.create_user_secret.inputs.old_hash.value === '' ||
+          this.create_user_secret.inputs.hash.value === '' ||
+          this.create_user_secret.inputs.commit_hash.value === ''
         ){
           this.message = 'Alle felder müssen ausgefüllt werden.'
         }
 
         //check commit
         else if(
-          this.create_user_secret.inputs.hash.input.value === this.create_user_secret.inputs.commit_hash.input.value
+          this.create_user_secret.inputs.hash.value === this.create_user_secret.inputs.commit_hash.value
         ){
-          this.request_create_user_secret.params.hash = this.create_user_secret.inputs.hash.input.value
-          this.request_create_user_secret.params.old_hash = this.create_user_secret.inputs.old_hash.input.value
-          //console.log(this.request_create_user_secret)
-          this.request_create_user_secret.request = true
+          this.rCreate_secret.params.hash = this.create_user_secret.inputs.hash.value
+          this.rCreate_secret.params.old_hash = this.create_user_secret.inputs.old_hash.value
+
+          this.$$request.post.data(this.rCreate_secret.url, this.rCreate_secret.params)
           this.message = null
         }
         else{
@@ -126,21 +114,31 @@
         }
       }
     },
-    mixins:[Custom_helper, Load_request]
+    mixins:[loader]
   }
 </script>
 
-<style lang="scss" scoped>
-  .add{
-    margin-bottom: 17px;
+<style lang="scss">
+
+  .user_password{
+
+    .request_message{
+      margin-top: 10px;
+      margin-left: 17px;
+    }
+
+    .input_label{
+      display: none;
+    }
+
+    .cinput{
+      margin-bottom: 17px;
+    }
+
+    input{
+      width: calc(100% - 27px);
+    }
   }
 
-  button{
-    margin: 10px 0;
-  }
 
-  .request_message{
-    margin-top: 10px;
-    margin-left: 17px;
-  }
 </style>

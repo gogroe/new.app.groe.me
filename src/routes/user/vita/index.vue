@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div class="vita">
     <div class="add_wrapper">
       <add class="add"
            :create="true"
@@ -7,128 +7,108 @@
            name="Vita"
            v-model="active.create"/>
     </div>
-    <div class="create_vita default_box" v-if="active.create">
-      <create_section create_name="VITA HINZUFÜGEN"
-                      button_name="VITA ERSTELLEN"
-                      :create_inputs="create_user_vita"
-                      v-model="request_create_user_vita"/>
+    <div class="create_box default_box" v-if="active.create">
+      <edit_elements
+        name="VITA HINZUFÜGEN"
+        button="VITA ERSTELLEN"
+        :url="create_user_vita.url"
+        :inputs="create_user_vita.inputs"
+        :params="create_user_vita.params"
+        :reload="create_user_vita.reload"
+        method="create"/>
     </div>
     <h6>VITAS</h6>
-    <posts v-for="(article, i) in request_user_vitas_data"
+    <posts v-for="(article, i) in cLoad.data"
            :key="i"
            :obj="article"/>
-    <request :obj="request_user_vitas" v-model="request_user_vitas"/>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
-  import Custom_helper from '../../../components/functions/custom_helper'
-  import Load_request from '../../../components/functions/load_request'
-  import Request from "../../../components/functions/request";
   import Posts from "../../../components/articles/index";
   import Add from "../../../components/add/index";
-  import Create_section from "../../../components/inputs/create";
+  import Edit_elements from "../../../components/edit/elements";
+  import loader from "../../../components/functions/loader";
 
   export default {
-    name: "users_profile",
+    name: "users_vita",
     components:{
-      Create_section,
+      Edit_elements,
       Add,
       Posts,
-      Request,
     },
     data(){
       return{
         active:{
           create: false
         },
-        request_user_vitas: {
+        cLoad: {
           params: {
             user_id: null
           },
           url: 'https://newbackend.groe.me/user_vita/get_all',
           data: {},
-          request: false
         },
-        request_create_user_vita:{},
         create_user_vita:{
           url: 'https://newbackend.groe.me/user_vita/vita/create',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {},
+          reload: {action: 'reload', section: 'vitas'},
+          params: {},
           inputs:{
             position: {
               name: 'Position',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null,
+              placeholder: 'Position'
             },
             description: {
               name: 'Stellenbeschreibung',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null,
+              placeholder: 'Stellenbeschreibung'
             },
             start_date: {
               name: 'Datum des Beginns',
               type: 'date',
-              input: {
-                value: null,
-                event:null
-              }
-            },end_date: {
+              value: null,
+              placeholder: 'Datum des Beginns'
+            },
+            end_date: {
               name: 'Datum der Abschluss',
               type: 'date',
-              input: {
-                value: null,
-                event:null
-              }
-            },company: {
+              value: null,
+              placeholder: 'Datum der Abschluss'
+            },
+            company: {
               name: 'Firmanname',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null,
+              placeholder: 'Firmanname'
             },
             street: {
               name: 'Straße',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null,
+              placeholder: 'Straße'
             },
             zip: {
               name: 'Postleitzahl',
               type: 'number',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null,
+              placeholder: 'Postleitzahl'
             },
             city: {
               name: 'Stadt',
               type: 'text',
-              input: {
-                value: null,
-                event:null
-              }
+              value: null,
+              placeholder: 'Stadt'
             },
             country: {
               name: 'Land',
               type: 'select',
-              select: 'countrys',
-              input: {
-                value: null,
-                event:null
-              }
+              list: 'countrys',
+              value: null,
+              placeholder: 'Land'
             }
           }
         }
@@ -138,27 +118,27 @@
       ...mapGetters([
         'reload'
       ]),
-      request_user_vitas_data(){
-        return this.request_user_vitas.data
-      }
     },
     watch:{
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'vitas'){
           this.$store.commit('update_reload', {action: null, section: null})
-          this.get_user_request(this.request_user_vitas)
+          this.get_cload()
+          this.active.create = false
         }
       },
-      request_create_user_vita:function () {
-        this.get_user_request(this.request_user_vitas)
-        this.active.create = false
-      }
     },
     mounted(){
-      this.get_user_request(this.request_user_vitas)
-      this.set_inputs_user_id(this.create_user_vita)
+      this.set_user_id(this.cLoad)
+      this.get_cLoad()
     },
-    mixins:[Load_request, Custom_helper]
+    methods:{
+      get_cLoad () {
+        this.$$request.post.data(this.cLoad.url, this.cLoad.params)
+          .then((response) => this.cLoad.data = response)
+      },
+    },
+    mixins:[loader]
   }
 </script>
 
@@ -166,10 +146,6 @@
 
   .add{
     text-align: right;
-  }
-
-  .create_vita{
-    margin-bottom: 17px;
   }
 
 </style>

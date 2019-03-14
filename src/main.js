@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from '../store'
+import prototypes from './prototypes'
 import * as VueGoogleMaps from "vue2-google-maps";
 import vSelect from 'vue-select'
 import FBSignInButton from 'vue-facebook-signin-button'
@@ -25,6 +26,7 @@ Vue.use(GSignInButton)
 new Vue({
   el: '#app',
   router,
+  prototypes,
   store,
   components: { App },
   template: '<App/>'

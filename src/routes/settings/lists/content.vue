@@ -1,41 +1,43 @@
 <template>
-    <div class="settings_table_content">
+    <div class="settings_list_content">
       <div class="section">
-        <p class="section_name">NUTZER TABELLE VERWALTEN</p>
-        <tables_create class="add_create"/>
+        <p class="section_name">LISTEN VERWALTEN</p>
+        <settings_list_create :list_group="list[0].list_group" class="add_create"/>
       </div>
       <table>
         <thead>
           <tr>
-            <td colspan="2">Feldname</td>
-            <td class="rights">Typ</td>
+            <td colspan="2">Bezeichnung</td>
+            <td>Abhängigkeit</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(field , i) in fields"
+          <tr v-for="(item , i) in list"
               :key="i">
             <td>
-              <delete :obj="{
-                        params: {
-                          id: field.id,
-                        },
-                        url: 'https://newbackend.groe.me/settings_table/delete',
-                        data: {},
-                        request: false
-                      }"
-                      icon="delete_outline"/>
+              <delete
+                icon="delete_outline"
+                :reload="{ action: 'reload', section:'settings_list' }"
+                :obj="{
+                  params: {
+                    id: item.id
+                  },
+                  url: 'https://newbackend.groe.me/settings_permission/delete',
+                  data: {},
+                  request: false
+                }"/>
             </td>
             <td>
-              <edit v-for="(input, key, i) in update_field.inputs"
-                    :key="key"
-                    :obj="fill_inputs_edit(key, update_field, field)"
-                    :reload="{action: 'reload', section:'users_admin'}"/>
+              <edit :obj="fill_inputs_edit('name', update_list, item)"
+                    :reload="{action: 'reload', section:'settings_list'}"/>
             </td>
             <td>
-              {{field.field_type}}
+              <edit :obj="fill_inputs_edit('dependency', update_list, item)"
+                    :reload="{action: 'reload', section:'settings_list'}"/>
             </td>
-            <td class="rights">
-              
+            <td>
+              <i class="material-icons">drag_handle</i>
             </td>
           </tr>
         </tbody>
@@ -47,20 +49,23 @@
 <script>
     import ClickOutside from 'vue-click-outside'
     import { mapGetters } from 'vuex'
-    import Custom_helper from '../../../components/functions/custom_helper'
-    import Load_request from '../../../components/functions/load_request'
-    import Tables_create from "./create";
-    import Delete from "../../../components/inputs/delete";
     import Edit from "../../../components/inputs/edit";
+    import Custom_helper from '../../../components/functions/custom_helper'
+    import Delete from "../../../components/inputs/delete";
+    import Settings_list_create from "./create";
 
-    
     export default {
-      name: "settings_table_content",
-      components: {Edit, Delete, Tables_create},
+      name: "settings_list_content",
+      components: {Settings_list_create, Delete, Edit},
+      props:{
+        list:{
+          required: true
+        }
+      },
       data(){
         return {
           fields:{},
-          update_field:{
+          update_list:{
             url: 'https://newbackend.groe.me/settings_table/update',
             input_class:'create_input',
             label_class: 'create_input_label',
@@ -70,30 +75,26 @@
             },
             inputs:{
               name: {
-                name: 'Feldname',
+                name: 'Name',
+                type: 'text',
+              },
+              dependency: {
+                name: 'Abhängigkeit',
                 type: 'text',
               },
             }
           },
         }
       },
-      mounted(){
-        this.custom_fields = this.data_request({
-          table: 'users',
-          uri: 'https://newbackend.groe.me/custom_field/get_all'
-        }).then((result) =>
-          this.fields = result
-        )
-      },
       directives: {
         ClickOutside
       },
-      mixins:[Custom_helper, Load_request]
+      mixins:[Custom_helper]
     }
 </script>
 
 <style lang="scss" scoped>
-  .settings_table_content{
+  .settings_list_content{
     position: relative;
     max-width: 600px;
     width: 100%;

@@ -10,9 +10,10 @@
                 @click="$router.push({name: navigation.route})">{{navigation.name}}</li>
           </ul>
           <div class="content">
-            <permissions v-if="$route.name === 'permissions'"/>
-            <appuser v-if="$route.name === 'appuser'"/>
-            <custom_tables v-if="$route.name === 'custom_tables'"/>
+            <settings_permissions v-if="$route.name === 'settings_permissions'"/>
+            <settings_users v-if="$route.name === 'settings_users'"/>
+            <settings_tables v-if="$route.name === 'settings_tables'"/>
+            <settings_lists v-if="$route.name === 'settings_lists'"/>
           </div>
           <div class="clear"></div>
       </div>
@@ -21,32 +22,39 @@
 </template>
 
 <script>
-  import Permissions from "./permissions/index";
+  import Settings_permissions from "./permissions/index";
   import Settings_bar from "./bar";
-  import Appuser from "./appuser/index";
-  import Custom_tables from "./tables/index";
+  import Settings_users from "./user/index";
+  import Settings_tables from "./tables/index";
+  import Settings_lists from "./lists/index";
   export default {
 
     name: "settings",
-    components: {Custom_tables, Appuser, Settings_bar, Permissions},
+    components: {
+      Settings_bar,
+      Settings_tables,
+      Settings_users,
+      Settings_permissions,
+      Settings_lists
+    },
     data(){
       return{
         navigations:[
           {
             name: 'Nutzer',
-            route: 'appuser'
+            route: 'settings_users'
           },
           {
             name: 'Nutzerrechte',
-            route: 'permissions'
+            route: 'settings_permissions'
           },
           {
             name: 'Tabellen',
-            route: 'custom_tables'
+            route: 'settings_tables'
           },
           {
             name: 'Listen',
-            route: 'lists'
+            route: 'settings_lists'
           },
         ]
       }
