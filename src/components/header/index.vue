@@ -3,13 +3,18 @@
       <header>
         <div class="menu">
           <i class="material-icons" @click="$store.commit('update_active_navigation', !active_navigation)">menu</i>
-          <span class="groe">groe</span> <span class="ad">verwalten</span>
+          <img src="../../../static/layout/logo.png"/>
+          <span class="groe">groe</span> <span class="ad">app</span>
         </div>
         <div class="profile">
-          <user_visual class="user_image" :path="request_header_data.image" :name="request_header_data.firstname + ' ' + request_header_data.lastname" size="35"/>
           <div class="details">
-            <user_name :name="request_header_data.firstname + ' ' + request_header_data.lastname" :id="request_header_data.id" class="user_name"/> &nbsp | &nbsp <a class="user_account">{{user_account.replace('.',',')}}</a>
+            <i class="material-icons">account_balance_wallet</i> <a class="user_account">{{user_account.replace('.',',')}}</a>
           </div>
+          <user_visual
+            class="user_image"
+            :path="request_header_data.image"
+            :name="request_header_data.firstname + ' ' + request_header_data.lastname"
+            size="35"/>
         </div>
       </header>
       <request :obj="request_header" v-model="request_header"/>
@@ -100,16 +105,24 @@
   .menu{
     position: absolute;
     padding: 10px 18px;
+    cursor: pointer;
+    color: #596066;
+
+    img{
+      height: 35px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
 
     i{
+      vertical-align: middle;
       font-size: 24px;
       line-height: 30px;
-      margin: 6px 27px 6px 6px;
-      color: #bfbfbf;
+      margin: 6px 17px 6px 6px;
       cursor: pointer;
 
       &:hover{
-        color: #404040;
+        color: #596066;
       }
     }
 
@@ -118,7 +131,6 @@
       padding-top: 8px;
       font-size: 20px;
       vertical-align: top;
-      color: #bfbfbf;
       font-weight: 300;
 
       &.groe{
@@ -149,20 +161,18 @@
 
     .user_image{
       float:left;
+      cursor: pointer;
     }
 
     .details{
-      margin-left: 17px;
-      margin-top: 10px;
+      font-weight: 500;
+      margin-right: 27px;
+      margin-top: 7px;
       float:left;
+      color: #a5adb3;
 
-      .user_name{
-        font-weight: 700;
-        display: inline;
-      }
-
-      .user_account{
-        color: #3da0f5;
+      i {
+        vertical-align: middle;
       }
     }
   }

@@ -100,10 +100,10 @@
 
   :root {
     //fonts
-    --font-size: 13px;
+    --font-size: 14px;
 
     //colors
-    --color-005black: #f3f3f3;
+    --color-005black: #fff;
   }
 
 
@@ -132,7 +132,7 @@
   html {
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    color: #333333;
+    color: #272d33;
     font-size: var(--font-size);
     word-spacing: 1px;
     -ms-text-size-adjust: 100%;
@@ -140,7 +140,7 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     box-sizing: border-box;
-    background-color: var(--color-005black);
+    background-color: #fff;
   }
 
   *, *:before, *:after {

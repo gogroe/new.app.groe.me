@@ -2,9 +2,12 @@
   <div class="crm_table">
     <div class="table default_scrollbar">
       <div id="foo">
-        <table><tr><td valign="top"
-                       v-for="(column, col_i, i) in columns"
-                       :key="col_i">
+        <table>
+          <tr>
+            <td
+              valign="top"
+              v-for="(column, col_i, i) in columns"
+              :key="col_i">
           <table class="inner_table">
             <thead>
             <tr>
@@ -26,7 +29,8 @@
             </tr>
             </tbody>
           </table>
-        </td></tr>
+        </td>
+        </tr>
       </table>
         <div style="clear: both;">&nbsp;</div>
       </div>

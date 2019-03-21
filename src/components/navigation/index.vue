@@ -108,26 +108,26 @@
 
     li{
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 500;
       line-height: 14px;
       padding: 14px 14px 14px 27px;
       margin-bottom: 1px;
       width: 100%;
       cursor: pointer;
       border-radius: 2px;
-      color: #7f7f7f;
+      color: #737a80;
       &.active{
-        color: #ff3434;
-        background: #e9e9e9;
+        color: #edad00;
+        background: #fff9e5;
       }
 
       &:hover{
-        background: #e9e9e9;
+        background: #fff9e5;
       }
 
       i{
-        margin-right: 27px;
-        font-size: 27px;
+        margin-right: 25px;
+        font-size: 22px;
         vertical-align: middle;
       }
     }

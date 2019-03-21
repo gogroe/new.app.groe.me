@@ -1,89 +1,239 @@
 <template>
-  <div>
-    <edit_section
-      :response="discord_response"
-      :create="create_discord"
-      :update="update_discord"
-      :cload="discord_response"
-      name="KONTAKT HINZUFÜGEN"
-      button="KONTAKTE ANLEGEN"/>
+  <div class="user_crm">
+    <crm
+      :get_crm="get_crm"
+      :request_groups="request_groups"
+      :columns_settings="columns_settings"/>
   </div>
 </template>
 
 <script>
-  import Edit_section from "../../components/edit/section";
+
+
+  import Crm from "../../components/crm2";
   export default {
-    name: "project",
-    components: {Edit_section},
-    data () {
+    name: "user_crm",
+    components: {Crm},
+    data(){
       return {
-        discord_response:{},
-        create_discord:{
-          url: 'https://newbackend.groe.me/user_admin/contact/create',
-          reload:{action: 'reload', section: 'project'},
+        get_crm: {
           params: {
-            id: 41,
-            name: 'discord'
+            user_id: null,
           },
-          inputs:{
-            value: {
-              name: 'Discord',
-              type: 'text',
-              value: null,
-              placeholder: 'Discord hinzufügen'
+          url: 'https://newbackend.groe.me/user_crm/get_all',
+          data: {},
+        },
+        request_groups: {
+          link: {
+            indicator: true,
+            required_params: {
+              id:'get_users.id'
             },
+            create_url: '',
+            edit_url: '',
+          },
+          users: {
+            indicator: true,
+            required_params: {
+                    user_id:'get_users.id'
+                  },
+            create_url: 'https://newbackend.groe.me/user_crm/user/create',
+            edit_url: 'https://newbackend.groe.me/user_crm/user/update',
+          },
+          gender: {
+            indicator: false,
+            required_params: {
+              user_id: 'get_users.id',
+            },
+            create_url: 'https://newbackend.groe.me/user_crm/gender/create',
+            edit_url: 'https://newbackend.groe.me/user_crm/gender/update',
+          },
+          status: {
+            indicator: false,
+            required_params: {
+              user_id: 'get_users.id',
+              status_id: 'get_status.id'
+            },
+            create_url: 'https://newbackend.groe.me/user_crm/status/create',
+            edit_url: 'https://newbackend.groe.me/user_crm/status/update',
+          },
+          status_details: {
+            indicator: false,
+            required_params: {
+              status_id: 'get_status.id',
+              status_details_id: 'get_status_details.id'
+            },
+            create_url: 'https://newbackend.groe.me/user_crm/status_details/create',
+            edit_url: 'https://newbackend.groe.me/user_crm/status_details/update',
           }
         },
-        update_discord:{
-          url: 'https://newbackend.groe.me/user_admin/contact/update',
-          reload:{action: 'reload', section: 'project'},
-          params: {
-            user_id: 41,
-            name: 'discord',
-            id: 'get->id'
+        columns_settings: {
+          'link':{
+            id: 'link',
+            name: 'Link',
+            type: 'link',
+            edit: false,
+            request_group: 'link',
+            rows: []
           },
-          inputs:{
-            value: {
-              name: 'Discord',
-              type: 'text',
-              value: null,
-              list: '$user_status'
+          'users.image':{
+            id: 'users.image',
+            name: 'Bild',
+            type: 'image',
+            edit: false,
+            request_group: 'users',
+            rows: []
+          },
+          'users.firstname':{
+            id: 'users.firstname',
+            name: 'Vorname',
+            type: 'text',
+            edit: false,
+            request_group: 'users',
+            rows: []
+          },
+          'users.lastname':{
+            id: 'users.lastname',
+            name: 'Nachname',
+            type: 'text',
+            edit: false,
+            request_group: 'users',
+             rows: []
+          },
+          'status.value':{
+            id: 'status.value',
+            name: 'Status',
+            type: 'select',
+            select: 'user_status',
+            edit: true,
+            request_group: 'status',
+             rows: []
+          },
+          'status_details.value':{
+            id: 'status_details.value',
+            name: 'Status Details',
+            type: 'select',
+            select: 'user_status_details',
+            edit: true,
+            request_group: 'status_details',
+            rows: []
+          },
+        },
+        stored_columns_settings:{},
+      }
+    },
+    computed:{},
+    watch:{},
+    mounted(){},
+    methods:{
+      build_custom_fields(table_fields){
+
+        let request_groups = {}
+        let columns_settings = {}
+
+        for(let table_fields_key in table_fields){
+          let field = table_fields[table_fields_key]
+
+          let relation_type = 'users'
+          for(let relation_key in this.list_relations){
+            if(this.list_relations[relation_key] === field.relation_type){
+              relation_type = relation_key
             }
           }
-        },
-        user_admin:{}
-      }
-    },
-    computed:{
-      reload () {
-        return this.$$helper.reload
-      }
-    },
-    watch:{
-      reload: {
-        handler: function (object) {
-          if(object.action === 'reload', object.section === 'project'){
-            this.get_user_admin()
-            this.$store.commit('update_reload', {action: null, section:null})
+
+          //build request_groups
+          if((field.name in request_groups) === false){
+
+            request_groups[field.name] = {
+              indicator: false,
+              required_params: {
+                relation_id: 'get_' + relation_type + '.id',
+                table: relation_type,
+                name: field.name
+
+              },
+              create_url: 'https://newbackend.groe.me/custom_field/create',
+              edit_url: 'https://newbackend.groe.me/custom_field/update',
+            }
           }
-        }, deep:true
+
+          //build column_settings
+          columns_settings[field.name + '.value'] = {
+            id: field.name + '.value',
+            name: field.name.charAt(0).toUpperCase() + field.name.slice(1),
+            type: field.field_type,
+            edit: true,
+            request_group: field.name,
+            rows: []
+          }
+
+          if(field.field_type === 'select'){
+            columns_settings[field.name + '.value']['select'] = relation_type + '_' + field.name
+          }
+        }
+
+        Object.assign(this.request_groups, request_groups)
+        Object.assign(this.columns_settings, columns_settings)
+      },
+      set_request_param_filters_condtions(table, type, prams_key, param){
+        if((table in this.request_users.params) === false){
+          this.request_users.params[table] = {}
+        }
+        if((type in this.request_users.params[table]) === false){
+          this.request_users.params[table][type] = {}
+        }
+
+        this.request_users.params[table][type][prams_key] = param
+      },
+      add_filters_conditions(object){
+        for(let table_key in object){
+          let table = object[table_key]
+
+          for(let type_key in table){
+            let type =  table[type_key]
+
+            for(let param_key in type){
+              let param =  type[param_key]
+
+              this.set_request_param_filters_condtions(table_key, type_key, param_key, param)
+            }
+          }
+        }
+      },
+      add_limit_offset(){
+        if('limit' in this.users_crm_limit_offset){
+          this.request_users.params.limit = this.users_crm_limit_offset.limit
+        }
+        if('offset' in this.users_crm_limit_offset){
+          this.request_users.params.offset = this.users_crm_limit_offset.offset
+        }
+      },
+      reorder_columns_settings(){
+        let new_order = {}
+
+        for(let order_key in this.users_crm_order){
+          let order_item = this.users_crm_order[order_key]
+          new_order[order_item] = this.stored_columns_settings[order_item]
+        }
+        this.columns_settings = new_order
+      },
+      set_link(object){
+        for(let key in object){
+          object[key]['link'] = 'users/:id/vita'
+        }
+      },
+      set_image_data(object){
+        for(let key in object){
+          if('users.image' in object[key]){
+            object[key]['users.image'] = {
+              path: object[key]['users.image'],
+              name: 'users.firstname' in object[key] && 'users.lastname' in object[key]
+                ? object[key]['users.firstname'] + ' ' + object[key]['users.lastname']
+                : null
+            }
+          }
+        }
       }
-    },
-    created () {
-      this.get_user_admin()
-    },
-    methods:{
-      get_user_admin () {
-        this.$$request.post.data('https://newbackend.groe.me/user_admin/get_one', { user_id: 41 })
-          .then((response) => this.response_user_admin(response))
-      },
-      response_user_admin (response) {
-        this.discord_response = response.contact.discord
-      },
     }
   }
 </script>
-
-<style scoped>
-
-</style>
