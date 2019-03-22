@@ -51,7 +51,7 @@
     },
     watch:{
       cvalue: function () {
-        this.value = this.$$date.iso8601(this.cvalue)
+        this.set_value()
       },
       value:function () {
         this.$emit('input', {
@@ -61,7 +61,14 @@
       }
     },
     mounted () {
-      this.value = this.$$date.iso8601( this.cvalue )
+      this.set_value()
+    },
+    methods: {
+      set_value () {
+        this.value = this.cvalue === null
+          ? null
+          : this.$$date.iso8601( this.cvalue )
+      }
     }
   }
 </script>

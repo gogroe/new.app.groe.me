@@ -10,7 +10,7 @@
         :name="input.name"
         :cvalue="input.value"
         :type="input.type"
-        :readonly="is_readonly(input)"
+        :readonly="readonly === null ? is_readonly(input) : readonly"
         :clist="is_list(input)"
         :citems="is_items(input)"
         :placeholder="is_placeholder(input)"
@@ -93,6 +93,11 @@
         type: Object,
         required: false,
         default: null
+      },
+      readonly:{
+        type: Boolean,
+        required: false,
+        default: null,
       },
       button:{
         type: String,
@@ -350,7 +355,20 @@
         margin-bottom: 10px;
       }
     }
+  }
 
+  .crm{
+    .input_label{
+      display: none;
+    }
+
+    .edit_elements.update .wrapper {
+      margin-bottom: 0;
+    }
+
+    .input, input{
+      text-align: center;
+    }
   }
 
 </style>

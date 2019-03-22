@@ -13,7 +13,17 @@ export default {
 
     return size;
   },
-  reload: store.getters.reload,
+  search_key_by_value: function (object, value) {
+    return Object.keys(object).find(key => object[key] == value);
+  },
+  capitalize: function(name) {
+    if(typeof name === 'string'){
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    }
+    else {
+      console.error('type error capitalize ' + name)
+    }
+  },
 
   //editor
   edit:{
