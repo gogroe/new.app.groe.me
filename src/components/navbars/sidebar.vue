@@ -5,13 +5,13 @@
           @click="option.active = method_for_active()"
           class="list">
         <div>
-             <div @mouseleave="mouseOver(false, i)"
+             <div @mouseleave="mouseLeave(i)"
                   class="full_box" :class="{'active' : option.active === true}">
                {{option.name.toUpperCase()}}
              </div>
              <div class="short_box"
                   :class="{'active' : option.active === true}"
-                  @mouseover="mouseOver(true, i)">
+                  @mouseover="mouseOver(i)">
                {{option.name.substring(0, 1).toUpperCase()}}
              </div>
         </div>
@@ -53,21 +53,24 @@ export default {
       }
       return true
     },
-    mouseOver: function(bool, i){
+    mouseOver: function(i){
       // setTimeout(function(){
         let long = document.getElementsByClassName('full_box')[i]
         let short = document.getElementsByClassName('short_box')[i]
-        if(bool){
-          long.style.display = 'inline-block';
-          long.style.marginLeft = (long.offsetWidth -41) * (-1) + "px"
-          short.style.display = 'none';
-        }
-        else{
-          long.style.display = 'none';
-          short.style.display = 'block';
-        }
+        long.style.display = 'inline-block';
+        long.style.marginLeft = (long.offsetWidth -41) * (-1) + "px"
+        short.style.display = 'none';
+
       // }, 2000);
-    }
+    },
+    mouseLeave: function(i){
+      // setTimeout(function(){
+        let long = document.getElementsByClassName('full_box')[i]
+        let short = document.getElementsByClassName('short_box')[i]
+        long.style.display = 'none';
+        short.style.display = 'block';
+      // }, 2000);
+    },
   },
 }
 </script>
