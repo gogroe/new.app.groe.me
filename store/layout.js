@@ -21,6 +21,7 @@ const layout = {
       y: 0
     },
     user_navigation: [],
+    sidebar: [],
     user_profiles: [],
     user_vitas: [],
     user_progress: [],
@@ -31,6 +32,9 @@ const layout = {
   mutations: {
     update_bubble(state, object){
       state.bubble = object
+    },
+    update_sidebar(state, object){
+      state.sidebar = object
     },
     update_header(state, object){
       state.header = object
@@ -61,6 +65,9 @@ const layout = {
   getters: {
     get_bubble(state){
       return state.bubble
+    },
+    get_sidebar(state){
+      return state.sidebar
     },
     get_header(state){
       return state.header
