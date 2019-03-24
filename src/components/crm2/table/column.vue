@@ -9,7 +9,7 @@
           v-if="isIndicator"
           class="space"
           valign="bottom">
-          <i class="material-icons">arrow_drop_down</i>
+          <i class="material-icons dropdown_arrow">arrow_drop_down</i>
         </th>
         <th
           valign="bottom">
@@ -133,12 +133,6 @@
         &.space{
           border-bottom: 1px solid #e6e6e6;
           width: 25px;
-
-          i{
-            vertical-align: middle;
-            border-radius: 20px;
-            background: #f1f3f4;
-          }
         }
       }
 

@@ -1,16 +1,16 @@
 export default function (cLoad, cColumns) {
 
-  let columns = {}
+  let columns = []
 
-  for(let cKey in cColumns) {
-    columns[cKey] = cColumns[cKey]
+  for(let cIndex in cColumns) {
+    columns[cIndex] = cColumns[cIndex]
 
-    if(columns[cKey].type === 'indicator'){
-      columns[cKey].rows = build_indicator_rows(cLoad.rows, columns[cKey])
+    if(columns[cIndex].type === 'indicator'){
+      columns[cIndex].rows = build_indicator_rows(cLoad.rows, columns[cIndex])
     }
     else {
       //build value build && get_params
-      columns[cKey].rows = build_rows(cLoad.rows, columns[cKey])
+      columns[cIndex].rows = build_rows(cLoad.rows, columns[cIndex])
     }
   }
 

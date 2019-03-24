@@ -117,7 +117,7 @@
         response: {},
         validation:{},
 
-        /* update methods
+        /* update methods todo wenn update dann reload
          */
         cinputs: {},
         cparams: {},
@@ -152,6 +152,13 @@
         handler: function () {
           this.set_value_params ()
         }, deep: true
+      },
+      inputs:{
+        handler: function () {
+          this.cinputs = this.inputs
+          this.cparams = this.params
+          this.set_value_params ()
+        }
       }
     },
     created () {

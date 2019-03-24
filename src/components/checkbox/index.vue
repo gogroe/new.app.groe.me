@@ -30,13 +30,13 @@
     display: inline-block;
     height: 25px;
     width: 25px;
-    border: 2px solid #3da0f5;
+    border: 2px solid #1a73e8;
     background: transparent;
     border-radius: 2px;
     cursor:pointer;
 
     &.checked{
-      background:  #3da0f5;
+      background:  #1a73e8;
     }
   }
 

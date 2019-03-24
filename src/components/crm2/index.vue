@@ -34,19 +34,26 @@
         type: String,
         required: true
       },
+      cBaseColumns:{
+        type:Array,
+        required:false,
+        default: null
+      }
     },
     data(){
       return {
         active:{
-          sidebar: true
+          sidebar: true,
         },
         cLoad: {
           url: '',
           params: {},
           data: {},
+          firstload: false
         },
-        columns: {
-          indicator:{
+        columns: [],
+        baseColumns: [
+          {
             type: 'indicator',
             params: {
               firstname : 'get_users.firstname',
@@ -56,7 +63,7 @@
             },
             rows: []
           },
-          'users.firstname':{
+          {
             id: 'users.firstname',
             name: 'Vorname',
             type: 'text',
@@ -65,7 +72,7 @@
             update_url: 'https://newbackend.groe.me/user_crm/user/update',
             rows: []
           },
-          'users.lastname':{
+          {
             id: 'users.lastname',
             name: 'Nachname',
             type: 'text',
@@ -74,7 +81,7 @@
             update_url: 'https://newbackend.groe.me/user_crm/user/update',
             rows: []
           },
-        }
+        ]
       }
     },
     computed:{
@@ -92,18 +99,27 @@
       }
     },
     mounted () {
+      this.set_baseColumns()
       this.cLoad.url = this.url
       this.get_cLoad()
     },
     methods:{
+      set_baseColumns () {
+        let columns = this.cBaseColumns
+        if(columns !== null){
+          for(let key in columns){
+            this.columns.push(columns[key])
+          }
+        }
+      },
       get_cLoad () {
         this.$$request.post.data(this.cLoad.url, this.cLoad.params)
           .then((response) => this.set_cLoad (response))
       },
       set_cLoad (response) {
         this.cLoad.data = response
-        Object.assign(this.columns, bFields(response.fields));
-        this.columns = bColumns(response, this.columns)
+        this.columns = bFields(response.fields, this.baseColumns);
+        this.active.columns = bColumns(response, this.columns)
       },
     }
   }

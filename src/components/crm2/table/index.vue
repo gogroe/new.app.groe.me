@@ -1,6 +1,6 @@
 <template>
   <div class="crm_table">
-    <div class="table_body">
+    <div class="table_body default_scrollbar">
       <table>
         <tr>
           <td
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-  //convert rows to columns
   import Crm_column from "./column";
 
   export default {
@@ -32,7 +31,7 @@
     },
     props:{
       columns:{
-        type: Object,
+        type: Array,
         required: true,
       },
       cLoad:{
@@ -46,13 +45,6 @@
           action: null,
           value: null,
         },
-      }
-    },
-    computed:{
-      cLoadRows () {
-        return 'rows' in this.cLoad
-          ? this.cLoad.rows
-          : []
       }
     }
   }

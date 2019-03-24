@@ -239,18 +239,29 @@
   ////////////////////////////////////////////////////////////////////////////////// Buttons
 
   button {
+    cursor: pointer;
     border: none;
-    padding: 10px 17px;
-    border-radius: 4px;
+    border-radius: 2px;
     font-size: 14px;
     font-weight: 500;
-    color: #3da0f5;
+    color: #1a73e8;
     background: transparent;
     font-family: 'Roboto', sans-serif;
 
     &:hover, &:focus{
-      color: #383838;
-      outline: 2px solid rgba(61,160,245,0.5);
+      color: #737a80;
+      outline: none;
+    }
+
+    &.filled{
+      padding: 10px 25px;
+      color: #fff;
+      background: #1a73e8;
+
+      &:hover{
+        color: #fff;
+        background: #1a66cc;
+      }
     }
   }
 
@@ -302,6 +313,17 @@
     margin-bottom: 5px;
     text-align: right;
   }
+
+
+  i.dropdown_arrow{
+    vertical-align: middle;
+    font-size: 24px;
+    border-radius: 12px;
+    background: #f1f3f4;
+    color:#1a73e8;
+  }
+
+
 
 
   ////////////////////////////////////////////////////////////////////////////////// Component classes inputs

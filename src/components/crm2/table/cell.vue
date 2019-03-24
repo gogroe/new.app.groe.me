@@ -54,7 +54,7 @@
         active:{
           cell: false
         },
-        reload: { action: 'reload', section: 'crm_filter' },
+        reload: { action: 'reload', section: 'crm_prepare' },
       }
     },
     computed:{
@@ -93,7 +93,3 @@
     }
   }
 </script>
-
-<style>
-
-</style>
