@@ -100,6 +100,7 @@
     width: 100%;
     position:relative;
     padding: 0 18px 18px 18px;
+    margin-left: calc(50% - 400px + 100px);
     border-spacing: 0;
     tr{
       &.last_row td{

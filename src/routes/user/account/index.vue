@@ -1,6 +1,5 @@
 <template>
   <div class="accounts">
-    <sidebar_control :options="menu_items" v-model="active.menu"/>
     <div class="add_wrapper">
       <add name="Transaktion"
            :create="true"
@@ -19,6 +18,13 @@
         :reload="create_user_account.reload"
         method="create"/>
     </div>
+    <ul class="default_box account_menu">
+      <li @click="active.menu = item.name"
+          :class="{'active': active.menu === item.name}"
+          v-for="(item, i) in menu_items"
+          :key="i">{{item.name}}
+      </li>
+    </ul>
     <account_balance :request_accounts_data="cLoad.data"/>
     <accounts_table :request_get_accounts="cLoad" :options="options"/>
   </div>
@@ -26,7 +32,6 @@
 <script>
   import { mapGetters } from 'vuex'
   import Accounts_table from "../../../components/accounts/index";
-  import Sidebar_control from "../../../components/navbars/sidebar_control";
   import Account_balance from "../../../components/accounts/balance";
   import Add from "../../../components/add/index";
   import Create_section from "../../../components/inputs/create";
@@ -41,7 +46,6 @@
       Add,
       Account_balance,
       Accounts_table,
-      Sidebar_control
     },
     data(){
       return {
@@ -50,9 +54,9 @@
           create: false
         },
         menu_items:[
-          { name: 'ALLE' , active: true},
-          { name: 'EINGANG', active: false},
-          { name: 'AUSGANG', active: false},
+          { name: 'ALLE' },
+          { name: 'EINGANG' },
+          { name: 'AUSGANG' },
         ],
         create_user_account:{
           url: 'https://newbackend.groe.me/user_account/create',

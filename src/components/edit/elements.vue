@@ -364,18 +364,4 @@
     }
   }
 
-  .crm{
-    .input_label{
-      display: none;
-    }
-
-    .edit_elements.update .wrapper {
-      margin-bottom: 0;
-    }
-
-    .input, input{
-      text-align: center;
-    }
-  }
-
 </style>

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import Edit_elements from "../../edit/elements";
+  import Edit_elements from "../../../edit/elements";
   import ClickOutside from 'vue-click-outside'
 
   export default {
@@ -69,6 +69,7 @@
           name: this.name,
           type: this.type,
           value: this.row.value,
+          list: this.name,
           placeholder: ''
         }}
       },

@@ -21,7 +21,17 @@
       :placeholder="placeholder"
       v-model="item"/>
     <input_select
-      v-if="type === 'select'"
+      v-if="type.indexOf('select') !== -1"
+      :type="type"
+      :clist="clist"
+      :cvalue="cvalue"
+      :readonly="readonly"
+      :placeholder="placeholder"
+      :citems="citems"
+      v-model="item"/>
+    <input_status
+      v-if="type.indexOf('status') !== -1"
+      :type="type"
       :clist="clist"
       :cvalue="cvalue"
       :readonly="readonly"
@@ -35,10 +45,11 @@
   import input_standard from './types/text'
   import Input_date from "./types/date";
   import Input_select from "./types/select/index";
+  import Input_status from "./types/status/index";
 
   export default {
     name: "cinput",
-    components: {Input_select, Input_date, input_standard},
+    components: {Input_status, Input_select, Input_date, input_standard},
     props:{
       name:{
         type: String,
@@ -100,7 +111,7 @@
         return type === 'date' ||
           type === 'datetime' ||
           type === 'time'
-      },
+      }
     },
     watch:{
       item: {

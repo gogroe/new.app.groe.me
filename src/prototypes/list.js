@@ -10,6 +10,20 @@ export default {
     if(name in store.getters.lists)
     {
       list = store.getters.lists[name]
+      if(list.length === 0){
+        await Sleep(1000)
+        list = store.getters.lists[name]
+
+        if(list.length === 0){
+          await Sleep(2000)
+          list = store.getters.lists[name]
+
+          if(list.length === 0){
+            await Sleep(3000)
+            list = store.getters.lists[name]
+          }
+        }
+      }
     }
     else
     {
@@ -49,6 +63,11 @@ export default {
 
     return cname
   }
+}
+
+
+function Sleep(milliseconds) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
 

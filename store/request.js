@@ -17,7 +17,9 @@ const request = {
       type: null,
       role: null
     },
-    errors: []
+    errors: [],
+    isLoaded: false, //if all loads true then true
+    loads:{} //component_token: false
   },
 
   mutations: {
@@ -39,6 +41,12 @@ const request = {
     },
     update_perm_perm (state, object) {
       state.perm.perm = object
+    },
+    update_isLoaded (state, object) {
+      state.isLoaded = object
+    },
+    update_loads (state, object) {
+      state.loads = object
     }
   },
 
@@ -60,6 +68,12 @@ const request = {
     },
     perm(state){
       return state.perm
+    },
+    isLoaded(state){
+      return state.isLoaded
+    },
+    loads(state){
+      return state.loads
     },
   },
 

@@ -12,8 +12,6 @@
           <div class="content">
             <settings_permissions v-if="$route.name === 'settings_permissions'"/>
             <settings_users v-if="$route.name === 'settings_users'"/>
-            <settings_tables v-if="$route.name === 'settings_tables'"/>
-            <settings_lists v-if="$route.name === 'settings_lists'"/>
           </div>
           <div class="clear"></div>
       </div>

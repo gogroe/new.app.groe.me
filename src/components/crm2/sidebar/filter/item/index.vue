@@ -7,11 +7,12 @@
     @mouseout="active.option = active.item ? true : false">
     <fitem_head
       :active="active"
-      :field="field"
+      :field="column.active"
       :condition="condition"
       :asc="asc"
       :desc="desc"
-      :colName="column.name"
+      :column="column"
+      :colInfo="colInfo"
       v-model="actionHead"/>
     <fitem_body
       :active="active"
@@ -27,7 +28,7 @@
   import ClickOutside from 'vue-click-outside'
   import Custom_checkbox from "../../../../checkbox/index";
   import Cinput from "../../../../input/index";
-  import Fitem_head from "./head";
+  import Fitem_head from "./head/index";
   import Fitem_body from "./body";
 
   export default {
@@ -49,7 +50,6 @@
         },
         
         //params
-        field: true,
         asc: false,
         desc: false,
         condition: {
@@ -73,15 +73,7 @@
       actionHead: function (object) {
         this[object.section] = object.action
 
-        if(object.section === 'field'){
-          this.$emit('input', {
-            method: 'orders',
-            field: this.field,
-            tableName: this.colInfo.table,
-            fieldName: this.colInfo.field,
-          })
-        }
-        else if(object.section === 'condition' || object.section === 'asc' || object.section === 'desc'){
+        if(object.section === 'condition' || object.section === 'asc' || object.section === 'desc'){
           this.$emit('input', this.emit_params('remove_params'))
         }
       },

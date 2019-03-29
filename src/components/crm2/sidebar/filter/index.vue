@@ -6,12 +6,13 @@
       class="filter_wrapper"
       :options="{ handle:'.material-icons.drag'}">
       <crm_item
-        v-for="(column, i) in xColumns"
+        v-for="(column, i) in columns"
         :key="i"
         v-if="column.type !== 'indicator'"
         :column="column"
         v-model="action"/>
     </draggable>
+    <create_column :table="table"/>
   </div>
 </template>
 
@@ -20,10 +21,12 @@
   import draggable from 'vuedraggable';
   import Crm_item from "./item/index";
   import handle_params from "./handle_params";
+  import Create_column from "./create_column";
 
   export default {
     name: "crm_filter",
     components: {
+      Create_column,
       Crm_item,
       draggable
     },
@@ -43,7 +46,16 @@
     computed:{
       ...mapGetters([
         'reload'
-      ])
+      ]),
+      table () {
+        let table = 'users'
+        for(let key in this.columns){
+          if('type' in this.columns[key] && this.columns[key].type === 'indicator'){
+          table = this.columns[key].table
+          }
+        }
+        return table
+      }
     },
     watch:{
       columns: function(){
@@ -65,10 +77,6 @@
           }
           this.$store.commit('update_reload', {section: 'crm' ,action: this.params})
 
-          //handle field and orders
-          if(object.method === 'update_field') {
-
-          }
           this.action = null
         }
       }
@@ -95,6 +103,18 @@
 
     .filter_wrapper{
       padding: 16px;
+    }
+
+    .input_label{
+      display: none;
+    }
+
+    .edit_elements.update .wrapper {
+      margin-bottom: 0;
+    }
+
+    .input, input{
+      text-align: center;
     }
   }
 

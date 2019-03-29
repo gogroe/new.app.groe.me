@@ -1,18 +1,23 @@
 <template>
   <div>
-    <v-select
+    <status
+      :type="type"
+      :clist="clist"
       :options="items"
       label="name"
       :placeholder="placeholder"
+      :cvalue="item"
       v-model="item"/>
   </div>
 </template>
 
 <script>
-  import select_methods from './methods'
+  import status_methods from './methods'
+  import Status from "../../../status/index";
 
   export default {
-    name: "select_standard",
+    name: "status_standard",
+    components: {Status},
     props: {
       type: {
         type: String,
@@ -42,6 +47,6 @@
         item: null
       }
     },
-    mixins:[select_methods]
+    mixins:[status_methods]
   }
 </script>

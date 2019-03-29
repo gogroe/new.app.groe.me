@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export default function (cLoad, cColumns) {
 
   let columns = []
@@ -12,6 +14,9 @@ export default function (cLoad, cColumns) {
       //build value build && get_params
       columns[cIndex].rows = build_rows(cLoad.rows, columns[cIndex])
     }
+
+    //delete row params
+    // columns[cIndex].params = delete_column_row_params(columns[cIndex])
   }
 
   return columns
@@ -70,5 +75,17 @@ function build_row_params(row, column) {
   }
 
   return params
+}
+
+
+
+function delete_column_row_params (column) {
+  let colParams = column.params
+
+  for(let key in column.rows[0].params){
+    if(column.type !== 'indicator' && key in column.params){
+      Vue.delete( colParams, key )
+    }
+  }
 }
 

@@ -18,8 +18,8 @@
   //and building up the columns from loaded data
 
   import { mapGetters } from 'vuex'
-  import bColumns from './table/build_columns'
-  import bFields from './table/build_fields'
+  import bColumns from './build_columns'
+  import bFields from './build_fields'
   import Crm_table from "./table/index";
   import Crm_sidebar from "./sidebar/index";
 
@@ -54,6 +54,8 @@
         columns: [],
         baseColumns: [
           {
+            table: 'users',
+            active: true,
             type: 'indicator',
             params: {
               firstname : 'get_users.firstname',
@@ -64,6 +66,7 @@
             rows: []
           },
           {
+            active: true,
             id: 'users.firstname',
             name: 'Vorname',
             type: 'text',
@@ -73,6 +76,7 @@
             rows: []
           },
           {
+            active: true,
             id: 'users.lastname',
             name: 'Nachname',
             type: 'text',
@@ -94,6 +98,10 @@
         if(object.section === 'crm' && typeof object.action === 'object'){
           this.cLoad.params = object.action
           this.get_cLoad()
+          this.$store.commit('update_reload', {section: null, action: null})
+        }
+        if(object.section === 'crm_state_column'){
+          this.set_column_state(object.action.id, object.action.state)
           this.$store.commit('update_reload', {section: null, action: null})
         }
       }
@@ -121,6 +129,14 @@
         this.columns = bFields(response.fields, this.baseColumns);
         this.active.columns = bColumns(response, this.columns)
       },
+      set_column_state(id, state){
+        for(let index in this.columns){
+          if('id' in this.columns[index] && this.columns[index].id === id){
+            this.columns[index].active = state
+            break
+          }
+        }
+      }
     }
   }
 </script>

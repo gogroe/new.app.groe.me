@@ -9,14 +9,15 @@
       type="text"
       :placeholder="placeholder"
       v-model="rvalue">
-    <select_dependent
-      v-else-if="type === 'select_dependent'"
+    <status_dependent
+      v-else-if="type === 'status_dependent'"
+      :type="type"
       :clist="clist"
       :citems="citems"
       :cvalue="cvalue"
       :placeholder="placeholder"
       v-model="item"/>
-    <select_standard
+    <Status_standard
       v-else
       :type="type"
       :clist="clist"
@@ -28,13 +29,12 @@
 </template>
 
 <script>
-  import Select_dependent from "./dependent";
-  import Select_standard from "./standard";
-  import Edit_select from "./edit_select";
+  import Status_dependent from "./dependent";
+  import Status_standard from "./standard";
 
   export default {
-    name: "input_select",
-    components: {Edit_select, Select_standard, Select_dependent},
+    name: "input_status",
+    components: {Status_standard, Status_dependent},
     props: {
       type:{
         type: String,

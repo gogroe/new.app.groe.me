@@ -24,6 +24,12 @@ export default {
       console.error('type error capitalize ' + name)
     }
   },
+  set_load: function (componentName){
+    let loadToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+    let loadName = componentName + '_' + loadToken
+    store.commit('update_loads', {[loadName]: false})
+    return loadName
+  },
 
   //editor
   edit:{

@@ -1,9 +1,13 @@
 <template>
   <div>
-    <v-select
+    <status
       :options="dependentItems"
       label="name"
       :placeholder="placeholder"
+      :dependent="indicatorValue"
+      :cvalue="item"
+      :clist="clist"
+      :type="type"
       v-model="item"/>
   </div>
 </template>
@@ -11,10 +15,16 @@
 <script>
   import { mapGetters } from 'vuex'
   import select_methods from './methods'
+  import Status from "../../../status/index";
 
   export default {
     name: "select_dependent",
+    components: {Status},
     props: {
+      type:{
+        type: String,
+        required: true,
+      },
       clist:{
         type: String,
         required: true,

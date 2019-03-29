@@ -1,16 +1,15 @@
 <template>
   <div class="admin">
-    <sidebar_control :options="menu_items" v-model="active.menu"/>
     <div class="add_wrapper"></div>
     <h6>VERWALTEN</h6>
     <div class="default_box">
-      <!-- <ul>
+      <ul>
         <li :class="{'active': active.menu === 'user'}" @click="active.menu = 'user'">Nutzer</li>
         <li :class="{'active': active.menu === 'contact'}" @click="active.menu = 'contact'">Kontakt</li>
         <li :class="{'active': active.menu === 'adress'}" @click="active.menu = 'adress'">Adresse</li>
         <li :class="{'active': active.menu === 'bank'}" @click="active.menu = 'bank'">Bankdaten</li>
         <li v-if="$$permission.is_perm('create')" :class="{'active': active.menu === 'password'}" @click="active.menu = 'password'">Password ändern</li>
-      </ul> -->
+      </ul>
       <div class="content">
         <admin_user
           v-if="active.menu === 'user'"
@@ -33,7 +32,6 @@
 </template>
 
 <script>
-  import Sidebar_control from "../../../components/navbars/sidebar_control";
   import { mapGetters } from 'vuex'
   import Admin_user from "./users/index";
   import Admin_contact from "./contact";
@@ -52,17 +50,9 @@
       Admin_adress,
       Admin_contact,
       Admin_user,
-      Sidebar_control
     },
     data(){
       return{
-        menu_items:[
-          {name: 'user', active: true},
-          {name: 'contact', active: false},
-          {name: 'adress', active: false},
-          {name: 'bank', active: false},
-          {name: 'password', active: false},
-        ],
         cload:{
           url: 'https://newbackend.groe.me/user_admin/get_one',
           params:{

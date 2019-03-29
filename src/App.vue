@@ -214,7 +214,6 @@
     height: 43px;
   }
 
-
   .default_popup_background{
     position: fixed;
     top:64px;
@@ -223,6 +222,15 @@
     height: calc(100% - 64px);
     z-index: 9000;
     background: rgba(0,0,0,0.9);
+
+    &.bluered {
+      filter: blur(10px);
+      -webkit-filter: blur(10px);
+      -moz-filter: blur(10px);
+      -o-filter: blur(10px);
+      -ms-filter: blur(10px);
+      /*filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' ><filter id='svgMask'><feGaussianBlur stdDeviation='10' /></filter></svg>#svgMask");*/
+    }
 
     .inner_popup{
       width: 450px;
@@ -315,12 +323,18 @@
   }
 
 
-  i.dropdown_arrow{
+  i.dropdown_arrow, i.add_plus{
+    cursor: pointer;
     vertical-align: middle;
     font-size: 24px;
     border-radius: 12px;
     background: #f1f3f4;
     color:#1a73e8;
+  }
+
+  i.add_plus{
+    vertical-align: middle;
+    font-size: 22px;
   }
 
 

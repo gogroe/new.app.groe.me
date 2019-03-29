@@ -8,6 +8,7 @@
             v-for="(column, i ) in columns"
             :key="i">
             <crm_column
+              v-if="column.active"
               :column="column"
               :action="action"
               v-model="action"/>
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-  import Crm_column from "./column";
+  import Crm_column from "./column/index";
 
   export default {
     name: "crm_table",
@@ -75,8 +76,19 @@
       width: 100%;
       border-top: 1px solid #e6e6e6;
     }
+
+
+    .input_label{
+      display: none;
+    }
+
+    .edit_elements.update .wrapper {
+      margin-bottom: 0;
+    }
+
+    .input, input{
+      text-align: center;
+    }
   }
-
-
 
 </style>

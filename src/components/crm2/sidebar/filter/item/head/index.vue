@@ -12,12 +12,17 @@
         @click="$emit('input', {action: {item: !active.item, option: active.option}, section: 'active'})">
         arrow_drop_down
       </i>
-      <span>
-         {{colName}}
-        </span>
+      <span
+        v-if="editCustomField === false">
+         {{column.name}}
+      </span>
+      <update_column
+        :column="column"
+        :active-option="active.option"
+        v-model="editCustomField"/>
       <span
         class="selection"
-        v-if="asc">
+        v-if="asc && editCustomField === false">
         <i class="material-icons up">arrow_right_alt</i>
         <i
           class="material-icons close"
@@ -27,7 +32,7 @@
         </span>
       <span
         class="selection"
-        v-if="desc">
+        v-if="desc && editCustomField === false">
         <i class="material-icons down">arrow_right_alt</i>
         <i
           class="material-icons close"
@@ -36,7 +41,7 @@
         </i>
         </span>
       <span
-        v-if="condition.value !== null"
+        v-if="condition.value !== null && editCustomField === false"
         class="selection condition_value">
         {{condition.value}}
         <i
@@ -51,11 +56,13 @@
 </template>
 
 <script>
-  import Custom_checkbox from "../../../../checkbox/index";
+  import Custom_checkbox from "../../../../../checkbox/index";
+  import Edit_elements from "../../../../../edit/elements";
+  import Update_column from "./update_column";
 
   export default {
     name: "fitem_head",
-    components: {Custom_checkbox},
+    components: {Update_column, Edit_elements, Custom_checkbox},
     props:{
       asc:{
         required: true,
@@ -73,21 +80,22 @@
         type: Object,
         required: true
       },
-      colName:{
-        type: String,
+      column:{
+        type: Object,
         required: true
       }
     },
     data () {
       return {
-        xField: null
+        xField: null,
+        editCustomField: false
       }
     },
     watch:{
       xField: function (boolean) {
-        this.$emit('input', { action:boolean, section: 'field' })
+        this.$store.commit('update_reload', {section: 'crm_state_column' ,action: {id: this.column.id, state: boolean}})
       }
-    }
+    },
   }
 </script>
 
