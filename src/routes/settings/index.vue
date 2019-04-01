@@ -39,20 +39,8 @@
       return{
         navigations:[
           {
-            name: 'Nutzer',
-            route: 'settings_users'
-          },
-          {
             name: 'Nutzerrechte',
             route: 'settings_permissions'
-          },
-          {
-            name: 'Tabellen',
-            route: 'settings_tables'
-          },
-          {
-            name: 'Listen',
-            route: 'settings_lists'
           },
         ]
       }

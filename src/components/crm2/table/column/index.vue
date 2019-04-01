@@ -9,7 +9,7 @@
           v-if="isIndicator"
           class="space"
           valign="bottom">
-          <i class="material-icons dropdown_arrow">arrow_drop_down</i>
+            <crm_list/>
         </th>
         <th
           valign="bottom">
@@ -59,10 +59,11 @@
 <script>
   import Crm_cell from "./cell";
   import Crm_icell from "./iCell";
+  import Crm_list from "./dropdown";
 
   export default {
     name: "crm_column",
-    components: {Crm_icell, Crm_cell},
+    components: {Crm_list, Crm_icell, Crm_cell},
     props:{
       column:{
         type: Object,

@@ -12,13 +12,13 @@
       v-model="xValue"/>
     <create_status_item
       class="dropdown_item_outline"
-      v-if="active.edit"
+      v-if="active.edit && $$permission.is_perm('admin_write')"
       :clist="clist"
       :type="type"
       :dependent="dependent"
       :options="options"/>
     <div
-      v-if="activeEditButton"
+      v-if="$$permission.is_perm('admin_write')"
       class="status_edit">
       <span
         v-if="active.edit === false"

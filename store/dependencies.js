@@ -128,6 +128,13 @@ const dependencies = {
       delete:4,
       create:5,
       write:6,
+      admin_get_one : 7,
+      admin_get_all : 8,
+      admin_read : 9,
+      admin_update : 10,
+      admin_delete : 11,
+      admin_create : 12,
+      admin_write : 13
     },
 
     translations:{

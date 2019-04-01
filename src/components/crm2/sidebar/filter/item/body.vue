@@ -32,6 +32,7 @@
         class="condition_input"
         :name="column.name"
         :cvalue="condition.value"
+        :clist="column.name"
         :type="column.type"
         placeholder="suchen"
         v-model="xCondition"

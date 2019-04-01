@@ -33,11 +33,6 @@
       url:{
         type: String,
         required: true
-      },
-      cBaseColumns:{
-        type:Array,
-        required:false,
-        default: null
       }
     },
     data(){

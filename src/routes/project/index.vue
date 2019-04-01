@@ -1,42 +1,38 @@
 <template>
   <div>
-    <cinput
-      type="select_indicator"
-      name="Indikator"
-      :cvalue="null"
-      clist="user_status"
-      placeholder="Auswählen"
-      v-model="indicator"/>
-    <cinput
-      type="select_dependent"
-      name="Dependent"
-      :cvalue="null"
-      clist="user_status$details"
-      placeholder="Auswählen"
-      v-model="dependent"/>
-    <cinput
-      type="status"
-      name="Status"
-      :cvalue="null"
-      clist="user_status"
-      placeholder="Auswählen"
-      v-model="dependent"/>
+    <button @click="send_inquiry">Send Data</button>
+    <pre>{{send.data}}</pre>
   </div>
 </template>
 
 <script>
-
-
-  import Cinput from "../../components/input/index";
-  import Status from "../../components/status/index";
   export default {
     name: "projects",
-    components: {Status, Cinput},
     data () {
       return {
-        standard: null,
-        indicator: null,
-        dependent: null
+        send: {
+          url: "https://www.kaeuferportal.de/inquiries",
+          params: {
+            apikey: "1601007011430134e48764006a72bca7",
+            "product": {
+              "id": 30
+            },
+            questions: {
+              question_uuid: [
+                "79d10e00b8af012d38b238ac6f7d89ab ",
+                "79d10e00b8af012d38b238ac6f7d89ab "
+              ]
+            },
+
+            data: {}
+          }
+        }
+      }
+    },
+    methods:{
+      send_inquiry () {
+        this.$$request.post.data(this.send.url, this.send.params)
+          .then((response) => this.send.data = response)
       }
     }
   }
