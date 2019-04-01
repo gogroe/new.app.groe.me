@@ -2,22 +2,17 @@
   <div class="admin">
     <sidebar :options="menu_items" v-model="active.menu"/>
     <div class="add_wrapper"></div>
-    <div class="default_box">
-      <div class="content">
-        <admin_user
-          v-if="active.menu === 'user'"
-          :cload="cload_data('user')"/>
-        <admin_contact
-          v-if="active.menu === 'contact'"
-          :cload="cload_data('contact')"/>
-        <admin_adress
-          v-if="active.menu === 'adress'"
-          :cload="cload_data('adress')"/>
-        <admin_bank
-          v-if="active.menu === 'bank'"
-          :cload="cload_data('bank')"/>
-        <admin_password
-          v-if="active.menu === 'password' && $$permission.is_perm('create')"/>
+    <div class="title">
+      <p>Persönliche Daten</p>
+      <p>Allgemeine Informationenwie Name und Foto bei groe</p>
+    </div>
+    <div class="default_box_two">
+      <div class="content_admin">
+        <admin_user :cload="cload_data('user')"/>
+        <admin_contact :cload="cload_data('contact')"/>
+        <admin_adress :cload="cload_data('adress')"/>
+        <admin_bank :cload="cload_data('bank')"/>
+        <admin_password v-if="$$permission.is_perm('create')"/>
       </div>
       <div class="clear"></div>
     </div>
@@ -84,6 +79,22 @@
           this.cload.request = true
           this.$store.commit('update_reload', {action: 'reload', section: 'all'})
         }
+      },
+      active:{
+        handler: function(obj){
+          let y = 0
+          var child=document.getElementsByClassName('content_admin')[0].childNodes;
+          for (let i in this.menu_items) {
+            if(this.menu_items[i].name === obj.menu){
+              y=child[i*2].offsetTop
+            }
+          }
+          window.scrollTo({
+            top: y,
+            left: 0,
+            behavior: 'smooth'
+          });
+        }, deep: true
       }
     },
     created () {
@@ -115,8 +126,8 @@
 </script>
 
 <style lang="scss" scoped>
-  .default_box{
-    padding: 0 17px;
+  .default_box_two{
+    border: 1px solid #dadada;
   }
 
   ul{
@@ -134,10 +145,33 @@
     }
   }
 
-  .content{
-    width: 70%;
-    padding: 27px 0 27px 17px;
-    float:left
+  .title{
+    padding-bottom: 41px;
+    text-align: center;
+
+    p{
+      color: #a8abad;
+      font-size: 22px;
+    }
   }
 
+  .content_admin{
+    width: 100%;
+    padding: 17px 0 17px 17px;
+    margin-bottom: 107px;
+    float:left;
+  }
+
+</style>
+
+<style>
+.section_name{
+  padding: 0 17px;
+  margin: 17px 0;
+}
+
+.wrapper{
+  border-bottom: 1px solid #dadada !important;
+  line-height: 66px !important;
+}
 </style>

@@ -2,13 +2,10 @@
   <div class="accounts">
     <sidebar :options="menu_items" v-model="active.menu"/>
     <div class="add_wrapper">
-      <!-- <add name="Transaktion"
-           :create="true"
-           :active="active.create"
-           v-model="active.create"
-           class="add_feed"/> -->
     </div>
-    <div class="create_box default_box" v-if="active.create">
+
+    <div class="create_box default_box"
+         v-if="reload.action === true && reload.section === 'users_account'">
       <edit_elements
         name="TRANSAKTION HINZUFÜGEN"
         button="TRANSAKTION ERSTELLEN"
@@ -46,7 +43,6 @@
       return {
         active:{
           menu: 'ALLE',
-          create: false
         },
         menu_items:[
           { name: 'ALLE'},

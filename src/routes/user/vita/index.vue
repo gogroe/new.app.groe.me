@@ -1,25 +1,30 @@
 <template>
   <div class="vita">
     <div class="add_wrapper">
-      <!-- <add class="add"
-           :create="true"
-           :active="active.create"
-           name="Vita"
-           v-model="active.create"/> -->
     </div>
-    <div class="create_box default_box" v-if="active.create">
-      <edit_elements
-        name="VITA HINZUFÜGEN"
-        button="VITA ERSTELLEN"
-        :url="create_user_vita.url"
-        :inputs="create_user_vita.inputs"
-        :params="create_user_vita.params"
-        :reload="create_user_vita.reload"
-        method="create"/>
-    </div>
+    <!-- <div class="default_popup_background"> -->
+      <div
+        class="create_box inner_popup"
+        v-if="active.create">
+        <edit_elements
+          name="VITA HINZUFÜGEN"
+          button="VITA ERSTELLEN"
+          :url="create_user_vita.url"
+          :inputs="create_user_vita.inputs"
+          :params="create_user_vita.params"
+          :reload="create_user_vita.reload"
+          method="create"/>
+      </div>
+      <!-- close_popup -->
+    <!-- </div> -->
     <posts v-for="(article, i) in cLoad.data"
            :key="i"
-           :obj="article"/>
+           :obj="article">
+
+           <div class="aaaaa">
+             aaaaaaa
+           </div>
+    </posts>
   </div>
 </template>
 
@@ -125,6 +130,10 @@
           this.get_cload()
           this.active.create = false
         }
+        if(object.section === this.$route.name){
+          this.active.create = object.action
+          this.$store.commit('update_reload', { action: null, section: null })
+        }
       },
     },
     mounted(){
@@ -136,6 +145,10 @@
         this.$$request.post.data(this.cLoad.url, this.cLoad.params)
           .then((response) => this.cLoad.data = response)
       },
+      hide () {
+        this.active.create = false
+        this.$store.commit('update_reload', {section: 'add_' + this.$route.name, action: false})
+      }
     },
     mixins:[loader]
   }

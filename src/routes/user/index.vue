@@ -1,6 +1,9 @@
 <template>
     <div>
-      <navbar :options="users_navigations" :activeAdd="true" v-model="active.add"/>
+      <navbar
+        :options="navigations"
+        :activeAdd="true"
+         v-model="active.add"/>
       <div class="user">
         <u_head class="u_head"/>
         <div class="router_feed" v-if="is_perm('read')">
@@ -29,43 +32,44 @@
         users_navigations:{
           vita:{
             name: 'Vita',
-            route: 'users_vita',
-            section: 'menu',
+            route:  {name: 'users_vita', params:{id: null}},
           },
           accounts:{
             name: 'Konto',
-            route: 'users_account',
-            section: 'settings'
+            route:  {name: 'users_account' , params:{id: null}},
           },
           admin:{
             name: 'Profildaten',
-            route: 'users_admin',
-            section: 'settings'
+            route: {name: 'users_admin'  , params:{id: null}},
           }
         },
         user_navigations:{
           vita:{
             name: 'Vita',
-            route: 'user_vita',
-            section: 'menu'
+            route: {name: 'user_vita' },
           },
           accounts:{
             name: 'Konto',
-            route: 'user_account',
-            section: 'settings'
+            route: {name:'user_account'},
           },
           admin:{
             name: 'Profildaten',
-            route: 'user_admin',
-            section: 'settings'
+            route: {name: 'user_admin' },
           }
         }
       }
     },
-    navigations(){
-      return this.cut_route_name_prefix(this.$route.name) === 'users'
-        ? this.users_navigations
-        : this.user_navigations
+    computed:{
+      navigations(){
+        return this.$$helper.edit.cut_route_name_prefix(this.$route.name) === 'users'
+          ? this.users_navigations
+          : this.user_navigations
+        }
+    },
+    mounted () {
+      this.users_navigations.vita.route.params.id = this.$route.params.id
+      this.users_navigations.accounts.route.params.id = this.$route.params.id
+      this.users_navigations.admin.route.params.id = this.$route.params.id
     },
     created(){
       this.$store.commit('update_perm_perm', this.list_permissions['read'])

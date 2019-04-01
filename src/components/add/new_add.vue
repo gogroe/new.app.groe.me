@@ -1,8 +1,7 @@
 <template>
   <div v-if="is_create"
        class="add"
-       @click="$emit('input', !active)"
-       :class="{'inactive': active}">
+       @click="$emit('input', !active)">
     <p>
       +
     </p>
@@ -10,11 +9,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
   export default {
     name: "add",
     props:{
       name:{
-        required: true
+        required: false
       },
       active:{
         required: true
@@ -23,7 +23,29 @@
         required: false
       }
     },
+    watch:{
+      active: {
+         handler(obj){
+           if(obj)
+            this.$store.commit('update_reload', {section: this.$route.name , action: true})
+            else
+            this.$store.commit('update_reload', {section: this.$route.name ,action: false})
+         },
+         deep: true
+      },
+      reload: {
+        handler: function (object) {
+          if(object.section === 'add_' + name){
+            this.$emit('input', object.action)
+            this.$store.commit('update_reload', {section: null, action:null})
+          }
+        }
+      }
+    },
     computed: {
+      ...mapGetters([
+        'reload',
+      ]),
       is_create(){
         if(this.create){
           return this.$$permission.is_perm('create')

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="image">
     <div v-if="active_image" class="user_image_wrapper">
       <user_visual class="user_image"
                    :name="request_get_user.firstname + ' ' + request_get_user.lastname"
@@ -9,15 +9,16 @@
         <span @click="request_delete_user_image.request = true">entfernen</span>
       </p>
     </div>
-    <add v-if="active_image === false"
-         :create="true"
-         :active="active.upload"
-         name="Nutzerbild"
-         v-model="active.upload"/>
-    <div class="default_popup_background"
-         v-if="active.upload || active.edit_upload">
-      <div class="inner_popup"
-           v-click-outside="hide">
+    <div class="container"
+         @click="active.upload = true">
+      <p class="label">Foto</p>
+      <p class="message">Mit einem Foto können Sie Ihr Konto personalisieren	</p>
+        <user_visual class="user_image"
+                     :name="request_get_user.firstname + ' ' + request_get_user.lastname"
+                     :path="request_get_user.image" size="41"/>
+    </div>
+
+      <div class="inner_popup">
         <p class="section_name">NUTZERBILD BEARBEITEN</p>
         <p class="image_info">
           Ihr Nutzerfoto im Format jpg oder png darf maximal 2 MB groß sein.
@@ -30,9 +31,8 @@
                 :max_size="2000000"
                 :types="['jpeg', 'jpg', 'png', 'pdf']"
                 v-model="upload_user_image.data"/>
+        <div class="close_popup" @click="active.edit_upload = false; active.upload = false"><i class="material-icons">close</i> schließen</div>
       </div>
-      <div class="close_popup" @click="active.edit_upload = false; active.upload = false"><i class="material-icons">close</i> schließen</div>
-    </div>
     <request :obj="request_delete_user_image" v-model="request_delete_user_image"/>
   </div>
 </template>
@@ -90,6 +90,26 @@
       }
     },
     watch:{
+      active: {
+         handler(obj){
+           let app = document.getElementById('app')
+           let popup = document.getElementsByClassName('inner_popup')[0]
+           if(obj.upload || obj.edit_upload){
+             let div = document.createElement("div")
+             div.className = "unblured"
+             document.body.insertBefore(div, app);
+             div.innerHTML = popup.innerHTML
+             app.className = 'blured'
+             app.addEventListener("click", this.hide);
+             document.getElementsByClassName('close_popup')[0].addEventListener("click", this.hide);
+           }
+           else if(document.getElementsByClassName('unblured').length !== 0){
+             document.getElementsByClassName('unblured')[0].parentNode.removeChild(document.getElementsByClassName('unblured')[0])
+             app.className = ''
+             app.removeEventListener("click", this.hide);
+           }
+         },deep: true
+      },
       upload_user_image_data: function(object){
         if('update' in object){
           this.active.edit_upload = false
@@ -128,16 +148,24 @@
 
 <style lang="scss" scoped>
 
+  .image{
+    padding-left: 17px;
+  }
+
+  .inner_popup{
+    display: none;
+  }
+
   .image_info{
     margin-bottom: 27px;
   }
 
   .close_popup{
-    position: absolute;
+    position: fixed;
     right: 17px;
     top: 17px;
     cursor: pointer;
-    color: #fff;
+    color: #bbbbbb;
     line-height: 17px;
 
     &:hover{
@@ -167,6 +195,36 @@
       span:hover{
         color: #3da0f5;
       }
+    }
+  }
+
+  .container{
+    border-bottom: 1px solid #dadada;
+    color: #838688;
+    line-height: 41px;
+    width: 100%;
+    display: inline-block;
+    padding: 12.5px 17px 12.5px 0px;
+
+    .label{
+      float: left;
+      width: 100px;
+      margin-right: 17px;
+    }
+
+    .message{
+      float: left;
+      padding: 0 20px 0 5px;
+    }
+
+    .user_image{
+      float: right;
+      margin-right: 17px;
+    }
+
+    &:hover{
+      cursor: pointer;
+      background-color: #f8f8f8;
     }
   }
 

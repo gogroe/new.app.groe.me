@@ -303,8 +303,16 @@
 
   .edit_elements{
     .wrapper{
+      // border-bottom: 1px solid #dadada;
+      // line-height: 66px;
       position: relative;
-      display:inline-block
+      display:inline-block;
+      color: #838688;
+
+      &:hover{
+        cursor: pointer;
+        background-color: #f8f8f8;
+      }
     }
 
     .success{
@@ -356,11 +364,12 @@
         margin-top: 10px;
       }
     }
+    .input_wrapper{
+      width: calc(100% - 150px);
+    }
 
-    &.update{
-      .wrapper{
-        margin-bottom: 10px;
-      }
+    .wrapper, .input{
+      width: 100%;
     }
   }
 

@@ -2,7 +2,7 @@
   <div class="navbar">
     <ul>
       <li v-for="(option , i) in options" :key="i"
-          @click="$router.push( {name: option.route, params:{id: uid}} )"
+          @click="$router.push( option.route )"
           :class="{'active' : $route.name === option.route.name}">
         {{option.name}}
       </li>
@@ -10,7 +10,7 @@
     <add
       v-if="activeAdd"
       :active="active"
-      :name="name"
+      :name="$route.name"
       v-model="active"/>
   </div>
 </template>

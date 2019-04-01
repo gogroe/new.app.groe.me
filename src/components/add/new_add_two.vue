@@ -3,11 +3,12 @@
        class="add"
        @click="$emit('input', !active)"
        :class="{'inactive': active}">
-       <div class="container">
-         <p class="label">{{name}}</p>
-         <p class="message">Mit einem Foto können Sie Ihr Konto personalisieren	</p>
-       </div>
+    <p v-if="active === false">
+      <i class="material-icons">add</i> {{name}} hinzufügen
+    </p>
 
+      <p class="label">{{name}}</p>
+      <p class="message">Mit einem Foto können Sie Ihr Konto personalisieren	</p>
     </div>
 
 
@@ -49,15 +50,32 @@
   .add{
     font-weight: 700;
     cursor: pointer;
+    padding: 6.5px 0 11.5px 0;
   }
 
+  i{
+    margin-left: 17px;
+    vertical-align: -7px;
+    font-weight: 700;
+  }
+
+  p{
+    color: #3da0f5;
+    line-height: 17px;
+  }
+
+  .inactive p{
+    color: #bbbbbb;
+  }
+
+
   .container{
-    border-bottom: 1px solid #dadada;
-    color: #838688;
-    padding: 12.5px 0px;
+    color: #45494d;
+    line-height: 64px;
+    padding: 17px;
     width: 100%;
-    line-height: 41px;
     display: inline-block;
+    border-bottom: 1px solid gray;
 
     .label{
       float: left;
@@ -67,6 +85,7 @@
 
     .message{
       float: left;
+      padding: 5px 20px 5px 5px;
     }
 
     .user_image{

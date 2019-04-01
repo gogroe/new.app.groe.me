@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="u_head default_box">
+    <div class="u_head default_box_two">
       <user_visual class="user_image" :name="user_name" :path="users_image" size="110"/>
       <user_name :name="user_name" :id="user_id" class="user_name"/>
       <div v-if="active_description">
@@ -96,7 +96,7 @@
 <style lang="scss" scoped>
 
   .u_head {
-    min-height: 280px;
+    min-height: 173px;
     margin-bottom: 17px;
     text-align: center;
   }

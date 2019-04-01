@@ -70,7 +70,7 @@
           url: 'https://newbackend.groe.me/user_admin/gender/update',
           reload: { action: 'reload', section: 'users_admin' },
           params: {
-            user_id: null,
+            user_id: null, //'get->id',
           },
           inputs:{
             gender: {
@@ -109,6 +109,13 @@
             }
           }
         }
+      }
+    },
+    computed:{
+      gender_url(){
+        return 'gender' in this.cload && this.cload.gender !== null
+          ? 'https://newbackend.groe.me/user_admin/gender/create'
+          : 'https://newbackend.groe.me/user_admin/gender/update'
       }
     },
     mounted(){

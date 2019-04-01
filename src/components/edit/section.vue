@@ -50,7 +50,7 @@
        *                          }
        */
         type: Object,
-        required: true,
+        required: false,
         default: {}
       },
 
@@ -103,8 +103,9 @@
 <style lang="scss">
 
   .edit_section{
+    line-height: 66px;
     .add{
-      margin-bottom: 17px;
+      line-height: 0;
     }
 
     button{

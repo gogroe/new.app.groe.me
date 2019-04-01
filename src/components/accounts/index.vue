@@ -1,6 +1,6 @@
 <template>
   <div class="accounts_table">
-    <table class="default_box">
+    <table class="default_box_two">
       <tr>
         <th class="more">Aktion</th>
         <th class="date">Datum</th>
@@ -96,27 +96,35 @@
 </script>
 
 <style lang="scss" scoped>
-
   table{
     width: 100%;
     position:relative;
-    padding: 0 18px 18px 18px;
+    padding: 0 0 18px 18px;
     border-spacing: 0;
+    border-right: 1px solid #e9e9e9;
+
     tr{
       &.last_row td{
         border-bottom: none;
       }
+
       th{
         text-align: left;
         color: #bbbbbb;
         font-weight: bold;
         padding: 13.5px 5px;
         border-bottom: 1px solid #e9e9e9;
+        border-top: 1px solid #e9e9e9;
       }
+
       td{
         font-size: 14px;
         border-bottom: 1px solid #e9e9e9;
         padding: 17.5px 5px;
+      }
+
+      &:hover{
+        background-color: #e9e9e9;
       }
     }
   }
@@ -126,6 +134,6 @@
   }
 
   .value{
-    text-align: right;
+    text-align: center;
   }
 </style>
