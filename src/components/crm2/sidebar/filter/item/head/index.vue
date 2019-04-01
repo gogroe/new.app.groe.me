@@ -17,6 +17,7 @@
          {{column.name}}
       </span>
       <update_column
+        v-if="$$permission.is_perm('admin_write')"
         :column="column"
         :active-option="active.option"
         v-model="editCustomField"/>

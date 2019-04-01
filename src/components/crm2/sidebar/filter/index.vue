@@ -12,7 +12,9 @@
         :column="column"
         v-model="action"/>
     </draggable>
-    <create_column :table="table"/>
+    <create_column
+      v-if="$$permission.is_perm('admin_write')"
+      :table="table"/>
   </div>
 </template>
 
