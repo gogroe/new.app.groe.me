@@ -2,6 +2,7 @@
   <div class="accounts_table">
     <table class="default_box">
       <tr>
+        <th class="more">Aktion</th>
         <th class="date">Datum</th>
         <th>Verwendungszweck</th>
         <th class="value">Betrag</th>
@@ -10,20 +11,20 @@
       <tr v-for="(account, i) in accounts"
           :key="i"
           :class="{'last_row': i+1 === accounts.length }">
+          <td v-if="active_options">
+            <popup_menu class="popup_menu"
+            v-if="is_perm('update')"
+            :id="account.id"
+            type="list"
+            :options="options"
+            icon="more_horiz"
+            v-model="action"/></td>
         <td>
           <ddmmmyy :timestamp="account.date"
                    color="#333333"/>
         </td>
         <td class="date">{{account.description}}</td>
         <td class="value">{{account.value.replace('.',',') + ' ' + account.currency}}</td>
-        <td v-if="active_options">
-          <popup_menu class="popup_menu"
-                      v-if="is_perm('update')"
-                      :id="account.id"
-                      type="list"
-                      :options="options"
-                      icon="more_horiz"
-                      v-model="action"/></td>
       </tr>
     </table>
     <edit_accounts :edit_account="edit_account" :active="active.edit" v-model="active.edit"/>
@@ -100,7 +101,6 @@
     width: 100%;
     position:relative;
     padding: 0 18px 18px 18px;
-    margin-left: calc(50% - 400px + 100px);
     border-spacing: 0;
     tr{
       &.last_row td{
@@ -121,7 +121,7 @@
     }
   }
 
-  .date, .value{
+  .date, .value, .more{
     min-width: 100px;
   }
 

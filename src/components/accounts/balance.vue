@@ -1,7 +1,9 @@
 <template>
   <div class="account_balance default_box">
-    <span class="description">Aktueller Kontostand:</span>
-    <span class="balance">{{balance.replace('.',',')}} EUR</span>
+    <div>
+      <span class="description">Ihr aktueller Kontostand beträgt</span>
+      <span class="balance">{{balance.replace('.',',')}} EUR</span>
+    </div>
   </div>
 </template>
 
@@ -26,18 +28,27 @@
 <style lang="scss" scoped>
 
   .default_box{
+    text-align: center;
     &.active, &:hover{
       box-shadow: none;
     }
-  }
 
-  .description {
-   color: #bbbbbb;
-  }
+    div{
+      display: inline-block;
 
-  .balance{
-    float: right;
-    font-size: 14px;
+      .description {
+        color: #737a80;
+        float: left;
+        padding-right: 16px;
+        font-size: 18px;
+      }
+
+      .balance{
+        color: #45494d;
+        float: left;
+        font-size: 18px;
+      }
+    }
   }
 
 </style>

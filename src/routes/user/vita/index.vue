@@ -1,11 +1,11 @@
 <template>
   <div class="vita">
     <div class="add_wrapper">
-      <add class="add"
+      <!-- <add class="add"
            :create="true"
            :active="active.create"
            name="Vita"
-           v-model="active.create"/>
+           v-model="active.create"/> -->
     </div>
     <div class="create_box default_box" v-if="active.create">
       <edit_elements
@@ -17,7 +17,6 @@
         :reload="create_user_vita.reload"
         method="create"/>
     </div>
-    <h6>VITAS</h6>
     <posts v-for="(article, i) in cLoad.data"
            :key="i"
            :obj="article"/>
@@ -27,7 +26,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import Posts from "../../../components/articles/index";
-  import Add from "../../../components/add/index";
+  import add from "../../../components/add";
   import Edit_elements from "../../../components/edit/elements";
   import loader from "../../../components/functions/loader";
 
@@ -35,8 +34,8 @@
     name: "users_vita",
     components:{
       Edit_elements,
-      Add,
       Posts,
+      add
     },
     data(){
       return{

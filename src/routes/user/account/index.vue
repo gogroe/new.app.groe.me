@@ -1,13 +1,13 @@
 <template>
   <div class="accounts">
+    <sidebar :options="menu_items" v-model="active.menu"/>
     <div class="add_wrapper">
-      <add name="Transaktion"
+      <!-- <add name="Transaktion"
            :create="true"
            :active="active.create"
            v-model="active.create"
-           class="add_feed"/>
+           class="add_feed"/> -->
     </div>
-    <h6>TRANSAKTIONEN</h6>
     <div class="create_box default_box" v-if="active.create">
       <edit_elements
         name="TRANSAKTION HINZUFÜGEN"
@@ -18,13 +18,6 @@
         :reload="create_user_account.reload"
         method="create"/>
     </div>
-    <ul class="default_box account_menu">
-      <li @click="active.menu = item.name"
-          :class="{'active': active.menu === item.name}"
-          v-for="(item, i) in menu_items"
-          :key="i">{{item.name}}
-      </li>
-    </ul>
     <account_balance :request_accounts_data="cLoad.data"/>
     <accounts_table :request_get_accounts="cLoad" :options="options"/>
   </div>
@@ -32,8 +25,9 @@
 <script>
   import { mapGetters } from 'vuex'
   import Accounts_table from "../../../components/accounts/index";
+  import Add from "../../../components/add";
+  import Sidebar from "../../../components/navbars/sidebar";
   import Account_balance from "../../../components/accounts/balance";
-  import Add from "../../../components/add/index";
   import Create_section from "../../../components/inputs/create";
   import Edit_elements from "../../../components/edit/elements";
   import loader from "../../../components/functions/loader";
@@ -43,9 +37,10 @@
     components:{
       Edit_elements,
       Create_section,
-      Add,
       Account_balance,
       Accounts_table,
+      Sidebar,
+      Add
     },
     data(){
       return {
@@ -54,9 +49,9 @@
           create: false
         },
         menu_items:[
-          { name: 'ALLE' },
-          { name: 'EINGANG' },
-          { name: 'AUSGANG' },
+          { name: 'ALLE'},
+          { name: 'EINGANG'},
+          { name: 'AUSGANG'},
         ],
         create_user_account:{
           url: 'https://newbackend.groe.me/user_account/create',

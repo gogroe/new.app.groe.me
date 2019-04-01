@@ -19,10 +19,14 @@ const request = {
     },
     errors: [],
     isLoaded: false, //if all loads true then true
-    loads:{} //component_token: false
+    loads:{}, //component_token: false
+    sidebar: []
   },
 
   mutations: {
+    update_sidebar (state, object) {
+      state.sidebar = object
+    },
     update_response (state, object) {
       state.response = object
     },
@@ -51,6 +55,9 @@ const request = {
   },
 
   getters: {
+    get_sidebar(state){
+      return state.sidebar
+    },
     get_response(state){
       return state.response
     },
