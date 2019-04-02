@@ -17,22 +17,21 @@
                      :name="request_get_user.firstname + ' ' + request_get_user.lastname"
                      :path="request_get_user.image" size="41"/>
     </div>
+      <popup :active = "active.upload" v-model="active.upload">
+          <p class="section_name">NUTZERBILD BEARBEITEN</p>
+          <p class="image_info">
+            Ihr Nutzerfoto im Format jpg oder png darf maximal 2 MB groß sein.
+            Das beste Ergebnis erhatlen Sie mit einem zentrierten Motiv und
+            qudratischen Maßen.
+          </p>
+          <upload class="upload"
+                  :request_create="upload_user_image"
+                  name="NUTZER BILD HOCHLADEN"
+                  :max_size="2000000"
+                  :types="['jpeg', 'jpg', 'png', 'pdf']"
+                  v-model="upload_user_image.data"/>
+      </popup>
 
-      <div class="inner_popup">
-        <p class="section_name">NUTZERBILD BEARBEITEN</p>
-        <p class="image_info">
-          Ihr Nutzerfoto im Format jpg oder png darf maximal 2 MB groß sein.
-          Das beste Ergebnis erhatlen Sie mit einem zentrierten Motiv und
-          qudratischen Maßen.
-        </p>
-        <upload class="upload"
-                :request_create="upload_user_image"
-                name="NUTZER BILD HOCHLADEN"
-                :max_size="2000000"
-                :types="['jpeg', 'jpg', 'png', 'pdf']"
-                v-model="upload_user_image.data"/>
-        <div class="close_popup" @click="active.edit_upload = false; active.upload = false"><i class="material-icons">close</i> schließen</div>
-      </div>
     <request :obj="request_delete_user_image" v-model="request_delete_user_image"/>
   </div>
 </template>
@@ -40,6 +39,7 @@
 <script>
   import ClickOutside from 'vue-click-outside'
   import Load_request from "../../../../components/functions/load_request"
+  import Popup from "../../../../components/popup"
   import custom_helper from "../../../../components/functions/custom_helper";
   import User_visual from "../../../../components/user_visual/index";
   import Upload from "../../../../components/upload/index";
@@ -48,7 +48,7 @@
 
   export default {
     name: "upload_user_image",
-    components: {Request, Add, Upload, User_visual},
+    components: {Request, Add, Upload, User_visual, Popup},
     props:{
       request_get_user:{
         required:true
@@ -90,26 +90,6 @@
       }
     },
     watch:{
-      active: {
-         handler(obj){
-           let app = document.getElementById('app')
-           let popup = document.getElementsByClassName('inner_popup')[0]
-           if(obj.upload || obj.edit_upload){
-             let div = document.createElement("div")
-             div.className = "unblured"
-             document.body.insertBefore(div, app);
-             div.innerHTML = popup.innerHTML
-             app.className = 'blured'
-             app.addEventListener("click", this.hide);
-             document.getElementsByClassName('close_popup')[0].addEventListener("click", this.hide);
-           }
-           else if(document.getElementsByClassName('unblured').length !== 0){
-             document.getElementsByClassName('unblured')[0].parentNode.removeChild(document.getElementsByClassName('unblured')[0])
-             app.className = ''
-             app.removeEventListener("click", this.hide);
-           }
-         },deep: true
-      },
       upload_user_image_data: function(object){
         if('update' in object){
           this.active.edit_upload = false
@@ -158,25 +138,6 @@
 
   .image_info{
     margin-bottom: 27px;
-  }
-
-  .close_popup{
-    position: fixed;
-    right: 17px;
-    top: 17px;
-    cursor: pointer;
-    color: #bbbbbb;
-    line-height: 17px;
-
-    &:hover{
-      color: #3da0f5;
-    }
-
-    i{
-      margin-left: 17px;
-      vertical-align: -7px;
-      font-weight: 700;
-    }
   }
 
   .user_image_wrapper{

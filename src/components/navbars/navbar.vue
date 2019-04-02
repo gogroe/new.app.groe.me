@@ -4,6 +4,7 @@
       <li v-for="(option , i) in options" :key="i"
           @click="$router.push( option.route )"
           :class="{'active' : $route.name === option.route.name}">
+
         {{option.name}}
       </li>
     </ul>

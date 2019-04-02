@@ -102,7 +102,6 @@
     padding: 0 0 18px 18px;
     border-spacing: 0;
     border-right: 1px solid #e9e9e9;
-
     tr{
       &.last_row td{
         border-bottom: none;

@@ -1,6 +1,7 @@
 <template>
   <div class="icell">
-    <p @click="$router.push({name: 'user_vita', params: { id: row.user_id } })"><span>{{row.firstname}} {{row.lastname}}</span></p>
+    <p @click="$router.push({name: 'users_vita', params: { id: row.user_id } })"><span>{{row.firstname}} {{row.lastname}}</span></p>
+    <!-- there was wrong rouer name ontered, just shanged user to users -->
     <i class="material-icons">comment</i>
   </div>
 </template>

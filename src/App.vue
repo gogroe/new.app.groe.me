@@ -125,8 +125,6 @@
     }
   }
 
-
-
   ////////////////////////////////////////////////////////////////////////////////// Basics
 
   html {
@@ -197,6 +195,7 @@
 
   .default_box_two{
     width: 100%;
+    padding: 17px;
     background: #fff;
 
     .head{
@@ -234,10 +233,10 @@
     }
 
     .unblured{
-       box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05), -5px -5px 15px rgba(0, 0, 0, 0.05);
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05), -5px -5px 15px rgba(0, 0, 0, 0.05);
       width: 450px;
       padding: 17px;
-      position: absolute;
+      position: fixed;
       z-index: 2;
       background: #fff;
       margin-left: calc(50% - 225px);
@@ -254,6 +253,24 @@
       filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' ><filter id='svgMask'><feGaussianBlur stdDeviation='10' /></filter></svg>#svgMask");
     }
 
+    .close_popup{
+      position: fixed;
+      right: 17px;
+      top: 17px;
+      cursor: pointer;
+      color: #bbbbbb;
+      line-height: 17px;
+
+      &:hover{
+        color: #3da0f5;
+      }
+
+      i{
+        margin-left: 17px;
+        vertical-align: -7px;
+        font-weight: 700;
+      }
+    }
 
   ////////////////////////////////////////////////////////////////////////////////// Buttons
 

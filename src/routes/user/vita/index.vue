@@ -2,10 +2,7 @@
   <div class="vita">
     <div class="add_wrapper">
     </div>
-    <!-- <div class="default_popup_background"> -->
-      <div
-        class="create_box inner_popup"
-        v-if="active.create">
+      <popup :active = "active.create" v-model = "active.create">
         <edit_elements
           name="VITA HINZUFÜGEN"
           button="VITA ERSTELLEN"
@@ -14,9 +11,8 @@
           :params="create_user_vita.params"
           :reload="create_user_vita.reload"
           method="create"/>
-      </div>
-      <!-- close_popup -->
-    <!-- </div> -->
+      </popup>
+
     <posts v-for="(article, i) in cLoad.data"
            :key="i"
            :obj="article">
@@ -32,6 +28,7 @@
   import { mapGetters } from 'vuex'
   import Posts from "../../../components/articles/index";
   import add from "../../../components/add";
+  import Popup from "../../../components/popup"
   import Edit_elements from "../../../components/edit/elements";
   import loader from "../../../components/functions/loader";
 
@@ -40,7 +37,8 @@
     components:{
       Edit_elements,
       Posts,
-      add
+      add,
+      Popup
     },
     data(){
       return{
