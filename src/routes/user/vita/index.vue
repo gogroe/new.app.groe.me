@@ -15,12 +15,7 @@
 
     <posts v-for="(article, i) in cLoad.data"
            :key="i"
-           :obj="article">
-
-           <div class="aaaaa">
-             aaaaaaa
-           </div>
-    </posts>
+           :obj="article"/>
   </div>
 </template>
 

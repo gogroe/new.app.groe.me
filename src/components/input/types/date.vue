@@ -72,3 +72,15 @@
     }
   }
 </script>
+
+<style lang="scss">
+  .vdatetime-overlay{
+    display: none;
+  }
+
+  .vdatetime-popup{
+    position: static;
+    -webkit-transform:: none;
+    transform: none;
+  }
+</style>

@@ -23,17 +23,24 @@ export default {
          let app = document.getElementById('app')
          let popup = document.getElementById('inner_popup')
          if(obj){
-           console.log('if');
            let div = document.createElement("div")
            div.className = "unblured"
            document.body.insertBefore(div, app);
            div.innerHTML = document.getElementById('popup').innerHTML
+           div.getElementsByTagName('button')[div.getElementsByTagName('button').length-1].addEventListener('click', function(){
+             for (let i in div.getElementsByTagName('input')) {
+               if(div.getElementsByTagName('input')[i].value !== undefined){
+                 popup.getElementsByTagName('input')[i].defaultValue = div.getElementsByTagName('input')[i].value
+               }
+             }
+             popup.getElementsByTagName('button')[popup.getElementsByTagName('button').length-1].click();
+             this.hide
+           })
            app.className = 'blured'
            app.addEventListener("click", this.hide);
            document.getElementsByClassName('close_popup')[0].addEventListener("click", this.hide);
          }
          else if(document.getElementsByClassName('unblured').length !== 0){
-           console.log('elif');
            document.getElementsByClassName('unblured')[0].parentNode.removeChild(document.getElementsByClassName('unblured')[0])
            app.className = ''
            app.removeEventListener("click", this.hide);

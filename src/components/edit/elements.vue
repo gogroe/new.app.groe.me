@@ -303,8 +303,6 @@
 
   .edit_elements{
     .wrapper{
-      // border-bottom: 1px solid #dadada;
-      // line-height: 66px;
       position: relative;
       display:inline-block;
       color: #838688;

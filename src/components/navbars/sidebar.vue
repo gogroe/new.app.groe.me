@@ -40,7 +40,8 @@ export default {
     document.getElementsByClassName('navbar')[0].style.width = 'calc(100% - 66px)'
   },
   destroyed(){
-    document.getElementsByClassName('navbar')[0].style.width = 100 + '%'
+    if(document.getElementsByClassName('navbar').length>0)
+      document.getElementsByClassName('navbar')[0].style.width = 100 + '%'
   },
   methods:{
     sending: function(i){

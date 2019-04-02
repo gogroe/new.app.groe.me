@@ -128,6 +128,7 @@
 <style lang="scss" scoped>
   .default_box_two{
     border: 1px solid #dadada;
+    padding-right: 0;
   }
 
   ul{
@@ -161,17 +162,18 @@
     margin-bottom: 107px;
     float:left;
   }
-
 </style>
 
-<style>
+<style lang="scss">
 .section_name{
   padding: 0 17px;
   margin: 17px 0;
 }
-
-.wrapper{
-  border-bottom: 1px solid #dadada !important;
-  line-height: 66px !important;
+.content_admin{
+  .wrapper{
+    border-bottom: 1px solid #dadada;
+    line-height: 66px;
+  }
 }
+
 </style>
