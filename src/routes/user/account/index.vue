@@ -4,8 +4,7 @@
     <div class="add_wrapper">
     </div>
 
-    <div class="create_box default_box"
-         v-if="reload.action === true && reload.section === 'users_account'">
+    <popup :active = "active.create" v-model = "active.create">
       <edit_elements
         name="TRANSAKTION HINZUFÜGEN"
         button="TRANSAKTION ERSTELLEN"
@@ -14,7 +13,8 @@
         :params="create_user_account.params"
         :reload="create_user_account.reload"
         method="create"/>
-    </div>
+    </popup>
+
     <account_balance :request_accounts_data="cLoad.data"/>
     <accounts_table :request_get_accounts="cLoad" :options="options"/>
   </div>
@@ -22,6 +22,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import Accounts_table from "../../../components/accounts/index";
+  import Popup from "../../../components/popup";
   import Add from "../../../components/add";
   import Sidebar from "../../../components/navbars/sidebar";
   import Account_balance from "../../../components/accounts/balance";
@@ -37,12 +38,14 @@
       Account_balance,
       Accounts_table,
       Sidebar,
-      Add
+      Add,
+      Popup
     },
     data(){
       return {
         active:{
           menu: 'ALLE',
+          create: false
         },
         menu_items:[
           { name: 'ALLE'},
@@ -103,6 +106,10 @@
           this.$store.commit('update_reload', {action: 'reload', section: 'header'})
           this.get_cLoad()
           this.active.create = false
+        }
+        if(object.section === this.$route.name){
+          this.active.create = object.action
+          this.$store.commit('update_reload', { action: null, section: null })
         }
       },
       active_menu: function () {
