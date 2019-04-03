@@ -156,10 +156,6 @@
 
 <style lang="scss" scoped>
 
-  .u_head{
-    margin-bottom: 17px;
-  }
-
   ul{
     position: relative;
     width: 100%;

@@ -304,13 +304,7 @@
   .edit_elements{
     .wrapper{
       position: relative;
-      display:inline-block;
-      color: #838688;
-
-      &:hover{
-        cursor: pointer;
-        background-color: #f8f8f8;
-      }
+      display:inline-block
     }
 
     .success{
@@ -362,12 +356,25 @@
         margin-top: 10px;
       }
     }
-    .input_wrapper{
-      width: calc(100% - 150px);
+
+    &.update{
+      .wrapper{
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .crm{
+    .input_label{
+      display: none;
     }
 
-    .wrapper, .input{
-      width: 100%;
+    .edit_elements.update .wrapper {
+      margin-bottom: 0;
+    }
+
+    .input, input{
+      text-align: center;
     }
   }
 
