@@ -36,26 +36,26 @@
             route: 'users',
             icon: 'face'
           },
-          project:{
-            name: 'Projekte',
-            route: 'project',
-            icon: 'work'
-          },
-          article:{
-            name: 'Artikel',
-            route: 'articles',
-            icon: 'receipt'
-          },
-          task:{
-            name: 'Aufgaben',
-            route: 'tasks',
-            icon: 'playlist_add_check'
-          },
-          comunity:{
-            name: 'Community',
-            route: 'communitys',
-            icon: 'group_work'
-          }
+          // project:{
+          //   name: 'Projekte',
+          //   route: 'project',
+          //   icon: 'work'
+          // },
+          // article:{
+          //   name: 'Artikel',
+          //   route: 'articles',
+          //   icon: 'receipt'
+          // },
+          // task:{
+          //   name: 'Aufgaben',
+          //   route: 'tasks',
+          //   icon: 'playlist_add_check'
+          // },
+          // comunity:{
+          //   name: 'Community',
+          //   route: 'communitys',
+          //   icon: 'group_work'
+          // }
         },
         navigations_admin:{
           homepage:{
