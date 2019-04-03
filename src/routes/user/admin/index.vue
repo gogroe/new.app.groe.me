@@ -125,43 +125,59 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .default_box_two{
-    border: 1px solid #dadada;
-    padding-right: 0;
-  }
+<style lang="scss">
+  .admin{
+    .default_box_two{
+      border: 1px solid #dadada;
+      padding-right: 0;
+    }
 
-  ul{
-    width: 30%;
-    padding-top: 27px;
-    border-right: 1px solid #e6e6e6;
-    float:left;
+    ul{
+      width: 100%;
+      padding-top: 27px;
+      float:left;
 
-    li{
-      margin-bottom: 27px;
-      cursor: pointer;
-      &.active{
-        color: #3da0f5;
+      li{
+        margin-bottom: 27px;
+        cursor: pointer;
+        &.active{
+          color: #3da0f5;
+        }
+      }
+    }
+
+    .title{
+      padding-bottom: 41px;
+      text-align: center;
+
+      p{
+        color: #a8abad;
+        font-size: 22px;
+      }
+    }
+
+    .content_admin{
+      width: 100%;
+      padding: 17px 0 17px 17px;
+      margin-bottom: 107px;
+      float:left;
+    }
+
+    .edit_elements{
+      .wrapper, .input {
+        width: 100%;
+      }
+
+      .input_label{
+        width: 180px;
+        display: inline-block;
+      }
+      .input_wrapper{
+        width: calc(100% - 180px - 22px - 27px)
       }
     }
   }
 
-  .title{
-    padding-bottom: 41px;
-    text-align: center;
-
-    p{
-      color: #a8abad;
-      font-size: 22px;
-    }
-  }
-
-  .content_admin{
-    width: 100%;
-    padding: 17px 0 17px 17px;
-    margin-bottom: 107px;
-    float:left;
-  }
 </style>
 
 <style lang="scss">
