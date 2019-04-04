@@ -30,26 +30,67 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
-  .default_popup_background{
-    background: transparent;
-  }
+.default_popup_background{
+  background: transparent;
+}
 
-  h1{
-    margin-bottom: 27px;
-    padding-left: 17px;
-  }
+h1{
+  margin-bottom: 41px;
+  padding-left: 17px;
+  font-size: 32px;
+}
 
-  .inner_popup{
-    padding: 47px 64px 47px 64px;
-  }
+.inner_popup{
+  padding: 47px 64px 47px 64px;
 
-  .mini_footer {
-    &.inner_popup {
-      margin-top: 0;
-      background: transparent;
+  .signup{
+    text-align: center;
+
+    div{
+      margin-bottom: 25px;
+    }
+
+    button{
+      height: 42px;
+      padding: 10px 5px;
     }
   }
+
+  .create_input_label{
+    display: none;
+    width: 100px;
+  }
+    margin-right: 17px;
+    color:#838688;
+    line-height: 22px;
+  }
+
+  input[type=text]{
+    // width: calc(100% - 150px);
+    width: 100%;
+    line-height: 30px;
+    padding: 0px 20px;
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    &:hover{
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  }
+
+
+.mini_footer {
+
+  &.inner_popup {
+    margin-top: 0;
+    background: transparent;
+  }
+}
 
 </style>

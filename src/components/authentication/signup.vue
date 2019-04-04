@@ -135,7 +135,6 @@
   .signup{
     button{
       width: calc(100% - 20px);
-      margin: 0 10px;
       background-color: #3da0f5;
       color: white;
 
@@ -147,8 +146,8 @@
   }
 
   .social_buttons_wrapper{
+    margin: 0 !important;
     padding: 0 10px;
-    margin: 8px 0 0 0;
   }
 
   .errors{

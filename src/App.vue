@@ -230,28 +230,38 @@
     height: calc(100% - 64px);
     z-index: 9000;
     background: rgba(0,0,0,0.9);
-    }
 
-    .unblured{
-      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05), -5px -5px 15px rgba(0, 0, 0, 0.05);
+    .inner_popup{
       width: 450px;
       padding: 17px;
-      position: fixed;
       z-index: 2;
       background: #fff;
       margin-left: calc(50% - 225px);
       margin-top: 101px;
       border-radius: 2px;
     }
+  }
 
-    .blured {
-      filter: blur(10px);
-      -webkit-filter: blur(10px);
-      -moz-filter: blur(10px);
-      -o-filter: blur(10px);
-      -ms-filter: blur(10px);
-      filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' ><filter id='svgMask'><feGaussianBlur stdDeviation='10' /></filter></svg>#svgMask");
-    }
+  .unblured{
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05), -5px -5px 15px rgba(0, 0, 0, 0.05);
+    width: 450px;
+    padding: 17px;
+    position: fixed;
+    z-index: 2;
+    background: #fff;
+    margin-left: calc(50% - 225px);
+    margin-top: 101px;
+    border-radius: 2px;
+  }
+
+  .blured {
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' ><filter id='svgMask'><feGaussianBlur stdDeviation='10' /></filter></svg>#svgMask");
+  }
 
     .close_popup{
       position: fixed;
