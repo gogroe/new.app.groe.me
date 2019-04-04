@@ -358,9 +358,9 @@
     }
 
     &.update{
-      .wrapper{
-        margin-bottom: 10px;
-      }
+      // .wrapper{
+      //   margin-bottom: 10px;
+      // }
     }
   }
 

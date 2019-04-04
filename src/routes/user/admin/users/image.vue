@@ -129,7 +129,12 @@
 <style lang="scss" scoped>
 
   .image{
-    padding-left: 17px;
+    padding-left: 36px;
+
+    &:hover{
+      cursor: pointer;
+      background-color: #f8f8f8;
+    }
   }
 
   .inner_popup{
@@ -165,7 +170,7 @@
     line-height: 41px;
     width: 100%;
     display: inline-block;
-    padding: 12.5px 17px 12.5px 0px;
+    padding: 12.5px 17px 12.5px 0;
 
     .label{
       float: left;
@@ -181,11 +186,6 @@
     .user_image{
       float: right;
       margin-right: 17px;
-    }
-
-    &:hover{
-      cursor: pointer;
-      background-color: #f8f8f8;
     }
   }
 

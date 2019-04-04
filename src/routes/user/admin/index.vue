@@ -44,11 +44,11 @@
     data(){
       return{
         menu_items:[
-          {name: 'user'},
-          {name: 'contact'},
-          {name: 'adress'},
-          {name: 'bank'},
-          {name: 'password'},
+          {name: 'Nutzer'},
+          {name: 'Knotakte'},
+          {name: 'Adresse'},
+          {name: 'Bank'},
+          {name: 'Passwort'},
         ],
         cload:{
           url: 'https://newbackend.groe.me/user_admin/get_one',
@@ -128,8 +128,7 @@
 <style lang="scss">
   .admin{
     .default_box_two{
-      border: 1px solid #dadada;
-      padding-right: 0;
+      padding: 0;
     }
 
     ul{
@@ -153,15 +152,26 @@
       p{
         color: #a8abad;
         font-size: 22px;
+
+        &:last-child{
+          font-size: 18px;
+        }
       }
     }
 
     .content_admin{
       width: 100%;
-      padding: 17px 0 17px 17px;
+      border: none;
       margin-bottom: 107px;
       float:left;
-    }
+
+      &>div{
+        border: 1px solid #dadada;
+        margin-bottom: 41px;
+        padding: 25px 0;
+        border-radius: 5px;
+      }
+      }
 
     .edit_elements{
       .wrapper, .input {
@@ -171,8 +181,11 @@
       .input_label{
         width: 180px;
         display: inline-block;
+        cursor: text;
+        line-height: 39px;
       }
       .input_wrapper{
+        margin: 0;
         width: calc(100% - 180px - 22px - 27px)
       }
     }
@@ -182,14 +195,82 @@
 
 <style lang="scss">
 .section_name{
-  padding: 0 17px;
+  padding: 0 36px;
   margin: 17px 0;
 }
+.section_wrapper{
+  margin: 0;
+}
+
 .content_admin{
-  .wrapper{
+
+  .edit_section{
+    padding-left: 36px;
+
+    .input_label{
+      color:#838688;
+    }
+
+    &:hover{
+      cursor: pointer;
+      background-color: #f8f8f8;
+    }
+    .wrapper{
+      padding-left: 0;
+    }
+  }
+
+  .cinput{
     border-bottom: 1px solid #dadada;
     line-height: 66px;
   }
+
+  .wrapper{
+    margin: 0px;
+    padding-left: 36px;
+
+    .dropdown-toggle{
+      width: 100%;
+    }
+
+    .input_label{
+      width: 100px;
+      color:#838688;
+    }
+
+    &:hover{
+      cursor: pointer;
+      background-color: #f8f8f8;
+    }
+  }
+
+  .input{
+    padding-left: 0 5px;
+  }
 }
 
+.user_password{
+  .cinput{
+    padding-left: 36px;
+  }
+
+  button{
+    margin: 41px;
+  }
+}
+
+
+.edit_elements {
+
+  &.create{
+
+    .input_wrapper{
+      padding-right: 41px;
+    }
+
+    button{
+      margin-right: 41px;
+    }
+  }
+}
 </style>
