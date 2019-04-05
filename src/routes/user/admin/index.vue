@@ -265,7 +265,6 @@
       margin: 0 !important;
     }
 
-
     .input_wrapper{
       display: inline-block;
       width: calc(100% - 186px);
@@ -280,15 +279,14 @@
   }
 }
 
-
-  .edit_section{
-    .create{
-      .container{
-        border-top: 1px solid #dadada;
-        color: #838688;
-      }  
+.edit_section{
+  .create{
+    .container{
+      border-top: 1px solid #dadada;
+      color: #838688;
     }
   }
+}
 
 .edit_elements {
   &.create{
