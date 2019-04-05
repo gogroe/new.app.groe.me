@@ -230,6 +230,7 @@
     height: calc(100% - 64px);
     z-index: 9000;
     background: rgba(0,0,0,0.9);
+    // background: rgba(255,255,255,0.75);
 
     .inner_popup{
       width: 450px;
@@ -266,7 +267,7 @@
     .close_popup{
       position: fixed;
       right: 17px;
-      top: 17px;
+      top: 107px;
       cursor: pointer;
       color: #bbbbbb;
       line-height: 17px;

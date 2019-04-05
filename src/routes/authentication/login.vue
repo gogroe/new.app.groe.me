@@ -65,8 +65,19 @@
         box-sizing: border-box;
       }
     }
-  }
 
+    button{
+      background-color: #3da0f5;
+      color: white;
+      height: 42px;
+      padding: 10px 41px;
+
+      &:hover{
+        background-color: #2e7dbd;
+        outline: none;
+      }
+    }
+  }
 
   .mini_footer {
 

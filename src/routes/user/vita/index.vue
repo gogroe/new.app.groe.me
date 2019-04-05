@@ -16,9 +16,6 @@
     <posts v-for="(article, i) in cLoad.data"
            :key="i"
            :obj="article"/>
-    <div v-if="cLoad.data.length === 0">
-      message
-    </div>
   </div>
 </template>
 

@@ -52,8 +52,6 @@
   }
 
   .container{
-    border-bottom: 1px solid #dadada;
-    color: #838688;
     padding: 12.5px 0px;
     width: 100%;
     line-height: 41px;
