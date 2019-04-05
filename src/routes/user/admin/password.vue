@@ -2,14 +2,16 @@
   <div class="user_password">
     <p class="section_name">NUTZER PASSWORT</p>
     <div class="section_wrapper">
-      <cinput v-for="(input, key, i) in create_user_secret.inputs"
-              :key="i"
-              :name="input.name"
-              :type="input.type"
-              :cvalue="input.value"
-              :placeholder="input.placeholder"
-              v-model="create_user_secret.inputs[key].input"/>
-      <p class="request_message">{{message}}</p>
+      <div class="spacing">
+        <cinput v-for="(input, key, i) in create_user_secret.inputs"
+        :key="i"
+        :name="input.name"
+        :type="input.type"
+        :cvalue="input.value"
+        :placeholder="input.placeholder"
+        v-model="create_user_secret.inputs[key].input"/>
+        <p class="request_message">{{message}}</p>
+      </div>
       <button @click="send_create_user_secret">PASSWORT ÄNDERN</button>
     </div>
   </div>
@@ -43,19 +45,19 @@
           },
           inputs:{
             old_hash: {
-              name: 'Altes Passwort',
+              name: 'Altes',
               type: 'text',
               value: null,
               placeholder: 'Altes Passwort'
             },
             hash: {
-              name: 'Neues Passwort',
+              name: 'Neues',
               type: 'text',
               value: null,
               placeholder:'Neues Passwort'
             },
             commit_hash: {
-              name: 'Neues Passwort bestätigen',
+              name: 'Bestätigen',
               type: 'text',
               value: null,
               placeholder:'Passwort bestätigen'
@@ -128,15 +130,22 @@
     }
 
     .input_label{
-      display: none;
     }
 
     .cinput{
       margin-bottom: 17px;
     }
 
-    input{
-      width: calc(100% - 27px);
+    button{
+      background-color: #3da0f5;
+      color: white;
+      height: 42px;
+      padding: 10px 41px;
+
+      &:hover{
+        background-color: #2e7dbd;
+        outline: none;
+      }
     }
   }
 

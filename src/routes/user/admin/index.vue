@@ -179,7 +179,6 @@
       }
 
       .input_label{
-        width: 180px;
         display: inline-block;
         cursor: text;
         line-height: 39px;
@@ -203,7 +202,6 @@
 }
 
 .content_admin{
-
   .edit_section{
     padding-left: 36px;
 
@@ -223,6 +221,10 @@
   .cinput{
     border-bottom: 1px solid #dadada;
     line-height: 66px;
+
+    .input_wrapper{
+      margin: 0 !important;
+    }
   }
 
   .wrapper{
@@ -250,26 +252,42 @@
 }
 
 .user_password{
-  .cinput{
-    padding-left: 36px;
+  .input_label{
+    width: 100px;
+    display: inline-block;
+    color:#838688;
   }
+  .spacing{
+    margin: 0;
+    padding-left: 36px;
 
+    .cinput{
+      margin: 0 !important;
+    }
+
+
+    .input_wrapper{
+      display: inline-block;
+      width: calc(100% - 186px);
+
+      input{
+        width: 100%;
+      }
+    }
+  }
   button{
-    margin: 41px;
+    margin: 25px 41px;
   }
 }
 
-
 .edit_elements {
-
   &.create{
-
     .input_wrapper{
       padding-right: 41px;
     }
 
     button{
-      margin-right: 41px;
+      margin: 25px 41px;
     }
   }
 }

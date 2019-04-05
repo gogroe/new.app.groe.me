@@ -79,6 +79,7 @@
   }
 
   .vdatetime-popup{
+    margin: 17px auto;
     position: static;
     -webkit-transform:: none;
     transform: none;
