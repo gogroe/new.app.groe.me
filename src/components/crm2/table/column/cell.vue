@@ -48,6 +48,11 @@
         type: String,
         required: true
       },
+      list: {
+        type: String,
+        required: false,
+        default: null
+      },
     },
     data () {
       return {
@@ -63,13 +68,18 @@
           ? this.create_url
           : this.update_url
       },
+      clist () {
+        return this.list === null
+          ? this.name
+          : this.list
+      },
       inputs () {
         let inputName = this.id.substring(this.id.indexOf('.') +1)
         return  {[ inputName]: {
           name: this.name,
           type: this.type,
           value: this.row.value,
-          list: this.name,
+          list: this.clist,
           placeholder: ''
         }}
       },

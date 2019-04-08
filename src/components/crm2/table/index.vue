@@ -94,6 +94,10 @@
     .input, input{
       text-align: center;
     }
+
+    .v-select .dropdown-toggle {
+      padding: 0;
+    }
   }
 
 </style>

@@ -55,6 +55,28 @@
                 update_url: 'https://newbackend.groe.me/user_crm/user/update',
                 rows: []
               },
+              {
+                active: true,
+                id: 'users.role',
+                name: 'Rolle',
+                type: 'select',
+                list: 'admin_role',
+                params: {user_id: 'get_users.id'},
+                create_url: 'https://newbackend.groe.me/user_crm/user/create',
+                update_url: 'https://newbackend.groe.me/user_crm/user/update',
+                rows: []
+              },
+              {
+                active: true,
+                id: 'gender.value',
+                name: 'Geschlecht',
+                type: 'select',
+                list: 'gender',
+                params: {id: 'get_gender.id', table: 'users', name: 'cStatic'},
+                create_url: 'https://newbackend.groe.me/user_crm/custom_field_value/create',
+                update_url: 'https://newbackend.groe.me/user_crm/custom_field_value/update',
+                rows: []
+              },
             ]
           },
           user: {
@@ -93,6 +115,28 @@
                 update_url: 'https://newbackend.groe.me/user_crm/user/update',
                 rows: []
               },
+              {
+                active: true,
+                id: 'users.role',
+                name: 'Rolle',
+                type: 'select',
+                list: 'user_role',
+                params: {user_id: 'get_users.id'},
+                create_url: 'https://newbackend.groe.me/user_crm/user/create',
+                update_url: 'https://newbackend.groe.me/user_crm/user/update',
+                rows: []
+              },
+              {
+                active: true,
+                id: 'gender.value',
+                name: 'Geschlecht',
+                type: 'select',
+                list: 'gender',
+                params: {id: 'get_gender.id', table: 'users', name: 'cStatic'},
+                create_url: 'https://newbackend.groe.me/user_crm/custom_field_value/create',
+                update_url: 'https://newbackend.groe.me/user_crm/custom_field_value/update',
+                rows: []
+              },
             ]
           },
           company: {
@@ -120,6 +164,17 @@
                 update_url: 'https://newbackend.groe.me/user_crm/user/update',
                 rows: []
               },
+              {
+                active: true,
+                id: 'users.role',
+                name: 'Rolle',
+                type: 'select',
+                list: 'company_role',
+                params: {user_id: 'get_users.id'},
+                create_url: 'https://newbackend.groe.me/user_crm/user/create',
+                update_url: 'https://newbackend.groe.me/user_crm/user/update',
+                rows: []
+              }
             ]
           },
         }
