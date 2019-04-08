@@ -165,7 +165,6 @@
   }
 
   .container{
-    border-top: 1px solid #dadada;
     color: #838688;
     line-height: 41px;
     width: 100%;

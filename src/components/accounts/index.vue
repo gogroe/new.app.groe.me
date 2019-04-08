@@ -8,7 +8,7 @@
         <th class="value">Betrag</th>
         <th v-if="active_options"></th>
       </tr>
-      <tr v-for="(account, i) in accounts"
+      <tr v-for="(account, i) in accounts.slice(offset, offset + limit)"
           :key="i"
           :class="{'last_row': i+1 === accounts.length }">
           <td v-if="active_options">
@@ -27,6 +27,16 @@
         <td class="value">{{account.value.replace('.',',') + ' ' + account.currency}}</td>
       </tr>
     </table>
+    <div class="content_navigator">
+      <button class="load_more" type="button" name="load_more" @click="limit += 5">Mehr laden</button>
+      <button class="load_more" v-if="limit>5" type="button" name="load_more" @click="limit -= 5">weniger laden</button>
+      <button class="previous" v-if="offset != 0" type="button" name="prev" @click="offset -= 5">
+        <i class="material-icons">navigate_before</i>
+      </button>
+      <button class="next" v-if="offset < Object.keys(accounts).length-1 && offset+limit < Object.keys(accounts).length" type="button" name="next" @click="offset += 5">
+        <i class="material-icons">navigate_next</i>
+      </button>
+    </div>
     <edit_accounts :edit_account="edit_account" :active="active.edit" v-model="active.edit"/>
   </div>
 </template>
@@ -60,7 +70,9 @@
             action: 'edit',
           }
         ],
-        edit_account:{}
+        edit_account:{},
+        limit: 5,
+        offset: 0
       }
     },
     computed:{
@@ -134,5 +146,26 @@
 
   .value{
     text-align: center;
+  }
+
+  .content_navigator{
+    border-right: 1px solid #e9e9e9;
+    border-bottom: 1px solid #e9e9e9;
+    margin-bottom: 66px;
+
+    button{
+      width: 107px;
+
+      &.previous{
+
+      }
+      &.next{
+        float: right;
+      }
+      &.load_more{
+        display: grid;
+        margin: 0 auto;
+      }
+    }
   }
 </style>

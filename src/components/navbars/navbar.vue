@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" id="navbar">
     <ul>
       <li v-for="(option , i) in options" :key="i"
           @click="$router.push( option.route )"

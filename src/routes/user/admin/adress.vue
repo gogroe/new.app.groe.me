@@ -3,7 +3,7 @@
     <p class="section_name">NUTZER ADRESSE</p>
     <div class="section_wrapper">
       <edit_section
-        name="Telefon"
+        name="Adresse"
         :create="create_adress"
         :update="update_adress"
         :cload="shipping_adress"/>

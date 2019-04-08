@@ -87,8 +87,4 @@
   .add{
     margin-bottom: 17px;
   }
-
-  button{
-    margin: 10px 0;
-  }
 </style>

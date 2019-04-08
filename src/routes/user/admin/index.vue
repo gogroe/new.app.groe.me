@@ -185,7 +185,7 @@
       }
       .input_wrapper{
         margin: 0;
-        width: calc(100% - 180px - 22px - 27px)
+        width: calc(100% - 117px - 27px)
       }
     }
   }
@@ -273,9 +273,10 @@
         width: 100%;
       }
     }
-  }
-  button{
-    margin: 25px 41px;
+
+    .cinput:first-child{
+      border-top: none;
+    }
   }
 }
 
@@ -293,9 +294,26 @@
     .input_wrapper{
       padding-right: 41px;
     }
+  }
 
-    button{
-      margin: 25px 41px;
+  button{
+    margin: 25px 41px !important;
+    background-color: #3da0f5;
+    color: white;
+    height: 42px;
+    padding: 10px 41px;
+  }
+}
+
+.user_contact, .user_adress, .user_bank{
+
+  .section_wrapper{
+
+    .edit_section:first-child{
+
+      .container{
+        border-top: none;
+      }
     }
   }
 }
