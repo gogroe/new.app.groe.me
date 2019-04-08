@@ -9,7 +9,7 @@ import signup from '@/routes/authentication/signup'
 import verification from '@/routes/authentication/verification'
 import login from '@/routes/authentication/login'
 
-import crm from '@/routes/crm'
+import users_crm from '@/routes/crm/users'
 
 import project from '@/routes/project'
 
@@ -26,27 +26,8 @@ export default new Router({
   routes: [
     // settings
     {
-      path: '/settings',
-      name: 'settings',
-      component: settings
-    },
-    {
       path: '/settings/permissions',
       name: 'settings_permissions',
-      component: settings
-    },
-    {
-      path: '/settings/users',
-      name: 'settings_users',
-      component: settings
-    },
-    {
-      path: '/settings/tables',
-      name: 'settings_tables',
-      component: settings
-    },{
-      path: '/settings/lists',
-      name: 'settings_lists',
       component: settings
     },
 
@@ -100,11 +81,6 @@ export default new Router({
 
     //users
     {
-      path: '/users',
-      name: 'users',
-      component: crm
-    },
-    {
       path: '/users/:id/account',
       name: 'users_account',
       component: users_account
@@ -119,6 +95,14 @@ export default new Router({
       name: 'users_admin',
       component: users_admin
     },
+
+    //crm
+    {
+      path: '/users',
+      name: 'users',
+      component: users_crm
+    },
+
     // 404
     {
       path: '/404',

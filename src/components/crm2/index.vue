@@ -4,6 +4,7 @@
         class="crm_table"
         :class="{'active': active.sidebar}"
         :columns="columns"
+        :crmName="crm.name"
         :cLoad="cLoad.data"/>
       <crm_sidebar
         class="crm_sidebar"
@@ -33,6 +34,10 @@
       url:{
         type: String,
         required: true
+      },
+      crm:{
+        type: Object,
+        required: true
       }
     },
     data(){
@@ -47,46 +52,13 @@
           firstload: false
         },
         columns: [],
-        baseColumns: [
-          {
-            table: 'users',
-            active: true,
-            type: 'indicator',
-            params: {
-              firstname : 'get_users.firstname',
-              lastname: 'get_users.lastname',
-              image: 'get_users.image',
-              user_id: 'get_users.id'
-            },
-            rows: []
-          },
-          {
-            active: true,
-            id: 'users.firstname',
-            name: 'Vorname',
-            type: 'text',
-            params: { user_id:'get_users.id' },
-            create_url: 'https://newbackend.groe.me/user_crm/user/create',
-            update_url: 'https://newbackend.groe.me/user_crm/user/update',
-            rows: []
-          },
-          {
-            active: true,
-            id: 'users.lastname',
-            name: 'Nachname',
-            type: 'text',
-            params: { user_id:'get_users.id' },
-            create_url: 'https://newbackend.groe.me/user_crm/user/create',
-            update_url: 'https://newbackend.groe.me/user_crm/user/update',
-            rows: []
-          },
-        ]
+        baseColumns: []
       }
     },
     computed:{
       ...mapGetters([
         'reload'
-      ])
+      ]),
     },
     watch:{
       reload: function (object) {
@@ -99,16 +71,25 @@
           this.set_column_state(object.action.id, object.action.state)
           this.$store.commit('update_reload', {section: null, action: null})
         }
+      },
+      crm: function () {
+        this.load_crm()
       }
     },
     mounted () {
-      this.set_baseColumns()
-      this.cLoad.url = this.url
-      this.get_cLoad()
+      this.load_crm()
     },
     methods:{
+      load_crm () {
+        this.firstload = false
+        this.columns = []
+        this.cLoad.url = this.url
+        this.baseColumns = this.crm.baseColumns
+        this.set_baseColumns()
+        this.get_cLoad()
+      },
       set_baseColumns () {
-        let columns = this.cBaseColumns
+        let columns = this.baseColumns
         if(columns !== null){
           for(let key in columns){
             this.columns.push(columns[key])
@@ -116,6 +97,7 @@
         }
       },
       get_cLoad () {
+        this.cLoad.params.crm_type = this.crm.id
         this.$$request.post.data(this.cLoad.url, this.cLoad.params)
           .then((response) => this.set_cLoad (response))
       },

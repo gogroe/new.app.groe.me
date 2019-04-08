@@ -10,6 +10,7 @@
             <crm_column
               v-if="column.active"
               :column="column"
+              :crmName="crmName"
               :action="action"
               v-model="action"/>
           </td>
@@ -33,6 +34,10 @@
     props:{
       columns:{
         type: Array,
+        required: true,
+      },
+      crmName:{
+        type: String,
         required: true,
       },
       cLoad:{

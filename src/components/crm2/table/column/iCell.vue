@@ -1,6 +1,6 @@
 <template>
   <div class="icell">
-    <p @click="$router.push({name: 'users_vita', params: { id: row.user_id } })"><span>{{row.firstname}} {{row.lastname}}</span></p>
+    <p @click="$router.push({name: 'users_vita', params: { id: row.user_id } })"><span>{{name}}</span></p>
     <!-- there was wrong rouer name ontered, just shanged user to users -->
     <i class="material-icons">comment</i>
   </div>
@@ -14,6 +14,24 @@
         type: Object,
         required: true
       }
+    },
+    computed:{
+      name () {
+        let name = ''
+
+        if('firstname' in this.row && 'lastname' in this.row){
+          name = this.row.firstname + ' ' + this.row.lastname
+        }
+        else if('name' in this.row){
+          name = this.row.name
+        }
+
+        if(name.length > 10){
+          name = name.substring(0,10) + '...'
+        }
+
+        return name
+      }
     }
   }
 </script>
@@ -22,7 +40,7 @@
 
   .icell{
     position: relative;
-    height: 29px;
+    height: 28px;
     width: 180px;
 
     p{

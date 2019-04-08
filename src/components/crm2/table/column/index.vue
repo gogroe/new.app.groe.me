@@ -14,7 +14,7 @@
         <th
           valign="bottom">
           <p v-if="isIndicator">
-            Nutzerverwaltung
+            {{crmName}}
           </p>
           <p v-else>
             {{column.name}}
@@ -67,6 +67,10 @@
     props:{
       column:{
         type: Object,
+        required: true,
+      },
+      crmName:{
+        type: String,
         required: true,
       },
       action: {
