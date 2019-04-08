@@ -33,6 +33,7 @@ export default {
   methods:{
     hide(){
       this.$emit('input', false)
+      document.getElementById("navbar").childNodes[2].childNodes[0].click()
     }
   }
 }

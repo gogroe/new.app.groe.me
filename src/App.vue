@@ -288,6 +288,7 @@
   ////////////////////////////////////////////////////////////////////////////////// Buttons
 
   button {
+    margin: 25px 41px;
     cursor: pointer;
     border: none;
     border-radius: 2px;

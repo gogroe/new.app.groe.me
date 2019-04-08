@@ -138,6 +138,7 @@
     }
 
     button{
+      margin: 25px 41px;
       float: right;
       background-color: #3da0f5;
       color: white;

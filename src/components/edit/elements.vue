@@ -3,7 +3,8 @@
     <div
       class="wrapper"
       v-for="(input, key, index) in cinputs"
-      :key="key">
+      :key="key"
+      :class="[{'first': index === 0}]">
       <cinput
         class="cinput"
         :indicator="key"
