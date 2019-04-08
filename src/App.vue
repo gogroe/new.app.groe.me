@@ -229,8 +229,8 @@
     width: 100%;
     height: calc(100% - 64px);
     z-index: 9000;
-    background: rgba(0,0,0,0.9);
-    // background: rgba(255,255,255,0.75);
+    // background: rgba(0,0,0,0.9);
+    background: rgba(255,255,255,0.75);
 
     .inner_popup{
       width: 450px;
@@ -239,7 +239,9 @@
       background: #fff;
       margin-left: calc(50% - 225px);
       margin-top: 101px;
-      border-radius: 2px;
+      border-radius: 5px;
+      box-shadow: 10px -10px 15px rgba(0, 0, 0, 0.075),
+                  -10px 10px 15px rgba(0, 0, 0, 0.075);
     }
   }
 

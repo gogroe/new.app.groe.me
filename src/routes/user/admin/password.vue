@@ -13,6 +13,7 @@
         <p class="request_message">{{message}}</p>
       </div>
       <button @click="send_create_user_secret">PASSWORT ÄNDERN</button>
+      <div class="clear"></div>
     </div>
   </div>
 </template>
@@ -137,6 +138,7 @@
     }
 
     button{
+      float: right;
       background-color: #3da0f5;
       color: white;
       height: 42px;

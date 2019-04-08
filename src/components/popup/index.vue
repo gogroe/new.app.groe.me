@@ -39,12 +39,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.click{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-  #popup{
-    display: none;
+
+  .click{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .inner_popup{
+    max-height: calc(100% - 202px);
+    overflow-y: auto;
   }
 </style>
