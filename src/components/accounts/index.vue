@@ -6,36 +6,58 @@
         <th class="date">Datum</th>
         <th>Verwendungszweck</th>
         <th class="value">Betrag</th>
-        <th v-if="active_options"></th>
       </tr>
-      <tr v-for="(account, i) in accounts.slice(offset, offset + limit)"
-          :key="i"
-          :class="{'last_row': i+1 === accounts.length }">
-          <td v-if="active_options">
-            <popup_menu class="popup_menu"
-            v-if="is_perm('update')"
-            :id="account.id"
-            type="list"
-            :options="options"
-            icon="more_horiz"
-            v-model="action"/></td>
-        <td>
-          <ddmmmyy :timestamp="account.date"
-                   color="#333333"/>
-        </td>
-        <td class="date">{{account.description}}</td>
-        <td class="value">{{account.value.replace('.',',') + ' ' + account.currency}}</td>
-      </tr>
+      <tbody>
+        <tr v-for="(account, i) in accounts.slice(offset, offset + limit)"
+            :key="i"
+            :class="{'last_row': i+1 === accounts.length }">
+            <td v-if="active_options">
+              <popup_menu class="popup_menu"
+              v-if="is_perm('update')"
+              :id="account.id"
+              type="list"
+              :options="options"
+              icon="more_horiz"
+              v-model="action"/></td>
+          <td>
+            <ddmmmyy :timestamp="account.date"
+                     color="#333333"/>
+          </td>
+          <td class="date">{{account.description}}</td>
+          <td class="value">{{account.value.replace('.',',') + ' ' + account.currency}}</td>
+        </tr>
+      </tbody>
     </table>
-    <div class="content_navigator">
-      <button class="load_more" type="button" name="load_more" @click="limit += 5">Mehr laden</button>
-      <button class="load_more" v-if="limit>5" type="button" name="load_more" @click="limit -= 5">weniger laden</button>
-      <button class="previous" v-if="offset != 0" type="button" name="prev" @click="offset -= 5">
+    <div class="content_navigator" v-if="Object.keys(accounts).length > 0">
+
+      <p class="load_more"
+         v-if="lim_off.limit>Object.keys(accounts).length-1"
+         type="button"
+         name="load_more"
+         @click="lim_off.limit += 5">Mehr laden
+       </p>
+      <p class="load_more"
+         v-if="lim_off.limit>5"
+         type="button"
+         name="load_more"
+         @click="lim_off.limit -= 5">weniger laden
+       </p>
+      <p class="previous"
+         v-if="lim_off.offset != 0"
+         type="button"
+         name="prev"
+         @click="lim_off.offset -= lim_off.limit">
         <i class="material-icons">navigate_before</i>
-      </button>
-      <button class="next" v-if="offset < Object.keys(accounts).length-1 && offset+limit < Object.keys(accounts).length" type="button" name="next" @click="offset += 5">
+      </p>
+
+      <p class="next"
+         v-if="lim_off.offset < Object.keys(accounts).length-1 && lim_off.offset+lim_off.limit < Object.keys(accounts).length"
+         type="button"
+         name="next"
+         @click="lim_off.offset += lim_off.limit">
         <i class="material-icons">navigate_next</i>
-      </button>
+      </p>
+      <div class="clear"></div>
     </div>
     <edit_accounts :edit_account="edit_account" :active="active.edit" v-model="active.edit"/>
   </div>
@@ -71,8 +93,10 @@
           }
         ],
         edit_account:{},
-        limit: 5,
-        offset: 0
+        lim_off:{
+          limit: 5,
+          offset: 0
+        }
       }
     },
     computed:{
@@ -91,6 +115,9 @@
           this.set_edit_account(object.id)
           this.action = {}
         }
+      },
+      lim_off: function (object) {
+        this.$emit('input', object)
       }
     },
     methods:{
@@ -109,28 +136,30 @@
 
 <style lang="scss" scoped>
   table{
+  table-layout: fixed;
+    border-collapse:collapse;
     width: 100%;
     position:relative;
-    padding: 0 0 18px 18px;
-    border-spacing: 0;
     border-right: 1px solid #e9e9e9;
     tr{
+
       &.last_row td{
         border-bottom: none;
       }
 
       th{
+        border-top: 1px solid #e9e9e9;
+        border-bottom: 1px solid #e9e9e9;
         text-align: left;
         color: #bbbbbb;
         font-weight: bold;
         padding: 13.5px 5px;
-        border-bottom: 1px solid #e9e9e9;
-        border-top: 1px solid #e9e9e9;
       }
 
       td{
-        font-size: 14px;
+        border-top: 1px solid #e9e9e9;
         border-bottom: 1px solid #e9e9e9;
+        font-size: 14px;
         padding: 17.5px 5px;
       }
 
@@ -152,11 +181,17 @@
     border-right: 1px solid #e9e9e9;
     border-bottom: 1px solid #e9e9e9;
     margin-bottom: 66px;
+    text-align: center;
 
-    button{
+    p{
       width: 107px;
 
+      &:hover{
+        cursor: pointer;
+      }
+
       &.previous{
+        float: left;
 
       }
       &.next{
@@ -164,7 +199,7 @@
       }
       &.load_more{
         display: grid;
-        margin: 0 auto;
+        margin: 17px auto;
       }
     }
   }

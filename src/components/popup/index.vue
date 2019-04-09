@@ -1,7 +1,7 @@
 <template>
   <div
     class="default_popup_background"
-    v-if="active">
+    v-show="active">
     <div class="click"
     @click="hide()">
 
