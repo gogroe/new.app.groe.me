@@ -15,36 +15,6 @@
       method="create"/>
     </popup>
 
-    <!-- <edit_elements
-    name="TRANSAKTION HINZUFÜGEN"
-    button="TRANSAKTION ERSTELLEN"
-    :url="create_user_account.url"
-    :inputs="create_user_account.inputs"
-    :params="create_user_account.params"
-    :reload="create_user_account.reload"
-    method="create"/> -->
-
-    <!-- <div
-      class="default_popup_background"
-      v-show="active.create">
-      <div class="click"
-      @click="active.create = !active.create">
-
-      </div>
-      <div class="inner_popup">
-        <edit_elements
-        name="TRANSAKTION HINZUFÜGEN"
-        button="TRANSAKTION ERSTELLEN"
-        :url="create_user_account.url"
-        :inputs="create_user_account.inputs"
-        :params="create_user_account.params"
-        :reload="create_user_account.reload"
-        method="create"/>
-      </div>
-      <div class="close_popup" @click="active.create = !active.create"><i class="material-icons">close</i> schließen</div>
-    </div> -->
-
-
     <account_balance :request_accounts_data="cLoad.data"/>
     <accounts_table :request_get_accounts="cLoad" :options="options" v-model="cLoad.params"/>
   </div>
@@ -110,7 +80,8 @@
           url: 'https://newbackend.groe.me/user_account/get_all',
           params: {
             user_id: null,
-            limit: 5
+            limit: 5,
+            offset: 0
             //AUSGANG 'smaller->value': 0
             //EINGANG 'bigger->value': -1
           },
@@ -137,6 +108,7 @@
         if(object.action === 'reload' && object.section === 'accounts'){
           this.$store.commit('update_reload', {action: 'reload', section: 'header'})
           this.get_cLoad()
+          console.log(this.cLoad.data);
           this.active.create = false
         }
         if(object.section === this.$route.name){

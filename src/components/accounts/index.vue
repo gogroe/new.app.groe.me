@@ -8,7 +8,7 @@
         <th class="value">Betrag</th>
       </tr>
       <tbody>
-        <tr v-for="(account, i) in accounts.slice(offset, offset + limit)"
+        <tr v-for="(account, i) in accounts.slice(lim_off.offset, lim_off.offset + lim_off.limit)"
             :key="i"
             :class="{'last_row': i+1 === accounts.length }">
             <td v-if="active_options">
@@ -28,10 +28,11 @@
         </tr>
       </tbody>
     </table>
-    <div class="content_navigator" v-if="Object.keys(accounts).length > 0">
 
+
+    <div class="content_navigator" v-if="request_get_accounts.data.count > 0">
       <p class="load_more"
-         v-if="lim_off.limit>Object.keys(accounts).length-1"
+         v-if="lim_off.limit<=request_get_accounts.data.count"
          type="button"
          name="load_more"
          @click="lim_off.limit += 5">Mehr laden
@@ -49,9 +50,8 @@
          @click="lim_off.offset -= lim_off.limit">
         <i class="material-icons">navigate_before</i>
       </p>
-
       <p class="next"
-         v-if="lim_off.offset < Object.keys(accounts).length-1 && lim_off.offset+lim_off.limit < Object.keys(accounts).length"
+         v-if="lim_off.offset < request_get_accounts.data.count && lim_off.offset+lim_off.limit < request_get_accounts.data.count"
          type="button"
          name="next"
          @click="lim_off.offset += lim_off.limit">
@@ -59,6 +59,8 @@
       </p>
       <div class="clear"></div>
     </div>
+
+
     <edit_accounts :edit_account="edit_account" :active="active.edit" v-model="active.edit"/>
   </div>
 </template>
@@ -116,8 +118,20 @@
           this.action = {}
         }
       },
-      lim_off: function (object) {
-        this.$emit('input', object)
+      lim_off: {
+        handler: function (object) {
+          console.log ({
+            user_id: this.request_get_accounts.params.user_id,
+            offset: object.offset,
+            limit: object.limit
+          })
+          this.$emit('input', {
+            user_id: this.request_get_accounts.params.user_id,
+            offset: object.offset,
+            limit: object.limit
+          })
+          this.$store.commit('update_reload', { action: 'reload', section: 'accounts' })
+        }, deep: true
       }
     },
     methods:{
