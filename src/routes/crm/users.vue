@@ -66,17 +66,17 @@
                 update_url: 'https://newbackend.groe.me/user_crm/user/update',
                 rows: []
               },
-              {
-                active: true,
-                id: 'gender.value',
-                name: 'Geschlecht',
-                type: 'select',
-                list: 'gender',
-                params: {id: 'get_gender.id', table: 'users', name: 'cStatic'},
-                create_url: 'https://newbackend.groe.me/user_crm/custom_field_value/create',
-                update_url: 'https://newbackend.groe.me/user_crm/custom_field_value/update',
-                rows: []
-              },
+              // {
+              //   active: true,
+              //   id: 'gender.value',
+              //   name: 'Geschlecht',
+              //   type: 'select',
+              //   list: 'gender',
+              //   params: {id: 'get_gender.id', table: 'users', name: 'cStatic'},
+              //   create_url: 'https://newbackend.groe.me/user_crm/custom_field_value/create',
+              //   update_url: 'https://newbackend.groe.me/user_crm/custom_field_value/update',
+              //   rows: []
+              // },
             ]
           },
           user: {
@@ -126,17 +126,17 @@
                 update_url: 'https://newbackend.groe.me/user_crm/user/update',
                 rows: []
               },
-              {
-                active: true,
-                id: 'gender.value',
-                name: 'Geschlecht',
-                type: 'select',
-                list: 'gender',
-                params: {id: 'get_gender.id', table: 'users', name: 'cStatic'},
-                create_url: 'https://newbackend.groe.me/user_crm/custom_field_value/create',
-                update_url: 'https://newbackend.groe.me/user_crm/custom_field_value/update',
-                rows: []
-              },
+              // {
+              //   active: true,
+              //   id: 'gender.value',
+              //   name: 'Geschlecht',
+              //   type: 'select',
+              //   list: 'gender',
+              //   params: {id: 'get_gender.id', table: 'users', name: 'cStatic'},
+              //   create_url: 'https://newbackend.groe.me/user_crm/custom_field_value/create',
+              //   update_url: 'https://newbackend.groe.me/user_crm/custom_field_value/update',
+              //   rows: []
+              // },
             ]
           },
           company: {

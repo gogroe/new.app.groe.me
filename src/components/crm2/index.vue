@@ -9,7 +9,8 @@
       <crm_sidebar
         class="crm_sidebar"
         :class="{'active': active.sidebar}"
-        :columns="columns"/>
+        :columns="columns"
+        :crmType="crm.id"/>
       <div class="clear"></div>
     </div>
 </template>

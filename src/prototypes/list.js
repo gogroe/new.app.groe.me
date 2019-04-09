@@ -10,19 +10,12 @@ export default {
     if(name in store.getters.lists)
     {
       list = store.getters.lists[name]
-      if(list.length === 0){
-        await Sleep(1000)
+      let count = 0
+
+      while (list.length === 0 && count < 50){
+        await Sleep(100)
         list = store.getters.lists[name]
-
-        if(list.length === 0){
-          await Sleep(2000)
-          list = store.getters.lists[name]
-
-          if(list.length === 0){
-            await Sleep(3000)
-            list = store.getters.lists[name]
-          }
-        }
+        count++
       }
     }
     else

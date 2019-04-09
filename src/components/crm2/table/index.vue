@@ -17,18 +17,18 @@
         </tr>
       </table>
     </div>
-    <div class="table_footer">
-
-    </div>
+    <table_footer class="table_footer"/>
   </div>
 </template>
 
 <script>
   import Crm_column from "./column/index";
+  import Table_footer from "./footer/index";
 
   export default {
     name: "crm_table",
     components: {
+      Table_footer,
       Crm_column
     },
     props:{
