@@ -90,34 +90,9 @@ const dependencies = {
     },
 
     user_types: {
-      developer: 0,
-      admin: 1,
-      user: 2,
-      company: 3,
-//    partner: 4
-    },
-
-    user_roles: {
-      '0_role': {
-        standard: 0,
-      },
-      '1_role': {
-        manager: 0,
-        editor: 1,
-        stuff: 2,
-      },
-      '2_role': {
-        lead: 0,
-        customer: 1,
-        member: 2,
-        data: 3
-      },
-      '3_role': {
-        lead: 0,
-        customer: 1,
-        member: 2,
-        data: 3
-      }
+      admin: 0,
+      user: 1,
+      company: 2,
     },
 
     permissions:{

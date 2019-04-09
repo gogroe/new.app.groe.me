@@ -7,6 +7,7 @@
       :class="[{'first': index === 0}]">
       <cinput
         class="cinput"
+        :class="key"
         :indicator="key"
         :name="input.name"
         :cvalue="input.value"

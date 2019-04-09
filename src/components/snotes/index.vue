@@ -80,6 +80,7 @@
 <style lang="scss" scoped>
 
   .snotes{
+    z-index: 20;
     width: 300px;
     padding: 17px;
     background: #e3e3e3;

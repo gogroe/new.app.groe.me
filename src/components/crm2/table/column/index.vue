@@ -14,7 +14,7 @@
         <th
           valign="bottom">
           <p v-if="isIndicator">
-            Nutzerverwaltung
+            {{crmName}}
           </p>
           <p v-else>
             {{column.name}}
@@ -47,6 +47,7 @@
             :update_url="column.update_url"
             :id="column.id"
             :name="column.name"
+            :list="list"
             :params="column.params"
             :type="column.type"/>
         </td>
@@ -69,6 +70,10 @@
         type: Object,
         required: true,
       },
+      crmName:{
+        type: String,
+        required: true,
+      },
       action: {
         required: true,
       }
@@ -76,6 +81,11 @@
     computed:{
       isIndicator () {
         return this.column.type === 'indicator'
+      },
+      list () {
+        return 'list' in this.column
+          ? this.column.list
+          : null
       }
     }
   }

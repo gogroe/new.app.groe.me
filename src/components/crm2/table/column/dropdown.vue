@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-click-outside="hide">
     <i
       class="material-icons dropdown_arrow"
       @click="active.dropdown = !active.dropdown">
@@ -8,14 +8,16 @@
     <div
       v-if="active.dropdown"
       class="crm_dropdown_list">
-        Adminverwaltung
-        Nutzerverwaltung
-        Firmenverwaltung
+      <a @click="$store.commit('update_reload', {section: 'active_crm', action: 'admin'}); active.dropdown = false">Adminverwaltung</a>
+      <a @click="$store.commit('update_reload', {section: 'active_crm', action: 'user'}); active.dropdown = false">Nutzerverwaltung</a>
+      <a  @click="$store.commit('update_reload', {section: 'active_crm', action: 'company'}); active.dropdown = false">Firmenverwaltung</a>
     </div>
   </div>
 </template>
 
 <script>
+  import ClickOutside from 'vue-click-outside'
+
   export default {
     name: "crm_list",
     data() {
@@ -25,6 +27,14 @@
         }
       }
     },
+    methods:{
+      hide() {
+        this.active.dropdown = false
+      },
+    },
+    directives: {
+      ClickOutside
+    }
   }
 </script>
 
@@ -35,7 +45,7 @@
     position: absolute;
     margin-top: 10px;
     width: 180px;
-    padding: 10px;
+    padding: 10px 0;
     background: #fff;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.08);
     border: solid 1px #f1f3f4;
@@ -61,6 +71,20 @@
       top: -20px;
       border-color: transparent  transparent #f1f3f4 transparent  ;
       border-width: 10px;
+    }
+
+    a{
+      display: inline-block;
+      width: 100%;
+      padding: 17px;
+      text-align: center;
+      cursor: pointer;
+      color: #272d33;
+
+      &:hover{
+        background: #f1f3f4;
+        color: #1a73e8;
+      }
     }
   }
 
