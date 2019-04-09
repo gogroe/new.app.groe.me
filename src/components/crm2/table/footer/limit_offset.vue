@@ -15,9 +15,10 @@
   export default {
     name: "limit_offset",
     props:{
-      request_data:{
-        required: true
-      },
+      counts:{
+        type: Object,
+        required: true,
+      }
     },
     data(){
       return{
@@ -27,7 +28,7 @@
       }
     },
     watch:{
-      request_data:{
+      counts:{
         handler:function () {
           this.set_data()
         }
@@ -38,9 +39,9 @@
     },
     methods:{
       set_data(){
-        if('rows' in this.request_data && 'count' in this.request_data){
-          this.cur = this.request_data.rows.length
-          this.total = this.request_data.count
+        if('rows' in this.counts && 'count' in this.counts){
+          this.cur = this.counts.rows
+          this.total = this.counts.count
           this.from = this.cur > 100
             ? this.cur - 100
             : 1

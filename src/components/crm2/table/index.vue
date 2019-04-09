@@ -17,7 +17,9 @@
         </tr>
       </table>
     </div>
-    <table_footer class="table_footer"/>
+    <table_footer
+      class="table_footer"
+      :counts="counts"/>
   </div>
 </template>
 
@@ -41,6 +43,10 @@
         required: true,
       },
       cLoad:{
+        type: Object,
+        required: true,
+      },
+      counts:{
         type: Object,
         required: true,
       }
