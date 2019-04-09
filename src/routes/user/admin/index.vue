@@ -261,8 +261,18 @@
     margin: 0;
     padding-left: 36px;
 
+    p{
+      margin:0;
+    }
+
+    &:hover{
+      cursor: pointer;
+      background-color: #f8f8f8;
+    }
+
     .cinput{
       margin: 0 !important;
+      border-top: 1px solid #dadada !important;
     }
 
     .input_wrapper{
@@ -276,6 +286,13 @@
 
     .cinput:first-child{
       border-top: none;
+    }
+  }
+
+  .spacing:first-child{
+    .cinput{
+      margin: 0 !important;
+      border-top: none !important;
     }
   }
 }

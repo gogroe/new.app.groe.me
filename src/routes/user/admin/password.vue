@@ -2,9 +2,11 @@
   <div class="user_password">
     <p class="section_name">NUTZER PASSWORT</p>
     <div class="section_wrapper">
-      <div class="spacing">
-        <cinput v-for="(input, key, i) in create_user_secret.inputs"
-        :key="i"
+      <div
+      class="spacing" 
+      v-for="(input, key, i) in create_user_secret.inputs"
+      :key="i">
+        <cinput
         :name="input.name"
         :type="input.type"
         :cvalue="input.value"
