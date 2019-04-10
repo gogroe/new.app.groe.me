@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import settings from '@/routes/settings'
+import permissions from '@/routes/settings/permissions'
 
 import notification from '@/routes/notification'
 
@@ -26,9 +26,9 @@ export default new Router({
   routes: [
     // settings
     {
-      path: '/settings/permissions',
-      name: 'settings_permissions',
-      component: settings
+      path: 'permissions',
+      name: 'permissions',
+      component: permissions
     },
 
     // notification

@@ -20,7 +20,7 @@
           name: {
             name: column.name,
             value: column.name,
-            type: column.type
+            type: 'text'
           }
         }"
         :params="{
