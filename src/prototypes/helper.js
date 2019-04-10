@@ -24,6 +24,15 @@ export default {
       console.error('type error capitalize ' + name)
     }
   },
+  random_key: function (length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < length; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+  },
   set_load: function (componentName){
     let loadToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     let loadName = componentName + '_' + loadToken

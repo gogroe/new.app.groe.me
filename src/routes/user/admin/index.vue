@@ -247,7 +247,7 @@
   }
 
   .input{
-    padding-left: 0 5px;
+    padding-left: 5px;
   }
 }
 
@@ -309,12 +309,11 @@
 .edit_elements {
   &.create{
     .input_wrapper{
-      padding-right: 41px;
+      /*padding-right: 41px;*/
     }
   }
 
   button{
-    margin: 25px 41px !important;
     background-color: #3da0f5;
     color: white;
     height: 42px;

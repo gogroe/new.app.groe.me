@@ -1,6 +1,7 @@
 <template>
-  <div>
-    create user
+  <div class="crm_footer">
+    <crm_create_user
+      class="crm_create_user"/>
     <limit_offset
       class="limit_offset"
       :counts="counts"/>
@@ -9,9 +10,10 @@
 
 <script>
   import Limit_offset from "./limit_offset";
+  import Crm_create_user from "./create";
   export default {
     name: "table_footer",
-    components: {Limit_offset},
+    components: {Crm_create_user, Limit_offset},
     props:{
       counts:{
         type: Object,
@@ -23,7 +25,17 @@
 
 <style lang="scss" scoped>
 
-  .limit_offset{
-    padding-top: 16px;
+  .crm_footer{
+    position: relative;
+
+    .crm_create_user{
+      position: absolute;
+      padding-top: 16px;
+    }
+
+    .limit_offset{
+      padding-top: 16px;
+    }
   }
+
 </style>

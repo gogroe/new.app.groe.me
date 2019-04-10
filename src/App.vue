@@ -2,7 +2,6 @@
   <div id="app">
     <global_header v-if="basic_component"/>
     <navigation v-if="basic_component"/>
-    <bubble/>
     <div class="main" :class="[{'active_navigation': active_navigation}, {'main_content': basic_component}]">
       <users v-if="cut_route_name_prefix($route.name) === 'users' ||
                    cut_route_name_prefix($route.name) === 'user' "/>
@@ -16,7 +15,6 @@
   import Snotes from "./components/snotes/index";
   var cookie = require('js-cookie')
   import Helper from './components/functions/custom_helper'
-  import Bubble from './components/bubble'
   import Permission from './components/functions/permission'
   import { mapGetters } from 'vuex'
   import Users from "./routes/user/index";
@@ -30,7 +28,6 @@
       Navigation,
       Global_header,
       Users,
-      Bubble
     },
     data(){
       return{
@@ -177,6 +174,25 @@
 
   ////////////////////////////////////////////////////////////////////////////////// Box-Modes
 
+  .default{
+    &.box{
+      &.rounded{
+
+        .labels{
+
+        }
+
+        .inputs{
+
+        }
+
+        .whatever{
+
+        }
+      }
+    }
+  }
+
   .default_box{
     width: 100%;
     padding: 17px;
@@ -288,13 +304,12 @@
   ////////////////////////////////////////////////////////////////////////////////// Buttons
 
   button {
-    margin: 25px 41px;
     cursor: pointer;
     border: none;
     border-radius: 2px;
     font-size: 14px;
     font-weight: 500;
-    color: #1a73e8;
+    color: #3da0f5;
     background: transparent;
     font-family: 'Roboto', sans-serif;
 
@@ -306,11 +321,11 @@
     &.filled{
       padding: 10px 25px;
       color: #fff;
-      background: #1a73e8;
+      background: #3da0f5;
 
       &:hover{
         color: #fff;
-        background: #1a66cc;
+        background: #3877c7;
       }
     }
   }
