@@ -11,7 +11,6 @@
         button="HINZUFÜGEN"/>
       <edit_elements
         method="update"
-        :readonly="$$permission.is_perm('admin_update') === false"
         :url="update_user.url"
         :inputs="update_user.inputs"
         :cload="cload"
@@ -19,7 +18,6 @@
         :params="update_user.params"/>
       <edit_elements
         method="update"
-        :readonly="$$permission.is_perm('admin_update') === false"
         :url="update_user_gender.url"
         :inputs="update_user_gender.inputs"
         :cload="cload"

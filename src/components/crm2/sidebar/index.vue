@@ -1,8 +1,6 @@
 <template>
   <div class="crm_sidebar">
-    <crm_filter
-      :columns="columns"
-      :crmType="crmType"/>
+    <crm_filter :columns="columns"/>
     <crm_history/>
   </div>
 </template>
@@ -18,11 +16,7 @@
       columns:{
         type: Array,
         required: true,
-      },
-      crmType:{
-        type: String,
-        required: true,
-      },
+      }
     }
   }
 </script>

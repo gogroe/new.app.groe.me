@@ -32,7 +32,7 @@
         class="condition_input"
         :name="column.name"
         :cvalue="condition.value"
-        :clist="list"
+        :clist="column.name"
         :type="column.type"
         placeholder="suchen"
         v-model="xCondition"
@@ -79,13 +79,7 @@
         }
       }
     },
-    computed:{
-      list () {
-        return 'list' in this.column
-          ? this.column.list
-          : this.column.name
-      }
-    }
+
   }
 </script>
 

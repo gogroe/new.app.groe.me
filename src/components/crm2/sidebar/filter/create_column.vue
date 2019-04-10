@@ -57,10 +57,6 @@
         type: String,
         requried: false
       },
-      crmType:{
-        type: String,
-        required: true,
-      },
     },
     data () {
       return {
@@ -108,8 +104,7 @@
           params: {
             table: 'users',
             type: null,
-            dependent: null,
-            crm_type: null
+            dependent: null
           },
           inputs:{
             name: {
@@ -155,7 +150,6 @@
       }
     },
     mounted () {
-      this.createTableField.params.crm_type = this.crmType
       //this.createTableField.params.table = this.table
     },
     methods:{

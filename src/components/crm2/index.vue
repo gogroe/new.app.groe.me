@@ -5,13 +5,11 @@
         :class="{'active': active.sidebar}"
         :columns="columns"
         :crmName="crm.name"
-        :counts="counts"
         :cLoad="cLoad.data"/>
       <crm_sidebar
         class="crm_sidebar"
         :class="{'active': active.sidebar}"
-        :columns="columns"
-        :crmType="crm.id"/>
+        :columns="columns"/>
       <div class="clear"></div>
     </div>
 </template>
@@ -61,11 +59,6 @@
       ...mapGetters([
         'reload'
       ]),
-      counts () {
-        return 'count' in this.cLoad.data && 'rows' in this.cLoad.data
-          ? {count: this.cLoad.data.count, rows: this.cLoad.data.rows.length}
-          : {}
-      }
     },
     watch:{
       reload: function (object) {

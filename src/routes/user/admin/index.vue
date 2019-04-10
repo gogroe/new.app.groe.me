@@ -279,15 +279,6 @@
         }
       }
     }
-<<<<<<< HEAD
-=======
-  }
-
-  .input{
-    padding-left: 5px;
-  }
-}
->>>>>>> master
 
     .edit_elements {
       &.create{
@@ -319,33 +310,10 @@
     }
 
     .input_wrapper{
-<<<<<<< HEAD
       ul{
         .highlight{
           margin-bottom: 27px !important;
         }
-=======
-      /*padding-right: 41px;*/
-    }
-  }
-
-  button{
-    background-color: #3da0f5;
-    color: white;
-    height: 42px;
-    padding: 10px 41px;
-  }
-}
-
-.user_contact, .user_adress, .user_bank{
-
-  .section_wrapper{
-
-    .edit_section:first-child{
-
-      .container{
-        border-top: none;
->>>>>>> master
       }
     }
   }

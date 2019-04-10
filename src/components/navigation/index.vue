@@ -3,7 +3,6 @@
     <ul class="default_scrollbar">
       <li v-for="(navigation, i) in navigations"
           :key="i"
-          v-if="hasPerm(navigation.perm)"
           @click="$router.push({name: navigation.route})"
           :class="{'active': set_active_class(navigation)}">
         <i class="material-icons">{{navigation.icon}}</i>
@@ -13,7 +12,6 @@
     <hr>
     <a v-for="(navigation, i) in navigations_admin"
        :key="i"
-       v-if="hasPerm(navigation.perm)"
        @click="$router.push({name: navigation.route})">
       {{navigation.name}}</a>
   </div>
@@ -31,14 +29,12 @@
           homepage:{
             name: 'Startseite',
             route: 'user_vita',
-            icon: 'home',
-            perm: null
+            icon: 'home'
           },
           user:{
             name: 'Benutzer',
             route: 'users',
-            icon: 'face',
-            perm: 'admin_read'
+            icon: 'face'
           },
           // project:{
           //   name: 'Projekte',
@@ -63,9 +59,8 @@
         },
         navigations_admin:{
           homepage:{
-            name: 'Nutzerrechte',
-            route: 'permissions',
-            perm: 'admin_read'
+            name: 'Einstellungen',
+            route: 'settings_users',
           },
         }
       }
@@ -73,7 +68,7 @@
     computed:{
       ...mapGetters([
         'active_navigation'
-      ]),
+      ])
     },
     methods:{
       set_active_class(navigation){
@@ -89,14 +84,6 @@
         }
         else {
           return false
-        }
-      },
-      hasPerm (perm) {
-        if( perm === null ){
-          return true
-        }
-        else {
-          return this.$$permission.is_perm(perm)
         }
       }
     },

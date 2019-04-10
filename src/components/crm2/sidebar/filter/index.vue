@@ -14,8 +14,7 @@
     </draggable>
     <create_column
       v-if="$$permission.is_perm('admin_write')"
-      :table="table"
-      :crmType="crmType"/>
+      :table="table"/>
   </div>
 </template>
 
@@ -37,11 +36,7 @@
       columns:{
         type: Array,
         required: true,
-      },
-      crmType:{
-        type: String,
-        required: true,
-      },
+      }
     },
     data(){
       return {
