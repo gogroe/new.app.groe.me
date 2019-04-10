@@ -15,7 +15,7 @@
     <posts v-for="(article, i) in cLoad.data"
            :key="i"
            :obj="article"/>
-    <div v-if="cLoad !== null">
+    <div v-if="cLoad.data.length === 0">
       <edit_elements
         name="VITA HINZUFÜGEN"
         button="VITA ERSTELLEN"
@@ -60,7 +60,7 @@
           url: 'https://newbackend.groe.me/user_vita/vita/create',
           reload: {action: 'reload', section: 'vitas'},
           params: {
-
+            user_id: null,
           },
           inputs:{
             position: {
@@ -141,6 +141,7 @@
       },
     },
     mounted(){
+      this.set_user_id(this.create_user_vita)
       this.set_user_id(this.cLoad)
       this.get_cLoad()
     },

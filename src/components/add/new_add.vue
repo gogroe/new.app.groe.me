@@ -25,17 +25,17 @@ import { mapGetters } from 'vuex'
     },
     watch:{
       active: {
-         handler(obj){
-           if(obj)
-            this.$store.commit('update_reload', {section: this.$route.name , action: true})
-            else
-            this.$store.commit('update_reload', {section: this.$route.name ,action: false})
-         },
-         deep: true
+        handler(obj){
+          if(obj)
+            this.$store.commit('update_reload', {section: 'add_' + this.$route.name, action: true})
+          else
+            this.$store.commit('update_reload', {section: 'add_' + this.$route.name, action: false})
+         }, deep: true
       },
       reload: {
         handler: function (object) {
-          if(object.section === 'add_' + name){
+          console.log(object.section === 'add_' + this.name);
+          if(object.section === 'add_' + this.name){
             this.$emit('input', object.action)
             this.$store.commit('update_reload', {section: null, action:null})
           }
