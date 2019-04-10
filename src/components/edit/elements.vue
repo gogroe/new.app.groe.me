@@ -35,6 +35,7 @@
     </div>
     <button
       v-if="is_create"
+      class="filled"
       @click="send_create">
       {{button}}
     </button>
