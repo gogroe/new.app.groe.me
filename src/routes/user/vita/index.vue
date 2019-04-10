@@ -32,7 +32,7 @@
   import { mapGetters } from 'vuex'
   import Posts from "../../../components/articles/index";
   import add from "../../../components/add";
-  import Popup from "../../../components/popup"
+  import Popup from "../../../components/popup/white"
   import Edit_elements from "../../../components/edit/elements";
   import loader from "../../../components/functions/loader";
 
@@ -60,7 +60,7 @@
           url: 'https://newbackend.groe.me/user_vita/vita/create',
           reload: {action: 'reload', section: 'vitas'},
           params: {
-            
+
           },
           inputs:{
             position: {

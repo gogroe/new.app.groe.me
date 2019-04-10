@@ -2,7 +2,6 @@
   <div id="app">
     <global_header v-if="basic_component"/>
     <navigation v-if="basic_component"/>
-    <bubble/>
     <div class="main" :class="[{'active_navigation': active_navigation}, {'main_content': basic_component}]">
       <users v-if="cut_route_name_prefix($route.name) === 'users' ||
                    cut_route_name_prefix($route.name) === 'user' "/>
@@ -16,7 +15,6 @@
   import Snotes from "./components/snotes/index";
   var cookie = require('js-cookie')
   import Helper from './components/functions/custom_helper'
-  import Bubble from './components/bubble'
   import Permission from './components/functions/permission'
   import { mapGetters } from 'vuex'
   import Users from "./routes/user/index";
@@ -30,7 +28,6 @@
       Navigation,
       Global_header,
       Users,
-      Bubble
     },
     data(){
       return{
@@ -176,6 +173,26 @@
 
 
   ////////////////////////////////////////////////////////////////////////////////// Box-Modes
+
+  .default{
+    &.box{
+      &.rounded{
+
+        .labels{
+
+        }
+
+        .inputs{
+
+        }
+
+        .whatever{
+
+        }
+      }
+    }
+  }
+
 
   .default_box{
     width: 100%;

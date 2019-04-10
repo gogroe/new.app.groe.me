@@ -37,27 +37,6 @@
          name="load_more"
          @click="lim_off.limit += 5">Mehr laden
        </p>
-      <p class="load_more"
-         v-if="lim_off.limit>5"
-         type="button"
-         name="load_more"
-         @click="lim_off.limit -= 5">weniger laden
-       </p>
-      <p class="previous"
-         v-if="lim_off.offset != 0"
-         type="button"
-         name="prev"
-         @click="lim_off.offset -= lim_off.limit">
-        <i class="material-icons">navigate_before</i>
-      </p>
-      <p class="next"
-         v-if="lim_off.offset < request_get_accounts.data.count && lim_off.offset+lim_off.limit < request_get_accounts.data.count"
-         type="button"
-         name="next"
-         @click="lim_off.offset += lim_off.limit">
-        <i class="material-icons">navigate_next</i>
-      </p>
-      <div class="clear"></div>
     </div>
 
 
@@ -149,8 +128,10 @@
 </script>
 
 <style lang="scss" scoped>
+.accounts_table{
+
   table{
-  table-layout: fixed;
+    table-layout: fixed;
     border-collapse:collapse;
     width: 100%;
     position:relative;
@@ -183,7 +164,11 @@
     }
   }
 
-  .date, .value, .more{
+  .more{
+    width: 100px;
+  }
+
+  .date, .value{
     min-width: 100px;
   }
 
@@ -204,17 +189,11 @@
         cursor: pointer;
       }
 
-      &.previous{
-        float: left;
-
-      }
-      &.next{
-        float: right;
-      }
       &.load_more{
         display: grid;
         margin: 17px auto;
       }
     }
   }
+}
 </style>
