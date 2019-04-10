@@ -195,7 +195,7 @@
 
   .default_box_two{
     width: 100%;
-    padding: 17px;
+    padding: 25px;
     background: #fff;
 
     .head{

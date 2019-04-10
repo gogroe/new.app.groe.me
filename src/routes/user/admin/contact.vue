@@ -2,44 +2,99 @@
   <div class="user_contact">
     <p class="section_name">NUTZER KONTAKT</p>
     <div class="section_wrapper">
-      <edit_section
-        name="Telefon"
-        :create="create_phone"
-        :update="update_phone"
-        :cload="phone"/>
-      <edit_section
-        name="Email"
-        :create="create_email"
-        :update="update_email"
-        :cload="email"/>
-      <edit_section
-        name="Skype"
-        :create="create_skype"
-        :update="update_skype"
-        :cload="skype"/>
-      <edit_section
-        name="Discord"
-        :create="create_discord"
-        :update="update_discord"
-        :cload="discord"/>
-      <edit_section
-        name="Facebook"
-        :create="create_facebook"
-        :update="update_facebook"
-        :cload="facebook"/>
+      <edit_elements
+        v-if="cload.phone != null"
+        :url="update_phone.url"
+        method="update"
+        :inputs="update_phone.inputs"
+        :cload="cload"
+        :params="update_phone.params"
+        :reload="update_phone.reload"/>
+      <edit_elements
+        v-else
+        :url="create_phone.url"
+        method="update"
+        :inputs="create_phone.inputs"
+        :cload="cload"
+        :params="create_phone.params"
+        :reload="create_phone.reload"/>
+      <edit_elements
+        v-if="cload.email != null"
+        :url="update_email.url"
+        method="update"
+        :inputs="update_email.inputs"
+        :cload="cload"
+        :params="update_email.params"
+        :reload="update_email.reload"/>
+      <edit_elements
+        v-else
+        :url="create_email.url"
+        method="update"
+        :inputs="create_email.inputs"
+        :cload="cload"
+        :params="create_email.params"
+        :reload="create_email.reload"/>
+      <edit_elements
+        v-if="cload.skype != null"
+        :url="update_skype.url"
+        method="update"
+        :inputs="update_skype.inputs"
+        :cload="cload"
+        :params="update_skype.params"
+        :reload="update_skype.reload"/>
+      <edit_elements
+        v-else
+        :url="create_skype.url"
+        method="update"
+        :inputs="create_skype.inputs"
+        :cload="cload"
+        :params="create_skype.params"
+        :reload="create_skype.reload"/>
+      <edit_elements
+        v-if="cload.discord != null"
+        :url="update_discord.url"
+        method="update"
+        :inputs="update_discord.inputs"
+        :cload="cload"
+        :params="update_discord.params"
+        :reload="update_discord.reload"/>
+      <edit_elements
+        v-else
+        :url="create_discord.url"
+        method="update"
+        :inputs="create_discord.inputs"
+        :cload="cload"
+        :params="create_discord.params"
+        :reload="create_discord.reload"/>
+      <edit_elements
+        v-if="cload.facebook != null"
+        :url="update_facebook.url"
+        method="update"
+        :inputs="update_facebook.inputs"
+        :cload="cload"
+        :params="update_facebook.params"
+        :reload="update_facebook.reload"/>
+      <edit_elements
+        v-else
+        :url="create_facebook.url"
+        method="update"
+        :inputs="create_facebook.inputs"
+        :cload="cload"
+        :params="create_facebook.params"
+        :reload="create_facebook.reload"/>
     </div>
   </div>
 </template>
 
 <script>
   import Create_update from "../../../components/inputs/create_update";
-  import Edit_section from "../../../components/edit/section";
+  import Edit_elements from "../../../components/edit/elements";
   import loader from "../../../components/functions/loader";
 
   export default {
     name: "user_contact",
     components: {
-      Edit_section,
+      Edit_elements,
       Create_update,
     },
     props:{

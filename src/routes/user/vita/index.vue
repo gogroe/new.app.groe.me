@@ -4,18 +4,27 @@
     </div>
       <popup :active = "active.create" v-model = "active.create">
         <edit_elements
-          name="VITA HINZUFÜGEN"
-          button="VITA ERSTELLEN"
-          :url="create_user_vita.url"
-          :inputs="create_user_vita.inputs"
-          :params="create_user_vita.params"
-          :reload="create_user_vita.reload"
-          method="create"/>
+        button="VITA ERSTELLEN"
+        :url="create_user_vita.url"
+        :inputs="create_user_vita.inputs"
+        :params="create_user_vita.params"
+        :reload="create_user_vita.reload"
+        method="create"/>
       </popup>
 
     <posts v-for="(article, i) in cLoad.data"
            :key="i"
            :obj="article"/>
+    <div v-if="cLoad !== null">
+      <edit_elements
+        name="VITA HINZUFÜGEN"
+        button="VITA ERSTELLEN"
+        :url="create_user_vita.url"
+        :inputs="create_user_vita.inputs"
+        :params="create_user_vita.params"
+        :reload="create_user_vita.reload"
+        method="create"/>
+    </div>
   </div>
 </template>
 
@@ -50,7 +59,9 @@
         create_user_vita:{
           url: 'https://newbackend.groe.me/user_vita/vita/create',
           reload: {action: 'reload', section: 'vitas'},
-          params: {},
+          params: {
+            
+          },
           inputs:{
             position: {
               name: 'Position',
@@ -120,7 +131,7 @@
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'vitas'){
           this.$store.commit('update_reload', {action: null, section: null})
-          this.get_cload()
+          this.get_cLoad()
           this.active.create = false
         }
         if(object.section === this.$route.name){

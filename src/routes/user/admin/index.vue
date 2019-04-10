@@ -129,18 +129,105 @@
   .admin{
     .default_box_two{
       padding: 0;
-    }
+      padding-bottom: 25px;
 
-    ul{
-      width: 100%;
-      padding-top: 27px;
-      float:left;
+      ul{
+        width: 100%;
+        padding-top: 27px;
+        float:left;
 
-      li{
-        margin-bottom: 27px;
-        cursor: pointer;
-        &.active{
-          color: #3da0f5;
+        li{
+          margin-bottom: 27px;
+          cursor: pointer;
+          &.active{
+            color: #3da0f5;
+          }
+        }
+      }
+
+      .content_admin{
+        width: 100%;
+        border: none;
+        margin-bottom: 107px;
+        float:left;
+
+        &>div{
+          border: 1px solid #dadada;
+          margin-bottom: 41px;
+          padding: 25px 0;
+          border-radius: 5px;
+        }
+
+        .edit_section{
+          padding-left: 36px;
+
+          &:hover{
+            cursor: pointer;
+            background-color: #f8f8f8;
+
+
+            border-top: 1px solid #dadada;
+            border-bottom: 1px solid #dadada;
+
+            & + .edit_section{
+              .cinput{
+                border-top: none !important;
+              }
+            }
+            .cinput{
+              border-top: none !important;
+            }
+          }
+
+          .input_label{
+            color:#838688;
+          }
+          .wrapper{
+            padding-left: 0;
+          }
+        }
+
+        .cinput{
+          border-top: 1px solid #dadada;
+          line-height: 66px;
+
+          .input_wrapper{
+            margin: 0 !important;
+          }
+        }
+
+        .wrapper{
+          margin: 0px;
+          padding-left: 36px;
+
+          .dropdown-toggle{
+            width: 100%;
+          }
+
+          .input_label{
+            width: 100px;
+            color:#838688;
+          }
+
+          &:hover{
+            cursor: pointer;
+            background-color: #f8f8f8;
+            border-top: 1px solid #dadada;
+            border-bottom: 1px solid #dadada;
+
+            & + .wrapper{
+              .cinput{
+                border-top: none !important;
+              }
+            }
+            .cinput{
+              border-top: none !important;
+            }
+          }
+        }
+
+        .input{
+          padding-left: 0 5px;
         }
       }
     }
@@ -150,7 +237,7 @@
       text-align: center;
 
       p{
-        color: #a8abad;
+        color: #838688;
         font-size: 22px;
 
         &:last-child{
@@ -159,19 +246,6 @@
       }
     }
 
-    .content_admin{
-      width: 100%;
-      border: none;
-      margin-bottom: 107px;
-      float:left;
-
-      &>div{
-        border: 1px solid #dadada;
-        margin-bottom: 41px;
-        padding: 25px 0;
-        border-radius: 5px;
-      }
-      }
 
     .edit_elements{
       .wrapper, .input {
@@ -188,150 +262,60 @@
         width: calc(100% - 117px - 27px)
       }
     }
-  }
 
-</style>
-
-<style lang="scss">
-.section_name{
-  padding: 0 36px;
-  margin: 17px 0;
-}
-.section_wrapper{
-  margin: 0;
-}
-
-.content_admin{
-  .edit_section{
-    padding-left: 36px;
-
-    .input_label{
-      color:#838688;
+    .section_name{
+      padding: 0 36px;
+      margin: 17px 0;
+    }
+    .section_wrapper{
+      margin: 0;
     }
 
-    &:hover{
-      cursor: pointer;
-      background-color: #f8f8f8;
-    }
-    .wrapper{
-      padding-left: 0;
-    }
-  }
-
-  .cinput{
-    border-top: 1px solid #dadada;
-    line-height: 66px;
-
-    .input_wrapper{
-      margin: 0 !important;
-    }
-  }
-
-  .wrapper{
-    margin: 0px;
-    padding-left: 36px;
-
-    .dropdown-toggle{
-      width: 100%;
-    }
-
-    .input_label{
-      width: 100px;
-      color:#838688;
-    }
-
-    &:hover{
-      cursor: pointer;
-      background-color: #f8f8f8;
-    }
-  }
-
-  .input{
-    padding-left: 0 5px;
-  }
-}
-
-.user_password{
-  .input_label{
-    width: 100px;
-    display: inline-block;
-    color:#838688;
-  }
-  .spacing{
-    margin: 0;
-    padding-left: 36px;
-
-    p{
-      margin:0;
-    }
-
-    &:hover{
-      cursor: pointer;
-      background-color: #f8f8f8;
-    }
-
-    .cinput{
-      margin: 0 !important;
-      border-top: 1px solid #dadada !important;
-    }
-
-    .input_wrapper{
-      display: inline-block;
-      width: calc(100% - 186px);
-
-      input{
-        width: 100%;
+    .edit_section{
+      .create{
+        .container{
+          border-top: 1px solid #dadada;
+          color: #838688;
+        }
       }
     }
 
-    .cinput:first-child{
-      border-top: none;
-    }
-  }
+    .edit_elements {
+      &.create{
+        .input_wrapper{
+          padding-right: 41px;
+        }
+      }
 
-  .spacing:first-child{
-    .cinput{
-      margin: 0 !important;
-      border-top: none !important;
+      button{
+        margin: 25px !important;
+        background-color: #3da0f5;
+        color: white;
+        height: 42px;
+        padding: 10px 41px;
+      }
     }
-  }
-}
 
-.edit_section{
-  .create{
-    .container{
-      border-top: 1px solid #dadada;
-      color: #838688;
+    .user_contact, .user_adress, .user_bank{
+
+      .section_wrapper{
+
+        .edit_section:first-child{
+
+          .container{
+            border-top: none;
+          }
+        }
+      }
     }
-  }
-}
 
-.edit_elements {
-  &.create{
     .input_wrapper{
-      padding-right: 41px;
-    }
-  }
-
-  button{
-    margin: 25px 41px !important;
-    background-color: #3da0f5;
-    color: white;
-    height: 42px;
-    padding: 10px 41px;
-  }
-}
-
-.user_contact, .user_adress, .user_bank{
-
-  .section_wrapper{
-
-    .edit_section:first-child{
-
-      .container{
-        border-top: none;
+      ul{
+        .highlight{
+          margin-bottom: 27px !important;
+        }
       }
     }
   }
-}
+
 </style>
