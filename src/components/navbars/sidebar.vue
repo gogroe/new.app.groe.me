@@ -5,15 +5,17 @@
           @click="sending(i)"
           class="list">
         <div>
-             <div @mouseleave="mouseLeave(i)"
-                  class="full_box" :class="{'active' : option.name === active}">
+             <div class="full_box">
                {{option.name.toUpperCase()}}
              </div>
              <div class="short_box"
                   :class="{'active' : option.name === active}"
-                  @mouseover="mouseOver(i)">
+                  @mouseover="mouseOver(i)"
+                   @mouseleave="mouseLeave(i)">
                {{option.name.substring(0, 1).toUpperCase()}}
              </div>
+
+             <div class="clear"></div>
         </div>
       </li>
     </ul>
@@ -49,22 +51,16 @@ export default {
       this.$emit('input', this.options[i].name)
     },
     mouseOver: function(i){
-      // setTimeout(function(){
         let long = document.getElementsByClassName('full_box')[i]
         let short = document.getElementsByClassName('short_box')[i]
         long.style.display = 'inline-block';
-        long.style.marginLeft = (long.offsetWidth -80) * (-1) + "px"
-        short.style.display = 'none';
-
-      // }, 2000);
+        long.style.marginLeft = (long.offsetWidth + 25) * (-1) + "px"
     },
     mouseLeave: function(i){
-      // setTimeout(function(){
         let long = document.getElementsByClassName('full_box')[i]
         let short = document.getElementsByClassName('short_box')[i]
         long.style.display = 'none';
         short.style.display = 'block';
-      // }, 2000);
     },
   },
 }
@@ -77,15 +73,18 @@ export default {
   right: 0;
   width: 66px;
   height: calc(100% - 64px);
-  padding-top: 173px;
   border-left: 1px solid #e6e6e6;
+  padding-top: 180px;
 
   ul{
+    position: absolute;
+    bottom: 180px;
+    width: 100%;
 
     li{
       text-align: center;
       color: #bbb;
-      margin-bottom: 8px;
+      margin-bottom: 1px;
 
       &:hover{
         cursor: pointer;
@@ -98,26 +97,37 @@ export default {
 
 
       .full_box{
+        float: left;
         display: none;
-        line-height: 41px;
-        border-radius: 20.5px;
-        padding-left: 16px;
-        padding-right: 101px;
+        color: white;
+        border-radius: 5px;
+        line-height: 25px;
+        margin: 8px;
+        padding: 0 25px;
 
       }
 
       &:hover{
-        div{
-          background-color: #f8f8f8;
+        .full_box{
+          background-color: #bbb;
+        }
+
+        .short_box{
+          background-color: #e6e6e6;
+          color: white;
+        }
+
+        .active{
+          background-color: #fff9e5;
+          color: #edad00;
         }
       }
 
       .active{
-        background-color: #fff9e5 !important;
+        background-color: #fff9e5;
         color: #edad00;
       }
     }
   }
-
 }
 </style>

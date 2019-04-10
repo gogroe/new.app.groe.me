@@ -4,18 +4,27 @@
     </div>
       <popup :active = "active.create" v-model = "active.create">
         <edit_elements
-          name="VITA HINZUFÜGEN"
-          button="VITA ERSTELLEN"
-          :url="create_user_vita.url"
-          :inputs="create_user_vita.inputs"
-          :params="create_user_vita.params"
-          :reload="create_user_vita.reload"
-          method="create"/>
+        button="VITA ERSTELLEN"
+        :url="create_user_vita.url"
+        :inputs="create_user_vita.inputs"
+        :params="create_user_vita.params"
+        :reload="create_user_vita.reload"
+        method="create"/>
       </popup>
 
     <posts v-for="(article, i) in cLoad.data"
            :key="i"
            :obj="article"/>
+    <div v-if="cLoad.data.length === 0">
+      <edit_elements
+        name="VITA HINZUFÜGEN"
+        button="VITA ERSTELLEN"
+        :url="create_user_vita.url"
+        :inputs="create_user_vita.inputs"
+        :params="create_user_vita.params"
+        :reload="create_user_vita.reload"
+        method="create"/>
+    </div>
   </div>
 </template>
 
@@ -23,7 +32,7 @@
   import { mapGetters } from 'vuex'
   import Posts from "../../../components/articles/index";
   import add from "../../../components/add";
-  import Popup from "../../../components/popup"
+  import Popup from "../../../components/popup/white"
   import Edit_elements from "../../../components/edit/elements";
   import loader from "../../../components/functions/loader";
 
@@ -50,7 +59,9 @@
         create_user_vita:{
           url: 'https://newbackend.groe.me/user_vita/vita/create',
           reload: {action: 'reload', section: 'vitas'},
-          params: {},
+          params: {
+            user_id: null,
+          },
           inputs:{
             position: {
               name: 'Position',
@@ -120,7 +131,7 @@
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'vitas'){
           this.$store.commit('update_reload', {action: null, section: null})
-          this.get_cload()
+          this.get_cLoad()
           this.active.create = false
         }
         if(object.section === this.$route.name){
@@ -130,6 +141,7 @@
       },
     },
     mounted(){
+      this.set_user_id(this.create_user_vita)
       this.set_user_id(this.cLoad)
       this.get_cLoad()
     },

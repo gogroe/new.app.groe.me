@@ -1,21 +1,27 @@
 <template>
   <div class="admin">
     <sidebar :options="menu_items" v-model="active.menu"/>
-    <div class="add_wrapper"></div>
-    <div class="title">
-      <p>Persönliche Daten</p>
-      <p>Allgemeine Informationenwie Name und Foto bei groe</p>
+    <div class="add_wrapper">
+      <h2>Persönliche Daten</h2>
+      <p>Allgemeine Informationenwie Name und Foto bei groe.</p>
     </div>
-    <div class="default_box_two">
-      <div class="content_admin">
-        <admin_user :cload="cload_data('user')"/>
-        <admin_contact :cload="cload_data('contact')"/>
-        <admin_adress :cload="cload_data('adress')"/>
-        <admin_bank :cload="cload_data('bank')"/>
-        <admin_password v-if="$$permission.is_perm('create')"/>
-      </div>
-      <div class="clear"></div>
-    </div>
+      <admin_user
+        class="default box edit"
+        :cload="cload_data('user')"/>
+      <admin_contact
+        class="default box edit"
+        :cload="cload_data('contact')"/>
+      <admin_adress
+        class="default box edit"
+        :cload="cload_data('adress')"/>
+      <admin_bank
+        class="default box edit"
+        :cload="cload_data('bank')"/>
+      <admin_password
+        v-if="$$permission.is_perm('create')"
+        class="default box edit"
+        />
+    <div class="clear"></div>
   </div>
 </template>
 
@@ -127,210 +133,9 @@
 
 <style lang="scss">
   .admin{
-    .default_box_two{
-      padding: 0;
-    }
-
-    ul{
-      width: 100%;
-      padding-top: 27px;
-      float:left;
-
-      li{
-        margin-bottom: 27px;
-        cursor: pointer;
-        &.active{
-          color: #3da0f5;
-        }
-      }
-    }
-
-    .title{
-      padding-bottom: 41px;
+    .add_wrapper{
       text-align: center;
-
-      p{
-        color: #a8abad;
-        font-size: 22px;
-
-        &:last-child{
-          font-size: 18px;
-        }
-      }
-    }
-
-    .content_admin{
-      width: 100%;
-      border: none;
-      margin-bottom: 107px;
-      float:left;
-
-      &>div{
-        border: 1px solid #dadada;
-        margin-bottom: 41px;
-        padding: 25px 0;
-        border-radius: 5px;
-      }
-      }
-
-    .edit_elements{
-      .wrapper, .input {
-        width: 100%;
-      }
-
-      .input_label{
-        display: inline-block;
-        cursor: text;
-        line-height: 39px;
-      }
-      .input_wrapper{
-        margin: 0;
-        width: calc(100% - 117px - 27px)
-      }
+      color: #596369;
     }
   }
-
-</style>
-
-<style lang="scss">
-.section_name{
-  padding: 0 36px;
-  margin: 17px 0;
-}
-.section_wrapper{
-  margin: 0;
-}
-
-.content_admin{
-  .edit_section{
-    padding-left: 36px;
-
-    .input_label{
-      color:#838688;
-    }
-
-    &:hover{
-      cursor: pointer;
-      background-color: #f8f8f8;
-    }
-    .wrapper{
-      padding-left: 0;
-    }
-  }
-
-  .cinput{
-    border-top: 1px solid #dadada;
-    line-height: 66px;
-
-    .input_wrapper{
-      margin: 0 !important;
-    }
-  }
-
-  .wrapper{
-    margin: 0px;
-    padding-left: 36px;
-
-    .dropdown-toggle{
-      width: 100%;
-    }
-
-    .input_label{
-      width: 100px;
-      color:#838688;
-    }
-
-    &:hover{
-      cursor: pointer;
-      background-color: #f8f8f8;
-    }
-  }
-
-  .input{
-    padding-left: 5px;
-  }
-}
-
-.user_password{
-  .input_label{
-    width: 100px;
-    display: inline-block;
-    color:#838688;
-  }
-  .spacing{
-    margin: 0;
-    padding-left: 36px;
-
-    p{
-      margin:0;
-    }
-
-    &:hover{
-      cursor: pointer;
-      background-color: #f8f8f8;
-    }
-
-    .cinput{
-      margin: 0 !important;
-      border-top: 1px solid #dadada !important;
-    }
-
-    .input_wrapper{
-      display: inline-block;
-      width: calc(100% - 186px);
-
-      input{
-        width: 100%;
-      }
-    }
-
-    .cinput:first-child{
-      border-top: none;
-    }
-  }
-
-  .spacing:first-child{
-    .cinput{
-      margin: 0 !important;
-      border-top: none !important;
-    }
-  }
-}
-
-.edit_section{
-  .create{
-    .container{
-      border-top: 1px solid #dadada;
-      color: #838688;
-    }
-  }
-}
-
-.edit_elements {
-  &.create{
-    .input_wrapper{
-      /*padding-right: 41px;*/
-    }
-  }
-
-  button{
-    background-color: #3da0f5;
-    color: white;
-    height: 42px;
-    padding: 10px 41px;
-  }
-}
-
-.user_contact, .user_adress, .user_bank{
-
-  .section_wrapper{
-
-    .edit_section:first-child{
-
-      .container{
-        border-top: none;
-      }
-    }
-  }
-}
 </style>

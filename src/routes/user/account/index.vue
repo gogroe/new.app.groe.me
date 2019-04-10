@@ -22,7 +22,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import Accounts_table from "../../../components/accounts/index";
-  import Popup from "../../../components/popup";
+  import Popup from "../../../components/popup/white";
   import Add from "../../../components/add";
   import Sidebar from "../../../components/navbars/sidebar";
   import Account_balance from "../../../components/accounts/balance";

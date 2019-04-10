@@ -103,7 +103,6 @@
 <style lang="scss">
 
   .edit_section{
-    line-height: 66px;
     .add{
       line-height: 0;
     }

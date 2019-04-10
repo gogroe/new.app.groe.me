@@ -176,18 +176,124 @@
 
   .default{
     &.box{
-      &.rounded{
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #e6e6e6;
 
-        .labels{
+      &.edit{
+        padding-top: 16px;
+        margin-bottom: 25px;
 
+        .section_name{
+          font-size: 18px;
+          padding: 25px;
+          color: #596369;
         }
 
-        .inputs{
+        .edit_elements {
+          position: relative;
 
-        }
+          .wrapper {
+            width: calc(100% - 25px);
+            margin-left: 25px;
+            padding: 16px 25px 16px 0;
+            border-bottom: 1px solid #e6e6e6;
 
-        .whatever{
+            &:hover{
+              background: #f1f3f4;
+              width: 100%;
+              margin-left: 0;
+              padding-left: 25px;
 
+              &:after{
+                position: absolute;
+                width: 25px;
+                height: 1px;
+                left: 0;
+                top: -1px;
+                background: #e6e6e6;
+                content: '';
+              }
+            }
+
+            &.first{
+              &:hover{
+                &:after{
+                  display: none;
+                }
+              }
+            }
+
+            &.last{
+              border-bottom: none;
+            }
+
+            .input_label{
+              display: inline-block;
+              width: 100px;
+            }
+
+            .input_wrapper{
+              width: calc(100% - 25px - 17px - 100px);
+
+              .input{
+                width: 100%;
+              }
+
+              .v-select .dropdown-toggle {
+                width: 100%;
+              }
+            }
+          }
+
+          .input{
+            border-radius: 5px;
+          }
+
+          &.create{
+            .input_wrapper{
+              margin-bottom: 0;
+
+              .input{
+                background: transparent;
+                padding: 5px 20px 5px 5px;
+                border: 1px solid transparent;
+
+                &:hover{
+                  border: dashed 1px #bbbbbb;
+                }
+              }
+            }
+
+            .v-select input[type=search] {
+              border-color: transparent;
+            }
+
+            .v-select input[type=search], .v-select input[type=search]:focus {
+              border: 1px solid transparent;
+              border-left: none;
+              outline: none;
+              margin: 4px 0 0;
+              padding: 0 7px;
+              max-width: 100%;
+              background: none;
+              box-shadow: none;
+            }
+
+            button{
+              margin-right: 41px;
+              margin-bottom: 16px;
+            }
+          }
+
+          &.update{
+            .wrapper{
+              &.last{
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+              }
+            }
+          }
         }
       }
     }
@@ -209,16 +315,6 @@
     }
   }
 
-  .default_box_two{
-    width: 100%;
-    padding: 17px;
-    background: #fff;
-
-    .head{
-      padding-bottom: 27px;
-    }
-  }
-
   .create_box{
     padding: 27px 17px;
     margin-bottom: 17px;
@@ -229,13 +325,14 @@
     margin-bottom: 17px;
   }
 
-  .section_wrapper{
-    margin-left: 17px;
-  }
+  /*.section_wrapper{*/
+    /*margin-left: 17px;*/
+  /*}*/
 
   .add_wrapper{
     width: 100%;
-    height: 43px;
+    margin-top: 61px;
+    margin-bottom: 25px;
   }
 
   .default_popup_background{

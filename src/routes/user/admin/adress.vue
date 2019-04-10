@@ -1,12 +1,14 @@
 <template>
-  <div class="user_adress">
-    <p class="section_name">NUTZER ADRESSE</p>
+  <div class="admin_adress">
+    <p class="section_name">Adresse</p>
     <div class="section_wrapper">
-      <edit_section
-        name="Adresse"
-        :create="create_adress"
-        :update="update_adress"
-        :cload="shipping_adress"/>
+      <edit_elements
+        :method="method"
+        :url="url"
+        :inputs="update_adress.inputs"
+        :cload="shipping_adress"
+        :params="update_adress.params"
+        :reload="update_adress.reload"/>
     </div>
   </div>
 </template>
@@ -14,10 +16,12 @@
 <script>
   import Edit_section from "../../../components/edit/section";
   import loader from "../../../components/functions/loader";
+  import Edit_elements from "../../../components/edit/elements";
 
   export default {
-    name: "user_contact",
+    name: "admin_adress",
     components: {
+      Edit_elements,
       Edit_section,
     },
     props:{
@@ -28,7 +32,6 @@
     data(){
       return{
         update_adress:{
-          url: 'https://newbackend.groe.me/user_admin/adress/update',
           reload: {action: 'reload', section: 'users_admin'},
           params: {
             user_id: null,
@@ -55,37 +58,6 @@
             }
           }
         },
-        create_adress:{
-          url: 'https://newbackend.groe.me/user_admin/adress/create',
-          reload: {action: 'reload', section: 'users_admin'},
-          params: {
-            user_id: null,
-            type: 'shipping'
-          },
-          inputs:{
-            street: {
-              name: 'Straße',
-              type: 'text',
-              value: null
-            },
-            zip: {
-              name: 'Postleitzahl',
-              type: 'number',
-              value: null
-            },
-            city: {
-              name: 'Stadt',
-              type: 'text',
-              value: null
-            },
-            country: {
-              name: 'Land',
-              type: 'select',
-              list: 'countrys',
-              value: null
-            }
-          }
-        }
       }
     },
     computed:{
@@ -97,6 +69,19 @@
           ? this.cload.shipping
           : {}
       },
+      method () {
+        return typeof this.shipping_adress === 'object' && this.$$helper.length(this.shipping_adress) > 0
+          ? 'update'
+          : 'create'
+      },
+      url () {
+        if( this.method === 'update' ){
+          return 'https://newbackend.groe.me/user_admin/contact/update'
+        }
+        else {
+          return 'https://newbackend.groe.me/user_admin/contact/create'
+        }
+      }
     },
     watch:{
       route_id: function(){
@@ -108,7 +93,6 @@
     },
     methods:{
       set_all_user_ids () {
-        this.set_user_id(this.create_adress)
         this.set_user_id(this.update_adress)
       }
     },

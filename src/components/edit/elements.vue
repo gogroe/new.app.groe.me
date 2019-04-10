@@ -4,10 +4,9 @@
       class="wrapper"
       v-for="(input, key, index) in cinputs"
       :key="key"
-      :class="[{'first': index === 0}]">
+      :class="[{'first': $$helper.length(cinputs) >= 2 && index === 0}, {'last': $$helper.length(cinputs) >= 2 && $$helper.length(cinputs) === index +1 }, key]">
       <cinput
         class="cinput"
-        :class="key"
         :indicator="key"
         :name="input.name"
         :cvalue="input.value"

@@ -1,6 +1,9 @@
 <template>
-  <div class="user">
-    <p class="section_name">NUTZER DETAILS</p>
+  <div class="admin_user">
+    <p class="section_name">
+      Details<br/>
+      <span>Einige Informationen sind möglicherweise für andere Personen sichtbar, die ebenfalls groe-Dienste verwenden.</span>
+    </p>
     <upload_user_image :request_get_user="cload"/>
     <div class="section_wrapper">
       <edit_section
@@ -129,3 +132,40 @@
     mixins:[loader]
   }
 </script>
+
+<style lang="scss">
+
+  .admin_user{
+    .section_name span{
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .wrapper {
+      &.description{
+        border-top: 1px solid #e6e6e6;
+      }
+
+      &.lastname{
+        border-bottom: 1px solid #e6e6e6 !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+
+      &.gender{
+        border-bottom: none !important;
+      }
+    }
+
+    .update{
+      .wrapper {
+        &.gender{
+          border-bottom: none !important;
+          border-bottom-left-radius: 10px !important;
+          border-bottom-right-radius: 10px !important;
+        }
+      }
+    }
+  }
+
+</style>

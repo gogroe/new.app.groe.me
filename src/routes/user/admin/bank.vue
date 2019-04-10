@@ -1,12 +1,14 @@
 <template>
   <div class="user_bank">
-    <p class="section_name">NUTZER BANKDATEN</p>
+    <p class="section_name">Bankdaten</p>
     <div class="section_wrapper">
-      <edit_section
-        name="Bank"
-        :create="create_bank"
-        :update="update_bank"
-        :cload="cload"/>
+      <edit_elements
+        :method="method"
+        :url="url"
+        :inputs="update_bank.inputs"
+        :cload="cload"
+        :params="update_bank.params"
+        :reload="update_bank.reload"/>
     </div>
   </div>
 </template>
@@ -14,10 +16,12 @@
 <script>
   import Edit_section from "../../../components/edit/section";
   import loader from "../../../components/functions/loader";
+  import Edit_elements from "../../../components/edit/elements";
 
   export default {
-    name: "user_bank",
+    name: "admin_bank",
     components:{
+      Edit_elements,
       Edit_section,
     },
     props:{
@@ -116,6 +120,19 @@
     computed:{
       route_id(){
         return this.$route.params.id
+      },
+      method () {
+        return typeof this.cload === 'object' && this.$$helper.length(this.cload) > 0
+          ? 'update'
+          : 'create'
+      },
+      url () {
+        if( this.method === 'update' ){
+          return 'https://newbackend.groe.me/user_admin/bank/update'
+        }
+        else {
+          return 'https://newbackend.groe.me/user_admin/bank/create'
+        }
       }
     },
     watch:{

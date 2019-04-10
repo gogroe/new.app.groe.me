@@ -1,9 +1,9 @@
 <template>
   <div class="user_password">
-    <p class="section_name">NUTZER PASSWORT</p>
+    <p class="section_name">Passwort</p>
     <div class="section_wrapper">
       <div
-      class="spacing" 
+      class="spacing"
       v-for="(input, key, i) in create_user_secret.inputs"
       :key="i">
         <cinput
@@ -12,7 +12,7 @@
         :cvalue="input.value"
         :placeholder="input.placeholder"
         v-model="create_user_secret.inputs[key].input"/>
-        <p class="request_message">{{message}}</p>
+        <p :class="{'request_message' : message !== ''}">{{message}}</p>
       </div>
       <button @click="send_create_user_secret">PASSWORT ÄNDERN</button>
       <div class="clear"></div>
@@ -127,20 +127,62 @@
 
   .user_password{
 
-    .request_message{
-      margin-top: 10px;
-      margin-left: 17px;
-    }
-
     .input_label{
+      width: 100px;
+      display: inline-block;
+      color:#838688;
     }
 
-    .cinput{
-      margin-bottom: 17px;
+    .spacing{
+      margin: 0;
+      padding-left: 36px;
+
+      &:hover{
+        cursor: pointer;
+        background-color: #f8f8f8;
+        border-top: 1px solid #dadada;
+        border-bottom: 1px solid #dadada;
+
+        & + .spacing .cinput, .cinput{
+          border-top: none;
+        }
+      }
+
+      .request_message{
+        margin-top: 10px;
+        margin-left: 17px;
+      }
+
+      .cinput{
+        margin: 0;
+        border-top: 1px solid #dadada;
+      }
+
+      .input_wrapper{
+        display: inline-block;
+        width: calc(100% - 147px);
+
+        input{
+          width: 100%;
+        }
+      }
+
+      &:first-child{
+        .cinput{
+          margin: 0;
+          border-top: 1px solid transparent;
+        }
+      }
+      &:last-child{
+        .cinput{
+          margin: 0;
+          border-bottom: 1px solid white;
+        }
+      }
     }
 
     button{
-      margin: 25px 41px;
+      margin: 25px 41px 0 41px;
       float: right;
       background-color: #3da0f5;
       color: white;
@@ -153,6 +195,5 @@
       }
     }
   }
-
 
 </style>
