@@ -72,6 +72,21 @@
         if(object.section === 'crm_prepare'){
           this.$store.commit('update_reload', {section: 'crm' ,action: this.params})
         }
+
+        if(object.section === 'crm_limit_offset'){
+          this.params.limit = object.action.limit
+
+          if('offset' in object.action ){
+            this.params.offset = object.action.offset
+          }
+          else {
+            if('offset' in this.params){
+              this.$delete(this.params, 'offset')
+            }
+          }
+
+          this.$store.commit('update_reload', {section: 'crm' ,action: this.params})
+        }
       },
       action: function (object) {
         if(object !== null){

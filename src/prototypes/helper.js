@@ -39,6 +39,9 @@ export default {
     store.commit('update_loads', {[loadName]: false})
     return loadName
   },
+  sleep: function(milliseconds) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+  },
 
   //editor
   edit:{

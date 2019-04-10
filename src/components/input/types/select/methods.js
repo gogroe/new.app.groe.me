@@ -1,5 +1,10 @@
 export default {
   name: 'select_methods',
+  data() {
+    return {
+      isLoaded: true
+    }
+  },
   watch:{
     item: {
       handler: function (object) {
@@ -8,17 +13,23 @@ export default {
           ? null
           : object.value
 
-        this.$emit('input', {
-          value: value,
-          event: 'Enter'
-        })
+        if(this.isLoaded){
+          console.log(this.isLoaded)
 
+          this.$emit('input', {
+            value: value,
+            event: 'Enter'
+          })
 
-        if(this.type === 'select_indicator'){
-          this.$store.commit('update_reload', {action: value, section: this.clist})
+          if(this.type === 'select_indicator'){
+            this.$store.commit('update_reload', {action: value, section: this.clist})
+          }
         }
       }, deep: true
     },
+    clist: function () {
+      this.set_citems()
+    }
   },
   mounted () {
     this.set_citems()
@@ -36,16 +47,21 @@ export default {
       }
     },
     set_items (items) {
-      if(items )
+      if(items ){
         this.items = items
-      this.set_item(items, this.cvalue)
+        this.set_item(items, this.cvalue)
+      }
     },
     set_item (items, value) {
+      this.isLoaded = false
+
       for(let item_key in items){
         if (items[item_key].value === value) {
           this.item = items[item_key]
         }
       }
+      let that = this                                 
+      setTimeout(() => that.isLoaded = true, 100)     
     }
   }
 }

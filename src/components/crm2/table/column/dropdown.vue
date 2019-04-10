@@ -8,9 +8,9 @@
     <div
       v-if="active.dropdown"
       class="crm_dropdown_list">
-      <a @click="$store.commit('update_reload', {section: 'active_crm', action: 'admin'}); active.dropdown = false">Adminverwaltung</a>
-      <a @click="$store.commit('update_reload', {section: 'active_crm', action: 'user'}); active.dropdown = false">Nutzerverwaltung</a>
-      <a  @click="$store.commit('update_reload', {section: 'active_crm', action: 'company'}); active.dropdown = false">Firmenverwaltung</a>
+      <a @click="$router.push({name: 'crm_admin'}); active.dropdown = false">Adminverwaltung</a>
+      <a @click="$router.push({name: 'crm_user'}); active.dropdown = false">Nutzerverwaltung</a>
+      <a  @click="$router.push({name: 'crm_company'}); active.dropdown = false">Firmenverwaltung</a>
     </div>
   </div>
 </template>

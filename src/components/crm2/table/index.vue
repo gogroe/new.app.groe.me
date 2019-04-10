@@ -58,7 +58,7 @@
           value: null,
         },
       }
-    }
+    },
   }
 </script>
 

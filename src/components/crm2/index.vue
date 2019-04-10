@@ -5,6 +5,7 @@
         :class="{'active': active.sidebar}"
         :columns="columns"
         :crmName="crm.name"
+        :cReload="active.reload"
         :counts="counts"
         :cLoad="cLoad.data"/>
       <crm_sidebar
@@ -46,6 +47,7 @@
       return {
         active:{
           sidebar: true,
+          reload: false
         },
         cLoad: {
           url: '',

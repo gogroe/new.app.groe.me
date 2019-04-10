@@ -17,11 +17,11 @@
     right: 17px;
     top: 17px;
     cursor: pointer;
-    color: #fff;
+    color: #3da0f5;
     line-height: 17px;
 
     &:hover{
-      color: #3da0f5;
+      color: #3b83d6;
     }
 
     i{

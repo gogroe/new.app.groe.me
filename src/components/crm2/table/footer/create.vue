@@ -14,16 +14,18 @@
           :url="signup_user.url"
           method="create"
           :params="signup_user.params"
-          :reload="{ action: 'reload', section: 'crm_created_field' }"/>
+          :reload="{ action: 'create_user', section: 'crm_prepare' }"/>
       </div>
     </popup_white>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import Popup_white from "../../../popup/white";
   import Edit_elements from "../../../edit/elements";
   import Add_text from "../../../add/add_text";
+
   export default {
     name: "crm_create_user",
     components: {Add_text, Edit_elements, Popup_white},
@@ -67,6 +69,18 @@
         }
       }
     },
+    computed:{
+      ...mapGetters([
+        'reload'
+      ])
+    },
+    watch:{
+      reload: function (object) {
+        if(object.section === 'crm_prepare' && object.action === 'create_user'){
+          this.active.popup = false
+        }
+      }
+    }
   }
 </script>
 

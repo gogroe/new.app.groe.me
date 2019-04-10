@@ -9,7 +9,9 @@ import signup from '@/routes/authentication/signup'
 import verification from '@/routes/authentication/verification'
 import login from '@/routes/authentication/login'
 
-import users_crm from '@/routes/crm/users'
+import crm_user from '@/routes/crm/users/user'
+import crm_admin from '@/routes/crm/users/admin'
+import crm_company from '@/routes/crm/users/company'
 
 import project from '@/routes/project'
 
@@ -98,9 +100,19 @@ export default new Router({
 
     //crm
     {
-      path: '/users',
-      name: 'users',
-      component: users_crm
+      path: '/users/user',
+      name: 'crm_user',
+      component: crm_user
+    },
+    {
+      path: '/users/admin',
+      name: 'crm_admin',
+      component: crm_admin
+    },
+    {
+      path: '/users/company',
+      name: 'crm_company',
+      component: crm_company
     },
 
     // 404

@@ -56,8 +56,7 @@
           obj.offset = this.cur - 100
         }
 
-        this.$store.commit('update_users_crm_limit_offset', obj)
-        this.$store.commit('update_reload', {action: 'filter', section: 'users_crm'})
+        this.$store.commit('update_reload', {section: 'crm_limit_offset', action: obj})
       }
     }
   }

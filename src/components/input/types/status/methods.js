@@ -2,6 +2,11 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'status_methods',
+  data() {
+    return {
+      isLoaded: true
+    }
+  },
   computed:{
     ...mapGetters([
       'reload'
@@ -15,14 +20,16 @@ export default {
           ? null
           : object.value
 
-        this.$emit('input', {
-          value: value,
-          event: 'Enter'
-        })
+        if(this.isLoaded) {
+          this.$emit('input', {
+            value: value,
+            event: 'Enter'
+          })
 
 
-        if(this.type === 'status_indicator'){
-          this.$store.commit('update_reload', {action: value, section: this.clist})
+          if (this.type === 'status_indicator') {
+            this.$store.commit('update_reload', {action: value, section: this.clist})
+          }
         }
       }, deep: true
     },
@@ -57,11 +64,15 @@ export default {
       this.set_item(items, this.cvalue)
     },
     set_item (items, value) {
+      this.isLoaded = false
+
       for(let item_key in items){
         if (items[item_key].value === value) {
           this.item = items[item_key]
         }
       }
+      let that = this
+      setTimeout(() => that.isLoaded = true, 100)
     }
   }
 }

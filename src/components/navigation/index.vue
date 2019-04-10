@@ -36,7 +36,7 @@
           },
           user:{
             name: 'Benutzer',
-            route: 'users',
+            route: 'crm_user',
             icon: 'face',
             perm: 'admin_read'
           },
