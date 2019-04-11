@@ -11,6 +11,7 @@
       input-id="startDate"
       :type="type"
       moment-locale="de"
+      :placeholder="placeholder"
       monday-first
       :i18n="{ok:'WÄHLEN', cancel:'ABBRECHEN'}"
       v-model="value"/>
@@ -74,14 +75,14 @@
 </script>
 
 <style lang="scss">
-  .vdatetime-overlay{
-    display: none;
-  }
+  /*.vdatetime-overlay{*/
+    /*display: none;*/
+  /*}*/
 
-  .vdatetime-popup{
-    margin: 17px auto;
-    position: static;
-    -webkit-transform:: none;
-    transform: none;
-  }
+  /*.vdatetime-popup{*/
+    /*margin: 17px auto;*/
+    /*position: static;*/
+    /*-webkit-transform: none;*/
+    /*transform: none;*/
+  /*}*/
 </style>

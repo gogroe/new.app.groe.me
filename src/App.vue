@@ -174,6 +174,8 @@
 
   ////////////////////////////////////////////////////////////////////////////////// Box-Modes
 
+
+
   .default{
     &.box{
       width: 100%;
@@ -185,7 +187,6 @@
         margin-bottom: 25px;
 
         .section_name{
-          font-size: 18px;
           padding: 25px;
           color: #596369;
         }
@@ -254,7 +255,7 @@
             .input_wrapper{
               margin-bottom: 0;
 
-              .input{
+              .input, .vdatetime-input{
                 background: transparent;
                 padding: 5px 20px 5px 5px;
                 border: 1px solid transparent;
@@ -268,7 +269,7 @@
             .v-select input[type=search] {
               border-color: transparent;
             }
-
+            
             .v-select input[type=search], .v-select input[type=search]:focus {
               border: 1px solid transparent;
               border-left: none;
@@ -281,8 +282,11 @@
             }
 
             button{
-              margin-right: 41px;
-              margin-bottom: 16px;
+              float: none;
+              display: block;
+              margin: 16px auto !important;
+              padding-left: 41px;
+              padding-right: 41px;
             }
           }
 
@@ -291,27 +295,104 @@
               &.last{
                 border-bottom-left-radius: 10px;
                 border-bottom-right-radius: 10px;
+                padding-bottom: 41px !important;
               }
             }
           }
         }
       }
     }
-  }
 
-  .default_box{
-    width: 100%;
-    padding: 17px;
-    background: #fff;
-    border-radius: 2px;
-    border: 1px solid #e6e6e6;
-    &.active, &:hover{
-      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05),
-                  -5px -5px 15px rgba(0, 0, 0, 0.05);
+    &.popup{
+      position: fixed;
+      top:64px;
+      left:0;
+      width: 100%;
+      height: calc(100% - 64px);
+      z-index: 9000;
+
+      &.white{
+        background: rgba(255,255,255,0.9);
+      }
+
+      .inner{
+        width: 450px;
+        max-height: 600px;
+        overflow-y: auto;
+        z-index: 2;
+        background: #fff;
+        margin-left: calc(50% - 225px);
+        margin-top: 101px;
+        border-radius: 5px;
+        box-shadow: 10px -10px 15px rgba(0, 0, 0, 0.075),
+        -10px 10px 15px rgba(0, 0, 0, 0.075);
+
+        .wide{
+          padding: 41px 41px 16px 41px;
+        }
+
+        .create{
+          button{
+            width: 100%;
+            margin: 16px 0;
+          }
+        }
+
+        .update{
+          &.wide{
+            padding-bottom: 41px;
+          }
+
+          .wrapper {
+            width: 100%;
+            padding: 10px 0;
+            border-bottom: 1px solid #e6e6e6;
+
+            &.last{
+              border-bottom: none;
+            }
+
+            .input_label {
+              display: inline-block;
+              width: 100px;
+            }
+
+            .input_wrapper {
+              width: calc(100% - 25px - 100px);
+
+              .input, .vdatetime-input {
+                width: 100%;
+              }
+
+              .v-select .dropdown-toggle {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
     }
 
-    .head{
-      padding-bottom: 27px;
+    &.scrollbar{
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        margin: 1px;
+        background: #cdcdcd;
+        border-radius: 2px;
+        border: solid transparent 1px;
+
+        &:hover {
+          background: #3da0f5;
+        }
+      }
     }
   }
 
@@ -321,8 +402,14 @@
   }
 
   .section_name{
-    color: #bbbbbb;
+    font-size: 18px;
+    color: #596369;
     margin-bottom: 17px;
+
+    span{
+      font-size: 14px;
+      font-weight: 400;
+    }
   }
 
   /*.section_wrapper{*/
@@ -333,6 +420,8 @@
     width: 100%;
     margin-top: 61px;
     margin-bottom: 25px;
+    text-align: center;
+    color: #596369;
   }
 
   .default_popup_background{
@@ -423,6 +512,18 @@
       &:hover{
         color: #fff;
         background: #3877c7;
+      }
+    }
+
+    &.rounded{
+      border: 1px solid #3da0f5;
+      padding: 10px 61px;
+      border-radius: 20px;
+      font-weight: 400;
+
+      &:hover{
+        background: #3da0f5;
+        color: white;
       }
     }
   }

@@ -3,18 +3,26 @@
     <p class="section_name">Passwort</p>
     <div class="section_wrapper">
       <div
-      class="spacing"
-      v-for="(input, key, i) in create_user_secret.inputs"
-      :key="i">
-        <cinput
-        :name="input.name"
-        :type="input.type"
-        :cvalue="input.value"
-        :placeholder="input.placeholder"
-        v-model="create_user_secret.inputs[key].input"/>
-        <p :class="{'request_message' : message !== ''}">{{message}}</p>
+        class="edit_elements update"
+        v-for="(input, key, i) in user_password.inputs"
+        :key="i">
+        <div
+          class="wrapper"
+          :class="key">
+          <cinput
+            :name="input.name"
+            :type="input.type"
+            :cvalue="input.value.value"
+            :placeholder="input.placeholder"
+            v-model="user_password.inputs[key].value"/>
+        </div>
       </div>
-      <button @click="send_create_user_secret">PASSWORT ÄNDERN</button>
+      <p :class="{'request_message' : message !== ''}">{{message}}</p>
+      <button
+        class="filled"
+        @click="send_user_password">
+        PASSWORT ÄNDERN
+      </button>
       <div class="clear"></div>
     </div>
   </div>
@@ -34,38 +42,41 @@
     data(){
       return{
         message: '',
-        rCreate_secret: {
+        user_password:{
           url: 'https://newbackend.groe.me/user_admin/secret/create',
           params: {
             user_id: null,
-          },
-          data: {},
-        },
-        create_user_secret:{
-          url: '',
-          params: {
-            user_id: this.$route.params.id,
           },
           inputs:{
             old_hash: {
               name: 'Altes',
               type: 'text',
-              value: null,
+              value: {
+                value: null,
+                event: null
+              },
               placeholder: 'Altes Passwort'
             },
             hash: {
               name: 'Neues',
               type: 'text',
-              value: null,
+              value: {
+                value: null,
+                event: null
+              },
               placeholder:'Neues Passwort'
             },
             commit_hash: {
               name: 'Bestätigen',
               type: 'text',
-              value: null,
+              value: {
+                value: null,
+                event: null
+              },
               placeholder:'Passwort bestätigen'
             }
-          }
+          },
+          data: {}
         }
       }
     },
@@ -73,49 +84,50 @@
       route_id(){
         return this.$route.params.id
       },
-      request_create_user_secret_data(){
-        return this.rCreate_secret.data
-      }
     },
     watch:{
       route_id: function(){
-        this.set_user_id(this.rCreate_secret)
-      },
-      request_create_user_secret_data(object){
-        if('create' in object){
-          this.message = 'Ihr Passwort wurde geändert'
-        }
+        this.set_user_id(this.user_password)
       }
     },
     mounted(){
-      this.set_user_id(this.rCreate_secret)
+      this.set_user_id(this.user_password)
     },
     methods:{
-      send_create_user_secret(){
+      send_user_password(){
         //check empty
         if(
-          this.create_user_secret.inputs.old_hash.value === null ||
-          this.create_user_secret.inputs.hash.value === null ||
-          this.create_user_secret.inputs.commit_hash.value === null ||
-          this.create_user_secret.inputs.old_hash.value === '' ||
-          this.create_user_secret.inputs.hash.value === '' ||
-          this.create_user_secret.inputs.commit_hash.value === ''
+          this.user_password.inputs.old_hash.value.value === null ||
+          this.user_password.inputs.hash.value.value === null ||
+          this.user_password.inputs.commit_hash.value.value === null ||
+
+          this.user_password.inputs.old_hash.value.value === '' ||
+          this.user_password.inputs.hash.value.value === '' ||
+          this.user_password.inputs.commit_hash.value.value === ''
         ){
           this.message = 'Alle felder müssen ausgefüllt werden.'
         }
 
         //check commit
         else if(
-          this.create_user_secret.inputs.hash.value === this.create_user_secret.inputs.commit_hash.value
+          this.user_password.inputs.hash.value.value === this.user_password.inputs.commit_hash.value.value
         ){
-          this.rCreate_secret.params.hash = this.create_user_secret.inputs.hash.value
-          this.rCreate_secret.params.old_hash = this.create_user_secret.inputs.old_hash.value
+          this.user_password.params.hash = this.user_password.inputs.hash.value.value
+          this.user_password.params.old_hash = this.user_password.inputs.old_hash.value.value
 
-          this.$$request.post.data(this.rCreate_secret.url, this.rCreate_secret.params)
+          this.$$request.post.data(this.user_password.url, this.user_password.params)
+            .then((response) => this.set_response(response))
           this.message = null
         }
         else{
           this.message = 'Passwörter stimmen nicht überein.'
+        }
+      },
+      set_response (response) {
+        this.user_password.data = response
+
+        if('update' in response){
+          this.message = 'Ihr Passwort wurde geändert'
         }
       }
     },
@@ -125,73 +137,36 @@
 
 <style lang="scss">
 
-  .user_password{
-
-    .input_label{
-      width: 100px;
-      display: inline-block;
-      color:#838688;
-    }
-
-    .spacing{
-      margin: 0;
-      padding-left: 36px;
-
-      &:hover{
-        cursor: pointer;
-        background-color: #f8f8f8;
-        border-top: 1px solid #dadada;
-        border-bottom: 1px solid #dadada;
-
-        & + .spacing .cinput, .cinput{
-          border-top: none;
-        }
-      }
-
-      .request_message{
-        margin-top: 10px;
-        margin-left: 17px;
-      }
-
-      .cinput{
-        margin: 0;
-        border-top: 1px solid #dadada;
-      }
-
-      .input_wrapper{
-        display: inline-block;
-        width: calc(100% - 147px);
-
-        input{
-          width: 100%;
-        }
-      }
-
-      &:first-child{
-        .cinput{
-          margin: 0;
-          border-top: 1px solid transparent;
-        }
-      }
-      &:last-child{
-        .cinput{
-          margin: 0;
-          border-bottom: 1px solid white;
-        }
-      }
+  .user_password {
+    .request_message{
+      padding: 41px;
+      width: 100%;
+      text-align: center;
+      color: #3da0f5;
     }
 
     button{
-      margin: 25px 41px 0 41px;
       float: right;
-      background-color: #3da0f5;
-      color: white;
-      height: 42px;
-      padding: 10px 41px;
+      margin-top: 10px;
+      margin-right: 41px;
+      margin-bottom: 25px;
+    }
 
-      &:hover{
-        background-color: #2e7dbd;
-        outline: none;
+    .wrapper {
+      &.old_hash{
+        &:hover{
+          &:after{
+            display: none;
+          }
+        }
+      }
+    }
+
+    .wrapper {
+      &.commit_hash{
+        border-bottom: none !important;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
       }
     }
   }

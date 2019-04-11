@@ -1,31 +1,46 @@
 <template>
-  <div class="accounts">
+  <div class="user_accounts">
     <sidebar :options="menu_items" v-model="active.menu"/>
     <div class="add_wrapper">
+      <h2>Ihr aktueller Kontostand beträgt &nbsp;<span>{{balance}} Euro</span></h2>
     </div>
-
-    <popup :active = "active.popup" v-model = "active.popup">
-      <edit_elements
-      name="TRANSAKTION HINZUFÜGEN"
-      button="TRANSAKTION ERSTELLEN"
-      :url="create_user_account.url"
-      :inputs="create_user_account.inputs"
-      :params="create_user_account.params"
-      :reload="create_user_account.reload"
-      method="create"/>
-    </popup>
-
-    <account_balance :request_accounts_data="cLoad.data"/>
-    <accounts_table :request_get_accounts="cLoad" :options="options" v-model="cLoad.params"/>
+    <accounts_table
+      :request_get_accounts="cLoad"
+      :options="options"
+      v-model="cLoad.params"/>
+    <button
+      v-if="count > 10 && count !== currCount"
+      class="rounded"
+      @click="loadmore">
+      mehr laden ({{currCount}}/{{count}})
+    </button>
+    <popup_white
+      :active = "active.popup"
+      v-model = "active.popup">
+      <div class="wide create">
+        <p class="section_name">Transaktion<br/><br/>
+          <span>
+            Hier können manuelle Transaktionen hinzugefügt werden. Beachten Sie das Transaktonen nicht gelöscht werden können.
+          </span>
+        </p>
+        <edit_elements
+          name="TRANSAKTION HINZUFÜGEN"
+          button="TRANSAKTION ERSTELLEN"
+          :url="create_user_account.url"
+          :inputs="create_user_account.inputs"
+          :params="create_user_account.params"
+          :reload="create_user_account.reload"
+          method="create"/>
+      </div>
+    </popup_white>
   </div>
 </template>
 <script>
   import { mapGetters } from 'vuex'
   import Accounts_table from "../../../components/accounts/index";
-  import Popup from "../../../components/popup/white";
+  import Popup_white from "../../../components/popup/white";
   import Add from "../../../components/add";
   import Sidebar from "../../../components/navbars/sidebar";
-  import Account_balance from "../../../components/accounts/balance";
   import Create_section from "../../../components/inputs/create";
   import Edit_elements from "../../../components/edit/elements";
   import loader from "../../../components/functions/loader";
@@ -35,11 +50,10 @@
     components:{
       Edit_elements,
       Create_section,
-      Account_balance,
       Accounts_table,
       Sidebar,
       Add,
-      Popup
+      Popup_white
     },
     data(){
       return {
@@ -101,6 +115,24 @@
       ]),
       active_menu () {
         return this.active.menu
+      },
+      balance(){
+        return 'balance' in this.cLoad.data
+          ? this.cLoad.data.balance
+          : '0,00'
+      },
+      count () {
+        return 'count' in this.cLoad.data
+          ? this.cLoad.data.count
+          : 0
+      },
+      currCount () {
+        return 'accounts' in this.cLoad.data
+          ? this.cLoad.data.accounts.length
+          : 0
+      },
+      activeCreate () {
+        return this.active.popup
       }
     },
     watch:{
@@ -112,21 +144,48 @@
           this.active.create = false
         }
         if(object.section === this.$route.name){
-          this.active.popup = object.action
-          this.$store.commit('update_reload', { action: null, section: null })
+          this.active.popup = true
+          this.$store.commit('update_reload', {action: null, section: null})
         }
+      },
+      activeCreate: function (boolean) {
+        this.$store.commit('update_reload', {section: 'add_' + this.$route.name, action: false})
       },
       active_menu: function () {
         this.get_cLoad()
       }
     },
     mounted(){
+      this.$store.commit('update_reload', {section: 'activeAdd', action: true})
       this.set_user_id(this.create_user_account)
       this.set_user_id(this.cLoad)
       this.get_cLoad()
     },
     methods:{
+      loadmore(){
+        let params = this.cLoad.params
+        params.offset = this.currCount
+        params.limit = 10
+
+        this.$$request.post.data(this.cLoad.url, params)
+          .then((response) => this.handle_loadmore(response) )
+      },
+      handle_loadmore (response) {
+        if('accounts' in response){
+          for(let key in response.accounts){
+            this.cLoad.data.accounts.push(response.accounts[key])
+          }
+        }
+      },
       get_cLoad () {
+        this.set_active_menu()
+        let params = this.cLoad.params
+        params.limit = 10
+
+        this.$$request.post.data(this.cLoad.url, params)
+          .then((response) => this.cLoad.data = response)
+      },
+      set_active_menu () {
         switch(this.active.menu){
           case 'ALLE':
             if( 'smaller->value' in  this.cLoad.params){
@@ -149,10 +208,7 @@
             this.cLoad.params['smaller->value'] =  0
             break
         }
-
-        this.$$request.post.data(this.cLoad.url, this.cLoad.params)
-          .then((response) => this.cLoad.data = response)
-      },
+      }
     },
     mixins:[loader]
   }
@@ -160,42 +216,26 @@
 
 <style lang="scss" scoped>
 
-  ul{
-    position: relative;
-    width: 100%;
-    text-align: center;
-    padding: 0;
-    height: 64px;
-
-
-    li{
-      display: inline-block;
-      cursor: pointer;
-      padding: 22px 0 20px 0;
-      margin: 0 20px;
-      line-height: 18px;
-      color: #ddd;
-
-      &.active{
-        color: #ff3434;
-        border-bottom: 2px solid #ff3434;
+  .user_accounts{
+    .add_wrapper{
+      h2{
+        font-weight: 500;
       }
+
+      span{
+        font-weight: 700;
+        color: #272d33;
+      }
+    }
+
+    .c_popup{
+      padding: 25px 25px 0 25px;
     }
   }
 
-  .create_account{
-    margin-bottom: 17px;
-    padding-left: 34px
+  button{
+    display: block;
+    margin:41px auto;
   }
 
-  .click{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-
-  .inner_popup{
-    max-height: calc(100% - 202px);
-    overflow-y: auto;
-  }
 </style>

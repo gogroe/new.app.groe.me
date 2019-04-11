@@ -6,19 +6,20 @@
     </p>
     <upload_user_image :request_get_user="cload"/>
     <div class="section_wrapper">
-      <edit_section
-        :create="create_user_description"
-        :update="update_user_description"
+      <edit_elements
+        :url="description_url"
+        method="update"
+        :inputs="update_user_description.inputs"
         :cload="cload"
-        name="Steckbrief hinzufügen"
-        button="HINZUFÜGEN"/>
+        :params="update_user_description.params"
+        :reload="reload"/>
       <edit_elements
         method="update"
         :readonly="$$permission.is_perm('admin_update') === false"
         :url="update_user.url"
         :inputs="update_user.inputs"
         :cload="cload"
-        :reload="update_user.reload"
+        :reload="reload"
         :params="update_user.params"/>
       <edit_elements
         method="update"
@@ -26,7 +27,7 @@
         :url="update_user_gender.url"
         :inputs="update_user_gender.inputs"
         :cload="cload"
-        :reload="update_user_gender.reload"
+        :reload="reload"
         :params="update_user_gender.params"/>
     </div>
   </div>
@@ -52,6 +53,7 @@
     },
     data(){
       return{
+        reload: { action: 'reload', section: 'users_admin' },
         update_user:{
           url: 'https://newbackend.groe.me/user_admin/user/update',
           reload: { action: 'reload', section: 'users_admin' },
@@ -87,8 +89,6 @@
           }
         },
         update_user_description:{
-          url: 'https://newbackend.groe.me/user_admin/description/update',
-          reload: { action: 'reload', section: 'users_admin' },
           params: {
             user_id: null
           },
@@ -99,20 +99,6 @@
               value: null
             },
           }
-        },
-        create_user_description: {
-          url: 'https://newbackend.groe.me/user_admin/description/create',
-          reload: { action: 'reload', section: 'users_admin' },
-          params: {
-            user_id: null
-          },
-          inputs: {
-            description: {
-              name: 'Steckbrief',
-              type: 'textarea',
-              value: null
-            }
-          }
         }
       }
     },
@@ -121,13 +107,17 @@
         return 'gender' in this.cload && this.cload.gender !== null
           ? 'https://newbackend.groe.me/user_admin/gender/create'
           : 'https://newbackend.groe.me/user_admin/gender/update'
+      },
+      description_url(){
+        return 'description' in this.cload && this.cload.description !== null
+          ? 'https://newbackend.groe.me/user_admin/description/create'
+          : 'https://newbackend.groe.me/user_admin/description/update'
       }
     },
     mounted(){
       this.set_user_id(this.update_user)
       this.set_user_id(this.update_user_gender)
       this.set_user_id(this.update_user_description)
-      this.set_user_id(this.create_user_description)
     },
     mixins:[loader]
   }
@@ -136,16 +126,13 @@
 <style lang="scss">
 
   .admin_user{
+
     .section_name span{
       font-size: 14px;
       font-weight: 400;
     }
 
     .wrapper {
-      &.description{
-        border-top: 1px solid #e6e6e6;
-      }
-
       &.lastname{
         border-bottom: 1px solid #e6e6e6 !important;
         border-bottom-left-radius: 0 !important;
@@ -163,6 +150,11 @@
           border-bottom: none !important;
           border-bottom-left-radius: 10px !important;
           border-bottom-right-radius: 10px !important;
+          padding-bottom: 41px !important;
+        }
+
+        &.last.lastname{
+          padding-bottom: 16px !important;
         }
       }
     }

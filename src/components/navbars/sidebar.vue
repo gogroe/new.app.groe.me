@@ -1,21 +1,23 @@
 <template>
   <div class="sidebar">
     <ul>
-      <li v-for="(option , i) in options" :key="i"
-          @click="sending(i)"
-          class="list">
+      <li
+        v-for="(option , i) in options"
+        :key="i"
+        @click="sending(i)"
+        class="list">
         <div>
-             <div class="full_box">
-               {{option.name.toUpperCase()}}
-             </div>
-             <div class="short_box"
-                  :class="{'active' : option.name === active}"
-                  @mouseover="mouseOver(i)"
-                   @mouseleave="mouseLeave(i)">
-               {{option.name.substring(0, 1).toUpperCase()}}
-             </div>
-
-             <div class="clear"></div>
+          <div class="full_box">
+           {{option.name.toUpperCase()}}
+          </div>
+          <div
+            class="short_box"
+            :class="{'active' : option.name === active}"
+            @mouseover="mouseOver(i)"
+            @mouseleave="mouseLeave(i)">
+            {{option.name.substring(0, 1).toUpperCase()}}
+          </div>
+          <div class="clear"></div>
         </div>
       </li>
     </ul>
@@ -90,31 +92,30 @@ export default {
         cursor: pointer;
       }
 
-
       .short_box{
         line-height: 41px;
       }
-
 
       .full_box{
         float: left;
         display: none;
         color: white;
+        font-size: 13px;
         border-radius: 5px;
         line-height: 25px;
         margin: 8px;
         padding: 0 25px;
-
       }
 
       &:hover{
         .full_box{
-          background-color: #bbb;
+          background-color: #f1f3f4;
+          color: #3da0f5;
         }
 
         .short_box{
-          background-color: #e6e6e6;
-          color: white;
+          background-color: #f1f3f4;
+          color: #3da0f5;
         }
 
         .active{

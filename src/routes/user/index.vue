@@ -2,8 +2,7 @@
     <div>
       <navbar
         :options="navigations"
-        :activeAdd="true"
-         v-model="active.add"/>
+        v-model="active.add"/>
       <div class="user">
         <u_head class="u_head"/>
         <div class="router_feed" v-if="is_perm('read')">

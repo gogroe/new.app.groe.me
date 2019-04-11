@@ -1,25 +1,27 @@
 <template>
   <div class="admin">
-    <sidebar :options="menu_items" v-model="active.menu"/>
+    <sidebar
+      :options="menu_items"
+      v-model="active.menu"/>
     <div class="add_wrapper">
       <h2>Persönliche Daten</h2>
       <p>Allgemeine Informationenwie Name und Foto bei groe.</p>
     </div>
       <admin_user
-        class="default box edit"
+        class="default box edit Nutzer"
         :cload="cload_data('user')"/>
       <admin_contact
-        class="default box edit"
+        class="default box edit Kontakt"
         :cload="cload_data('contact')"/>
       <admin_adress
-        class="default box edit"
+        class="default box edit Adresse"
         :cload="cload_data('adress')"/>
       <admin_bank
-        class="default box edit"
+        class="default box edit Bank"
         :cload="cload_data('bank')"/>
       <admin_password
         v-if="$$permission.is_perm('create')"
-        class="default box edit"
+        class="default box edit Passwort"
         />
     <div class="clear"></div>
   </div>
@@ -51,7 +53,7 @@
       return{
         menu_items:[
           {name: 'Nutzer'},
-          {name: 'Knotakte'},
+          {name: 'Kontakt'},
           {name: 'Adresse'},
           {name: 'Bank'},
           {name: 'Passwort'},
@@ -64,7 +66,7 @@
           data: {}
         },
         active:{
-          menu: 'user'
+          menu: 'Nutzer'
         },
         navigation:[
           {
@@ -77,21 +79,24 @@
     computed:{
       ...mapGetters([
         'reload',
-      ])
+      ]),
+      activeMenu(){
+        return this.active.menu
+      }
     },
     watch:{
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'users_admin'){
-          this.cload.request = true
+          this.get_cload()
           this.$store.commit('update_reload', {action: 'reload', section: 'all'})
         }
       },
-      active:{
-        handler: function(obj){
+      activeMenu:{
+        handler: function(string){
           let y = 0
-          var child=document.getElementsByClassName('content_admin')[0].childNodes;
+          var child=document.getElementsByClassName('admin')[0].childNodes;
           for (let i in this.menu_items) {
-            if(this.menu_items[i].name === obj.menu){
+            if(this.menu_items[i].name === string){
               y=child[i*2].offsetTop
             }
           }
@@ -102,6 +107,9 @@
           });
         }, deep: true
       }
+    },
+    mounted () {
+      this.$store.commit('update_reload', {section: 'activeAdd', action: false})
     },
     created () {
       this.set_user_id(this.cload)
@@ -133,9 +141,6 @@
 
 <style lang="scss">
   .admin{
-    .add_wrapper{
-      text-align: center;
-      color: #596369;
-    }
+
   }
 </style>

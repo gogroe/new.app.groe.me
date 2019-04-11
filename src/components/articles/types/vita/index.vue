@@ -1,9 +1,10 @@
 <template>
   <div class="vita">
     <div class="head">
-      <user_initials :name="obj.company"
-                     size="43"
-                     class="user_initials"/>
+      <user_initials
+        :name="obj.company"
+         size="43"
+         class="user_initials"/>
       <p class="user_name">{{obj.company}} <span>&nbsp; &middot &nbsp; {{obj.position}}</span></p>
       <div class="clear"></div>
       <div class="options">

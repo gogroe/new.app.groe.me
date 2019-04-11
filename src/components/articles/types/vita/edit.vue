@@ -1,54 +1,56 @@
 <template>
-  <div class="edit_vita default_popup_background" v-if="active">
-    <div class="inner_popup" v-click-outside="hide">
-      <p class="section_name">VITA BEARBEITEN</p>
-      <div class="section_wrapper">
-        <edit_elements
-          method="update"
-          :url="update_user_vita.url"
-          :inputs="(update_user_vita.inputs)"
-          :params="update_user_vita.params"
-          :reload="update_user_vita.reload"
-          :cload="edit_vita"/>
-        <edit_elements
-          method="update"
-          :url="update_user_vita_date.url"
-          :inputs="(update_user_vita_date.inputs)"
-          :params="update_user_vita_date.params"
-          :reload="update_user_vita_date.reload"
-          :cload="edit_vita"/>
-        <edit_elements
-          method="update"
-          :url="update_user_vita_company.url"
-          :inputs="(update_user_vita_company.inputs)"
-          :params="update_user_vita_company.params"
-          :reload="update_user_vita_company.reload"
-          :cload="edit_vita"/>
-        <edit_elements
-          method="update"
-          :url="update_user_vita_adress.url"
-          :inputs="(update_user_vita_adress.inputs)"
-          :params="update_user_vita_adress.params"
-          :reload="update_user_vita_adress.reload"
-          :cload="edit_vita.adress[0]"/>
-      </div>
-      </div>
-
-    <close_popup/>
-  </div>
+  <popup_white
+    class="vita_popup"
+    :active= "active"
+    v-model= "activeEdit">
+    <div class="wide update">
+      <p class="section_name">Vita<br/><br/>
+        <span>
+            Hier kannst du deine Vita bearbeiten.
+          </span>
+      </p>
+      <edit_elements
+        method="update"
+        :url="update_user_vita.url"
+        :inputs="(update_user_vita.inputs)"
+        :params="update_user_vita.params"
+        :reload="update_user_vita.reload"
+        :cload="edit_vita"/>
+      <edit_elements
+        method="update"
+        :url="update_user_vita_date.url"
+        :inputs="(update_user_vita_date.inputs)"
+        :params="update_user_vita_date.params"
+        :reload="update_user_vita_date.reload"
+        :cload="edit_vita"/>
+      <edit_elements
+        method="update"
+        :url="update_user_vita_company.url"
+        :inputs="(update_user_vita_company.inputs)"
+        :params="update_user_vita_company.params"
+        :reload="update_user_vita_company.reload"
+        :cload="edit_vita"/>
+      <edit_elements
+        method="update"
+        :url="update_user_vita_adress.url"
+        :inputs="(update_user_vita_adress.inputs)"
+        :params="update_user_vita_adress.params"
+        :reload="update_user_vita_adress.reload"
+        :cload="edit_vita.adress[0]"/>
+    </div>
+  </popup_white>
 </template>
 
 <script>
-  import ClickOutside from 'vue-click-outside'
-  import Close_popup from "../../../close_button/popup";
   import Edit_elements from "../../../edit/elements";
   import loader from "../../../functions/loader";
+  import Popup_white from "../../../popup/white";
 
   export default {
     name: "edit_vita",
     components:{
+      Popup_white,
       Edit_elements,
-      Close_popup,
     },
     props:{
       edit_vita:{
@@ -60,6 +62,7 @@
     },
     data(){
       return{
+        activeEdit: true,
         update_user_vita:{
           url: 'https://newbackend.groe.me/user_vita/vita/update',
           reload: {action: 'reload', section: 'vitas'},
@@ -142,24 +145,33 @@
     watch:{
       edit_vita: function () {
         this.set_user_id(this.update_user_vita)
+      },
+      activeEdit: function (boolean) {
+        if(boolean === false){
+          this.$emit('input', false)
+          this.activeEdit = true
+        }
       }
     },
     mounted(){
       this.set_user_id(this.update_user_vita)
       this.set_user_id(this.update_user_vita_date)
     },
-    methods:{
-      hide(){
-        this.$emit('input', false)
-      },
-    },
     mixins:[loader],
-    directives: {
-      ClickOutside
-    }
   }
 </script>
 
 <style lang="scss" scoped>
+
+  .vita_popup{
+    //todo lösen
+    /*.wrapper.last {*/
+      /*border-bottom: 1px solid #e6e6e6 !important;*/
+    /*}*/
+
+    /*.default.popup .inner .update .wrapper.last {*/
+      /*border-bottom: 1px solid #e6e6e6 !important;*/
+    /*}*/
+  }
 
 </style>

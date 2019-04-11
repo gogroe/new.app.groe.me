@@ -1,54 +1,66 @@
 <template>
   <div class="image">
-    <div v-if="active_image" class="user_image_wrapper">
-      <user_visual class="user_image"
-                   :name="request_get_user.firstname + ' ' + request_get_user.lastname"
-                   :path="request_get_user.image" size="64"/>
-      <p class="options">
-        <span @click="active.edit_upload = true">bearbeiten</span> |
-        <span @click="request_delete_user_image.request = true">entfernen</span>
-      </p>
+    <div class="edit_elements">
+      <div
+        class="wrapper">
+        <label
+          @click="active.upload = true"
+          class="input_label">
+          Foto
+        </label>
+        <p
+          v-if="has_image"
+          class="options action">
+          <span @click="active.upload = true">bearbeiten</span> |
+          <span @click="delete_image">entfernen</span>
+        </p>
+        <p
+          v-else
+          class="action"
+          @click="active.upload = true">
+          Mit einem Foto können Sie Ihr Konto personalisieren.
+        </p>
+        <user_visual
+          class="user_image"
+          @click="active.upload = true"
+          :name="request_get_user.firstname + ' ' + request_get_user.lastname"
+          :path="request_get_user.image" size="41"/>
+        <div class="clear"></div>
+      </div>
     </div>
-    <div class="container"
-         @click="active.upload = true">
-      <p class="label">Foto</p>
-      <p class="message">Mit einem Foto können Sie Ihr Konto personalisieren	</p>
-        <user_visual class="user_image"
-                     :name="request_get_user.firstname + ' ' + request_get_user.lastname"
-                     :path="request_get_user.image" size="41"/>
-    </div>
-      <popup :active = "active.upload" v-model="active.upload">
-          <p class="section_name">NUTZERBILD BEARBEITEN</p>
-          <p class="image_info">
+    <popup_white
+      :active = "active.upload"
+      v-model="active.upload">
+      <div class="c_popup">
+        <p class="section_name">Nutzerbild<br/><br/>
+          <span>
             Ihr Nutzerfoto im Format jpg oder png darf maximal 2 MB groß sein.
             Das beste Ergebnis erhatlen Sie mit einem zentrierten Motiv und
             qudratischen Maßen.
-          </p>
-          <upload class="upload"
-                  :request_create="upload_user_image"
-                  name="NUTZER BILD HOCHLADEN"
-                  :max_size="2000000"
-                  :types="['jpeg', 'jpg', 'png', 'pdf']"
-                  v-model="upload_user_image.data"/>
-      </popup>
-
-    <request :obj="request_delete_user_image" v-model="request_delete_user_image"/>
+          </span>
+        </p>
+        <upload
+          class="upload"
+          name="NUTZER BILD HOCHLADEN"
+          :reload="{section: 'user_admin_image', action: null}"
+          :request_create="upload_user_image"
+          :max_size="2000000"
+          :types="['jpeg', 'jpg', 'png', 'pdf']"/>
+      </div>
+    </popup_white>
   </div>
 </template>
 
 <script>
-  import ClickOutside from 'vue-click-outside'
-  import Load_request from "../../../../components/functions/load_request"
-  import Popup from "../../../../components/popup"
-  import custom_helper from "../../../../components/functions/custom_helper";
-  import User_visual from "../../../../components/user_visual/index";
+  import { mapGetters } from 'vuex'
   import Upload from "../../../../components/upload/index";
-  import Add from "../../../../components/add/index";
-  import Request from "../../../../components/functions/request";
+  import loader from "../../../../components/functions/loader";
+  import Popup_white from "../../../../components/popup/white";
+  import User_visual from "../../../../components/user_visual/index";
 
   export default {
     name: "upload_user_image",
-    components: {Request, Add, Upload, User_visual, Popup},
+    components: {User_visual, Popup_white, Upload},
     props:{
       request_get_user:{
         required:true
@@ -62,129 +74,95 @@
         },
         upload_user_image:{
           url: 'https://newbackend.groe.me/user_admin/image/create',
-          required_params:{
+          params:{
             user_id: null,
             file_type: 'user_image'
           },
           data: []
         },
-        request_delete_user_image:{
-          params: {
-            user_id: null,
-          },
+        delete_user_image:{
           url: 'https://newbackend.groe.me/user_admin/image/delete',
-          data: {},
-          request: false
+          params: {
+            user_id: null
+          },
         }
       }
     },
     computed:{
-      active_image(){
+      ...mapGetters([
+        'reload'
+      ]),
+      has_image () {
         return 'image' in this.request_get_user && this.request_get_user.image !== null
-      },
-      upload_user_image_data(){
-        return this.upload_user_image.data
-      },
-      request_delete_user_image_data(){
-        return this.request_delete_user_image.data
       }
     },
     watch:{
-      upload_user_image_data: function(object){
-        if('update' in object){
-          this.active.edit_upload = false
-          this.active.upload = false
-          this.$store.commit('update_reload', {action: 'reload', section: 'users_admin'})
-        }
-      },
-      request_delete_user_image_data: function(object){
-        if('update' in object){
+      reload: function(object){
+        if(object.section === 'user_admin_image'){
           this.active.edit_upload = false
           this.active.upload = false
           this.$store.commit('update_reload', {action: 'reload', section: 'users_admin'})
         }
       },
       route_id: function(){
-        this.set_user_id(this.request_delete_user_image)
+        this.set_user_id(this.upload_user_image)
+        this.set_user_id(this.delete_user_image)
       }
     },
     mounted(){
-      this.set_user_id(this.request_delete_user_image)
-      this.set_inputs_user_id(this.upload_user_image)
+      this.set_user_id(this.upload_user_image)
+      this.set_user_id(this.delete_user_image)
     },
     methods:{
-      hide(){
-        this.active.edit_upload = false
-        this.active.upload = false
-
+      delete_image () {
+        this.$$request.post.file(this.delete_user_image.url, this.delete_user_image.params)
+          .then((response) => this.handle_response())
       },
+      handle_response () {
+        this.$store.commit('update_reload', {action: 'reload', section: 'users_admin'})
+      }
     },
-    mixins:[custom_helper, Load_request],
-    directives: {
-      ClickOutside
-    }
+    mixins:[loader]
   }
 </script>
 
 <style lang="scss" scoped>
 
   .image{
-    padding-left: 36px;
+    .wrapper {
+      padding-bottom: 25px !important;
 
-    &:hover{
-      cursor: pointer;
-      background-color: #f8f8f8;
-    }
-  }
+      &:hover{
+        &:after{
+          display: none;
+        }
+      }
 
-  .inner_popup{
-    display: none;
-  }
+      .action{
+        cursor: pointer;
+      }
 
-  .image_info{
-    margin-bottom: 27px;
-  }
+      label, p{
+        padding-top: 10px;
+      }
 
-  .user_image_wrapper{
-    padding-bottom: 47px;
+      p{
+        display: inline;
+        color: #5c6369;
+      }
 
-    .user_image{
-      margin-left: calc(38% - 32px);
-    }
-
-    .options{
-      cursor: pointer;
-      margin-top: 10px;
-      margin-left: calc(38% - 70px);
-      color: #bbbbbb;
-
-      span:hover{
-        color: #3da0f5;
+      .user_image{
+        display: inline-block;
+        vertical-align: middle;
+        float: right;
+        margin-right: 16px;
       }
     }
-  }
 
-  .container{
-    color: #838688;
-    line-height: 41px;
-    width: 100%;
-    display: inline-block;
-    padding: 12.5px 17px 12.5px 0;
-
-    .label{
-      float: left;
-      width: 100px;
-      margin-right: 17px;
-    }
-
-    .message{
-      float: left;
-      padding: 0 20px 0 5px;
-    }
-
-    .user_image{
-      float: right;
-      margin-right: 17px;
+    .c_popup{
+      .upload{
+        padding: 0 16px;
+      }
     }
   }
 

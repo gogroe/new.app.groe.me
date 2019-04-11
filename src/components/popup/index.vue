@@ -2,8 +2,9 @@
   <div
     class="default_popup_background"
     v-show="active">
-    <div class="click"
-    @click="hide()">
+    <div
+      class="click"
+      @click="hide()">
 
     </div>
     <div class="inner_popup">

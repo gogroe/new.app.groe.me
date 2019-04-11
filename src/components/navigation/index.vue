@@ -135,7 +135,8 @@
       }
 
       &:hover{
-        background: #fff9e5;
+        background: #f1f3f4;
+        color: #1a73e8
       }
 
       i{

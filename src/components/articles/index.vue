@@ -2,7 +2,7 @@
   <div class="article"
        @mouseover="active.article = true"
        @mouseout="active.article = false">
-    <div class="default_box">
+    <div class="default box">
       <post v-if="search_relations(obj.type) === 'posts'"
             :obj="obj"
             :active_article="active.article"/>
@@ -96,9 +96,10 @@
 
 <style lang="scss" scoped>
 
-  .default_box{
-    padding: 0;
-    margin-bottom: 8px;
+  .default.box{
+    width: 600px;
+    display: block;
+    margin: 25px auto;
   }
 
 </style>

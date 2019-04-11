@@ -1,38 +1,57 @@
 <template>
-  <div class="upload" :class="upload_class">
+  <div
+    class="upload">
     <div class="file">
-      <input type="file"
-             name="file"
-             id="file"
-             class="input_file"
-             @change="set_single_file"/>
-      <label for="file" v-if="request_obj.params.files === null">auswählen</label>
-      <label class="selection"
-             v-else>
-        <i class="material-icons" @click="request_obj.params.files = null">delete_outline</i>
+      <input
+        type="file"
+         name="file"
+         id="file"
+         class="input_file"
+         @change="set_single_file"/>
+      <label
+        for="file"
+        v-if="request_obj.params.files === null">
+        auswählen
+      </label>
+      <label
+        class="selection"
+         v-else>
+        <i
+          class="material-icons"
+          @click="request_obj.params.files = null">
+          delete_outline
+        </i>
         {{is_cuted(request_obj.params.files.name)}}
         <span>{{format_bytes(request_obj.params.files.size)}}</span>
       </label>
-      <p class="error" v-if="active.is_error_size">Maximalgröße von {{format_bytes(max_size)}} überschritten.</p>
-      <p class="error" v-if="active.is_error_type">
+      <p
+        class="error"
+        v-if="active.is_error_size">Maximalgröße von
+        {{format_bytes(max_size)}}
+        überschritten.
+      </p>
+      <p
+        class="error"
+        v-if="active.is_error_type">
         Datentyp
-        <span v-for="(type,i) in types"
-              :key="i">{{type}}
+        <span
+          v-for="(type,i) in types"
+          :key="i">{{type}}
         </span>
          erforderlich.
       </p>
     </div>
-    <button @click="send">{{name}}</button>
-    <file_request :obj="request_obj" v-model="request_obj"/>
+    <button
+      v-if="request_obj.params.files !== null"
+      @click="send">
+      {{name}}
+    </button>
   </div>
 </template>
 
 <script>
-  import File_request from "../functions/file_request";
-
   export default {
     name: "upload",
-    components: {File_request},
     props:{
       request_create:{
         required: true
@@ -40,11 +59,9 @@
       name:{
         required: false
       },
-      upload_class:{
-        required: false
-      },
       reload:{
-        required:false
+        required:false,
+        default: function () {return {}}
       },
       max_size:{
         //type: 'Number',
@@ -61,7 +78,6 @@
           info: false,
           is_error_size: false,
           is_error_type: false
-
         },
         request_obj:{
           params: {
@@ -69,7 +85,6 @@
           },
           url: '',
           data: {},
-          request: false
         }
       }
     },
@@ -77,9 +92,6 @@
       files(){
         return this.request_obj.params.files
       },
-      request_obj_data(){
-        return this.request_obj.data
-      }
     },
     watch:{
       files: function () {
@@ -93,9 +105,6 @@
       request_create: function () {
         this.set_request_obj()
       },
-      request_obj_data: function (object) {
-        this.$emit('input', object)
-      }
     },
     mounted(){
       this.set_request_obj()
@@ -142,14 +151,21 @@
       set_request_obj(){
         this.request_obj.url = this.request_create.url
 
-        for(let param_key in this.request_create.required_params){
-          this.request_obj.params[param_key] = this.request_create.required_params[param_key]
+        for(let key in this.request_create.params){
+          this.request_obj.params[key] = this.request_create.params[key]
         }
       },
-      send(){
+      send () {
         if( this.active.is_error_size === false && this.active.is_error_type === false){
-          this.request_obj.request = true
+          this.$$request.post.file(this.request_obj.url, this.request_obj.params)
+            .then((response) => this.handle_response(response))
         }
+      },
+      handle_response (response) {
+        this.request_obj.data = response
+
+        if(this.$$helper.length(this.reload) > 0)
+        this.$store.commit('update_reload', this.reload)
       }
     }
   }

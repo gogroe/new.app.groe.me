@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="active"
-    class="popup_white default_popup_background">
+    class="default popup white">
     <div
-      class="inner_popup"
+      class="inner default scrollbar"
       v-click-outside="hide">
       <slot>
       </slot>

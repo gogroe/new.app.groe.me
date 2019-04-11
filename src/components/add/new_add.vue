@@ -1,7 +1,7 @@
 <template>
   <div v-if="is_create"
        class="add"
-       @click="$emit('input', !active)">
+       @click="$store.commit('update_reload', { section: $route.name , action: !active }); $emit('input', !active)">
     <p>
       +
     </p>
@@ -14,7 +14,7 @@ import { mapGetters } from 'vuex'
     name: "add",
     props:{
       name:{
-        required: false
+        required: true
       },
       active:{
         required: true
@@ -24,21 +24,11 @@ import { mapGetters } from 'vuex'
       }
     },
     watch:{
-      active: {
-         handler(obj){
-           if(obj)
-            this.$store.commit('update_reload', {section: this.$route.name , action: true})
-            else
-            this.$store.commit('update_reload', {section: this.$route.name ,action: false})
-         },
-         deep: true
-      },
-      reload: {
-        handler: function (object) {
-          if(object.section === 'add_' + name){
-            this.$emit('input', object.action)
-            this.$store.commit('update_reload', {section: null, action:null})
-          }
+      reload: function (object) {
+        if(object.section === 'add_' + name){
+          console.log(object)
+          this.$emit('input', object.action)
+          this.$store.commit('update_reload', {section: null, action:null})
         }
       }
     },

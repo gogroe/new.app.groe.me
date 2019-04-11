@@ -2,29 +2,50 @@
   <div class="vita">
     <div class="add_wrapper">
     </div>
-      <popup :active = "active.create" v-model = "active.create">
-        <edit_elements
-        button="VITA ERSTELLEN"
-        :url="create_user_vita.url"
-        :inputs="create_user_vita.inputs"
-        :params="create_user_vita.params"
-        :reload="create_user_vita.reload"
-        method="create"/>
-      </popup>
-
-    <posts v-for="(article, i) in cLoad.data"
-           :key="i"
-           :obj="article"/>
-    <div v-if="cLoad.data.length === 0">
-      <edit_elements
-        name="VITA HINZUFÜGEN"
-        button="VITA ERSTELLEN"
-        :url="create_user_vita.url"
-        :inputs="create_user_vita.inputs"
-        :params="create_user_vita.params"
-        :reload="create_user_vita.reload"
-        method="create"/>
+    <div class="add_wrapper">
+      <h2>Jobs & Qualifikationen</h2>
+      <p v-if="cLoad.data.length === 0">Archiviere deine letzten Tätigkeiten, sodass wir dich besser vermitteln können.</p>
+      <p v-else>Trage mehr Jobs ein um besser Angebote zu erhalten.</p>
     </div>
+    <posts
+      v-for="(article, i) in cLoad.data"
+      :key="i"
+      :obj="article"/>
+    <div v-if="cLoad.data.length === 0">
+      <div
+        class="default box edit">
+        <p class="section_name">
+          Erste Vita<br/>
+        </p>
+        <div class="section_wrapper">
+          <edit_elements
+            method="create"
+            :url="create_user_vita.url"
+            :inputs="create_user_vita.inputs"
+            :params="create_user_vita.params"
+            :reload="create_user_vita.reload"/>
+        </div>
+      </div>
+    </div>
+    <popup_white
+      :active = "active.create"
+      v-model = "active.create">
+      <div class="wide create">
+        <p class="section_name">Vita<br/><br/>
+          <span>
+            Fügen deine Qualifikationen hinzu. Achte darauf dein täglichen Aufgaben ausfühlich zu beschreiben.
+          </span>
+        </p>
+        <edit_elements
+          name="Vita hinzufügen"
+          button="VITA ERSTELLEN"
+          :url="create_user_vita.url"
+          :inputs="create_user_vita.inputs"
+          :params="create_user_vita.params"
+          :reload="create_user_vita.reload"
+          method="create"/>
+      </div>
+    </popup_white>
   </div>
 </template>
 
@@ -32,7 +53,7 @@
   import { mapGetters } from 'vuex'
   import Posts from "../../../components/articles/index";
   import add from "../../../components/add";
-  import Popup from "../../../components/popup/white"
+  import Popup_white from "../../../components/popup/white"
   import Edit_elements from "../../../components/edit/elements";
   import loader from "../../../components/functions/loader";
 
@@ -42,7 +63,7 @@
       Edit_elements,
       Posts,
       add,
-      Popup
+      Popup_white
     },
     data(){
       return{
@@ -70,22 +91,22 @@
               placeholder: 'Position'
             },
             description: {
-              name: 'Stellenbeschreibung',
+              name: 'Beschreibung',
               type: 'text',
               value: null,
-              placeholder: 'Stellenbeschreibung'
+              placeholder: 'Beschreibung'
             },
             start_date: {
-              name: 'Datum des Beginns',
+              name: 'Beginn',
               type: 'date',
               value: null,
-              placeholder: 'Datum des Beginns'
+              placeholder: 'Beginn'
             },
             end_date: {
-              name: 'Datum der Abschluss',
+              name: 'Beendet',
               type: 'date',
               value: null,
-              placeholder: 'Datum der Abschluss'
+              placeholder: 'Beendet'
             },
             company: {
               name: 'Firmanname',
@@ -126,6 +147,9 @@
       ...mapGetters([
         'reload'
       ]),
+      activeCreate () {
+        return this.active.create
+      }
     },
     watch:{
       reload: function (object) {
@@ -135,12 +159,16 @@
           this.active.create = false
         }
         if(object.section === this.$route.name){
-          this.active.create = object.action
-          this.$store.commit('update_reload', { action: null, section: null })
+          this.active.create = true
+          this.$store.commit('update_reload', {action: null, section: null})
         }
       },
+      activeCreate: function (boolean) {
+        this.$store.commit('update_reload', {section: 'add_' + this.$route.name, action: false})
+      }
     },
     mounted(){
+      this.$store.commit('update_reload', {section: 'activeAdd', action: true})
       this.set_user_id(this.create_user_vita)
       this.set_user_id(this.cLoad)
       this.get_cLoad()
@@ -149,20 +177,9 @@
       get_cLoad () {
         this.$$request.post.data(this.cLoad.url, this.cLoad.params)
           .then((response) => this.cLoad.data = response)
-      },
-      hide () {
-        this.active.create = false
-        this.$store.commit('update_reload', {section: 'add_' + this.$route.name, action: false})
       }
     },
     mixins:[loader]
   }
 </script>
 
-<style lang="scss" scoped>
-
-  .add{
-    text-align: right;
-  }
-
-</style>
