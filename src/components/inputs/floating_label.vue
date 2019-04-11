@@ -4,9 +4,9 @@
       v-for="(input, key, i) in create_inputs.inputs"
       :key="i">
       <div @click="select_inputs(i)">
-        <div class="placeholder"
+        <label class="placeholder"
           :class="{'active' : isActive(key, create_inputs, i)}">
-          {{without_placeholder(key, create_inputs, false)}}</div>
+          {{without_placeholder(key, create_inputs, false)}}</label>
         <inputs
           :obj="without_placeholder(key, create_inputs, true)"
           :request_data="request_create.data"
@@ -82,7 +82,6 @@ export default {
       this.active = i
       let a = document.getElementsByClassName('floating_label_scope')[i].querySelectorAll('input')[0]
       a.addEventListener('focusout', function cb() {
-        this.parentNode.parentNode.childNodes[0].className = 'placeholder'
         event.currentTarget.removeEventListener(event.type, cb)
       })
     },
@@ -132,6 +131,7 @@ export default {
 
   .placeholder{
     position: absolute;
+    left: 0;
     color: #bbb;
     line-height: 50px;
     padding: 0 16px;
