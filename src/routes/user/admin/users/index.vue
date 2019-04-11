@@ -1,6 +1,7 @@
 <template>
   <div class="user">
-    <p class="section_name">NUTZER DETAILS</p>
+    <p class="section_name">Profil</p>
+    <p class="section_description">Einige Informationen sind möglicherweise für andere Personen sichtbar, die ebenfalls groe-Dienste verwenden.</p>
     <upload_user_image :request_get_user="cload"/>
     <div class="section_wrapper">
       <edit_section
