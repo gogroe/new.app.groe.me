@@ -45,15 +45,6 @@
         margin-bottom: 25px;
       }
     }
-
-    .create_input_label{
-      display: none;
-      width: 100px;
-      margin-right: 17px;
-      color:#838688;
-      line-height: 22px;
-    }
-
     input[type=text]{
       // width: calc(100% - 150px);
       width: 100%;

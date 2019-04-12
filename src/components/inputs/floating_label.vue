@@ -1,12 +1,9 @@
 <template>
-  <div class="floating_label" :class="section_class">
+  <div class="floating_label" :class="section_class" v-click-outside="active = -1">
     <div class="floating_label_scope"
       v-for="(input, key, i) in create_inputs.inputs"
       :key="i">
-      <div @click="select_inputs(i)">
-        <label class="placeholder"
-          :class="{'active' : isActive(key, create_inputs, i)}">
-          {{without_placeholder(key, create_inputs, false)}}</label>
+      <div @click="active = i">
         <inputs
           :obj="without_placeholder(key, create_inputs, true)"
           :request_data="request_create.data"
@@ -22,6 +19,7 @@
 <script>
 
   import Load_request from "../functions/load_request"
+  import ClickOutside from 'vue-click-outside'
   import Custom_helper from '../functions/custom_helper'
   import Inputs from "./index"
   import Request from "../functions/request"
@@ -67,6 +65,16 @@ export default {
     }
   },
   watch:{
+    active: function(obj){
+      for(let x in Object.keys(this.create_inputs.inputs)){
+        if(parseInt(x) === obj){
+          console.log(document.body.querySelectorAll('label')[x].className += " active")
+        }
+        else{
+          document.body.querySelectorAll('label')[x].className -= " active"
+        }
+      }
+    },
     request_create_data(object){
       this.create_update_reload(object, this.reload)
       this.set_values_null()
@@ -78,24 +86,9 @@ export default {
     this.set_required_params()
   },
   methods:{
-    select_inputs(i){
-      this.active = i
-      let a = document.getElementsByClassName('floating_label_scope')[i].querySelectorAll('input')[0]
-      a.addEventListener('focusout', function cb() {
-        event.currentTarget.removeEventListener(event.type, cb)
-      })
-    },
     isActive(key, create_inputs, i){
       let a = this.fill_inputs(key, create_inputs)
       return a.value !== null || this.active === i
-    },
-    without_placeholder(key, create_inputs, bool){
-      let a = this.fill_inputs(key, create_inputs)
-      if (bool)
-        a.placeholder = ''
-      else
-        return a.placeholder
-      return a
     },
     set_required_params(){
       if(this.object_length(this.create_inputs.required_params) !== 0){
@@ -117,6 +110,9 @@ export default {
       this.request_create.request = true
     }
   },
+  directives: {
+    ClickOutside
+  },
   mixins:[Custom_helper, Load_request]
 }
 </script>
@@ -129,6 +125,29 @@ export default {
   line-height: 50px;
   text-align: center;
 
+  label{
+    position: absolute;
+    padding: 0 16px;
+    left: 0;
+    color: #bbb;
+    line-height: 50px;
+    margin-left: 16px;
+    font-size: 20px;
+    width: auto;
+    cursor: text;
+
+    &.active{
+      -webkit-transition-property: font-size, line-height, background-color, color; /* Safari */
+      -webkit-transition-duration: 1s; /* Safari */
+      transition-property: font-size, line-height, background-color, color;
+      transition-duration: 1s;
+      font-size: 12px;
+      line-height: 12px;
+      background-color: white;
+      color: #3da0f5;
+    }
+  }
+
   .placeholder{
     position: absolute;
     left: 0;
@@ -137,10 +156,7 @@ export default {
     padding: 0 16px;
     margin-left: 16px;
     font-size: 20px;
-    
-    &:hover{
-      cursor: text;
-    }
+
 
     &.active{
       -webkit-transition-property: font-size, line-height, background-color, color; /* Safari */
