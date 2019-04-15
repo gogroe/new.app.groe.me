@@ -12,7 +12,7 @@
 
 <script>
   var cookie = require('js-cookie')
-  import Floating_label from "../inputs/floating_label";
+  import Floating_label from "../input/types/auth";
 
   export default {
     name: "login",
@@ -45,7 +45,7 @@
             },
             password: {
               name: 'Passwort',
-              type: 'text',
+              type: 'password',
               input: {
                 value: null,
                 event:null

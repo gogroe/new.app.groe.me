@@ -445,11 +445,11 @@
     background: rgba(255,255,255,0.75);
 
     .inner_popup{
-      width: 450px;
-      padding: 17px;
+      width: 370px;
+      padding: 41px;
       z-index: 2;
       background: #fff;
-      margin-left: calc(50% - 225px);
+      margin-left: calc(50% - 185px);
       margin-top: 101px;
       border-radius: 5px;
       box-shadow: 10px -10px 15px rgba(0, 0, 0, 0.075),
