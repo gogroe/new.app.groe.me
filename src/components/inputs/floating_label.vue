@@ -86,6 +86,14 @@ export default {
     this.set_required_params()
   },
   methods:{
+    without_placeholder(key, create_inputs, bool){
+      let a = this.fill_inputs(key, create_inputs)
+      if (bool)
+        a.placeholder = ''
+      else
+        return a.placeholder
+      return a
+    },
     isActive(key, create_inputs, i){
       let a = this.fill_inputs(key, create_inputs)
       return a.value !== null || this.active === i

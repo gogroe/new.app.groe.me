@@ -1,8 +1,16 @@
 <template>
-  <div class="delete" v-if="is_perm('delete')"  @click="request_delete.request = true">
+  <div class="delete"
+       v-if="is_perm('delete')"
+       @click="delete_request">
     <i class="material-icons"
-       :style="{fontSize: size, color: color}">{{icon}}</i> <span v-if="name !== undefined"  :style="{color: color}">{{name}}</span>
-    <request :obj="request_delete" v-model="request_delete"/>
+       :style="{fontSize: size, color: color}">
+      {{icon}}
+    </i>
+    <span
+      v-if="name !== undefined"
+      :style="{color: color}">
+      {{name}}
+    </span>
   </div>
 </template>
 
@@ -42,12 +50,7 @@
     },
     data(){
       return{
-        request_delete:{
-          params: {},
-          url: '',
-          data: {},
-          request: false
-        }
+        response: []
       }
     },
     computed:{
@@ -55,19 +58,20 @@
         return this.request_delete.data
       }
     },
-    watch:{
-      request_delete_data:function (object) {
-        this.create_update_reload(object, this.reload)
-        this.$emit('input', object)
+    methods:{
+      delete_request () {
+        this.$$request.post.data(this.obj.url, this.obj.params)
+          .then((response) => this.handle_response(response))
       },
-      obj: function (object) {
-        if(this.request_delete !== object){
-          this.request_delete = object
+      handle_response (response) {
+        this.response = response
+
+        if('update' in response){
+          this.$store.commit('update_reload', this.reload)
         }
+
+        this.$emit('input', response)
       }
-    },
-    mounted(){
-      this.request_delete = this.obj
     },
     mixins:[Load_request, Permission]
   }

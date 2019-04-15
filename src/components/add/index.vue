@@ -7,10 +7,7 @@
          <p class="label">{{name}}</p>
          <p class="message">Mit einem Foto können Sie Ihr Konto personalisieren	</p>
        </div>
-
     </div>
-
-
     <p v-else>
       <i class="material-icons">close</i> schließen
     </p>

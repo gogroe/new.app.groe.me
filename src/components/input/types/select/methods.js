@@ -14,15 +14,17 @@ export default {
           : object.value
 
         if(this.isLoaded){
-          console.log(this.isLoaded)
-
           this.$emit('input', {
             value: value,
             event: 'Enter'
           })
 
-          if(this.type === 'select_indicator'){
-            this.$store.commit('update_reload', {action: value, section: this.clist})
+          if(object !== null && this.type === 'select_indicator'){
+            let name = 'original' in object
+              ? object.original
+              : object.name
+
+            this.$store.commit('update_reload', {action: name, section: this.clist})
           }
         }
       }, deep: true
@@ -38,6 +40,7 @@ export default {
     set_citems () {
       if(this.citems !== null){
         this.items = this.citems
+        this.set_items(this.items)
       }
       else {
         this.$$list.items(this.clist)

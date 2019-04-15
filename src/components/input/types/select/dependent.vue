@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-select
-      :options="dependentItems"
+      :options="items"
       label="name"
       :placeholder="placeholder"
       v-model="item"/>
@@ -44,28 +44,31 @@
       ...mapGetters([
         'reload'
       ]),
-      dependentItems () {
-        let items = []
-        for(let key in this.items){
-          if('relation' in this.items[key] && this.items[key].relation === this.indicatorValue){
-            items.push(this.items[key])
-          }
-        }
-        return items
-      }
     },
     watch:{
       reload: {
         handler: function (object) {
+          this.items = []
+          this.item = null
+
           let cListIndicator = this.clist.substring(0, this.clist.indexOf('$'))
+          let cList = this.clist.substring(this.clist.indexOf('$') +1)
 
           if(object.section === cListIndicator){
-            this.item = null
-            this.indicatorValue = object.action
+            this.indicatorValue = object.action + cList
             this.$store.commit('update_reload', {action: null, section:null})
+            this.set_dependent_citems()
           }
         }, deep: true
       }
+    },
+    methods:{
+      set_dependent_citems () {
+        this.$$list.items(this.indicatorValue)
+          .then((result) =>
+            this.set_items(result)
+          )
+      },
     },
     mixins:[select_methods]
   }

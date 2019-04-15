@@ -126,7 +126,7 @@
 
   html {
     font-family: 'Roboto', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
     color: #272d33;
     font-size: var(--font-size);
     word-spacing: 1px;
@@ -337,6 +337,23 @@
             width: 100%;
             margin: 16px 0;
           }
+
+          .v-select .dropdown-toggle{
+            width: 100%;
+            background: #f8f8f8;
+
+            input{
+              padding: 0 7px;
+              border-color: transparent;
+              background: #f8f8f8;
+
+              &:hover{
+                border-color: transparent;
+                background: #f8f8f8;
+                outline: none;
+              }
+            }
+          }
         }
 
         .update{
@@ -432,6 +449,10 @@
     margin-bottom: 25px;
     text-align: center;
     color: #596369;
+
+    p{
+      font-weight: 400;
+    }
   }
 
   .default_popup_background{

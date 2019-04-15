@@ -1,42 +1,36 @@
 <template>
   <div class="permission">
-    <ul>
-      <h6>RECHTE MENU</h6>
-      <li v-for="(permission, p_key) in request_get_permissions.data"
-          :key="p_key"
-          :class="{'active': active.navigation === p_key}"
-          @click="active.navigation = p_key">
-        {{translate(p_key)}}
-      </li>
-    </ul>
-    <div class="content">
-      <permission_table :permissions="permissions_data"
-                        :name="active.navigation"/>
+    <div class="head">
+      <img src="../../../../static/layout/permissions.png" height="400" width="401"/>
     </div>
-    <div class="clear"></div>
-    <request :obj="request_get_permissions" v-model="request_get_permissions"/>
+    <div class="add_wrapper">
+      <h2>Zugangsrechte für Seiten</h2>
+      <p>Nutzerrechte sollten stets mit der IT abgesprochen werden.</p>
+    </div>
+    <permission_item
+      v-for="(permission, k) in cLoad.data"
+      :key="k"
+      :name="k"
+      :cLoad="permission"/>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
-  import Custom_helper from '../../../components/functions/custom_helper'
-  import Request from "../../../components/functions/request";
-  import Permission_table from "./content";
-
+  import Permission_item from "./item";
+  
   export default {
     name: "permissions",
-    components: {Permission_table, Request},
+    components: {Permission_item},
     data(){
       return {
         active:{
-          navigation: 'list'
+          navigation: 'list',
         },
-        request_get_permissions:{
-          params: {},
+        cLoad:{
+          params:{},
           url: 'https://newbackend.groe.me/settings_permission/get_all',
           data: {},
-          request: false
         }
       }
     },
@@ -45,8 +39,8 @@
         'reload'
       ]),
       permissions_data(){
-        return this.active.navigation in this.request_get_permissions.data
-          ? this.request_get_permissions.data[this.active.navigation]
+        return this.active.navigation in this.cLoad.data
+          ? this.cLoad.data[this.active.navigation]
           : {}
       }
     },
@@ -54,50 +48,39 @@
       reload: function (object) {
         if(object.action === 'reload' && object.section === 'settings_permission'){
           this.$store.commit('update_reload', { action: null, section: null })
-          this.request_get_permissions.request = true
+          this.get_cLoad()
         }
       },
     },
     mounted(){
-      this.request_get_permissions.request = true
+      this.get_cLoad()
     },
-    mixins:[Custom_helper]
+    methods:{
+      get_cLoad () {
+        this.$$request.post.data(this.cLoad.url, this.cLoad.params)
+          .then((response) => this.cLoad.data = response)
+      }
+    }
   }
 </script>
 
 <style lang="scss" scoped>
 
   .permission{
-    height: 100%;
-  }
+    width: 800px;
+    margin-left: calc(50% - 400px - 100px);
 
-  ul{
-    float: left;
-    width: 280px;
-    height: 100%;
-    padding-top: 27px;
-    padding-left: 17px;
-    border-right: 1px solid #e6e6e6;
+    .head{
+      display: block;
+      min-height: 173px;
+      padding-top: 43px;
+      padding-bottom: 16px;
 
-    h6{
-      margin-bottom: 10px;
-    }
-
-    li{
-      cursor: pointer;
-      height:27px;
-      line-height: 18px;
-      padding: 7px 0 1px 0;
-
-      &.active, &:hover{
-        color: #3da0f5;
+      img{
+        display: block;
+        margin: 0 auto;
       }
     }
-  }
-
-  .content{
-    float: left;
-    width: calc(100% - 280px);
   }
 
 </style>

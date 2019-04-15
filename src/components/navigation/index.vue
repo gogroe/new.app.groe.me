@@ -14,6 +14,7 @@
     <a v-for="(navigation, i) in navigations_admin"
        :key="i"
        v-if="hasPerm(navigation.perm)"
+       :class="{'active': set_active_class(navigation)}"
        @click="$router.push({name: navigation.route})">
       {{navigation.name}}</a>
   </div>
@@ -158,6 +159,9 @@
     font-weight: 400;
     color: #bfbfbf;
     padding: 10px 10px 10px 27px;
+    &.active{
+      color: #edad00;
+    }
   }
 
 </style>
