@@ -10,11 +10,9 @@
       <div class="options">
         <p class="option"
            v-if="active_article">
-          <popup_menu
-            icon="more_horiz"
-            type="list"
+          <dropdown_menu
             :options="options"
-            :id="obj.id"
+            icon="more_horiz"
             v-model="action"/>
         </p>
         <p v-else 
@@ -63,10 +61,13 @@
   import Popup_menu from "../../../popup_menu/index";
   import Edit_vita from "./edit";
   import Request from "../../../functions/request";
+  import Dropdown_menu from "../../../dropdown/menu";
 
   export default {
     name: "vita",
-    components: {Request, Edit_vita, Popup_menu, User_initials, Map_location, Ddmmmyy, From_now, User_name, User_image},
+    components: {
+      Dropdown_menu,
+      Request, Edit_vita, Popup_menu, User_initials, Map_location, Ddmmmyy, From_now, User_name, User_image},
     props:{
       obj:{
         required: true
@@ -85,11 +86,11 @@
         options:[
           {
             name: 'Bearbeiten',
-            action: 'edit'
+            value: 'edit'
           },
           {
             name: 'Löschen',
-            action: 'delete' //todo und datum machen
+            value: 'delete'
           }
         ],
         action:{},
@@ -110,11 +111,11 @@
     },
     watch:{
       action: function (object) {
-        if(object.action === 'edit'){
+        if(object.value === 'edit'){
           // this.action = {}
           this.active.edit = true
         }
-        if(object.action === 'delete'){
+        if(object.value  === 'delete'){
           this.request_delete_user_vita.params.vita_id = this.obj.id
           this.request_delete_user_vita.request = true
         }

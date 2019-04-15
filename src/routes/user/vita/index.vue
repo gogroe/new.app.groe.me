@@ -56,6 +56,7 @@
   import Popup_white from "../../../components/popup/white"
   import Edit_elements from "../../../components/edit/elements";
   import loader from "../../../components/functions/loader";
+  import Dropdown_menu from "../../../components/dropdown/menu";
 
   export default {
     name: "users_vita",

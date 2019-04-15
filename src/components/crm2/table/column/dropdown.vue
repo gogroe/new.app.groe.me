@@ -1,5 +1,5 @@
 <template>
-  <div v-click-outside="hide">
+  <div class="crm_dropdown" v-click-outside="hide">
     <i
       class="material-icons dropdown_arrow"
       @click="active.dropdown = !active.dropdown">
@@ -40,52 +40,59 @@
 
 <style lang="scss" scoped>
 
-  .crm_dropdown_list{
-    z-index: 10;
-    position: absolute;
-    margin-top: 10px;
-    width: 180px;
-    padding: 10px 0;
-    background: #fff;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.08);
-    border: solid 1px #f1f3f4;
+  .crm_dropdown{
+    .dropdown_arrow{
+      margin-left: 16px;
+    }
 
-    &:after,
-    &:before {
-      content: '';
-      display: block;
+    .crm_dropdown_list{
+      z-index: 10;
       position: absolute;
-      left: calc(50% - 10px);
-      width: 0;
-      height: 0;
-      border-style: solid;
-    }
+      margin-top: 10px;
+      width: 180px;
+      padding: 10px 0;
+      background: #fff;
+      box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.08);
+      border: solid 1px #f1f3f4;
 
-    &:after {
-      top: -18px;
-      border-color:  transparent transparent #fff transparent ;
-      border-width: 10px;
-    }
+      &:after,
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: calc(50% - 10px);
+        width: 0;
+        height: 0;
+        border-style: solid;
+      }
 
-    &:before {
-      top: -20px;
-      border-color: transparent  transparent #f1f3f4 transparent  ;
-      border-width: 10px;
-    }
+      &:after {
+        top: -18px;
+        border-color:  transparent transparent #fff transparent ;
+        border-width: 10px;
+      }
 
-    a{
-      display: inline-block;
-      width: 100%;
-      padding: 17px;
-      text-align: center;
-      cursor: pointer;
-      color: #272d33;
+      &:before {
+        top: -20px;
+        border-color: transparent  transparent #f1f3f4 transparent  ;
+        border-width: 10px;
+      }
 
-      &:hover{
-        background: #f1f3f4;
-        color: #1a73e8;
+      a{
+        display: inline-block;
+        width: 100%;
+        padding: 17px;
+        text-align: center;
+        cursor: pointer;
+        color: #272d33;
+
+        &:hover{
+          background: #f1f3f4;
+          color: #1a73e8;
+        }
       }
     }
   }
+
 
 </style>

@@ -1,11 +1,8 @@
 <template>
   <div class="signup">
-    <inputs v-for="(input, key, i) in signup_user.inputs"
-            :key="i"
-            :obj="fill_inputs(key, signup_user)"
-            :request_data="request_signup_user.data"
-            v-model="signup_user.inputs[key].input"/>
-    <button @click="send_signup_user">ANMELDEN</button>
+    <Floating_label :create_inputs="signup_user"
+                    button_name="ANMELDEN"
+                    v-model="request_signup_user"/>
     <request :obj="request_signup_user" v-model="request_signup_user"/>
     <div class="social_buttons_wrapper">
       <facebook v-model="social_signup_data"/>
@@ -17,11 +14,11 @@
        class="errors">
       {{errors}}
     </p>
-    <!-- <bubble text="descriptive text of the pointed stuff" info_link="request_signup_user"/> -->
-  </div>
+ </div>
 </template>
 
 <script>
+  import Floating_label from "../inputs/floating_label";
   import Custom_helper from '../functions/custom_helper'
   import { mapGetters } from 'vuex'
   import Bubble from "../bubble/index"
@@ -39,7 +36,8 @@
       Inputs,
       Facebook,
       Google,
-      Bubble
+      Bubble,
+      Floating_label
     },
     props:{
       redirect:{
@@ -133,26 +131,15 @@
 <style lang="scss">
 
   .signup{
-    button{
-      width: calc(100% - 20px);
-      background-color: #3da0f5;
-      color: white;
-
-      &:hover{
-        background-color: #2e7dbd;
-        outline: none;
-      }
+    .social_buttons_wrapper{
+      padding: 0 10px;
+      margin-bottom:17px !important;
     }
-  }
 
-  .social_buttons_wrapper{
-    margin: 0 !important;
-    padding: 0 10px;
-  }
-
-  .errors{
-    text-align: center;
-    margin-top: 17px;
-    color: #990000;
+    .errors{
+      text-align: center;
+      margin-top: 17px;
+      color: #990000;
+    }
   }
 </style>

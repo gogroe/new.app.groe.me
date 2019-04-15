@@ -7,13 +7,19 @@
       <tr>
         <th
           v-if="isIndicator"
-          class="space"
+          class="space indicator"
           valign="bottom">
+          <!--<dropdown_menu-->
+            <!--:options="options"-->
+            <!--icon="arrow_drop_down"-->
+            <!--v-model="crmMenu"/>-->
             <crm_list/>
         </th>
         <th
           valign="bottom">
-          <p v-if="isIndicator">
+          <p
+            v-if="isIndicator"
+            class="indicator">
             {{crmName}}
           </p>
           <p v-else>
@@ -61,10 +67,11 @@
   import Crm_cell from "./cell";
   import Crm_icell from "./iCell";
   import Crm_list from "./dropdown";
+  import Dropdown_menu from "../../../dropdown/menu";
 
   export default {
     name: "crm_column",
-    components: {Crm_list, Crm_icell, Crm_cell},
+    components: {Dropdown_menu, Crm_list, Crm_icell, Crm_cell},
     props:{
       column:{
         type: Object,
@@ -78,6 +85,15 @@
         required: true,
       }
     },
+    data() {
+      return {
+        crmMenu: null,
+        options:[
+          {name: 'Nutzerverwaltung', value: 'crm_user'},
+          {name: 'Firmenverwaltung', value: 'crm_company'}
+        ]
+      }
+    },
     computed:{
       isIndicator () {
         return this.column.type === 'indicator'
@@ -86,6 +102,18 @@
         return 'list' in this.column
           ? this.column.list
           : null
+      }
+    },
+    watch:{
+      crmMenu: function (object) {
+        if(object !== null){
+          this.$router.push({name: object.value})
+        }
+      }
+    },
+    mounted () {
+      if(this.$$permission.is_perm('admin_write')){
+        this.options.push({name: 'Adminverwaltung', value: 'crm_admin'})
       }
     }
   }
@@ -108,6 +136,25 @@
           z-index: 10;
           background-color: white;
           border-bottom: 1px solid #e6e6e6;
+
+          /*p.indicator{*/
+            /*color: #1a73e8;*/
+          /*}*/
+
+          /*.dropdown_menu{*/
+            /*.icon{*/
+              /*color: #1a73e8;*/
+              /*background: #f1f3f4;*/
+              /*border-radius: 20px;*/
+              /*margin-left: 16px;*/
+            /*}*/
+
+            /*.default.dropdown{*/
+              /*font-weight: 500;*/
+              /*z-index: 9999;*/
+              /*table-layout: fixed;*/
+            /*}*/
+          /*}*/
         }
 
         td{
@@ -134,7 +181,6 @@
       }
 
       th {
-        color: #1a73e8;
         padding: 10px 16px 10px 0;
 
         p{

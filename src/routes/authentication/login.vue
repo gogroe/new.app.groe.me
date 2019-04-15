@@ -1,6 +1,7 @@
 <template>
   <div class="default_popup_background">
     <div class="inner_popup">
+      <img src="../../../static/layout/logo.png">
       <h1>Anmeldung</h1>
       <login redirect="user_vita"/>
     </div>
@@ -24,14 +25,18 @@
     background: transparent;
   }
 
-  h1{
-    margin-bottom: 41px;
-    padding-left: 17px;
-    font-size: 32px;
-  }
-
   .inner_popup{
-    padding: 47px 64px 47px 64px;
+    padding: 47px 64px;
+    text-align: center;
+
+    h1{
+      margin-bottom: 41px;
+      font-size: 32px;
+    }
+
+    img{
+      width: 64px;
+    }
 
     .create_section{
       text-align: center;
@@ -76,6 +81,10 @@
         background-color: #2e7dbd;
         outline: none;
       }
+    }
+
+    .login{
+      padding: 24px;
     }
   }
 

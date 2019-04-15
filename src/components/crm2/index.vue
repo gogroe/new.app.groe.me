@@ -14,6 +14,12 @@
         :columns="columns"
         :crmType="crm.id"/>
       <div class="clear"></div>
+      <i
+        @click="active.sidebar = !active.sidebar"
+        :class="{'active': active.sidebar}"
+        class="material-icons sidebar_toggle m_over blue">
+        {{sidbar_icon}}
+      </i>
     </div>
 </template>
 
@@ -67,6 +73,11 @@
         return 'count' in this.cLoad.data && 'rows' in this.cLoad.data
           ? {count: this.cLoad.data.count, rows: this.cLoad.data.rows.length}
           : {}
+      },
+      sidbar_icon () {
+        return this.active.sidebar
+          ? 'keyboard_arrow_right'
+          : 'keyboard_arrow_left'
       }
     },
     watch:{
@@ -132,6 +143,24 @@
     overflow-y: hidden;
     height: calc(100vh - 64px);
     width: 100%;
+  }
+
+  .sidebar_toggle{
+    cursor: pointer;
+    font-size: 22px;
+    position: fixed;
+    bottom: 53px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    color: #b4b4b4;
+    border: 1px solid #e6e6e6;
+    border-radius: 20px;
+    background: #fff;
+
+    &.active{
+      right: 438px;
+    }
   }
 
   .crm_table {

@@ -17,13 +17,18 @@
           <td
             v-if="active_options"
             class="more">
-            <popup_menu class="popup_menu"
-                        v-if="is_perm('update')"
-                        :id="account.id"
-                        type="list"
-                        :options="options"
-                        icon="more_horiz"
-                        v-model="action"/>
+            <dropdown_menu
+              v-if="is_perm('admin_update')"
+              class="popup_menu"
+              :options="[
+                {
+                  name: 'bearbeiten',
+                  value: 'edit',
+                  id: account.id
+                }
+              ]"
+              icon="more_horiz"
+              v-model="action"/>
           </td>
           <td class="date">
             <ddmmmyy
@@ -44,10 +49,12 @@
   import Ddmmmyy from "../date/ddmmmyy";
   import Popup_menu from "../popup_menu/index";
   import Edit_accounts from "./edit";
+  import Dropdown_menu from "../dropdown/menu";
 
   export default {
     name: "accounts_table",
     components:{
+      Dropdown_menu,
       Edit_accounts,
       Popup_menu,
       Ddmmmyy
@@ -66,7 +73,7 @@
         options:[
           {
             name: 'bearbeiten',
-            action: 'edit',
+            value: 'edit',
           }
         ],
         edit_account:{}
@@ -84,14 +91,11 @@
     },
     watch:{
       action: function (object) {
-        if(object.action === 'edit'){
+        if(object.value === 'edit'){
           this.set_edit_account(object.id)
           this.action = {}
         }
       },
-      accounts: function () {
-
-      }
     },
     methods:{
       set_edit_account(action_id){

@@ -1,6 +1,6 @@
 <template>
-  <div >
-    <create_section :create_inputs="login_user"
+  <div class="login">
+    <Floating_label :create_inputs="login_user"
                     button_name="ANMELDEN"
                     v-model="request_login_user"/>
     <p v-if="errors !== null"
@@ -12,11 +12,11 @@
 
 <script>
   var cookie = require('js-cookie')
-  import Create_section from "../inputs/create";
+  import Floating_label from "../inputs/floating_label";
 
   export default {
     name: "login",
-    components: {Create_section},
+    components: {Floating_label},
     props:{
       redirect:{
         required: true

@@ -25,6 +25,7 @@
     "vue-datetime": "^1.0.0-beta.10",
     "vue-facebook-signin-button": "^1.0.1",
     "vue-google-signin-button": "^1.0.2",
+    "vue-jquery": "^1.0.6",
     "vue-moment": "^4.0.0",
     "vue-router": "^3.0.1",
     "vue-select": "^2.5.1",

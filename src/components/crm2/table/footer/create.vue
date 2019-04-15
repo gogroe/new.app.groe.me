@@ -1,6 +1,7 @@
 <template>
   <div class="crm_create_user">
     <add_text
+      class="c_add_text"
       v-model="active.popup">
       Nutzer
     </add_text>
@@ -87,6 +88,10 @@
 <style lang="scss">
 
   .crm_create_user{
+    .c_add_text{
+      margin-left: 16px;
+    }
+
     .c_popup{
       padding: 16px 25px;
 

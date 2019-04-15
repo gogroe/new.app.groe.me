@@ -177,6 +177,7 @@
 
 
   .default{
+
     &.box{
       width: 100%;
       border-radius: 10px;
@@ -392,6 +393,15 @@
         &:hover {
           background: #3da0f5;
         }
+      }
+    }
+  }
+
+  .m_over{
+    &.blue{
+      &:hover{
+        color: #3da0f5;
+        background: #f1f3f4;
       }
     }
   }
