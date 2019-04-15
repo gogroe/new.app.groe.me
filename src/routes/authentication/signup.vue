@@ -5,7 +5,7 @@
       <h1>Registrierung</h1>
       <signup redirect="notification"/>
     </div>
-    <mini_footer class="mini_footer inner_popup"/>
+    <mini_footer class="mini_footer"/>
   </div>
 </template>
 
@@ -32,22 +32,17 @@
 </script>
 
 <style lang="scss">
-  /*on google they have:*/
-  /*smaller buttons*/
-
-
   .default_popup_background{
     background: transparent;
 
     .inner_popup{
-      padding: 47px 64px 47px 64px;
+      padding: 41px;
       text-align: center;
-      margin-top: 25px; //what to do with mini_footer
 
       h1{
         margin-bottom: 41px;
-        padding-left: 17px;
-        font-size: 32px;
+        font-size: 24px;
+        font-weight: normal;
       }
 
       img{
@@ -76,33 +71,22 @@
         display: none;
         width: 100px;
       }
-      margin-right: 17px;
-      color:#838688;
-      line-height: 22px;
-    }
 
-    .mini_footer {
-
-      &.inner_popup {
-        margin-top: 0;
-        background: transparent;
-      }
-    }
-
-    input[type=text]{
-      // width: calc(100% - 150px);
-      width: 100%;
-      line-height: 30px;
-      padding: 0px 20px;
-      display: inline-block;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      box-sizing: border-box;
-
-      &:hover{
-        border: 1px solid #bbb;
+      input[type=text],input[type=password]{
+        // width: calc(100% - 150px);
+        width: 100%;
+        line-height: 30px;
+        padding: 0px 20px;
+        display: inline-block;
+        border: 1px solid #ddd;
         border-radius: 4px;
         box-sizing: border-box;
+
+        &:hover{
+          border: 1px solid #bbb;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
       }
     }
   }

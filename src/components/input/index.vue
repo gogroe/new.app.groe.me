@@ -38,10 +38,20 @@
       :placeholder="placeholder"
       :citems="citems"
       v-model="item"/>
+    <input_auth
+      v-if="type.indexOf('auth') !== -1"
+      :type="type"
+      :clist="clist"
+      :cvalue="cvalue"
+      :readonly="readonly"
+      :placeholder="placeholder"
+      :citems="citems"
+      v-model="item"/>
   </div>
 </template>
 
 <script>
+  import input_auth from './types/auth'
   import input_standard from './types/text'
   import Input_date from "./types/date";
   import Input_select from "./types/select/index";
@@ -49,7 +59,7 @@
 
   export default {
     name: "cinput",
-    components: {Input_status, Input_select, Input_date, input_standard},
+    components: {Input_status, Input_select, Input_date, input_standard, input_auth},
     props:{
       name:{
         type: String,

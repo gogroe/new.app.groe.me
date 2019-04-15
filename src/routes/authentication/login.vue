@@ -5,7 +5,7 @@
       <h1>Anmeldung</h1>
       <login redirect="user_vita"/>
     </div>
-    <mini_footer class="mini_footer inner_popup"/>
+    <mini_footer class="mini_footer"/>
   </div>
 </template>
 
@@ -26,12 +26,12 @@
   }
 
   .inner_popup{
-    padding: 47px 64px;
     text-align: center;
 
     h1{
       margin-bottom: 41px;
-      font-size: 32px;
+      font-size: 24px;
+      font-weight: normal;
     }
 
     img{
@@ -45,7 +45,7 @@
         margin-bottom: 25px;
       }
     }
-    input[type=text]{
+    input[type=text],input[type=password]{
       // width: calc(100% - 150px);
       width: 100%;
       line-height: 30px;
@@ -72,18 +72,6 @@
         background-color: #2e7dbd;
         outline: none;
       }
-    }
-
-    .login{
-      padding: 24px;
-    }
-  }
-
-  .mini_footer {
-
-    &.inner_popup {
-      margin-top: 0;
-      background: transparent;
     }
   }
 

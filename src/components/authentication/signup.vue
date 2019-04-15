@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import Floating_label from "../inputs/floating_label";
+  import Floating_label from "../input/types/auth";
   import Custom_helper from '../functions/custom_helper'
   import { mapGetters } from 'vuex'
   import Bubble from "../bubble/index"

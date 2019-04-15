@@ -97,11 +97,11 @@
           var child=document.getElementsByClassName('admin')[0].childNodes;
           for (let i in this.menu_items) {
             if(this.menu_items[i].name === string){
-              y=child[i*2].offsetTop
+              y=child[i*2+4].offsetTop
             }
           }
           window.scrollTo({
-            top: y,
+            top: y+50,
             left: 0,
             behavior: 'smooth'
           });
