@@ -3,12 +3,16 @@ export default {
   methods:{
     remove_params (object) {
       if( object.tableName in this.params){
+        let conKey = object.fieldType === 'select'  || object.fieldType === 'label'
+          ? object.fieldName
+          : 'search->' + object.fieldName
+
         if(
           object.condition === null &&
           'conditions' in this.params[object.tableName] &&
-          'search->' + object.fieldName in this.params[object.tableName].conditions
+          conKey in this.params[object.tableName].conditions
         ){
-          this.$delete(this.params[object.tableName].conditions, 'search->' + object.fieldName)
+          this.$delete(this.params[object.tableName].conditions, conKey)
           if(this.$$helper.length(this.params[object.tableName].conditions) === 0) {
             this.$delete(this.params[object.tableName], 'conditions')
           }
@@ -36,7 +40,10 @@ export default {
       }
     },
     add_conditions (object) {
-      let conKey = 'search->' + object.fieldName
+      let conKey = object.fieldType === 'select' || object.fieldType === 'label'
+        ? object.fieldName
+        : 'search->' + object.fieldName
+
       let conVal = object.condition
       let parObj = this.params[object.tableName]
 

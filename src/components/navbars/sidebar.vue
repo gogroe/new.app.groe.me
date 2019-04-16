@@ -105,6 +105,7 @@ export default {
         line-height: 25px;
         margin: 8px;
         padding: 0 25px;
+        z-index: 20;
       }
 
       &:hover{

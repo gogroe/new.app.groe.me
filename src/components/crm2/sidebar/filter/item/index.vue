@@ -91,6 +91,7 @@
           method: method,
           tableName: this.colInfo.table,
           fieldName: this.colInfo.field,
+          fieldType: this.column.type,
           asc: this.asc,
           desc: this.desc,
           condition: this.condition.value

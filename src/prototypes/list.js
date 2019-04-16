@@ -51,7 +51,7 @@ export default {
     }
 
     if(counter > 1){
-      console.warn('List: ' + name + ' duplicate value ' + cname)
+      //console.warn('List: ' + name + ' duplicate value ' + cname)
     }
 
     return cname

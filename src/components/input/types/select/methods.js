@@ -29,6 +29,11 @@ export default {
         }
       }, deep: true
     },
+    cvalue: {
+      handler: function () {
+        this.set_citems()
+      },deep: true
+    },
     clist: function () {
       this.set_citems()
     }

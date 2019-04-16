@@ -6,7 +6,7 @@
       method="update"
       :url="url"
       :inputs="inputs"
-      :cload="{}"
+      :cload="row"
       :params="cParams"
       :reload="reload"/>
   </div>

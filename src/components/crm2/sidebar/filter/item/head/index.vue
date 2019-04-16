@@ -44,7 +44,7 @@
       <span
         v-if="condition.value !== null && editCustomField === false"
         class="selection condition_value">
-        {{condition.value}}
+        {{sValue(condition.value)}}
         <i
           class="material-icons close"
           @click="$emit('input', {action: {event:null, value:null}, section: 'condition'})">
@@ -89,7 +89,24 @@
     data () {
       return {
         xField: null,
-        editCustomField: false
+        editCustomField: false,
+        cValue: null
+      }
+    },
+    methods:{
+      //todo this
+      sValue (svalue) {
+        if(this.column.type === 'select' || this.column.type === 'label'){
+          this.get_list_item()
+          return this.$$translation(this.cValue)
+        }
+        else {
+          this.cValue = this.$$translation(svalue)
+        }
+      },
+      get_list_item(){
+        this.$$list.item( this.column.list, this.condition.value )
+          .then((result) =>  this.cValue = result)
       }
     },
     watch:{
