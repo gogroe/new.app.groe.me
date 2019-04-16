@@ -78,10 +78,10 @@
         this.$$request.post.data('', params)
           .then((response) => data = response)
 
-        if('update' in data){
+        // if('update' in data){
           this.active.delete = false
           this.$store.commit('update_reload', {action: 'reload', section: 'crm_prepare'})
-        }
+        // }
       }
     }
   }
