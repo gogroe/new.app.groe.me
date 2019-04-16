@@ -72,10 +72,10 @@
       delete_user () {
         let data = null
         let params = {
-
+          user_id: this.row.user_id
         }
 
-        this.$$request.post.data('', params)
+        this.$$request.post.data('https://newbackend.groe.me/user_crm/user/delete', params)
           .then((response) => data = response)
 
         // if('update' in data){

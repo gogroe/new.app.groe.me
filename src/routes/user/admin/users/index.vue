@@ -6,13 +6,13 @@
     </p>
     <upload_user_image :request_get_user="cload"/>
     <div class="section_wrapper">
-      <edit_elements
-        :url="description_url"
-        method="update"
-        :inputs="update_user_description.inputs"
-        :cload="cload"
-        :params="update_user_description.params"
-        :reload="reload"/>
+      <!--<edit_elements-->
+        <!--:url="description_url"-->
+        <!--method="update"-->
+        <!--:inputs="update_user_description.inputs"-->
+        <!--:cload="cload"-->
+        <!--:params="update_user_description.params"-->
+        <!--:reload="reload"/>-->
       <edit_elements
         method="update"
         :readonly="$$permission.is_perm('admin_update') === false"
@@ -21,14 +21,14 @@
         :cload="cload"
         :reload="reload"
         :params="update_user.params"/>
-      <edit_elements
-        method="update"
-        :readonly="$$permission.is_perm('admin_update') === false"
-        :url="update_user_gender.url"
-        :inputs="update_user_gender.inputs"
-        :cload="cload"
-        :reload="reload"
-        :params="update_user_gender.params"/>
+      <!--<edit_elements-->
+        <!--method="update"-->
+        <!--:readonly="$$permission.is_perm('admin_update') === false"-->
+        <!--:url="update_user_gender.url"-->
+        <!--:inputs="update_user_gender.inputs"-->
+        <!--:cload="cload"-->
+        <!--:reload="reload"-->
+        <!--:params="update_user_gender.params"/>-->
     </div>
   </div>
 </template>
@@ -61,6 +61,11 @@
             user_id: null,
           },
           inputs:{
+            description: {
+              name: 'Steckbrief',
+              type: 'textarea',
+              value: null
+            },
             firstname: {
               name: 'Vorname',
               type: 'text',
@@ -69,6 +74,12 @@
             lastname: {
               name: 'Nachname',
               type: 'text',
+              value: null
+            },
+            gender: {
+              name: 'Geschlecht',
+              type: 'select',
+              list: 'gender',
               value: null
             },
           }
