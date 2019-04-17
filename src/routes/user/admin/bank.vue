@@ -69,51 +69,6 @@
               list: 'countrys',
             }
           }
-        },
-        create_bank:{
-          url: 'https://newbackend.groe.me/user_admin/bank/create',
-          reload:{action: 'reload', section: 'users_admin'},
-          params: {
-            user_id: this.$route.params.id,
-          },
-          inputs:{
-            iban: {
-              name: 'IBAN',
-              type: 'text',
-              value: null
-            },
-            swift: {
-              name: 'SWIFT',
-              type: 'text',
-              value: null
-            },
-            name: {
-              name: 'Bankname',
-              type: 'text',
-              value: null
-            },
-            street: {
-              name: 'Straße',
-              type: 'text',
-              value: null
-            },
-            zip: {
-              name: 'Postleitzahl',
-              type: 'number',
-              value: null
-            },
-            city: {
-              name: 'Stadt',
-              type: 'text',
-              value: null
-            },
-            country: {
-              name: 'Land',
-              type: 'select',
-              list: 'countrys',
-              value: null
-            }
-          }
         }
       }
     },
@@ -137,17 +92,11 @@
     },
     watch:{
       route_id: function(){
-        this.set_all_user_ids ()
+        this.set_user_id(this.update_bank)
       }
     },
     mounted(){
-      this.set_all_user_ids ()
-    },
-    methods:{
-      set_all_user_ids () {
-        this.set_user_id(this.create_bank)
-        this.set_user_id(this.update_bank)
-      }
+      this.set_user_id(this.update_bank)
     },
     mixins:[loader]
   }

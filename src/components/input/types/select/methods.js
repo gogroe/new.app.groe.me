@@ -56,9 +56,17 @@ export default {
     },
     set_items (items) {
       if(items ){
+        // items.map( this.translate(item) )
+
         this.items = items
         this.set_item(items, this.cvalue)
       }
+    },
+    translate (item) {
+      console.log(item)
+      item.original = item.name
+      item.name = this.$$translation(item.name)
+      return item
     },
     set_item (items, value) {
       this.isLoaded = false

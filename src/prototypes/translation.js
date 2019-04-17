@@ -57,7 +57,7 @@ const translations = {
 }
 
 export default function (name) {
-    if(name in translations){
+    if(typeof name === 'string' && name in translations){
       return translations[name]
     }
     else {
