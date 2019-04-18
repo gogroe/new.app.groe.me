@@ -32,12 +32,10 @@
         @click="active.delete = !active.delete">
         delete
       </i>
-      <div
-        class="edit_vita default_popup_background"
-        v-if="active.delete">
-        <div
-          class="inner_popup"
-          v-click-outside="hide">
+      <popup_white
+        :active="active.delete"
+        v-model="active.delete">
+        <div class="wide">
           <h1>Spalte "{{column.name}}" wirklich löschen?</h1>
           <button
             class="filled"
@@ -45,20 +43,20 @@
             LÖSCHEN
           </button>
         </div>
-        <close_popup/>
-      </div>
+
+      </popup_white>
     </div>
   </div>
 </template>
 
 <script>
-  import ClickOutside from 'vue-click-outside'
   import Edit_elements from "../../../../../edit/elements";
   import Close_popup from "../../../../../close_button/popup";
+  import Popup_white from "../../../../../popup/white";
 
   export default {
     name: "update_column",
-    components: {Close_popup, Edit_elements},
+    components: {Popup_white, Close_popup, Edit_elements},
     props:{
       column:{
         type: Object,
@@ -103,9 +101,6 @@
           this.$store.commit('update_reload', { action: 'reload', section: 'crm_prepare' })
         }
       }
-    },
-    directives: {
-      ClickOutside
     }
   }
 </script>
@@ -114,16 +109,6 @@
 
   .update_column{
     display: inline-block;
-
-    .inner_popup{
-      padding: 41px;
-
-      button{
-        display: block;
-        margin-top: 41px;
-        margin-left: auto;
-      }
-    }
 
     .edit, .delete{
       display: inline-block;

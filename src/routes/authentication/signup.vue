@@ -1,8 +1,9 @@
 <template>
-  <div class="default_popup_background">
-    <div class="inner_popup">
+  <div class="main_signup default popup white">
+    <div class="inner auth">
       <img src="../../../static/layout/logo.png">
       <h1>Registrierung</h1>
+      <p>Ihr neues GROE-Konto registrieren.</p>
       <signup redirect="notification"/>
     </div>
     <mini_footer class="mini_footer"/>
@@ -32,62 +33,30 @@
 </script>
 
 <style lang="scss">
-  .default_popup_background{
-    background: transparent;
+  .main_signup{
+    background: white;
+  }
 
-    .inner_popup{
-      padding: 41px;
-      text-align: center;
+  .inner{
 
-      h1{
-        margin-bottom: 41px;
-        font-size: 24px;
-        font-weight: normal;
-      }
-
-      img{
-        width: 64px;
-      }
-
-      .signup{
-        text-align: center;
-
-        button{
-          width: calc(100% - 20px);
-          padding: 10px 5px;
-          height: 42px;
-          background-color: #3da0f5;
-          color: white;
-          margin: 0 10px 17px 10px;
-
-          &:hover{
-            background-color: #2e7dbd;
-            outline: none;
-          }
-        }
-      }
-
-      .create_input_label{
-        display: none;
-        width: 100px;
-      }
-
-      input[type=text],input[type=password]{
-        // width: calc(100% - 150px);
-        width: 100%;
-        line-height: 30px;
-        padding: 0px 20px;
-        display: inline-block;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        box-sizing: border-box;
-
-        &:hover{
-          border: 1px solid #bbb;
-          border-radius: 4px;
-          box-sizing: border-box;
-        }
-      }
+    h1{
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 10px;
     }
+
+    p{
+      font-size: 16px;
+      margin-bottom: 41px;
+    }
+
+    img{
+      width: 41px;
+      margin-bottom: 25px;
+    }
+  }
+
+  .mini_footer{
+    margin-top: 25px;
   }
 </style>

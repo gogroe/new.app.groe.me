@@ -69,6 +69,7 @@
      set_basic_component: function(){
      switch(this.$route.name)
       {
+        case 'forgot':
         case 'signup':
         case 'verification':
         case 'login':
@@ -174,8 +175,6 @@
 
   ////////////////////////////////////////////////////////////////////////////////// Box-Modes
 
-
-
   .default{
 
     &.box{
@@ -244,6 +243,7 @@
 
               .v-select .dropdown-toggle {
                 width: 100%;
+                border: solid 1px transparent !important;
               }
             }
           }
@@ -330,6 +330,15 @@
 
         .wide{
           padding: 41px 41px 16px 41px;
+        }
+
+        &.auth{
+          padding: 41px 41px 61px 41px;
+          border: 1px solid #e6e6e6;
+          max-height: none;
+          border-radius: 10px;
+          text-align: center;
+          box-shadow: none !important;
         }
 
         .create{
@@ -452,29 +461,6 @@
 
     p{
       font-weight: 400;
-    }
-  }
-
-  .default_popup_background{
-    position: fixed;
-    top:64px;
-    left:0;
-    width: 100%;
-    height: calc(100% - 64px);
-    z-index: 9000;
-    // background: rgba(0,0,0,0.9);
-    background: rgba(255,255,255,0.75);
-
-    .inner_popup{
-      width: 370px;
-      padding: 41px;
-      z-index: 2;
-      background: #fff;
-      margin-left: calc(50% - 185px);
-      margin-top: 101px;
-      border-radius: 5px;
-      box-shadow: 10px -10px 15px rgba(0, 0, 0, 0.075),
-                  -10px 10px 15px rgba(0, 0, 0, 0.075);
     }
   }
 

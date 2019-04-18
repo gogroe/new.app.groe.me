@@ -1,187 +1,140 @@
 <template>
-  <div class="input_auth" :class="section_class">
-    <div
-      class="input_auth_scope"
-      v-for="(input, key, i) in create_inputs.inputs"
-      :key="i">
-      <div>
-        <label
-          class="input_auth_label"
-          :for="input.name">{{input.name}}</label>
-        <input
-          @blur="active = -1"
-          @focus="active = i"
-          class="input"
-          :type="input.type"
-          :id="input.name"
-          :name="input.name"
-          placeholder=""
-          v-model="create_inputs.inputs[key].input.value"
-        />
-      </div>
-    </div>
-    <button @click="send_create_inputs">{{button_name}}</button>
-    <request :obj="request_create" v-model="request_create"/>
+  <div class="input_auth_wrapper">
+    <label
+      class="input_auth_label"
+      :class="[
+        {'active': active.mover || noValue === false},
+        {'mover': active.mover}
+      ]"
+      @mouseover="active.mover = true"
+      @mouseout="active.mover = false"
+      :for="name">
+      {{name}}
+    </label>
+    <input
+      @blur="emitter({key: 'blur'})"
+      @keyup="emitter"
+      @mouseover="active.mover = true"
+      @mouseout="active.mover = false"
+      class="input_auth"
+      :type="cType"
+      :id="name"
+      :name="name"
+      :readonly="readonly"
+      v-model="value"/>
   </div>
-
 </template>
 
 <script>
-
-  import Load_request from "../../../functions/load_request"
-  import Custom_helper from '../../../functions/custom_helper'
-  import Request from "../../../functions/request"
   export default {
-    name: 'input_auth',
-    components: {Request},
+    name: "input_auth",
     props:{
-      create_name:{
-        // type: 'String',
-        required: false
-      },
-      button_name:{
-        // type: 'String',
-        required: false
-      },
-      create_inputs:{
-        // type: 'Object',
+      name:{
+        type: String,
         required: true
       },
-      reload:{
-        type: Object,
-        required: false,
+      cvalue:{
+        required: true
       },
-      section_class:{
-        // type: 'String',
-        required: false,
-      }
+      type:{
+        type: String,
+        required: true
+      },
+      readonly:{
+        type: Boolean,
+        required: false
+      },
     },
-    data(){
-      return{
-        request_create: {
-          params: {},
-          url: '',
-          data: {},
-          request: false
+    data () {
+      return {
+        active: {
+          field: true,
+          mover: false
         },
-        active : -1
-      }
-    },
-    computed:{
-      request_create_data(){
-        return this.request_create.data
+        value: this.cvalue
       }
     },
     watch:{
-      active: function(obj){
-        for(let x in Object.keys(this.create_inputs.inputs)){
-          if(parseInt(x) === obj){
-            document.body.querySelectorAll('label')[x].className += " active"
-          }
-          else if (document.body.querySelectorAll('input')[x].value === ''){
-            document.body.querySelectorAll('label')[x].className = "input_auth_label"
-          }
-        }
-      },
-      request_create_data(object){
-        this.create_update_reload(object, this.reload)
-        this.set_values_null()
-        this.$emit('input', object)
+      cvalue () {
+        this.value = this.cvalue
       }
     },
-    mounted (){
-      this.request_create.url = this.create_inputs.url
-      this.set_required_params()
+    computed:{
+      noValue () {
+        return this.value === null || this.value === ''
+      },
+      cType () {
+        if(this.type === 'auth_text'){
+          return 'text'
+        }
+        if(this.type === 'auth_email'){
+          return 'email'
+        }
+        if(this.type === 'auth_password'){
+          return 'password'
+        }
+        else{
+          console.warn('type error in input_auth')
+        }
+      }
     },
     methods:{
-      deactivate(){
-        this.active = -1
-      },
-      isActive(key, create_inputs, i){
-        let a = this.fill_inputs(key, create_inputs)
-        return a.value !== null || this.active === i
-      },
-      set_required_params(){
-        if(this.object_length(this.create_inputs.required_params) !== 0){
-          for(let param_key in this.create_inputs.required_params){
-            this.request_create.params[param_key] = this.create_inputs.required_params[param_key]
-          }
-        }
-      },
-      set_values_null(){
-        for(let value_key in this.create_inputs.inputs){
-          this.create_inputs.inputs[value_key].input.value = null
-        }
-      },
-      send_create_inputs(){
-        for(let value_key in this.create_inputs.inputs){
-          this.request_create.params[value_key] = this.create_inputs.inputs[value_key].input.value
-        }
-
-        this.request_create.request = true
+      emitter(event){
+        this.$emit('input', {
+          value: this.value,
+          event: event.key
+        })
       }
-    },
-    mixins:[Custom_helper, Load_request]
+    }
   }
 </script>
 
 <style lang="scss">
-  .input_auth{
+
+  .input_auth_wrapper{
     position: relative;
     display: inline-block;
     width: 100%;
     line-height: 50px;
     text-align: center;
 
-    label{
+    .input_auth_label{
       position: absolute;
-      padding: 0 16px;
-      left: 0;
+      padding-left: 16px;
       color: #bbb;
-      line-height: 50px;
-      margin-left: 16px;
       font-size: 16px;
-      width: auto;
-      cursor: text;
 
       &.active{
         -webkit-transition-property: font-size, line-height, background-color, color; /* Safari */
         -webkit-transition-duration: 1s; /* Safari */
         transition-property: font-size, line-height, background-color, color;
         transition-duration: 0.3s;
+        left: 10px;
+        top: -6px;
+        padding: 1px 6px;
         font-size: 12px;
         line-height: 12px;
         background-color: white;
-        color: #3da0f5;
+        border-radius: 2px;
+      }
+
+      &.mover{
+        color:#3da0f5;
       }
     }
 
-    .placeholder{
-      position: absolute;
-      left: 0;
-      color: #bbb;
-      line-height: 50px;
-      padding: 0 16px;
-      margin-left: 16px;
-      font-size: 20px;
-
-
-      &.active{
-        -webkit-transition-property: font-size, line-height, background-color, color; /* Safari */
-        -webkit-transition-duration: 1s; /* Safari */
-        transition-property: font-size, line-height, background-color, color;
-        transition-duration: 1s;
-        font-size: 12px;
-        line-height: 12px;
-        background-color: white;
-        color: #3da0f5;
-      }
-    }
-
-    input{
-      margin-bottom: 16px;
+    .input_auth{
       width: 100%;
-      line-height: 41px !important;
+      font-size: 14px;
+      padding: 16px;
+      border-radius: 4px;
+      border: 1px solid #e6e6e6;
+      &:hover, &:focus{
+        outline:none;
+        border-color: #3da0f5;
+        background: #f1f3f4;
+      }
     }
   }
+
 </style>

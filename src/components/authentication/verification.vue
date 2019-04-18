@@ -1,8 +1,15 @@
 <template>
-  <div>
-    <create_section :create_inputs="create_user_password"
-                    button_name="PASSWORD ERSTELLEN"
-                    v-model="request_create_user_password"/>
+  <div class="reset_password">
+    <cinput
+      name="Passwort"
+      :cvalue="null"
+      type="auth_password"
+      v-model="reset_password.inputs.password.input"/>
+    <button
+      @click="reset"
+      class="filled">
+      PASSWORT ERSTELLEN
+    </button>
     <p v-if="errors !== null"
        class="errors">
       {{errors}}
@@ -12,10 +19,11 @@
 
 <script>
   import Create_section from "../inputs/create";
+  import Cinput from "../input/index";
 
   export default {
     name: "verification",
-    components: {Create_section},
+    components: {Cinput, Create_section},
     props:{
       redirect:{
         required: true
@@ -24,13 +32,9 @@
     data(){
       return{
         errors: null,
-        request_create_user_password:{},
-        create_user_password:{
+        reset_password:{
           url: 'https://newbackend.groe.me/authenticate/reset_password',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
+          params: {
             reset_token: this.$route.params.token
           },
           inputs:{
@@ -46,25 +50,41 @@
         }
       }
     },
-    watch:{
-      request_create_user_password:function (object) {
-        if('create' in object){
+    methods:{
+      reset(){
+        for(let value_key in this.reset_password.inputs){
+          this.reset_password.params[value_key] = this.reset_password.inputs[value_key].input.value
+        }
+
+        this.$$request.post.data(this.reset_password.url, this.reset_password.params)
+          .then((response) => this.handle_response(response))
+      },
+      handle_response (response) {
+        if('create' in response){
           this.$router.push({name: this.redirect})
         }
-        else  if('errors' in object){
-          this.errors = object.errors
+        else if('errors' in response){
+          this.errors = response.errors
         }
       }
     }
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
-  .errors{
-    text-align: center;
-    margin-top: 17px;
-    color: #990000;
+  .reset_password{
+    position: relative;
+
+    .cinput{
+      margin-bottom: 16px;
+    }
+
+    .errors{
+      text-align: center;
+      margin-top: 17px;
+      color: #990000;
+    }
   }
 
 </style>

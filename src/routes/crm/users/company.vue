@@ -1,6 +1,7 @@
 <template>
   <div class="user_crm">
     <crm
+      :key="key"
       url="https://newbackend.groe.me/user_crm/get_all"
       :crm="company"/>
   </div>
@@ -14,9 +15,7 @@
     components: {Crm},
     data(){
       return {
-        active: {
-          crm: 'user'
-        },
+        key: 0,
         company: {
           id: 'company',
           name: 'Firmenverwaltung',
@@ -42,20 +41,33 @@
               update_url: 'https://newbackend.groe.me/user_crm/user/update',
               rows: []
             },
-            {
-              active: true,
-              id: 'users.role',
-              name: 'Rolle',
-              type: 'select',
-              list: 'company_role',
-              params: {user_id: 'get_users.id'},
-              create_url: 'https://newbackend.groe.me/user_crm/user/create',
-              update_url: 'https://newbackend.groe.me/user_crm/user/update',
-              rows: []
-            }
+            // {
+            //   active: true,
+            //   id: 'users.role',
+            //   name: 'Rolle',
+            //   type: 'select',
+            //   list: 'company_role',
+            //   params: {user_id: 'get_users.id'},
+            //   create_url: 'https://newbackend.groe.me/user_crm/user/create',
+            //   update_url: 'https://newbackend.groe.me/user_crm/user/update',
+            //   rows: []
+            // }
           ]
         },
       }
+    },
+    watch: {
+      '$route.name': {
+        handler: function() {
+          this.company.id = this.$route.name.replace('crm_', '')
+          this.key += 1
+        },
+        deep: true,
+        immediate: true
+      }
+    },
+    created () {
+      this.company.id = this.$route.name.replace('crm_', '')
     }
   }
 </script>

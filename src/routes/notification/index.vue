@@ -1,6 +1,6 @@
 <template>
-  <div class="notification default_popup_background">
-    <div class="inner_popup">
+  <div class="notification default popup">
+    <div class="inner">
       <img v-if="image !== null" :src="image"/>
       <h1 v-if="header !== null">{{header}}</h1>
       <p v-if="content !== null">{{content}}</p>
@@ -45,17 +45,20 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
-  .default_popup_background{
-    background: #fff;
-    top:0;
-    height: 100%;
-  }
+  .notification{
 
+    .inner{
+      padding: 41px ;
+      width: 800px !important;
+      box-shadow: none;
 
-  h1{
-    margin-bottom: 17px;
+      h1{
+        font-weight: 500;
+        margin-bottom: 17px;
+      }
+    }
   }
 
 </style>

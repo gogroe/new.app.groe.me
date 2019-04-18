@@ -103,6 +103,7 @@
 
     .v-select .dropdown-toggle {
       padding: 0;
+      border: solid 1px transparent !important;
     }
   }
 

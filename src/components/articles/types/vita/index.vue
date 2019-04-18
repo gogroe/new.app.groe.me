@@ -39,7 +39,7 @@
         <p> {{obj.description}} </p>
       </div>
     </div>
-    <map_location :locations="obj.adress"/>
+    <!--<map_location :locations="obj.adress"/>-->
     <div class="content">
       <p class="subject">{{obj.company}}</p>
       <p v-for="(adress, i) in obj.adress" :key="i" class="place">

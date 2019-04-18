@@ -2,6 +2,7 @@
   <div class="cinput">
     <label
       class="input_label"
+      v-if="type.indexOf('auth') === -1"
       :for="name">
       {{name}}
     </label>
@@ -40,12 +41,11 @@
       v-model="item"/>
     <input_auth
       v-if="type.indexOf('auth') !== -1"
+      :name="name"
       :type="type"
-      :clist="clist"
       :cvalue="cvalue"
       :readonly="readonly"
       :placeholder="placeholder"
-      :citems="citems"
       v-model="item"/>
   </div>
 </template>

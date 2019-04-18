@@ -1,8 +1,25 @@
 <template>
   <div class="login">
-    <Floating_label :create_inputs="login_user"
-                    button_name="ANMELDEN"
-                    v-model="request_login_user"/>
+    <cinput
+      name="E-Mail"
+      :cvalue="null"
+      type="auth_email"
+      v-model="login_user.inputs.email.input"/>
+    <cinput
+      name="Passwort"
+      :cvalue="null"
+      type="auth_password"
+      v-model="login_user.inputs.password.input"/>
+    <p class="opitons-text">
+      Sie haben Ihr <a @click="$router.push({name: 'forgot'})">Passwort Vergessen?</a><br/>
+      Ein neues Konto <a @click="$router.push({name: 'signup'})">registrieren.</a>
+    </p>
+    <button
+      @click="login"
+      class="filled">
+      ANMELDEN
+    </button>
+
     <p v-if="errors !== null"
        class="errors">
       {{errors}}
@@ -11,12 +28,12 @@
 </template>
 
 <script>
+  import Cinput from "../input/index";
   var cookie = require('js-cookie')
-  import Floating_label from "../input/types/auth";
 
   export default {
     name: "login",
-    components: {Floating_label},
+    components: {Cinput},
     props:{
       redirect:{
         required: true
@@ -25,14 +42,10 @@
     data(){
       return{
         errors: null,
-        request_login_user:{},
         login_user:{
           url: 'https://newbackend.groe.me/authenticate/login',
-          input_class:'create_input',
-          label_class: 'create_input_label',
-          error_class: '',
-          required_params: {
-            reset_token: this.$route.params.token
+          params: {
+            email: null,
           },
           inputs:{
             email: {
@@ -55,22 +68,58 @@
         }
       }
     },
-    watch:{
-      request_login_user:function (object){
-        if('uid' in object && 'token' in object){
+    methods:{
+      login(){
+        for(let value_key in this.login_user.inputs){
+          this.login_user.params[value_key] = this.login_user.inputs[value_key].input.value
+        }
+
+        this.$$request.post.data(this.login_user.url, this.login_user.params)
+          .then((response) => this.handle_response(response))
+      },
+      handle_response (response) {
+        if('uid' in response && 'token' in response){
           const auth = {
-            uid: object.uid,
-            token: object.token
+            uid: response.uid,
+            token: response.token
           }
 
           cookie.set('auth', auth, {expires: 1})
           this.$store.commit('update_auth', auth)
           this.$router.push({name: this.redirect})
         }
-        else if('errors' in object){
-          this.errors = object.errors
+        else if('errors' in response){
+          this.errors = response.errors
         }
       }
     }
   }
 </script>
+
+<style lang="scss">
+
+  .login{
+    position: relative;
+
+    .cinput{
+      margin-bottom: 16px;
+    }
+
+    .opitons-text{
+      font-size: 14px;
+      display: block;
+      width: 100%;
+      text-align: left;
+      left: 0;
+      margin-bottom: 25px;
+      line-height: 22px;
+
+      a{
+        cursor: pointer;
+        color: #3da0f5;
+        font-weight: 500;
+      }
+    }
+  }
+
+</style>

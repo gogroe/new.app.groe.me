@@ -78,6 +78,9 @@
         return this.active.sidebar
           ? 'keyboard_arrow_right'
           : 'keyboard_arrow_left'
+      },
+      crm_id (){
+        return this.crm.id
       }
     },
     watch:{
@@ -92,7 +95,7 @@
           this.$store.commit('update_reload', {section: null, action: null})
         }
       },
-      crm: function () {
+      crm_id: function () {
         this.load_crm()
       }
     },

@@ -1,6 +1,7 @@
 <template>
   <div class="user_crm">
     <crm
+      :key="key"
       url="https://newbackend.groe.me/user_crm/get_all"
       :crm="user"/>
   </div>
@@ -14,9 +15,7 @@
     components: {Crm},
     data(){
       return {
-        active: {
-          crm: 'user'
-        },
+        key: 0,
         user: {
           id: 'user',
           name: 'Nutzerverwaltung',
@@ -53,31 +52,33 @@
               update_url: 'https://newbackend.groe.me/user_crm/user/update',
               rows: []
             },
-            {
-              active: true,
-              id: 'users.role',
-              name: 'Rolle',
-              type: 'select',
-              list: 'user_role',
-              params: {user_id: 'get_users.id'},
-              create_url: 'https://newbackend.groe.me/user_crm/user/create',
-              update_url: 'https://newbackend.groe.me/user_crm/user/update',
-              rows: []
-            },
             // {
             //   active: true,
-            //   id: 'gender.value',
-            //   name: 'Geschlecht',
+            //   id: 'users.role',
+            //   name: 'Rolle',
             //   type: 'select',
-            //   list: 'gender',
-            //   params: {id: 'get_gender.id', table: 'users', name: 'cStatic'},
-            //   create_url: 'https://newbackend.groe.me/user_crm/custom_field_value/create',
-            //   update_url: 'https://newbackend.groe.me/user_crm/custom_field_value/update',
+            //   list: 'user_role',
+            //   params: {user_id: 'get_users.id'},
+            //   create_url: 'https://newbackend.groe.me/user_crm/user/create',
+            //   update_url: 'https://newbackend.groe.me/user_crm/user/update',
             //   rows: []
-            // },
+            // }
           ]
         },
       }
+    },
+    watch: {
+      '$route.name': {
+        handler: function() {
+          this.user.id = this.$route.name.replace('crm_', '')
+          this.key += 1
+        },
+        deep: true,
+        immediate: true
+      }
+    },
+    created () {
+      this.user.id = this.$route.name.replace('crm_', '')
     }
   }
 </script>

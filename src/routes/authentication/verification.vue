@@ -1,10 +1,12 @@
 <template>
-  <div class="default_popup_background">
-    <div class="inner_popup">
+  <div class="main_reset_password default popup white">
+    <div class="inner auth">
+      <img src="../../../static/layout/logo.png">
       <h1>Passwort</h1>
+      <p>Wählen Sie Ihr neues Passwort.</p>
       <verification redirect="login"/>
     </div>
-    <mini_footer class="mini_footer inner_popup"/>
+    <mini_footer class="mini_footer"/>
   </div>
 </template>
 
@@ -18,26 +20,36 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
-  .default_popup_background{
-    background: transparent;
-  }
+  .main_reset_password{
+    background: white;
 
-  h1{
-    margin-bottom: 27px;
-    padding-left: 17px;
-  }
 
-  .inner_popup{
-    padding: 47px 64px 47px 64px;
-  }
+    .inner{
 
-  .mini_footer {
-    &.inner_popup {
-      margin-top: 0;
-      background: transparent;
+      h1{
+        font-size: 22px;
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+
+      p{
+        font-size: 16px;
+        margin-bottom: 41px;
+      }
+
+      img{
+        width: 41px;
+        margin-bottom: 25px;
+      }
+    }
+
+
+    .mini_footer{
+      margin-top: 25px;
     }
   }
+
 
 </style>
